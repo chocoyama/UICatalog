@@ -30,6 +30,7 @@
 		6BDAE54E21526B3B00BBB47A /* Notification+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE54B21526B3B00BBB47A /* Notification+CustomExtension.swift */; };
 		6BDAE54F21526B3B00BBB47A /* UIView+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE54C21526B3B00BBB47A /* UIView+CustomExtension.swift */; };
 		6BDAE55221526B5100BBB47A /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE55121526B5100BBB47A /* TapticEngine.swift */; };
+		80C37A4B21560A0D00977C0B /* Painter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C37A4A21560A0D00977C0B /* Painter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		6BDAE54B21526B3B00BBB47A /* Notification+CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+CustomExtension.swift"; sourceTree = "<group>"; };
 		6BDAE54C21526B3B00BBB47A /* UIView+CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+CustomExtension.swift"; sourceTree = "<group>"; };
 		6BDAE55121526B5100BBB47A /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
+		80C37A4A21560A0D00977C0B /* Painter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				6BDAE55121526B5100BBB47A /* TapticEngine.swift */,
+				80C37A4A21560A0D00977C0B /* Painter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				6BDAE54E21526B3B00BBB47A /* Notification+CustomExtension.swift in Sources */,
 				6BDAE54F21526B3B00BBB47A /* UIView+CustomExtension.swift in Sources */,
 				6BDAE54D21526B3B00BBB47A /* Color+CustomExtension.swift in Sources */,
+				80C37A4B21560A0D00977C0B /* Painter.swift in Sources */,
 				6BDAE52E215265EC00BBB47A /* PickingState.swift in Sources */,
 				6BDAE529215265E200BBB47A /* RangeSliderTab.swift in Sources */,
 				6BDAE52F215265EC00BBB47A /* SliderValue.swift in Sources */,
