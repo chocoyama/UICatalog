@@ -13,10 +13,12 @@ class ViewController: UIViewController {
 
     enum Row: String {
         case rangeSlider = "RangeSlider"
+        case progressBar = "ProgressBar"
         
         var sampleViewController: UIViewController {
             switch self {
             case .rangeSlider: return RangeSliderViewController.instantiate(storyboardName: "RangeSlider")
+            case .progressBar: return ProgressBarViewController()
             }
         }
     }
@@ -24,7 +26,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let rows: [Row] = [
-        .rangeSlider
+        .rangeSlider,
+        .progressBar
     ]
     
     override func viewDidLoad() {

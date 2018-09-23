@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B33DF4F21576B67006143A4 /* ProgressBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF4E21576B67006143A4 /* ProgressBar.xib */; };
+		6B33DF5121576B77006143A4 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF5021576B77006143A4 /* ProgressBar.swift */; };
 		6BDAE50B215264D700BBB47A /* UICatalog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BDAE509215264D700BBB47A /* UICatalog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BDAE51A215265BB00BBB47A /* RangeSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BDAE519215265BB00BBB47A /* RangeSlider.h */; };
 		6BDAE51F215265DA00BBB47A /* RangeSliderViewInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE51E215265DA00BBB47A /* RangeSliderViewInitializable.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B33DF4E21576B67006143A4 /* ProgressBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressBar.xib; sourceTree = "<group>"; };
+		6B33DF5021576B77006143A4 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		6BDAE506215264D700BBB47A /* UICatalog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UICatalog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BDAE509215264D700BBB47A /* UICatalog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICatalog.h; sourceTree = "<group>"; };
 		6BDAE50A215264D700BBB47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B33DF4D21576B5A006143A4 /* ProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				6B33DF4E21576B67006143A4 /* ProgressBar.xib */,
+				6B33DF5021576B77006143A4 /* ProgressBar.swift */,
+			);
+			path = ProgressBar;
+			sourceTree = "<group>";
+		};
 		6BDAE4FC215264D700BBB47A = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +105,7 @@
 		6BDAE508215264D700BBB47A /* UICatalog */ = {
 			isa = PBXGroup;
 			children = (
+				6B33DF4D21576B5A006143A4 /* ProgressBar */,
 				6BDAE53721526B1000BBB47A /* Util */,
 				6BDAE5142152659200BBB47A /* RangeSlider */,
 				6BDAE509215264D700BBB47A /* UICatalog.h */,
@@ -257,6 +271,7 @@
 			files = (
 				6BDAE527215265E200BBB47A /* RangeSliderTab.xib in Resources */,
 				6BDAE526215265E200BBB47A /* RangeSlider.xib in Resources */,
+				6B33DF4F21576B67006143A4 /* ProgressBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +295,7 @@
 				6BDAE54D21526B3B00BBB47A /* Color+CustomExtension.swift in Sources */,
 				80C37A4B21560A0D00977C0B /* Painter.swift in Sources */,
 				6BDAE52E215265EC00BBB47A /* PickingState.swift in Sources */,
+				6B33DF5121576B77006143A4 /* ProgressBar.swift in Sources */,
 				6BDAE529215265E200BBB47A /* RangeSliderTab.swift in Sources */,
 				6BDAE52F215265EC00BBB47A /* SliderValue.swift in Sources */,
 				6BDAE54321526B2500BBB47A /* CellHeightCalculatable.swift in Sources */,
