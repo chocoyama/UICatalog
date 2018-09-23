@@ -35,7 +35,7 @@ extension XibInitializable where Self: UIView {
         let nib = UINib(nibName: nibName, bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
         
-        self.addSubview(view)
+        self.insertSubview(view, at: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
