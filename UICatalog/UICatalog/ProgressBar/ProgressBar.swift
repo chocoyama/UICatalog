@@ -12,21 +12,26 @@ import UIKit
 open class ProgressBar: UIView, XibInitializable {
     
     public struct Configuration {
+        public typealias LabelSetting = (String, UIColor, UIFont)
+        
         let leftColor: UIColor
         let rightColor: UIColor
         let initialPercent: Double
         let cornerRadius: CGFloat?
+        let labelSetting: LabelSetting?
         
         public init(
             leftColor: UIColor,
             rightColor: UIColor = .white,
             initialPercent: Double = 0.0,
-            cornerRadius: CGFloat? = nil
+            cornerRadius: CGFloat? = nil,
+            labelSetting: LabelSetting? = nil
         ) {
             self.leftColor = leftColor
             self.rightColor = rightColor
             self.initialPercent = initialPercent
             self.cornerRadius = cornerRadius
+            self.labelSetting = labelSetting
         }
     }
     
@@ -43,6 +48,8 @@ open class ProgressBar: UIView, XibInitializable {
     @IBOutlet weak var coloredView: UIView!
     @IBOutlet weak var noColorView: UIView!
     @IBOutlet weak var coloredViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var percentLabel: UILabel!
+    @IBOutlet weak var percentLabelLeftConstraint: NSLayoutConstraint!
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -64,10 +71,23 @@ open class ProgressBar: UIView, XibInitializable {
             coloredView.round(cornerRadius: cornerRadius, cornerMasks: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner])
         }
         
+        if let (title, color, font) = configuration.labelSetting {
+            percentLabel.text = title
+            percentLabel.textColor = color
+            percentLabel.font = font
+            percentLabel.isHidden = false
+        } else {
+            percentLabel.isHidden = true
+        }
+        
         return self
     }
     
-    open func update(percent: Double, animationSetting: AnimationSetting?) {
+    open func update(percent: Double, labelTitle: String?, animationSetting: AnimationSetting?) {
+        self.percentLabel.alpha = 0.0
+        self.percentLabel.text = labelTitle
+        self.percentLabel.setNeedsLayout()
+        self.percentLabel.layoutIfNeeded()
         coloredViewWidthConstraint.constant = toValue(from: percent)
         
         if let setting = animationSetting {
@@ -79,9 +99,11 @@ open class ProgressBar: UIView, XibInitializable {
                     initialSpringVelocity: 0.0,
                     options: [],
                     animations: {
+                        self.percentLabel.alpha = 1.0
                         self.layoutIfNeeded()
                     },
-                    completion: nil
+                    completion: { _ in
+                    }
                 )
             } else {
                 UIView.animate(withDuration: setting.duration) {
@@ -92,7 +114,8 @@ open class ProgressBar: UIView, XibInitializable {
     }
     
     private func toValue(from percent: Double) -> CGFloat {
-        return self.frame.width * CGFloat(percent)
+        let margin = self.percentLabel.frame.width + (percentLabelLeftConstraint.constant * 2)
+        return (self.frame.width - margin) * CGFloat(percent)
     }
     
 }

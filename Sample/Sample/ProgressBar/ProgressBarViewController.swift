@@ -24,7 +24,8 @@ class ProgressBarViewController: UIViewController {
             leftColor: .cyan,
             rightColor: .white,
             initialPercent: 0.0,
-            cornerRadius: 30
+            cornerRadius: 30,
+            labelSetting: ("", .black, .systemFont(ofSize: 12.0))
         )
         
         progressBar.configure(with: configuration)
@@ -36,6 +37,6 @@ class ProgressBarViewController: UIViewController {
             percent >= 0.0 && percent <= 1.0 else {
             return
         }
-        progressBar.update(percent: percent, animationSetting: .default)
+        progressBar.update(percent: percent, labelTitle: "\(percent)", animationSetting: .default)
     }
 }
