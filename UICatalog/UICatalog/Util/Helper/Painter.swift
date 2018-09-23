@@ -8,8 +8,8 @@
 
 import UIKit
 
-class Painter {
-    class func paintRadialGradient(to view: UIView, startColor: UIColor, endColor: UIColor) {
+open class Painter {
+    open class func paintRadialGradient(to view: UIView, startColor: UIColor, endColor: UIColor) {
         let gradientLayer = GradientLayer(startColor: startColor, endColor: endColor)
         gradientLayer.frame = view.bounds
         view.layer.addSublayer(gradientLayer)
@@ -17,22 +17,22 @@ class Painter {
 }
 
 extension Painter {
-    class GradientLayer: CALayer {
+    open class GradientLayer: CALayer {
         private let startColor: UIColor
         private let endColor: UIColor
         
-        init(startColor: UIColor, endColor: UIColor) {
+        public init(startColor: UIColor, endColor: UIColor) {
             self.startColor = startColor
             self.endColor = endColor
             super.init()
             setNeedsDisplay()
         }
         
-        required init?(coder aDecoder: NSCoder) {
+        required public init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
-        override func draw(in ctx: CGContext) {
+        override open func draw(in ctx: CGContext) {
             ctx.saveGState()
             
             let gradient = CGGradient(

@@ -9,11 +9,11 @@
 import UIKit
 
 extension Notification {
-    var keyboardFrame: CGRect? {
+    public var keyboardFrame: CGRect? {
         return (self.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
     }
     
-    var keyboardAnimateDuration: TimeInterval? {
+    public var keyboardAnimateDuration: TimeInterval? {
         return self.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
     }
 }

@@ -24,10 +24,10 @@ import UIKit
 ///     }
 /// }
 /// ```
-struct TapticEngine {
+public struct TapticEngine {
     
     /// 新規でHapticを発生させる要因ができた場合は、基本ここをいじるだけでOK
-    enum Feedback {
+    public enum Feedback {
         case buttonTap
         
         fileprivate var hapticType: TapticEngine.HapticType {
@@ -51,7 +51,7 @@ extension TapticEngine {
     ///
     /// - Parameter feedback: Feedbackの種類を指定する
     /// - Returns: TapticEngineのインスタンス
-    static func prepare(for feedback: Feedback) -> TapticEngine? {
+    public static func prepare(for feedback: Feedback) -> TapticEngine? {
         guard #available(iOS 10.0, *) else { return nil }
         let hapticType = feedback.hapticType
         let generator = hapticType.generator
@@ -62,7 +62,7 @@ extension TapticEngine {
     /// 単発のHapticを発生させる
     ///
     /// - Parameter feedback: 発生させるFeedbackの種類
-    static func playHaptic(for feedback: Feedback) {
+    public static func playHaptic(for feedback: Feedback) {
         TapticEngine.prepare(for: feedback)?.playHaptic()
     }
     
@@ -75,7 +75,7 @@ extension TapticEngine {
     /// Hapticを発生させる準備をする。
     /// 前回のprepareから時間が経過してしまっている場合など、明示的に呼び出す必要がある場合に利用する。
     @discardableResult
-    func prepare() -> TapticEngine? {
+    public func prepare() -> TapticEngine? {
         guard #available(iOS 10.0, *) else { return nil }
         (feedbackGenerator as? UINotificationFeedbackGenerator)?.prepare()
         return self
@@ -83,7 +83,7 @@ extension TapticEngine {
     
     /// Hapticを発生させる。
     /// TapticEngineを生成してから時間が経っている場合などにはprepare()を明示的に呼び出してから実行すると安全。
-    func playHaptic() {
+    public func playHaptic() {
         guard let hapticType = self.hapticType, #available(iOS 10.0, *) else { return }
         switch hapticType {
         case .notification(let type):

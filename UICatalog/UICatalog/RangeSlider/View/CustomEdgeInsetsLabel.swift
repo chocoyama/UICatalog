@@ -9,17 +9,17 @@
 import UIKit
 
 @IBDesignable
-class CustomEdgeInsetsLabel: UILabel {
+open class CustomEdgeInsetsLabel: UILabel {
     
     @IBInspectable var verticalInset:CGFloat = 2.0
     @IBInspectable var horizontalInset:CGFloat = 4.0
     
-    override func drawText(in rect: CGRect) {
+    override open func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
         return super.drawText(in: rect.inset(by: insets))
     }
 
-    override var intrinsicContentSize: CGSize {
+    override open var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         
         let width = (size.width > 0) ? size.width + horizontalInset * 2 : size.width
@@ -28,26 +28,26 @@ class CustomEdgeInsetsLabel: UILabel {
         return CGSize(width: width, height: height)
     }
     
-    @IBInspectable var borderColor: UIColor = UIColor.clear {
+    @IBInspectable open var borderColor: UIColor = UIColor.clear {
         didSet {
             self.layer.borderColor = borderColor.cgColor
         }
     }
     
-    @IBInspectable var borderWidth: CGFloat = 0 {
+    @IBInspectable open var borderWidth: CGFloat = 0 {
         didSet {
             self.layer.borderWidth = borderWidth
         }
     }
     
-    @IBInspectable var cornerRadius: CGFloat = 0 {
+    @IBInspectable open var cornerRadius: CGFloat = 0 {
         didSet {
             self.layer.cornerRadius = cornerRadius
             self.layer.masksToBounds = true
         }
     }
     
-    var customizedFrame: CGRect {
+    open var customizedFrame: CGRect {
         var newFrame = self.frame
         newFrame.size = self.intrinsicContentSize
         return newFrame.offsetBy(dx: 0, dy: -verticalInset)

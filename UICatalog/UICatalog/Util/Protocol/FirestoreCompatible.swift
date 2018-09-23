@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol FirestoreCompatible {
+public protocol FirestoreCompatible {
     init?(data: [String: Any])
     func toFirestoreData() -> [String: Any]
 }

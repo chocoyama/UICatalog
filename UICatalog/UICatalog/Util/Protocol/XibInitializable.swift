@@ -27,9 +27,9 @@ import UIKit
  let view = SomeInitializableView.create()
  ```
  */
-protocol XibInitializable: class {}
+public protocol XibInitializable: class {}
 extension XibInitializable where Self: UIView {
-    func setXibView() {
+    public func setXibView() {
         let bundle = Bundle(for: type(of: self))
         let nibName = String(describing: Self.self)
         let nib = UINib(nibName: nibName, bundle: bundle)
@@ -43,7 +43,7 @@ extension XibInitializable where Self: UIView {
         view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
-    init() {
+    public init() {
         self.init(frame: .zero)
     }
     

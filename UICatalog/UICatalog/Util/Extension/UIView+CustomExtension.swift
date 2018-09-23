@@ -10,7 +10,7 @@ import UIKit
 
 // MARK:- Layout
 extension UIView {
-    func overlay(on view: UIView) {
+    public func overlay(on view: UIView) {
         view.addSubview(self)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -23,28 +23,28 @@ extension UIView {
 // MARK:- Design
 extension UIView {
     @discardableResult
-    func round() -> Self {
+    public func round() -> Self {
         layer.cornerRadius = bounds.width / 2.0
         layer.masksToBounds = false
         return self
     }
     
     @discardableResult
-    func round(cornerRadius: CGFloat) -> Self {
+    public func round(cornerRadius: CGFloat) -> Self {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = false
         return self
     }
     
     @discardableResult
-    func drawBorder(width: CGFloat, color: UIColor) -> Self {
+    public func drawBorder(width: CGFloat, color: UIColor) -> Self {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         return self
     }
     
     @discardableResult
-    func addDropShadow(offset: CGFloat, opacity: Float, radius: CGFloat) -> Self {
+    public func addDropShadow(offset: CGFloat, opacity: Float, radius: CGFloat) -> Self {
         layer.shadowOffset = CGSize(width: offset, height: offset)
         layer.shadowOpacity = opacity
         layer.shadowColor = UIColor.black.cgColor

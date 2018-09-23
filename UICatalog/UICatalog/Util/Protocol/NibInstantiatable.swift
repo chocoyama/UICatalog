@@ -8,10 +8,10 @@
 
 import UIKit
 
-protocol NibInstantiatable {}
+public protocol NibInstantiatable {}
 
 extension NibInstantiatable where Self: NSObject {
-    static func instantiateFromNib<T: Any>(owner: T) -> Self {
+    static public func instantiateFromNib<T: Any>(owner: T) -> Self {
         return UINib(nibName: String(describing: Self.self), bundle: nil)
                 .instantiate(withOwner: owner, options: nil)
                 .first! as! Self

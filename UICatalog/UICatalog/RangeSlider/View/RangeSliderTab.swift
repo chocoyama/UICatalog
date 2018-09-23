@@ -9,56 +9,56 @@
 import UIKit
 
 @IBDesignable
-class RangeSliderTab: UIView, RangeSliderViewInitializable {
+open class RangeSliderTab: UIView, RangeSliderViewInitializable {
     
-    enum `Type` {
+    public enum `Type` {
         case left
         case right
     }
     
-    enum Mode {
+    public enum Mode {
         case `default`
         case valueFixed(Int)
     }
     
-    @IBOutlet weak var tab: UIView! {
+    @IBOutlet open weak var tab: UIView! {
         didSet {
             tab.layer.cornerRadius = tab.frame.width / 2
             tab.layer.borderColor = UIColor.lightGray.cgColor
             tab.layer.borderWidth = tabBorderWidth
         }
     }
-    @IBOutlet weak var label: CustomEdgeInsetsLabel!
-    @IBOutlet weak var labelBaseView: UIView!
-    @IBOutlet var contentView: UIView!
+    @IBOutlet open weak var label: CustomEdgeInsetsLabel!
+    @IBOutlet open weak var labelBaseView: UIView!
+    @IBOutlet open var contentView: UIView!
     
     fileprivate var type: Type = .left // Typeは初期化時に1度だけ変更される
     fileprivate var mode: Mode = .default // Modeは表示値を強制的に書き換えた時に変更される。
-    weak var dependentSlider: RangeSlider?
+    weak open var dependentSlider: RangeSlider?
     
-    let tabBorderWidth: CGFloat = 1.0
+    public let tabBorderWidth: CGFloat = 1.0
     
-    var allHeight: CGFloat {
+    open var allHeight: CGFloat {
         return tab.frame.maxY
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setXibView()
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setXibView()
     }
     
-    func initialize(type: Type, dependentSlider: RangeSlider) {
+    open func initialize(type: Type, dependentSlider: RangeSlider) {
         self.type = type
         self.dependentSlider = dependentSlider
     }
     
     /** ラベルの表示を引数の値をもとにして強制的に書き換える */
-    func forceUpdateLabel(price: Int) {
+    open func forceUpdateLabel(price: Int) {
         mode = .valueFixed(price)
         label.attributedText = NSAttributedString(string: "\(price)")
     }
@@ -68,7 +68,7 @@ typealias RangeSliderTabDynamicValue = RangeSliderTab
 extension RangeSliderTabDynamicValue {
     
     /** タッチを認識する範囲を返す */
-    var touchAvailableFrame: CGRect {
+    open var touchAvailableFrame: CGRect {
         self.transform = CGAffineTransform(scaleX: 3.0, y: 3.0)
         let result = self.frame
         self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
@@ -79,7 +79,7 @@ extension RangeSliderTabDynamicValue {
      現在のタブの位置に対応する値を返す。
      規定値以外で強制的に値を書き換えている場合はその値をそのまま返す。
      */
-    var value: Int {
+    open var value: Int {
         if case .valueFixed(let value) = mode {
             return value
         }
@@ -98,12 +98,12 @@ extension RangeSliderTabDynamicValue {
     }
     
     /** タブ上のラベルの表示文字列を返す */
-    var text: String {
+    open var text: String {
         return "\(value)"
     }
     
     /** タブの位置に対応する値が全体の値の中で何番目かを返す */
-    var currentIndex: Int {
+    open var currentIndex: Int {
         guard let slider = dependentSlider else { return 0 }
         switch type {
         case .left: return slider.rangeValue.indexFromValue(value: value) ?? 0
@@ -112,7 +112,7 @@ extension RangeSliderTabDynamicValue {
     }
     
     /** 左のタブが右のタブを超えない&&右のタブが左のタブを超えないために、動かすことのできる最大値を動的に返す */
-    var dynamicMaxPoint: CGFloat {
+    open var dynamicMaxPoint: CGFloat {
         guard let slider = dependentSlider else { return 0.0 }
         let mainBarFirstMinX = slider.leftMarginConstraint.constant + slider.leftRangeBarDefaultWidth
         switch type {
@@ -133,7 +133,7 @@ typealias RangeSliderTabMovingBehavior = RangeSliderTab
 extension RangeSliderTabMovingBehavior {
     
     /** translationPointX分タブを移動する */
-    func move(translationPointX: CGFloat) {
+    open func move(translationPointX: CGFloat) {
         mode = .default
         guard let slider = dependentSlider else { return }
         switch type {
@@ -149,7 +149,7 @@ extension RangeSliderTabMovingBehavior {
     }
     
     /** pointXまでタブを移動する */
-    func moveAtPoint(pointX: CGFloat) {
+    open func moveAtPoint(pointX: CGFloat) {
         guard let slider = dependentSlider, let _ = slider.dynamicValue(locationX: pointX) else {
             resetPosition()
             return
@@ -160,7 +160,7 @@ extension RangeSliderTabMovingBehavior {
     }
     
     /** valueの値までタブを移動する */
-    func moveAtValue(value: Int) {
+    open func moveAtValue(value: Int) {
         guard let slider = dependentSlider else { return }
         if slider.rangeValue.values.contains(value) {
             let positionX = slider.dynamicPositionX(value: value)
@@ -176,7 +176,7 @@ extension RangeSliderTabMovingBehavior {
     }
     
     /** タブのポジションを初期値に戻す */
-    func resetPosition() {
+    open func resetPosition() {
         mode = .default
         guard let slider = dependentSlider else { return }
         switch type {
@@ -195,12 +195,12 @@ extension RangeSliderTabMovingBehavior {
 typealias RangeSliderTabAnimationBehavior = RangeSliderTab
 extension RangeSliderTabAnimationBehavior {
     
-    enum AnimationDuration: TimeInterval {
+    public enum AnimationDuration: TimeInterval {
         case long = 0.1
         case short = 0.08
     }
     
-    enum AnimationZoomScale: CGFloat {
+    public enum AnimationZoomScale: CGFloat {
         case animating = 2.5
         case picking = 2.0
     }
@@ -220,7 +220,7 @@ extension RangeSliderTabAnimationBehavior {
     }
     
     /** タブをアニメーションとともに選択状態にする */
-    func select() {
+    open func select() {
         let transforms = createLabelTransform()
         bringTabViewToFront()
         
@@ -236,7 +236,7 @@ extension RangeSliderTabAnimationBehavior {
     }
     
     /** タブを非選択状態にする */
-    func deselect(animated: Bool = true) {
+    open func deselect(animated: Bool = true) {
         let transforms = createLabelTransform()
         if animated == false {
             label.transform = transforms.normal
@@ -248,7 +248,7 @@ extension RangeSliderTabAnimationBehavior {
     }
     
     /** タブを一時的に選択状態にする */
-    func highlight(sec: Double = 0.3) {
+    open func highlight(sec: Double = 0.3) {
         let transforms = createLabelTransform()
         bringTabViewToFront()
         
@@ -264,7 +264,7 @@ extension RangeSliderTabAnimationBehavior {
     }
     
     /** タブを最前面に移動する */
-    func bringTabViewToFront() {
+    open func bringTabViewToFront() {
         dependentSlider?.baseView.bringSubviewToFront(self)
     }
     

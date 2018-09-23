@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol ReusableViewRegisterable {}
+public protocol ReusableViewRegisterable {}
 
-enum UICollectionElementKind: String {
+public enum UICollectionElementKind: String {
     case sectionHeader
     case sectionFooter
     
-    init(stringOf kind: String) {
+    public init(stringOf kind: String) {
         switch kind {
         case UICollectionView.elementKindSectionHeader: self = .sectionHeader
         case UICollectionView.elementKindSectionFooter: self = .sectionFooter
@@ -22,7 +22,7 @@ enum UICollectionElementKind: String {
         }
     }
     
-    var value: String {
+    public var value: String {
         switch self {
         case .sectionHeader: return UICollectionView.elementKindSectionHeader
         case .sectionFooter: return UICollectionView.elementKindSectionFooter
@@ -32,12 +32,12 @@ enum UICollectionElementKind: String {
 
 extension UICollectionReusableView: ReusableViewRegisterable {}
 extension ReusableViewRegisterable where Self: UICollectionReusableView {
-    static func register(for collectionView: UICollectionView, ofKind kind: UICollectionElementKind) {
+    public static func register(for collectionView: UICollectionView, ofKind kind: UICollectionElementKind) {
         let name = String(describing: Self.self)
         collectionView.register(Self.self, forSupplementaryViewOfKind: kind.value, withReuseIdentifier: name)
     }
     
-    static func dequeue(from collectionView: UICollectionView, ofKind kind: UICollectionElementKind, for indexPath: IndexPath) -> Self {
+    public static func dequeue(from collectionView: UICollectionView, ofKind kind: UICollectionElementKind, for indexPath: IndexPath) -> Self {
         let name = String(describing: Self.self)
         return collectionView.dequeueReusableSupplementaryView(ofKind: kind.value, withReuseIdentifier: name, for: indexPath) as! Self
     }

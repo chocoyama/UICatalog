@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol CellWidthCalculatable {
+public protocol CellWidthCalculatable {
     associatedtype Model
     static var cellForCalcWidth: Self? { get set }
     func configure(for model: Model)
 }
 
 extension CellWidthCalculatable where Self: UICollectionViewCell {
-    static func width(for model: Model, height: CGFloat, owner: Any) -> CGFloat {
+    static public func width(for model: Model, height: CGFloat, owner: Any) -> CGFloat {
         if cellForCalcWidth == nil {
             cellForCalcWidth = instantiateFromNib(owner: owner)
         }

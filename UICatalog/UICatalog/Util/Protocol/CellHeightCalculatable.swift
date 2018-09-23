@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol CellHeightCalculatale {
+public protocol CellHeightCalculatale {
     associatedtype Model
     static var cellForCalcHeight: Self? { get set }
     func configure(for model: Model)
 }
 
 extension CellHeightCalculatale where Self: UICollectionViewCell {
-    static func height(for model: Model, width: CGFloat, owner: Any) -> CGFloat {
+    static public func height(for model: Model, width: CGFloat, owner: Any) -> CGFloat {
         if cellForCalcHeight == nil {
             cellForCalcHeight = instantiateFromNib(owner: owner)
         }
