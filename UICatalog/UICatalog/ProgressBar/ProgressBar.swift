@@ -15,11 +15,18 @@ open class ProgressBar: UIView, XibInitializable {
         let leftColor: UIColor
         let rightColor: UIColor
         let initialPercent: Double
+        let cornerRadius: CGFloat?
         
-        public init(leftColor: UIColor, rightColor: UIColor = .white, initialPercent: Double = 0.0) {
+        public init(
+            leftColor: UIColor,
+            rightColor: UIColor = .white,
+            initialPercent: Double = 0.0,
+            cornerRadius: CGFloat? = nil
+        ) {
             self.leftColor = leftColor
             self.rightColor = rightColor
             self.initialPercent = initialPercent
+            self.cornerRadius = cornerRadius
         }
     }
     
@@ -52,6 +59,11 @@ open class ProgressBar: UIView, XibInitializable {
         coloredView.backgroundColor = configuration.leftColor
         noColorView.backgroundColor = configuration.rightColor
         coloredViewWidthConstraint.constant = toValue(from: configuration.initialPercent)
+        
+        if let cornerRadius = configuration.cornerRadius {
+            coloredView.round(cornerRadius: cornerRadius, cornerMasks: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner])
+        }
+        
         return self
     }
     

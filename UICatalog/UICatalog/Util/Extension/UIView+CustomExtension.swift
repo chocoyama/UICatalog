@@ -30,9 +30,14 @@ extension UIView {
     }
     
     @discardableResult
-    public func round(cornerRadius: CGFloat) -> Self {
+    public func round(cornerRadius: CGFloat, cornerMasks: CACornerMask = []) -> Self {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = false
+        
+        if !cornerMasks.isEmpty {
+            layer.maskedCorners = cornerMasks
+        }
+        
         return self
     }
     

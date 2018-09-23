@@ -20,11 +20,11 @@ class ProgressBarViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         let configuration = ProgressBar.Configuration(
             leftColor: .cyan,
             rightColor: .white,
-            initialPercent: 0.0
+            initialPercent: 0.0,
+            cornerRadius: 30
         )
         
         progressBar.configure(with: configuration)
