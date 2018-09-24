@@ -84,7 +84,7 @@ open class ProgressBar: UIView, XibInitializable {
         return self
     }
     
-    open func update(percent: Double, labelTitle: String?, animationSetting: AnimationSetting?) {
+    open func update(percent: Double, labelTitle: String?, animationSetting: AnimationSetting?, completion: ((Bool) -> Void)?) {
         self.percentLabel.alpha = 0.0
         self.percentLabel.text = labelTitle
         self.percentLabel.setNeedsLayout()
@@ -103,8 +103,7 @@ open class ProgressBar: UIView, XibInitializable {
                         self.percentLabel.alpha = 1.0
                         self.layoutIfNeeded()
                     },
-                    completion: { _ in
-                    }
+                    completion: completion
                 )
             } else {
                 UIView.animate(withDuration: setting.duration) {

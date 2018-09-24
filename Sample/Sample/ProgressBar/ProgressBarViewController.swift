@@ -37,6 +37,12 @@ class ProgressBarViewController: UIViewController {
             percent >= 0.0 && percent <= 1.0 else {
             return
         }
-        progressBar.update(percent: percent, labelTitle: "\(percent)", animationSetting: .default)
+        
+        progressBar.update(
+            percent: percent,
+            labelTitle: "\(percent)",
+            animationSetting: .default,
+            completion: nil
+        )
     }
 }
