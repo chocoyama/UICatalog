@@ -11,28 +11,23 @@ import UICatalog
 
 class ViewController: UIViewController {
 
-    enum Row: String {
+    enum Row: String, CaseIterable {
         case rangeSlider = "RangeSlider"
         case progressBar = "ProgressBar"
+        case outlineLabel = "OutlineLabel"
         
         var sampleViewController: UIViewController {
             switch self {
             case .rangeSlider: return RangeSliderViewController.instantiate(storyboardName: "RangeSlider")
             case .progressBar: return ProgressBarViewController()
+            case .outlineLabel: return OutlineLabelViewController()
             }
         }
     }
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let rows: [Row] = [
-        .rangeSlider,
-        .progressBar
-    ]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    private let rows = Row.allCases
 
 }
 
