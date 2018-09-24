@@ -77,6 +77,7 @@ open class ProgressBar: UIView, XibInitializable {
             percentLabel.font = font
             percentLabel.isHidden = false
         } else {
+            percentLabel.text = ""
             percentLabel.isHidden = true
         }
         
@@ -114,7 +115,12 @@ open class ProgressBar: UIView, XibInitializable {
     }
     
     private func toValue(from percent: Double) -> CGFloat {
-        let margin = self.percentLabel.frame.width + (percentLabelLeftConstraint.constant * 2)
+        let margin: CGFloat
+        if self.percentLabel.isHidden {
+            margin = 0.0
+        } else {
+            margin = self.percentLabel.frame.width + (percentLabelLeftConstraint.constant * 2)
+        }
         return (self.frame.width - margin) * CGFloat(percent)
     }
     
