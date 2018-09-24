@@ -11,6 +11,9 @@
 		6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */; };
 		6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */; };
 		6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */; };
+		6B33DF802158BDF1006143A4 /* AdaptiveItemSizeLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF7F2158BDF1006143A4 /* AdaptiveItemSizeLayoutViewController.swift */; };
+		6B33DF822158BE0B006143A4 /* AdaptiveItemSizeLayoutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF812158BE0B006143A4 /* AdaptiveItemSizeLayoutViewController.storyboard */; };
+		6B33DF842158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF832158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift */; };
 		6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE4EA2152649B00BBB47A /* AppDelegate.swift */; };
 		6BDAE4ED2152649B00BBB47A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE4EC2152649B00BBB47A /* ViewController.swift */; };
 		6BDAE4F02152649B00BBB47A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BDAE4EE2152649B00BBB47A /* Main.storyboard */; };
@@ -27,6 +30,9 @@
 		6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressBarViewController.xib; sourceTree = "<group>"; };
 		6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineLabelViewController.swift; sourceTree = "<group>"; };
 		6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutlineLabelViewController.xib; sourceTree = "<group>"; };
+		6B33DF7F2158BDF1006143A4 /* AdaptiveItemSizeLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveItemSizeLayoutViewController.swift; sourceTree = "<group>"; };
+		6B33DF812158BE0B006143A4 /* AdaptiveItemSizeLayoutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdaptiveItemSizeLayoutViewController.storyboard; sourceTree = "<group>"; };
+		6B33DF832158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveSizeCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BDAE4E72152649B00BBB47A /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BDAE4EA2152649B00BBB47A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BDAE4EC2152649B00BBB47A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +76,16 @@
 			path = OutlineLabel;
 			sourceTree = "<group>";
 		};
+		6B33DF7E2158BDE1006143A4 /* AdaptiveItemSizeLayout */ = {
+			isa = PBXGroup;
+			children = (
+				6B33DF812158BE0B006143A4 /* AdaptiveItemSizeLayoutViewController.storyboard */,
+				6B33DF7F2158BDF1006143A4 /* AdaptiveItemSizeLayoutViewController.swift */,
+				6B33DF832158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift */,
+			);
+			path = AdaptiveItemSizeLayout;
+			sourceTree = "<group>";
+		};
 		6BDAE4DE2152649B00BBB47A = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +106,7 @@
 		6BDAE4E92152649B00BBB47A /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				6B33DF7E2158BDE1006143A4 /* AdaptiveItemSizeLayout */,
 				6B33DF6B21587C5D006143A4 /* OutlineLabel */,
 				6B33DF5221577092006143A4 /* ProgressBar */,
 				6BDAE5302152666F00BBB47A /* RangeSlider */,
@@ -180,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B33DF822158BE0B006143A4 /* AdaptiveItemSizeLayoutViewController.storyboard in Resources */,
 				6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */,
 				6BDAE4F52152649C00BBB47A /* LaunchScreen.storyboard in Resources */,
 				6BDAE4F22152649C00BBB47A /* Assets.xcassets in Resources */,
@@ -199,9 +217,11 @@
 				6BDAE5342152668000BBB47A /* RangeSliderViewController.swift in Sources */,
 				6BDAE5362152686E00BBB47A /* TableViewCell.swift in Sources */,
 				6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */,
+				6B33DF802158BDF1006143A4 /* AdaptiveItemSizeLayoutViewController.swift in Sources */,
 				6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */,
 				6BDAE4ED2152649B00BBB47A /* ViewController.swift in Sources */,
 				6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */,
+				6B33DF842158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
