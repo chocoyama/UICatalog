@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Adaptive Item Size Layout View Controller-->
+        <!--Adaptive Item Height Layout View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="AdaptiveItemSizeLayoutViewController" id="BYZ-38-t0r" customClass="AdaptiveItemSizeLayoutViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdaptiveItemHeightLayoutViewController" id="BYZ-38-t0r" customClass="AdaptiveItemHeightLayoutViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>

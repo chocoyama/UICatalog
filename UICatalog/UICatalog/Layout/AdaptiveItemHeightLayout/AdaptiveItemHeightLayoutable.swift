@@ -1,5 +1,5 @@
 //
-//  AdaptiveItemSizeLayoutable.swift
+//  AdaptiveItemHeightLayoutable.swift
 //  UICatalog
 //
 //  Created by Takuya Yokoyama on 2018/09/24.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-public protocol AdaptiveItemSizeLayoutable: class {
-    var layout: AdaptiveItemSizeLayout { get set }
+public protocol AdaptiveItemHeightLayoutable: class {
+    var layout: AdaptiveItemHeightLayout { get set }
     var collectionView: UICollectionView! { get }
     func sizeForItem(at indexPath: IndexPath) -> CGSize
 }
 
-extension AdaptiveItemSizeLayoutable where Self: UIViewController {
+extension AdaptiveItemHeightLayoutable where Self: UIViewController {
     public func reloadLayout() {
-        let layout = AdaptiveItemSizeLayout(configuration: self.layout.configuration)
+        let layout = AdaptiveItemHeightLayout(configuration: self.layout.configuration)
         layout.delegate = self
         
         collectionView.setCollectionViewLayout(layout, animated: true) { [weak self] (result) in

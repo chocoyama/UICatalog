@@ -1,6 +1,6 @@
 //
 //  Column.swift
-//  AdaptiveItemSizeLayout
+//  AdaptiveItemHeightLayout
 //
 //  Created by 横山 拓也 on 2016/03/31.
 //  Copyright © 2016年 Takuya Yokoyama. All rights reserved.
@@ -9,12 +9,12 @@
 import UIKit
 
 class Column {
-    private let configuration: AdaptiveItemSizeLayout.Configuration
+    private let configuration: AdaptiveItemHeightLayout.Configuration
     private let columnNumber: Int
     private var attributesSet = [UICollectionViewLayoutAttributes]()
     private(set) var maxY: CGFloat = 0.0
     
-    init(configuration: AdaptiveItemSizeLayout.Configuration, columnNumber: Int) {
+    init(configuration: AdaptiveItemHeightLayout.Configuration, columnNumber: Int) {
         self.configuration = configuration
         self.columnNumber = columnNumber
     }

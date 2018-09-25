@@ -1,6 +1,6 @@
 //
-//  AdaptiveItemSizeLayout.swift
-//  AdaptiveItemSizeLayout
+//  AdaptiveItemHeightLayout.swift
+//  AdaptiveItemHeightLayout
 //
 //  Created by 横山 拓也 on 2016/03/30.
 //  Copyright © 2016年 Takuya Yokoyama. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class AdaptiveItemSizeLayout: UICollectionViewLayout {
+open class AdaptiveItemHeightLayout: UICollectionViewLayout {
     public struct Configuration {
         public var columnCount: Int
         public var minColumnCount: Int
@@ -58,7 +58,7 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
         }
     }
     
-    open weak var delegate: AdaptiveItemSizeLayoutable?
+    open weak var delegate: AdaptiveItemHeightLayoutable?
     
     open var configuration = Configuration()
     private var columnContainer: ColumnContainer

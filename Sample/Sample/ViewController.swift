@@ -15,14 +15,14 @@ class ViewController: UIViewController {
         case rangeSlider = "RangeSlider"
         case progressBar = "ProgressBar"
         case outlineLabel = "OutlineLabel"
-        case adaptiveItemSizeLayout = "AdaptiveItemSizeLayout"
+        case adaptiveItemHeightLayout = "AdaptiveItemHeightLayout"
         
         var sampleViewController: UIViewController {
             switch self {
             case .rangeSlider: return RangeSliderViewController.instantiate(storyboardName: "RangeSlider")
             case .progressBar: return ProgressBarViewController()
             case .outlineLabel: return OutlineLabelViewController()
-            case .adaptiveItemSizeLayout: return AdaptiveItemSizeLayoutViewController.instantiate(storyboardName: "AdaptiveItemSizeLayoutViewController")
+            case .adaptiveItemHeightLayout: return AdaptiveItemHeightLayoutViewController.instantiate(storyboardName: "AdaptiveItemHeightLayoutViewController")
             }
         }
     }

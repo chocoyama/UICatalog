@@ -1,6 +1,6 @@
 //
 //  ColumnContainer.swift
-//  AdaptiveItemSizeLayout
+//  AdaptiveItemHeightLayout
 //
 //  Created by 横山 拓也 on 2016/03/31.
 //  Copyright © 2016年 Takuya Yokoyama. All rights reserved.
@@ -10,9 +10,9 @@ import UIKit
 
 class ColumnContainer {
     private var columns = [Column]()
-    private let configuration: AdaptiveItemSizeLayout.Configuration
+    private let configuration: AdaptiveItemHeightLayout.Configuration
     
-    init(configuration: AdaptiveItemSizeLayout.Configuration) {
+    init(configuration: AdaptiveItemHeightLayout.Configuration) {
         self.configuration = configuration
         columns = [Column]()
         (0..<configuration.columnCount).forEach{

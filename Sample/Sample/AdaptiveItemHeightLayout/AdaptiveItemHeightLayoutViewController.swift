@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  AdaptiveItemSizeLayout
+//  AdaptiveItemHeightLayout
 //
 //  Created by 横山 拓也 on 2016/03/30.
 //  Copyright © 2016年 Takuya Yokoyama. All rights reserved.
@@ -9,11 +9,11 @@
 import UIKit
 import UICatalog
 
-class AdaptiveItemSizeLayoutViewController: UIViewController {
+class AdaptiveItemHeightLayoutViewController: UIViewController {
 
-    // MARK:- AdaptiveItemSizeLayoutable
+    // MARK:- AdaptiveItemHeightLayoutable
     @IBOutlet weak var collectionView: UICollectionView!
-    var layout = AdaptiveItemSizeLayout()
+    var layout = AdaptiveItemHeightLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class AdaptiveItemSizeLayoutViewController: UIViewController {
     }
 }
 
-extension AdaptiveItemSizeLayoutViewController: UICollectionViewDataSource {
+extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1000
     }
@@ -65,7 +65,7 @@ extension AdaptiveItemSizeLayoutViewController: UICollectionViewDataSource {
     }
 }
 
-extension AdaptiveItemSizeLayoutViewController: AdaptiveItemSizeLayoutable {
+extension AdaptiveItemHeightLayoutViewController: AdaptiveItemHeightLayoutable {
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
         return randomSize
     }
