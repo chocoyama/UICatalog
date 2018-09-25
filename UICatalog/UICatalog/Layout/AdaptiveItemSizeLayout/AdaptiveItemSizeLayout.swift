@@ -84,7 +84,7 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
-                let itemSize = delegate?.sizeForItemAtIndexPath(indexPath: indexPath as NSIndexPath) ?? CGSize.zero
+                let itemSize = delegate?.sizeForItem(at: indexPath) ?? CGSize.zero
                 columnContainer.addAttributes(indexPath: indexPath, itemSize: itemSize)
             }
         }

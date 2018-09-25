@@ -11,7 +11,7 @@ import UIKit
 public protocol AdaptiveItemSizeLayoutable: class {
     var layout: AdaptiveItemSizeLayout { get set }
     var collectionView: UICollectionView! { get }
-    func sizeForItemAtIndexPath(indexPath: NSIndexPath) -> CGSize
+    func sizeForItem(at indexPath: IndexPath) -> CGSize
 }
 
 extension AdaptiveItemSizeLayoutable where Self: UIViewController {

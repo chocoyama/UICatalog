@@ -9,8 +9,9 @@
 import UIKit
 import UICatalog
 
-class AdaptiveItemSizeLayoutViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AdaptiveItemSizeLayoutable {
+class AdaptiveItemSizeLayoutViewController: UIViewController {
 
+    // MARK:- AdaptiveItemSizeLayoutable
     @IBOutlet weak var collectionView: UICollectionView!
     var layout = AdaptiveItemSizeLayout()
     
@@ -19,23 +20,9 @@ class AdaptiveItemSizeLayoutViewController: UIViewController, UICollectionViewDe
         initLayout()
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1000
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdaptiveSizeCollectionViewCell", for: indexPath)
-        cell.backgroundColor = randomColor
-        return cell
-    }
-
     private func initLayout() {
         layout.delegate = self
         collectionView.setCollectionViewLayout(layout, animated: false)
-    }
-    
-    func sizeForItemAtIndexPath(indexPath: NSIndexPath) -> CGSize {
-        return randomSize
     }
     
     private var randomColor: UIColor {
@@ -63,5 +50,23 @@ class AdaptiveItemSizeLayoutViewController: UIViewController, UICollectionViewDe
                 incrementColumn()
             }
         }
+    }
+}
+
+extension AdaptiveItemSizeLayoutViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1000
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdaptiveSizeCollectionViewCell", for: indexPath)
+        cell.backgroundColor = randomColor
+        return cell
+    }
+}
+
+extension AdaptiveItemSizeLayoutViewController: AdaptiveItemSizeLayoutable {
+    func sizeForItem(at indexPath: IndexPath) -> CGSize {
+        return randomSize
     }
 }
