@@ -10,4 +10,12 @@ import UIKit
 
 class AdaptiveSizeCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var label: UILabel!
+    
+    @discardableResult
+    func configure(by indexPath: IndexPath, backgroundColor: UIColor) -> AdaptiveSizeCollectionViewCell {
+        self.label.text = "\(indexPath.item)"
+        self.backgroundColor = backgroundColor
+        return self
+    }
 }

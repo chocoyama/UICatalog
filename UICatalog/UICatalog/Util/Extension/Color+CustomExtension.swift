@@ -20,4 +20,11 @@ extension UIColor {
     convenience public init(hex: String) {
         self.init(hex: hex, alpha: 1.0)
     }
+    
+    open class var random: UIColor {
+        let r = (CGFloat(arc4random_uniform(255)) + 1) / 255
+        let g = (CGFloat(arc4random_uniform(255)) + 1) / 255
+        let b = (CGFloat(arc4random_uniform(255)) + 1) / 255
+        return UIColor(red: r, green: g, blue: b, alpha: 1.0)
+    }
 }

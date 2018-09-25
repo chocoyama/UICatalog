@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         case progressBar = "ProgressBar"
         case outlineLabel = "OutlineLabel"
         case adaptiveItemHeightLayout = "AdaptiveItemHeightLayout"
+        case adaptiveItemWidthLayout = "AdaptiveItemWidthLayout"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -23,6 +24,7 @@ class ViewController: UIViewController {
             case .progressBar: return ProgressBarViewController()
             case .outlineLabel: return OutlineLabelViewController()
             case .adaptiveItemHeightLayout: return AdaptiveItemHeightLayoutViewController.instantiate(storyboardName: "AdaptiveItemHeightLayoutViewController")
+            case .adaptiveItemWidthLayout: return AdaptiveItemWidthLayoutViewController()
             }
         }
     }

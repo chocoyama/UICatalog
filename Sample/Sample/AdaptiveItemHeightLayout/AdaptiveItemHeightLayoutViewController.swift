@@ -25,23 +25,6 @@ class AdaptiveItemHeightLayoutViewController: UIViewController {
         collectionView.setCollectionViewLayout(layout, animated: false)
     }
     
-    private var randomColor: UIColor {
-        let r = (CGFloat(arc4random_uniform(255)) + 1) / 255
-        let g = (CGFloat(arc4random_uniform(255)) + 1) / 255
-        let b = (CGFloat(arc4random_uniform(255)) + 1) / 255
-        return UIColor(red: r, green: g, blue: b, alpha: 1.0)
-    }
-    
-    private var randomSize: CGSize {
-        let min: CGFloat = 150.0
-        let max: CGFloat = 300.0
-        let diff = UInt32(max - min)
-        
-        let width = CGFloat(arc4random_uniform(diff)) + min
-        let height = CGFloat(arc4random_uniform(diff)) + min
-        return CGSize(width: width, height: height)
-    }
-    
     @IBAction func didRecognizedPinchGesture(_ sender: UIPinchGestureRecognizer) {
         if case .ended = sender.state {
             if sender.scale > 1.0 {
@@ -59,14 +42,13 @@ extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdaptiveSizeCollectionViewCell", for: indexPath)
-        cell.backgroundColor = randomColor
-        return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdaptiveSizeCollectionViewCell", for: indexPath) as! AdaptiveSizeCollectionViewCell
+        return cell.configure(by: indexPath, backgroundColor: .random)
     }
 }
 
 extension AdaptiveItemHeightLayoutViewController: AdaptiveItemHeightLayoutable {
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
-        return randomSize
+        return .random(min: 150.0, max: 300.0)
     }
 }
