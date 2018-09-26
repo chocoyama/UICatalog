@@ -10,18 +10,14 @@ import UIKit
 import UICatalog
 
 class AdaptiveItemWidthLayoutViewController: UIViewController {
-
-    @IBOutlet weak var collectionView: UICollectionView!
-    var layout = AdaptiveItemWidthLayout()
-    
-    private static let rowHeight: CGFloat = 50.0
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        AdaptiveItemWidthLayoutCollectionViewCell.register(for: collectionView)
-        collectionView.dataSource = self
-        layout.delegate = self
-        collectionView.setCollectionViewLayout(layout, animated: false)
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            AdaptiveItemWidthLayoutCollectionViewCell.register(for: collectionView)
+            
+            let layout = AdaptiveItemWidthLayout()
+            layout.delegate = self
+            collectionView.setCollectionViewLayout(layout, animated: false)
+        }
     }
 }
 

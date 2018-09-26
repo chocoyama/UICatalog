@@ -9,34 +9,37 @@
 import UIKit
 
 public protocol AdaptiveItemHeightLayoutable: class {
-    var layout: AdaptiveItemHeightLayout { get set }
     var collectionView: UICollectionView! { get }
     func sizeForItem(at indexPath: IndexPath) -> CGSize
 }
 
 extension AdaptiveItemHeightLayoutable where Self: UIViewController {
+    public var layout: AdaptiveItemHeightLayout? {
+        return collectionView.collectionViewLayout as? AdaptiveItemHeightLayout
+    }
+    
     public func reloadLayout() {
-        let layout = AdaptiveItemHeightLayout(configuration: self.layout.configuration)
-        layout.delegate = self
+        guard let layout = self.layout else { return }
         
-        collectionView.setCollectionViewLayout(layout, animated: true) { [weak self] (result) in
+        let newLayout = AdaptiveItemHeightLayout(configuration: layout.configuration)
+        newLayout.delegate = self
+        collectionView.setCollectionViewLayout(newLayout, animated: true) { [weak self] (result) in
             self?.collectionView.reloadData()
-            self?.layout = layout
         }
     }
     
     @discardableResult
     public func incrementColumn() -> Bool {
-        guard !layout.configuration.atMaxColumn else { return false }
-        layout.configuration.columnCount += 1
+        guard self.layout?.configuration.atMaxColumn == false else { return false }
+        layout?.configuration.columnCount += 1
         reloadLayout()
         return true
     }
     
     @discardableResult
     public func decrementColumn() -> Bool {
-        guard !layout.configuration.atMinColumn else { return false }
-        layout.configuration.columnCount -= 1
+        guard self.layout?.configuration.atMinColumn == false else { return false }
+        layout?.configuration.columnCount -= 1
         reloadLayout()
         return true
     }

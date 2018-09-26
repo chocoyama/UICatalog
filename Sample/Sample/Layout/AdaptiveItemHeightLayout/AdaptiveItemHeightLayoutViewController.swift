@@ -11,9 +11,7 @@ import UICatalog
 
 class AdaptiveItemHeightLayoutViewController: UIViewController {
 
-    // MARK:- AdaptiveItemHeightLayoutable
     @IBOutlet weak var collectionView: UICollectionView!
-    var layout = AdaptiveItemHeightLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +19,7 @@ class AdaptiveItemHeightLayoutViewController: UIViewController {
     }
 
     private func initLayout() {
+        let layout = AdaptiveItemHeightLayout()
         layout.delegate = self
         collectionView.setCollectionViewLayout(layout, animated: false)
     }

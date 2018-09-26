@@ -9,7 +9,6 @@
 import Foundation
 
 public protocol AdaptiveItemWidthLayoutable: class {
-    var layout: AdaptiveItemWidthLayout { get set }
     var collectionView: UICollectionView! { get }
     func sizeForItem(at indexPath: IndexPath) -> CGSize
 }
