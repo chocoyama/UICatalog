@@ -14,7 +14,7 @@ class AdaptiveItemWidthLayoutViewController: UIViewController {
         didSet {
             AdaptiveItemWidthLayoutCollectionViewCell.register(for: collectionView)
             
-            let layout = AdaptiveItemWidthLayout()
+            let layout = AdaptiveItemSizeLayout(adaptType: .width(.default))
             layout.delegate = self
             collectionView.setCollectionViewLayout(layout, animated: false)
         }

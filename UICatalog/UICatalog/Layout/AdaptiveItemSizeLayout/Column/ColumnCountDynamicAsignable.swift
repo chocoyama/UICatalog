@@ -11,16 +11,16 @@ import UIKit
 public protocol ColumnCountDynamicAsignable {}
 
 extension ColumnCountDynamicAsignable where Self: AdaptiveItemSizeLayoutDelegate {
-    public var layout: AdaptiveItemHeightLayout? {
-        return collectionView.collectionViewLayout as? AdaptiveItemHeightLayout
+    public var layout: AdaptiveItemSizeLayout? {
+        return collectionView.collectionViewLayout as? AdaptiveItemSizeLayout
     }
     
-    public var configuration: AdaptiveItemHeightLayout.Configuration? {
+    public var configuration: AdaptiveHeightConfiguration? {
         return (layout?.container as? ColumnContainer)?.configuration
     }
     
-    private func reloadLayout(configuration: AdaptiveItemHeightLayout.Configuration) {
-        let newLayout = AdaptiveItemHeightLayout(configuration: configuration)
+    private func reloadLayout(configuration: AdaptiveHeightConfiguration) {
+        let newLayout = AdaptiveItemSizeLayout(adaptType: .height(configuration))
         newLayout.delegate = self
         collectionView.setCollectionViewLayout(newLayout, animated: true) { [weak self] (result) in
             self?.collectionView.reloadData()

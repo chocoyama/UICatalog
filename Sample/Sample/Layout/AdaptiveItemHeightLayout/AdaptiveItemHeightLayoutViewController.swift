@@ -19,7 +19,7 @@ class AdaptiveItemHeightLayoutViewController: UIViewController {
     }
 
     private func initLayout() {
-        let layout = AdaptiveItemHeightLayout()
+        let layout = AdaptiveItemSizeLayout(adaptType: .height(.default))
         layout.delegate = self
         collectionView.setCollectionViewLayout(layout, animated: false)
     }

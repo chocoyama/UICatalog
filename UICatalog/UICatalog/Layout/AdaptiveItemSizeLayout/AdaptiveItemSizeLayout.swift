@@ -9,11 +9,19 @@
 import UIKit
 
 open class AdaptiveItemSizeLayout: UICollectionViewLayout {
+    public enum AdaptType {
+        case height(AdaptiveHeightConfiguration)
+        case width(AdaptiveWidthConfiguration)
+    }
+    
     public let container: Containerable
     open weak var delegate: AdaptiveItemSizeLayoutDelegate?
     
-    public init(container: Containerable) {
-        self.container = container
+    public init(adaptType: AdaptType) {
+        switch adaptType {
+        case .height(let configuration): self.container = ColumnContainer(configureBy: configuration)
+        case .width(let configuration): self.container = RowContainer(configureBy: configuration)
+        }
         super.init()
     }
     

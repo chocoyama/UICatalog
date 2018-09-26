@@ -9,14 +9,14 @@
 import UIKit
 
 class RowContainer {
-    typealias Configuration = AdaptiveItemWidthLayout.Configuration
+    typealias Configuration = AdaptiveWidthConfiguration
     
-    private var rows = [AdaptiveItemWidthLayout.Row]()
-    let configuration: AdaptiveItemWidthLayout.Configuration
+    private var rows = [Row]()
+    let configuration: AdaptiveWidthConfiguration
     private var collectionViewWidth: CGFloat = .leastNormalMagnitude
     private var limitX: CGFloat = .leastNormalMagnitude
     
-    init(configuration: Configuration?) {
+    init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
     }
     
@@ -28,7 +28,7 @@ class RowContainer {
         }
     }
     
-    private func getCapableRow(nextItemSize: CGSize) -> AdaptiveItemWidthLayout.Row? {
+    private func getCapableRow(nextItemSize: CGSize) -> Row? {
         return rows.filter {
             let equalHeight = $0.height == nextItemSize.height
             let overLimit = $0.maxX + nextItemSize.width > limitX
@@ -36,8 +36,8 @@ class RowContainer {
             }.first
     }
     
-    private func addNewRow(with height: CGFloat) -> AdaptiveItemWidthLayout.Row {
-        let newRow = AdaptiveItemWidthLayout.Row(
+    private func addNewRow(with height: CGFloat) -> Row {
+        let newRow = Row(
             configuration: configuration,
             rowNumber: rows.count,
             height: height,
@@ -55,7 +55,7 @@ extension RowContainer: Containerable {
     }
     
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
-        let row: AdaptiveItemWidthLayout.Row
+        let row: Row
         if let capableRow = getCapableRow(nextItemSize: itemSize) {
             row = capableRow
         } else {

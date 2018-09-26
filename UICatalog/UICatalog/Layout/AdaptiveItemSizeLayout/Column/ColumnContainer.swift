@@ -9,21 +9,21 @@
 import UIKit
 
 class ColumnContainer {
-    typealias Configuration = AdaptiveItemHeightLayout.Configuration
+    typealias Configuration = AdaptiveHeightConfiguration
     
-    private var columns = [AdaptiveItemHeightLayout.Column]()
-    let configuration: AdaptiveItemHeightLayout.Configuration
+    private var columns = [Column]()
+    let configuration: AdaptiveHeightConfiguration
     
-    init(configuration: Configuration?) {
+    init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
-        columns = [AdaptiveItemHeightLayout.Column]()
+        columns = [Column]()
         (0..<self.configuration.columnCount).forEach{
-            let column = AdaptiveItemHeightLayout.Column(configuration: self.configuration, columnNumber: $0)
+            let column = Column(configuration: self.configuration, columnNumber: $0)
             self.columns.append(column)
         }
     }
     
-    private var next: AdaptiveItemHeightLayout.Column? {
+    private var next: Column? {
         return columns.sorted { (column1, column2) -> Bool in
             column1.maxY < column2.maxY
         }.first
@@ -63,9 +63,9 @@ extension ColumnContainer: Containerable {
     
     func reset() {
         let count = columns.count
-        columns = [AdaptiveItemHeightLayout.Column]()
+        columns = [Column]()
         (0..<count).forEach {
-            let column = AdaptiveItemHeightLayout.Column(configuration: configuration, columnNumber: $0)
+            let column = Column(configuration: configuration, columnNumber: $0)
             self.columns.append(column)
         }
     }
