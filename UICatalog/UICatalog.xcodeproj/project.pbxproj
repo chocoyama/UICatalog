@@ -111,8 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				6B27139E215A58D200CBB58E /* AdaptiveItemWidthLayout.swift */,
-				6B2713A2215A71A900CBB58E /* Row.swift */,
-				6B2713A4215A71B700CBB58E /* RowContainer.swift */,
 				6B2713A6215A72CF00CBB58E /* AdaptiveItemWidthLayoutConfiguration.swift */,
 			);
 			path = AdaptiveItemWidthLayout;
@@ -159,8 +157,6 @@
 			children = (
 				6B33DF762158BDBA006143A4 /* AdaptiveItemHeightLayout.swift */,
 				6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */,
-				6B33DF732158BDB9006143A4 /* Column.swift */,
-				6B33DF742158BDBA006143A4 /* ColumnContainer.swift */,
 				6B2713A0215A593500CBB58E /* AdaptiveItemHeightLayoutConfiguration.swift */,
 			);
 			path = AdaptiveItemHeightLayout;
@@ -282,13 +278,41 @@
 		800D02BC215B903300F2A55F /* AdaptiveItemSizeLayout */ = {
 			isa = PBXGroup;
 			children = (
+				800D02C1215B9BF400F2A55F /* Container */,
 				6B27139D215A58BD00CBB58E /* AdaptiveItemWidthLayout */,
 				6B33DF872158C2E5006143A4 /* AdaptiveItemHeightLayout */,
-				800D02BD215B904A00F2A55F /* Containerable.swift */,
 				800D02BF215B949200F2A55F /* AdaptiveItemSizeLayout.swift */,
 				6B2713A8215A766E00CBB58E /* AdaptiveItemSizeLayoutDelegate.swift */,
 			);
 			path = AdaptiveItemSizeLayout;
+			sourceTree = "<group>";
+		};
+		800D02C1215B9BF400F2A55F /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				800D02C3215B9C1E00F2A55F /* Column */,
+				800D02C2215B9C1500F2A55F /* Row */,
+				800D02BD215B904A00F2A55F /* Containerable.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		800D02C2215B9C1500F2A55F /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				6B2713A2215A71A900CBB58E /* Row.swift */,
+				6B2713A4215A71B700CBB58E /* RowContainer.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		800D02C3215B9C1E00F2A55F /* Column */ = {
+			isa = PBXGroup;
+			children = (
+				6B33DF732158BDB9006143A4 /* Column.swift */,
+				6B33DF742158BDBA006143A4 /* ColumnContainer.swift */,
+			);
+			path = Column;
 			sourceTree = "<group>";
 		};
 		803D6B0D215B0A29007C332E /* SoundWaveButton */ = {
