@@ -46,7 +46,7 @@ extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
     }
 }
 
-extension AdaptiveItemHeightLayoutViewController: AdaptiveItemHeightLayoutable {
+extension AdaptiveItemHeightLayoutViewController: AdaptiveItemSizeLayoutDelegate, ColumnCountDynamicAsignable {
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
         return .random(min: 150.0, max: 300.0)
     }

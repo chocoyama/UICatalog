@@ -12,12 +12,12 @@ class RowContainer {
     typealias Configuration = AdaptiveItemWidthLayout.Configuration
     
     private var rows = [AdaptiveItemWidthLayout.Row]()
-    private let configuration: AdaptiveItemWidthLayout.Configuration
+    let configuration: AdaptiveItemWidthLayout.Configuration
     private var collectionViewWidth: CGFloat = .leastNormalMagnitude
     private var limitX: CGFloat = .leastNormalMagnitude
     
-    init(configuration: Configuration) {
-        self.configuration = configuration
+    init(configuration: Configuration?) {
+        self.configuration = configuration ?? Configuration()
     }
     
     private var nextRowOriginY: CGFloat {

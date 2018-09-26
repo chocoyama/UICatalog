@@ -12,13 +12,13 @@ class ColumnContainer {
     typealias Configuration = AdaptiveItemHeightLayout.Configuration
     
     private var columns = [AdaptiveItemHeightLayout.Column]()
-    private let configuration: AdaptiveItemHeightLayout.Configuration
+    let configuration: AdaptiveItemHeightLayout.Configuration
     
-    init(configuration: Configuration) {
-        self.configuration = configuration
+    init(configuration: Configuration?) {
+        self.configuration = configuration ?? Configuration()
         columns = [AdaptiveItemHeightLayout.Column]()
-        (0..<configuration.columnCount).forEach{
-            let column = AdaptiveItemHeightLayout.Column(configuration: configuration, columnNumber: $0)
+        (0..<self.configuration.columnCount).forEach{
+            let column = AdaptiveItemHeightLayout.Column(configuration: self.configuration, columnNumber: $0)
             self.columns.append(column)
         }
     }

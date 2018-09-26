@@ -33,7 +33,7 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
     }
 }
 
-extension AdaptiveItemWidthLayoutViewController: AdaptiveItemWidthLayoutable {
+extension AdaptiveItemWidthLayoutViewController: AdaptiveItemSizeLayoutDelegate {
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
         return .random(min: 10, max: 80)
     }
