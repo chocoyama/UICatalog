@@ -12,9 +12,7 @@ import UICatalog
 class AdaptiveItemWidthLayoutViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var layout = AdaptiveItemWidthLayout(configuration: .init(
-        rowHeight: AdaptiveItemWidthLayoutViewController.rowHeight
-    ))
+    var layout = AdaptiveItemWidthLayout()
     
     private static let rowHeight: CGFloat = 50.0
     
@@ -40,7 +38,7 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
 }
 
 extension AdaptiveItemWidthLayoutViewController: AdaptiveItemWidthLayoutable {
-    func widthForItem(at indexPath: IndexPath) -> CGFloat {
-        return CGSize.random(min: 10, max: 60).width
+    func sizeForItem(at indexPath: IndexPath) -> CGSize {
+        return .random(min: 10, max: 80)
     }
 }

@@ -41,9 +41,7 @@ extension AdaptiveItemWidthLayout {
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
-                let width = delegate?.widthForItem(at: indexPath) ?? 0.0
-                let height = configuration.rowHeight
-                let itemSize = CGSize(width: width, height: height)
+                let itemSize = delegate?.sizeForItem(at: indexPath) ?? .zero
                 rowContainer.addAttributes(indexPath: indexPath, itemSize: itemSize)
             }
         }

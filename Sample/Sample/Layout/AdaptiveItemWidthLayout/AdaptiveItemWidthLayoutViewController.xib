@@ -21,8 +21,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vre-iW-0LM">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="8" y="28" width="359" height="631"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JRO-ca-8cT">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,10 +34,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vre-iW-0LM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="6Pb-V8-COG"/>
-                <constraint firstItem="vre-iW-0LM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="TbT-r3-sSq"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vre-iW-0LM" secondAttribute="trailing" id="jsh-gh-H98"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="vre-iW-0LM" secondAttribute="bottom" id="xsa-5z-uRE"/>
+                <constraint firstItem="vre-iW-0LM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="6Pb-V8-COG"/>
+                <constraint firstItem="vre-iW-0LM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="TbT-r3-sSq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vre-iW-0LM" secondAttribute="trailing" constant="8" id="jsh-gh-H98"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="vre-iW-0LM" secondAttribute="bottom" constant="8" id="xsa-5z-uRE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

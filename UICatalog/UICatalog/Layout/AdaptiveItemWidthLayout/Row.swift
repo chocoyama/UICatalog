@@ -11,15 +11,26 @@ import Foundation
 extension AdaptiveItemWidthLayout {
     class Row {
         let rowNumber: Int // zero origin
-        var maxY: CGFloat { return originY + configuration.rowHeight }
+        let height: CGFloat
+        let originY: CGFloat
         private(set) var maxX: CGFloat = 0.0
+        var maxY: CGFloat {
+            return originY + height
+        }
         
         private let configuration: AdaptiveItemWidthLayout.Configuration
         private var attributesSet = [UICollectionViewLayoutAttributes]()
         
-        init(configuration: AdaptiveItemWidthLayout.Configuration, rowNumber: Int) {
+        init(
+            configuration: AdaptiveItemWidthLayout.Configuration,
+            rowNumber: Int,
+            height: CGFloat,
+            originY: CGFloat
+        ) {
             self.configuration = configuration
             self.rowNumber = rowNumber
+            self.height = height
+            self.originY = originY
         }
         
         func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
@@ -51,17 +62,6 @@ extension AdaptiveItemWidthLayout {
                 return configuration.sectionInsets.left
             } else {
                 return maxX + configuration.minimumInterItemSpacing
-            }
-        }
-        
-        private var originY: CGFloat {
-            if rowNumber == 0 {
-                return configuration.sectionInsets.top
-            } else {
-                let topMargin = configuration.sectionInsets.top
-                let totalCellHeight = configuration.rowHeight * CGFloat(rowNumber)
-                let totalLineSpacing = configuration.minimumLineSpacing * CGFloat(rowNumber)
-                return topMargin + totalCellHeight + totalLineSpacing
             }
         }
     }

@@ -25,15 +25,35 @@ extension AdaptiveItemWidthLayout {
             return CGSize(width: collectionViewWidth, height: height ?? 0.0)
         }
         
-        private func getCapableRow(nextItemSize: CGSize) -> Row {
-            let limitX = collectionViewWidth - configuration.sectionInsets.right
-            if let capableRow = rows.filter({ $0.maxX + nextItemSize.width <= limitX }).first {
-                return capableRow
+        private var limitX: CGFloat {
+            return collectionViewWidth - configuration.sectionInsets.right
+        }
+        
+        private var nextRowOriginY: CGFloat {
+            if let lastRow = rows.last {
+                return lastRow.maxY + configuration.minimumLineSpacing
             } else {
-                let newRow = Row(configuration: configuration, rowNumber: rows.count)
-                rows.append(newRow)
-                return newRow
+                return configuration.sectionInsets.top
             }
+        }
+        
+        private func getCapableRow(nextItemSize: CGSize) -> Row? {
+            return rows.filter {
+                let equalHeight = $0.height == nextItemSize.height
+                let overLimit = $0.maxX + nextItemSize.width > limitX
+                return equalHeight && !overLimit
+            }.first
+        }
+        
+        private func addNewRow(with height: CGFloat) -> Row {
+            let newRow = Row(
+                configuration: configuration,
+                rowNumber: rows.count,
+                height: height,
+                originY: nextRowOriginY
+            )
+            rows.append(newRow)
+            return newRow
         }
         
         func setCollectionViewWidth(_ width: CGFloat) {
@@ -41,8 +61,13 @@ extension AdaptiveItemWidthLayout {
         }
         
         func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
-            let capableRow = getCapableRow(nextItemSize: itemSize)
-            capableRow.addAttributes(indexPath: indexPath, itemSize: itemSize)
+            let row: Row
+            if let capableRow = getCapableRow(nextItemSize: itemSize) {
+                row = capableRow
+            } else {
+                row = addNewRow(with: itemSize.height)
+            }
+            row.addAttributes(indexPath: indexPath, itemSize: itemSize)
         }
         
         func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

@@ -13,18 +13,15 @@ extension AdaptiveItemWidthLayout {
         public var minimumInterItemSpacing: CGFloat
         public var minimumLineSpacing: CGFloat
         public var sectionInsets: UIEdgeInsets
-        public var rowHeight: CGFloat
         
         public init(
             minimumInterItemSpacing: CGFloat = 5.0,
             minimumLineSpacing: CGFloat = 10.0,
-            sectionInsets: UIEdgeInsets = .zero,
-            rowHeight: CGFloat = .leastNormalMagnitude
+            sectionInsets: UIEdgeInsets = .zero
         ) {
             self.minimumInterItemSpacing = minimumInterItemSpacing
             self.minimumLineSpacing = minimumLineSpacing
             self.sectionInsets = sectionInsets
-            self.rowHeight = rowHeight
         }
     }
 }
