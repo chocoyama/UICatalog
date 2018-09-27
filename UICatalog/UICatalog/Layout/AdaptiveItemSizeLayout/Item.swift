@@ -8,7 +8,8 @@
 
 import Foundation
 
-protocol Item {
+public protocol Item {
+    var number: Int { get }
     var maxX: CGFloat { get }
     var maxY: CGFloat { get }
     var originX: CGFloat { get }

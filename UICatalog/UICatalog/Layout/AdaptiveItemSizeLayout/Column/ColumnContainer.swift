@@ -11,26 +11,26 @@ import UIKit
 class ColumnContainer {
     typealias Configuration = AdaptiveHeightConfiguration
     
-    private var columns = [Column]()
+    var items: [Item] = []
     let configuration: AdaptiveHeightConfiguration
     
     init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
-        columns = [Column]()
+        items = [Column]()
         (0..<self.configuration.columnCount).forEach{
             let column = Column(configuration: self.configuration, columnNumber: $0)
-            self.columns.append(column)
+            self.items.append(column)
         }
     }
     
-    private var next: Column? {
-        return columns.sorted { (column1, column2) -> Bool in
+    private var next: Item? {
+        return items.sorted { (column1, column2) -> Bool in
             column1.maxY < column2.maxY
         }.first
     }
     
     private var bottomY: CGFloat {
-        let bottomItem = columns.sorted { (column1, column2) -> Bool in
+        let bottomItem = items.sorted { (column1, column2) -> Bool in
             column1.maxY < column2.maxY
             }.last
         
@@ -53,20 +53,12 @@ extension ColumnContainer: Containerable {
         return CGSize(width: collectionViewWidth, height: bottomY)
     }
     
-    func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return columns.flatMap { $0.getAttributes(rect: rect) }
-    }
-    
-    func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return columns.compactMap { $0.getAttributes(indexPath: indexPath) }.first
-    }
-    
     func reset() {
-        let count = columns.count
-        columns = [Column]()
+        let count = items.count
+        items = [Column]()
         (0..<count).forEach {
             let column = Column(configuration: configuration, columnNumber: $0)
-            self.columns.append(column)
+            self.items.append(column)
         }
     }
 }

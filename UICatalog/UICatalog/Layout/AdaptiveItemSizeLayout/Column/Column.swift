@@ -9,9 +9,7 @@
 import UIKit
 
 class Column: Item {
-    private let configuration: AdaptiveHeightConfiguration
-    private let columnNumber: Int // zero origin
-    var attributesSet = [UICollectionViewLayoutAttributes]()
+    let number: Int // zero origin
     
     var maxX: CGFloat {
         return originX + configuration.itemWidth
@@ -20,8 +18,8 @@ class Column: Item {
     private(set) var maxY: CGFloat = 0.0
     var originX: CGFloat {
         var x = configuration.sectionInsets.left
-        if columnNumber != 0 {
-            x += (configuration.itemWidth + configuration.minimumInterItemSpacing) * CGFloat(columnNumber)
+        if number != 0 {
+            x += (configuration.itemWidth + configuration.minimumInterItemSpacing) * CGFloat(number)
         }
         return x
     }
@@ -37,9 +35,12 @@ class Column: Item {
         }
     }
     
+    private let configuration: AdaptiveHeightConfiguration
+    var attributesSet = [UICollectionViewLayoutAttributes]()
+    
     init(configuration: AdaptiveHeightConfiguration, columnNumber: Int) {
         self.configuration = configuration
-        self.columnNumber = columnNumber
+        self.number = columnNumber
     }
     
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {

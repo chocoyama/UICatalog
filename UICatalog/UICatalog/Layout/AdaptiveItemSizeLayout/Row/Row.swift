@@ -9,7 +9,7 @@
 import Foundation
 
 class Row: Item {
-    let rowNumber: Int // zero origin
+    let number: Int // zero origin
     
     private(set) var maxX: CGFloat = 0.0
     var maxY: CGFloat {
@@ -39,7 +39,7 @@ class Row: Item {
         width: CGFloat
     ) {
         self.configuration = configuration
-        self.rowNumber = rowNumber
+        self.number = rowNumber
         self.height = height
         self.originY = originY
         self.width = width
