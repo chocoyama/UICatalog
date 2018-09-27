@@ -11,30 +11,30 @@ import UIKit
 class ColumnContainer {
     typealias Configuration = AdaptiveHeightConfiguration
     
-    var items: [Line] = []
+    var lines: [Line] = []
     let configuration: AdaptiveHeightConfiguration
     
     init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
-        items = [Column]()
+        lines = [Column]()
         (0..<self.configuration.columnCount).forEach{
             let column = Column(configuration: self.configuration, columnNumber: $0)
-            self.items.append(column)
+            self.lines.append(column)
         }
     }
     
-    private var next: Line? {
-        return items.sorted { (column1, column2) -> Bool in
-            column1.maxY < column2.maxY
+    private var nextLine: Line? {
+        return lines.sorted { (line1, line2) -> Bool in
+            line1.maxY < line2.maxY
         }.first
     }
     
     private var bottomY: CGFloat {
-        let bottomItem = items.sorted { (column1, column2) -> Bool in
-            column1.maxY < column2.maxY
-            }.last
+        let bottomLine = lines.sorted { (line1, line2) -> Bool in
+            line1.maxY < line2.maxY
+        }.last
         
-        if let maxY = bottomItem?.maxY {
+        if let maxY = bottomLine?.maxY {
             return maxY + configuration.sectionInsets.bottom
         } else {
             return .leastNormalMagnitude
@@ -43,11 +43,10 @@ class ColumnContainer {
     
     /// あらかじめ必要な分のカラムを生成しておく
     private func setUpColumns() {
-        let count = items.count
-        items = [Column]()
+        let count = lines.count
+        lines = [Column]()
         (0..<count).forEach {
-            let column = Column(configuration: configuration, columnNumber: $0)
-            self.items.append(column)
+            self.lines.append(Column(configuration: configuration, columnNumber: $0))
         }
     }
 }
@@ -56,7 +55,7 @@ extension ColumnContainer: Containerable {
     func setCollectionViewFrame(_ frame: CGRect) {}
     
     func addItem(indexPath: IndexPath, itemSize: CGSize) {
-        next?.addAttributes(indexPath: indexPath, itemSize: itemSize)
+        nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize {
