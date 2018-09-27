@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Column: Item {
+class Column: Line {
     let number: Int // zero origin
     
     var maxX: CGFloat { return originX + configuration.itemWidth }

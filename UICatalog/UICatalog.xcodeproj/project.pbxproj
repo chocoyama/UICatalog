@@ -43,7 +43,7 @@
 		6BDAE55221526B5100BBB47A /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE55121526B5100BBB47A /* TapticEngine.swift */; };
 		800D02BE215B904A00F2A55F /* Containerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02BD215B904A00F2A55F /* Containerable.swift */; };
 		800D02C0215B949200F2A55F /* AdaptiveItemSizeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02BF215B949200F2A55F /* AdaptiveItemSizeLayout.swift */; };
-		800D02C5215C520300F2A55F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02C4215C520300F2A55F /* Item.swift */; };
+		800D02C5215C520300F2A55F /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02C4215C520300F2A55F /* Line.swift */; };
 		803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 803D6B09215B0A24007C332E /* SoundWaveButton.xib */; };
 		803D6B0C215B0A24007C332E /* SoundWaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803D6B0A215B0A24007C332E /* SoundWaveButton.swift */; };
 		80C37A4B21560A0D00977C0B /* Painter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C37A4A21560A0D00977C0B /* Painter.swift */; };
@@ -88,7 +88,7 @@
 		6BDAE55121526B5100BBB47A /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
 		800D02BD215B904A00F2A55F /* Containerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containerable.swift; sourceTree = "<group>"; };
 		800D02BF215B949200F2A55F /* AdaptiveItemSizeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemSizeLayout.swift; sourceTree = "<group>"; };
-		800D02C4215C520300F2A55F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		800D02C4215C520300F2A55F /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		803D6B09215B0A24007C332E /* SoundWaveButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SoundWaveButton.xib; sourceTree = "<group>"; };
 		803D6B0A215B0A24007C332E /* SoundWaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundWaveButton.swift; sourceTree = "<group>"; };
 		80C37A4A21560A0D00977C0B /* Painter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painter.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 				800D02BF215B949200F2A55F /* AdaptiveItemSizeLayout.swift */,
 				800D02BD215B904A00F2A55F /* Containerable.swift */,
 				6B2713A8215A766E00CBB58E /* AdaptiveItemSizeLayoutDelegate.swift */,
-				800D02C4215C520300F2A55F /* Item.swift */,
+				800D02C4215C520300F2A55F /* Line.swift */,
 			);
 			path = AdaptiveItemSizeLayout;
 			sourceTree = "<group>";
@@ -391,7 +391,7 @@
 			files = (
 				6B2713A7215A72CF00CBB58E /* AdaptiveItemWidthConfiguration.swift in Sources */,
 				6B2713A9215A766E00CBB58E /* AdaptiveItemSizeLayoutDelegate.swift in Sources */,
-				800D02C5215C520300F2A55F /* Item.swift in Sources */,
+				800D02C5215C520300F2A55F /* Line.swift in Sources */,
 				6B33DF7A2158BDBA006143A4 /* ColumnContainer.swift in Sources */,
 				6BDAE54821526B2500BBB47A /* CellRegisterable.swift in Sources */,
 				6BDAE525215265E200BBB47A /* RangeSlider.swift in Sources */,

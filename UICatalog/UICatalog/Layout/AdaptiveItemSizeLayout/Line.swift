@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Item {
+public protocol Line {
     var number: Int { get }
     var maxX: CGFloat { get }
     var maxY: CGFloat { get }
@@ -22,7 +22,7 @@ public protocol Item {
     func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes]
 }
 
-extension Item {
+extension Line {
     func getAttributes(indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return attributesSet.filter {
             let equalSection = $0.indexPath.section == indexPath.section

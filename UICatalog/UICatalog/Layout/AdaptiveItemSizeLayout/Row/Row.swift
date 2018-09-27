@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Row: Item {
+class Row: Line {
     let number: Int // zero origin
     
     private(set) var maxX: CGFloat = 0.0

@@ -40,7 +40,7 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
                 let itemSize = delegate?.sizeForItem(at: indexPath) ?? .zero
-                container.addAttributes(indexPath: indexPath, itemSize: itemSize)
+                container.addItem(indexPath: indexPath, itemSize: itemSize)
             }
         }
     }

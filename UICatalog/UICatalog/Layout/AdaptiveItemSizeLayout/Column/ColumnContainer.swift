@@ -11,7 +11,7 @@ import UIKit
 class ColumnContainer {
     typealias Configuration = AdaptiveHeightConfiguration
     
-    var items: [Item] = []
+    var items: [Line] = []
     let configuration: AdaptiveHeightConfiguration
     
     init(configureBy configuration: Configuration?) {
@@ -23,7 +23,7 @@ class ColumnContainer {
         }
     }
     
-    private var next: Item? {
+    private var next: Line? {
         return items.sorted { (column1, column2) -> Bool in
             column1.maxY < column2.maxY
         }.first
@@ -55,7 +55,7 @@ class ColumnContainer {
 extension ColumnContainer: Containerable {
     func setCollectionViewFrame(_ frame: CGRect) {}
     
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
+    func addItem(indexPath: IndexPath, itemSize: CGSize) {
         next?.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     

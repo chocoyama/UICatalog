@@ -9,9 +9,9 @@
 import UIKit
 
 public protocol Containerable {
-    var items: [Item] { get set }
+    var items: [Line] { get set }
     func setCollectionViewFrame(_ frame: CGRect)
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize)
+    func addItem(indexPath: IndexPath, itemSize: CGSize)
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize
     func reset()
 }

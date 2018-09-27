@@ -11,7 +11,7 @@ import UIKit
 class RowContainer {
     typealias Configuration = AdaptiveWidthConfiguration
     
-    var items: [Item] = []
+    var items: [Line] = []
     let configuration: AdaptiveWidthConfiguration
     
     private var collectionViewWidth: CGFloat = .leastNormalMagnitude
@@ -29,7 +29,7 @@ class RowContainer {
         }
     }
     
-    private func getCapableRow(nextItemSize: CGSize) -> Item? {
+    private func getCapableRow(nextItemSize: CGSize) -> Line? {
         return items.filter {
             let equalHeight = $0.height == nextItemSize.height
             let overLimit = $0.maxX + nextItemSize.width > limitX
@@ -41,7 +41,7 @@ class RowContainer {
     ///
     /// - Parameter height: 生成するItemの高さ
     /// - Returns: 生成したItem
-    private func addNewRow(with height: CGFloat) -> Item {
+    private func addNewRow(with height: CGFloat) -> Line {
         let newRow = Row(
             configuration: configuration,
             rowNumber: items.count,
@@ -60,8 +60,8 @@ extension RowContainer: Containerable {
         self.limitX = frame.width - configuration.sectionInsets.right
     }
     
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
-        let row: Item
+    func addItem(indexPath: IndexPath, itemSize: CGSize) {
+        let row: Line
         if let capableRow = getCapableRow(nextItemSize: itemSize) {
             row = capableRow
         } else {
