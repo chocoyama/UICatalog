@@ -16,10 +16,8 @@ class ColumnContainer {
     
     init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
-        lines = [Column]()
-        (0..<self.configuration.columnCount).forEach{
-            let column = Column(configuration: self.configuration, columnNumber: $0)
-            self.lines.append(column)
+        (0..<self.configuration.columnCount).forEach {
+            self.lines.append(Column(configuration: self.configuration, columnNumber: $0))
         }
     }
     

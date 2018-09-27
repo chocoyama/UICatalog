@@ -47,17 +47,5 @@ public struct AdaptiveHeightConfiguration {
     public var totalSpace: Int {
         return columnCount - 1
     }
-    
-    public var itemWidth: CGFloat {
-        let totalHorizontalInsets = sectionInsets.left + sectionInsets.right
-        let totalInterItemSpace = minimumInterItemSpacing * CGFloat(totalSpace)
-        let itemWidth = (UIScreen.main.bounds.width - totalHorizontalInsets - totalInterItemSpace) / CGFloat(columnCount)
-        return itemWidth
-    }
-    
-    public func itemHeight(rawItemSize: CGSize) -> CGFloat {
-        let itemHeight = rawItemSize.height * itemWidth / rawItemSize.width
-        return itemHeight
-    }
 }
 

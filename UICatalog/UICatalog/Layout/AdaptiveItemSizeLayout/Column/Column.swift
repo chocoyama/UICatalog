@@ -11,17 +11,22 @@ import UIKit
 class Column: Line {
     let number: Int // zero origin
     
-    var maxX: CGFloat { return originX + configuration.itemWidth }
+    var maxX: CGFloat { return originX + width }
     private(set) var maxY: CGFloat = 0.0
     var originX: CGFloat {
         var x = configuration.sectionInsets.left
         if number != 0 {
-            x += (configuration.itemWidth + configuration.minimumInterItemSpacing) * CGFloat(number)
+            x += (width + configuration.minimumInterItemSpacing) * CGFloat(number)
         }
         return x
     }
     let originY: CGFloat = 0.0
-    var width: CGFloat { return configuration.itemWidth }
+    var width: CGFloat {
+        let totalHorizontalInsets = configuration.sectionInsets.left + configuration.sectionInsets.right
+        let totalInterItemSpace = configuration.minimumInterItemSpacing * CGFloat(configuration.totalSpace)
+        let itemWidth = (UIScreen.main.bounds.width - totalHorizontalInsets - totalInterItemSpace) / CGFloat(configuration.columnCount)
+        return itemWidth
+    }
     var height: CGFloat { return maxY }
     
     private let configuration: AdaptiveHeightConfiguration
@@ -42,8 +47,8 @@ extension Column {
         attributes.frame = CGRect(
             x: originX,
             y: nextOriginY,
-            width: configuration.itemWidth,
-            height: configuration.itemHeight(rawItemSize: itemSize)
+            width: width,
+            height: itemSize.height * width / itemSize.width
         )
         maxY = attributes.frame.maxY
         attributesSet.append(attributes)
