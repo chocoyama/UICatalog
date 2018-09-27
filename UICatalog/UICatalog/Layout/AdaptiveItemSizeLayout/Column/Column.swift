@@ -8,26 +8,28 @@
 
 import UIKit
 
-class Column {
+class Column: Item {
     private let configuration: AdaptiveHeightConfiguration
-    private let columnNumber: Int
-    private var attributesSet = [UICollectionViewLayoutAttributes]()
-    private(set) var maxY: CGFloat = 0.0
+    private let columnNumber: Int // zero origin
+    var attributesSet = [UICollectionViewLayoutAttributes]()
     
-    init(configuration: AdaptiveHeightConfiguration, columnNumber: Int) {
-        self.configuration = configuration
-        self.columnNumber = columnNumber
+    var maxX: CGFloat {
+        return originX + configuration.itemWidth
     }
     
-    private var originX: CGFloat {
+    private(set) var maxY: CGFloat = 0.0
+    var originX: CGFloat {
         var x = configuration.sectionInsets.left
         if columnNumber != 0 {
             x += (configuration.itemWidth + configuration.minimumInterItemSpacing) * CGFloat(columnNumber)
         }
         return x
     }
+    let originY: CGFloat = 0.0
+    var width: CGFloat { return configuration.itemWidth }
+    var height: CGFloat { return maxY }
     
-    private var originY: CGFloat {
+    private var nextOriginY: CGFloat {
         if attributesSet.isEmpty {
             return configuration.sectionInsets.top
         } else {
@@ -35,25 +37,20 @@ class Column {
         }
     }
     
+    init(configuration: AdaptiveHeightConfiguration, columnNumber: Int) {
+        self.configuration = configuration
+        self.columnNumber = columnNumber
+    }
+    
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(
             x: originX,
-            y: originY,
+            y: nextOriginY,
             width: configuration.itemWidth,
             height: configuration.itemHeight(rawItemSize: itemSize)
         )
         maxY = attributes.frame.maxY
         attributesSet.append(attributes)
-    }
-    
-    func getAttributes(indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return attributesSet.filter{
-            $0.indexPath.section == indexPath.section && $0.indexPath.item == indexPath.item
-            }.first
-    }
-    
-    func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes] {
-        return attributesSet.filter{ $0.frame.intersects(rect) }
     }
 }

@@ -33,7 +33,7 @@ class RowContainer {
             let equalHeight = $0.height == nextItemSize.height
             let overLimit = $0.maxX + nextItemSize.width > limitX
             return equalHeight && !overLimit
-            }.first
+        }.first
     }
     
     private func addNewRow(with height: CGFloat) -> Row {
@@ -41,7 +41,8 @@ class RowContainer {
             configuration: configuration,
             rowNumber: rows.count,
             height: height,
-            originY: nextRowOriginY
+            originY: nextRowOriginY,
+            width: self.collectionViewWidth
         )
         rows.append(newRow)
         return newRow
