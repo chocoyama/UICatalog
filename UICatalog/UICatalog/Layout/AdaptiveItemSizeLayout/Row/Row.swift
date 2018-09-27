@@ -20,14 +20,6 @@ class Row: Item {
     let width: CGFloat
     let height: CGFloat
     
-    private var nextOriginX: CGFloat {
-        if attributesSet.isEmpty {
-            return configuration.sectionInsets.left
-        } else {
-            return maxX + configuration.minimumInterItemSpacing
-        }
-    }
-    
     private let configuration: AdaptiveWidthConfiguration
     var attributesSet = [UICollectionViewLayoutAttributes]()
     
@@ -44,7 +36,9 @@ class Row: Item {
         self.originY = originY
         self.width = width
     }
-    
+}
+
+extension Row {
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(
@@ -55,5 +49,13 @@ class Row: Item {
         )
         maxX = attributes.frame.maxX
         attributesSet.append(attributes)
+    }
+    
+    private var nextOriginX: CGFloat {
+        if attributesSet.isEmpty {
+            return configuration.sectionInsets.left
+        } else {
+            return maxX + configuration.minimumInterItemSpacing
+        }
     }
 }

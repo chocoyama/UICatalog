@@ -13,6 +13,7 @@ class RowContainer {
     
     var items: [Item] = []
     let configuration: AdaptiveWidthConfiguration
+    
     private var collectionViewWidth: CGFloat = .leastNormalMagnitude
     private var limitX: CGFloat = .leastNormalMagnitude
     
@@ -36,6 +37,10 @@ class RowContainer {
         }.first
     }
     
+    /// 追加したいCellの高さに適合したItemがない場合、新たにItemを生成する
+    ///
+    /// - Parameter height: 生成するItemの高さ
+    /// - Returns: 生成したItem
     private func addNewRow(with height: CGFloat) -> Item {
         let newRow = Row(
             configuration: configuration,

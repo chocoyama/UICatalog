@@ -11,10 +11,7 @@ import UIKit
 class Column: Item {
     let number: Int // zero origin
     
-    var maxX: CGFloat {
-        return originX + configuration.itemWidth
-    }
-    
+    var maxX: CGFloat { return originX + configuration.itemWidth }
     private(set) var maxY: CGFloat = 0.0
     var originX: CGFloat {
         var x = configuration.sectionInsets.left
@@ -27,22 +24,19 @@ class Column: Item {
     var width: CGFloat { return configuration.itemWidth }
     var height: CGFloat { return maxY }
     
-    private var nextOriginY: CGFloat {
-        if attributesSet.isEmpty {
-            return configuration.sectionInsets.top
-        } else {
-            return maxY + configuration.minimumLineSpacing
-        }
-    }
-    
     private let configuration: AdaptiveHeightConfiguration
     var attributesSet = [UICollectionViewLayoutAttributes]()
     
-    init(configuration: AdaptiveHeightConfiguration, columnNumber: Int) {
+    init(
+        configuration: AdaptiveHeightConfiguration,
+        columnNumber: Int
+    ) {
         self.configuration = configuration
         self.number = columnNumber
     }
-    
+}
+
+extension Column {
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(
@@ -53,5 +47,13 @@ class Column: Item {
         )
         maxY = attributes.frame.maxY
         attributesSet.append(attributes)
+    }
+    
+    private var nextOriginY: CGFloat {
+        if attributesSet.isEmpty {
+            return configuration.sectionInsets.top
+        } else {
+            return maxY + configuration.minimumLineSpacing
+        }
     }
 }

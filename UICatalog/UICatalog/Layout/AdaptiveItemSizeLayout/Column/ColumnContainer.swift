@@ -40,6 +40,16 @@ class ColumnContainer {
             return .leastNormalMagnitude
         }
     }
+    
+    /// あらかじめ必要な分のカラムを生成しておく
+    private func setUpColumns() {
+        let count = items.count
+        items = [Column]()
+        (0..<count).forEach {
+            let column = Column(configuration: configuration, columnNumber: $0)
+            self.items.append(column)
+        }
+    }
 }
 
 extension ColumnContainer: Containerable {
@@ -54,11 +64,6 @@ extension ColumnContainer: Containerable {
     }
     
     func reset() {
-        let count = items.count
-        items = [Column]()
-        (0..<count).forEach {
-            let column = Column(configuration: configuration, columnNumber: $0)
-            self.items.append(column)
-        }
+        setUpColumns()
     }
 }
