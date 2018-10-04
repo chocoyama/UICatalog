@@ -12,3 +12,9 @@ public protocol AdaptiveItemSizeLayoutDelegate: class {
     var collectionView: UICollectionView! { get }
     func sizeForItem(at indexPath: IndexPath) -> CGSize
 }
+
+extension AdaptiveItemSizeLayoutDelegate {
+    func getAdaptiveItemSizeLayout() -> AdaptiveItemSizeLayout? {
+        return collectionView.collectionViewLayout as? AdaptiveItemSizeLayout
+    }
+}

@@ -9,10 +9,19 @@
 import UIKit
 
 public protocol Containerable {
+    var lines: [Line] { get set }
     func setCollectionViewFrame(_ frame: CGRect)
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize)
+    func addItem(indexPath: IndexPath, itemSize: CGSize)
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize
-    func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]?
-    func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes?
     func reset()
+}
+
+extension Containerable {
+    func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        return lines.flatMap { $0.getAttributes(rect: rect) }
+    }
+
+    func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return lines.compactMap { $0.getAttributes(indexPath: indexPath) }.first
+    }
 }

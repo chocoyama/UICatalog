@@ -21,7 +21,7 @@ public struct AdaptiveWidthConfiguration {
         minimumInterItemSpacing: CGFloat = 5.0,
         minimumLineSpacing: CGFloat = 10.0,
         sectionInsets: UIEdgeInsets = .zero
-        ) {
+    ) {
         self.minimumInterItemSpacing = minimumInterItemSpacing
         self.minimumLineSpacing = minimumLineSpacing
         self.sectionInsets = sectionInsets

@@ -8,52 +8,57 @@
 
 import UIKit
 
-class Column {
-    private let configuration: AdaptiveHeightConfiguration
-    private let columnNumber: Int
-    private var attributesSet = [UICollectionViewLayoutAttributes]()
+class Column: Line {
+    let number: Int // zero origin
+    
+    var maxX: CGFloat { return originX + width }
     private(set) var maxY: CGFloat = 0.0
-    
-    init(configuration: AdaptiveHeightConfiguration, columnNumber: Int) {
-        self.configuration = configuration
-        self.columnNumber = columnNumber
-    }
-    
-    private var originX: CGFloat {
+    var originX: CGFloat {
         var x = configuration.sectionInsets.left
-        if columnNumber != 0 {
-            x += (configuration.itemWidth + configuration.minimumInterItemSpacing) * CGFloat(columnNumber)
+        if number != 0 {
+            x += (width + configuration.minimumInterItemSpacing) * CGFloat(number)
         }
         return x
     }
-    
-    private var originY: CGFloat {
-        if attributesSet.isEmpty {
-            return configuration.sectionInsets.top
-        } else {
-            return maxY + configuration.minimumLineSpacing
-        }
+    let originY: CGFloat = 0.0
+    var width: CGFloat {
+        let totalHorizontalInsets = configuration.sectionInsets.left + configuration.sectionInsets.right
+        let totalInterItemSpace = configuration.minimumInterItemSpacing * CGFloat(configuration.totalSpace)
+        let itemWidth = (UIScreen.main.bounds.width - totalHorizontalInsets - totalInterItemSpace) / CGFloat(configuration.columnCount)
+        return itemWidth
     }
+    var height: CGFloat { return maxY }
     
+    private let configuration: AdaptiveHeightConfiguration
+    var attributesSet = [UICollectionViewLayoutAttributes]()
+    
+    init(
+        configuration: AdaptiveHeightConfiguration,
+        columnNumber: Int
+    ) {
+        self.configuration = configuration
+        self.number = columnNumber
+    }
+}
+
+extension Column {
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(
             x: originX,
-            y: originY,
-            width: configuration.itemWidth,
-            height: configuration.itemHeight(rawItemSize: itemSize)
+            y: nextOriginY,
+            width: width,
+            height: itemSize.height * width / itemSize.width
         )
         maxY = attributes.frame.maxY
         attributesSet.append(attributes)
     }
     
-    func getAttributes(indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return attributesSet.filter{
-            $0.indexPath.section == indexPath.section && $0.indexPath.item == indexPath.item
-            }.first
-    }
-    
-    func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes] {
-        return attributesSet.filter{ $0.frame.intersects(rect) }
+    private var nextOriginY: CGFloat {
+        if attributesSet.isEmpty {
+            return configuration.sectionInsets.top
+        } else {
+            return maxY + configuration.minimumLineSpacing
+        }
     }
 }

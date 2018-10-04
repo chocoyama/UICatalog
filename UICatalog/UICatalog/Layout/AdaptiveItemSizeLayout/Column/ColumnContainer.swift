@@ -11,33 +11,40 @@ import UIKit
 class ColumnContainer {
     typealias Configuration = AdaptiveHeightConfiguration
     
-    private var columns = [Column]()
+    var lines: [Line] = []
     let configuration: AdaptiveHeightConfiguration
     
     init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
-        columns = [Column]()
-        (0..<self.configuration.columnCount).forEach{
-            let column = Column(configuration: self.configuration, columnNumber: $0)
-            self.columns.append(column)
+        (0..<self.configuration.columnCount).forEach {
+            self.lines.append(Column(configuration: self.configuration, columnNumber: $0))
         }
     }
     
-    private var next: Column? {
-        return columns.sorted { (column1, column2) -> Bool in
-            column1.maxY < column2.maxY
+    private var nextLine: Line? {
+        return lines.sorted { (line1, line2) -> Bool in
+            line1.maxY < line2.maxY
         }.first
     }
     
     private var bottomY: CGFloat {
-        let bottomItem = columns.sorted { (column1, column2) -> Bool in
-            column1.maxY < column2.maxY
-            }.last
+        let bottomLine = lines.sorted { (line1, line2) -> Bool in
+            line1.maxY < line2.maxY
+        }.last
         
-        if let maxY = bottomItem?.maxY {
+        if let maxY = bottomLine?.maxY {
             return maxY + configuration.sectionInsets.bottom
         } else {
             return .leastNormalMagnitude
+        }
+    }
+    
+    /// あらかじめ必要な分のカラムを生成しておく
+    private func setUpColumns() {
+        let count = lines.count
+        lines = [Column]()
+        (0..<count).forEach {
+            self.lines.append(Column(configuration: configuration, columnNumber: $0))
         }
     }
 }
@@ -45,28 +52,15 @@ class ColumnContainer {
 extension ColumnContainer: Containerable {
     func setCollectionViewFrame(_ frame: CGRect) {}
     
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
-        next?.addAttributes(indexPath: indexPath, itemSize: itemSize)
+    func addItem(indexPath: IndexPath, itemSize: CGSize) {
+        nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize {
         return CGSize(width: collectionViewWidth, height: bottomY)
     }
     
-    func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return columns.flatMap { $0.getAttributes(rect: rect) }
-    }
-    
-    func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return columns.compactMap { $0.getAttributes(indexPath: indexPath) }.first
-    }
-    
     func reset() {
-        let count = columns.count
-        columns = [Column]()
-        (0..<count).forEach {
-            let column = Column(configuration: configuration, columnNumber: $0)
-            self.columns.append(column)
-        }
+        setUpColumns()
     }
 }

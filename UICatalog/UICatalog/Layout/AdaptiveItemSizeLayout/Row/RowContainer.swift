@@ -11,8 +11,9 @@ import UIKit
 class RowContainer {
     typealias Configuration = AdaptiveWidthConfiguration
     
-    private var rows = [Row]()
+    var lines: [Line] = []
     let configuration: AdaptiveWidthConfiguration
+    
     private var collectionViewWidth: CGFloat = .leastNormalMagnitude
     private var limitX: CGFloat = .leastNormalMagnitude
     
@@ -21,30 +22,35 @@ class RowContainer {
     }
     
     private var nextRowOriginY: CGFloat {
-        if let lastRow = rows.last {
-            return lastRow.maxY + configuration.minimumLineSpacing
+        if let lastLine = lines.last {
+            return lastLine.maxY + configuration.minimumLineSpacing
         } else {
             return configuration.sectionInsets.top
         }
     }
     
-    private func getCapableRow(nextItemSize: CGSize) -> Row? {
-        return rows.filter {
+    private func getCapableLine(nextItemSize: CGSize) -> Line? {
+        return lines.filter {
             let equalHeight = $0.height == nextItemSize.height
             let overLimit = $0.maxX + nextItemSize.width > limitX
             return equalHeight && !overLimit
-            }.first
+        }.first
     }
     
-    private func addNewRow(with height: CGFloat) -> Row {
-        let newRow = Row(
+    /// 追加したいCellの高さに適合したItemがない場合、新たにItemを生成する
+    ///
+    /// - Parameter height: 生成するItemの高さ
+    /// - Returns: 生成したItem
+    private func addNewLine(with height: CGFloat) -> Line {
+        let newLine = Row(
             configuration: configuration,
-            rowNumber: rows.count,
+            rowNumber: lines.count,
             height: height,
-            originY: nextRowOriginY
+            originY: nextRowOriginY,
+            width: self.collectionViewWidth
         )
-        rows.append(newRow)
-        return newRow
+        lines.append(newLine)
+        return newLine
     }
 }
 
@@ -54,32 +60,27 @@ extension RowContainer: Containerable {
         self.limitX = frame.width - configuration.sectionInsets.right
     }
     
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
-        let row: Row
-        if let capableRow = getCapableRow(nextItemSize: itemSize) {
-            row = capableRow
+    func addItem(indexPath: IndexPath, itemSize: CGSize) {
+        let line: Line
+        if let capableLine = getCapableLine(nextItemSize: itemSize) {
+            line = capableLine
         } else {
-            row = addNewRow(with: itemSize.height)
+            line = addNewLine(with: itemSize.height)
         }
-        row.addAttributes(indexPath: indexPath, itemSize: itemSize)
+        line.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize {
-        let height = rows.sorted { (row1, row2) -> Bool in return row1.rowNumber > row2.rowNumber }
-            .first
-            .map { $0.maxY }
+        let height = lines.sorted { (line1, line2) -> Bool in
+            return line1.number > line2.number
+        }
+        .first
+        .map { $0.maxY }
+        
         return CGSize(width: collectionViewWidth, height: height ?? 0.0)
     }
     
-    func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return rows.flatMap { $0.getAttributes(rect: rect) }
-    }
-    
-    func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return rows.compactMap { $0.getAttributes(indexPath: indexPath) }.first
-    }
-    
     func reset() {
-        rows = []
+        lines = []
     }
 }

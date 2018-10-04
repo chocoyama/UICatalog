@@ -8,34 +8,41 @@
 
 import Foundation
 
-class Row {
-    let rowNumber: Int // zero origin
-    let height: CGFloat
-    let originY: CGFloat
+class Row: Line {
+    let number: Int // zero origin
+    
     private(set) var maxX: CGFloat = 0.0
     var maxY: CGFloat {
         return originY + height
     }
+    let originX: CGFloat = 0.0
+    let originY: CGFloat
+    let width: CGFloat
+    let height: CGFloat
     
     private let configuration: AdaptiveWidthConfiguration
-    private var attributesSet = [UICollectionViewLayoutAttributes]()
+    var attributesSet = [UICollectionViewLayoutAttributes]()
     
     init(
         configuration: AdaptiveWidthConfiguration,
         rowNumber: Int,
         height: CGFloat,
-        originY: CGFloat
-        ) {
+        originY: CGFloat,
+        width: CGFloat
+    ) {
         self.configuration = configuration
-        self.rowNumber = rowNumber
+        self.number = rowNumber
         self.height = height
         self.originY = originY
+        self.width = width
     }
-    
+}
+
+extension Row {
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(
-            x: originX,
+            x: nextOriginX,
             y: originY,
             width: itemSize.width,
             height: itemSize.height
@@ -44,19 +51,7 @@ class Row {
         attributesSet.append(attributes)
     }
     
-    func getAttributes(indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return attributesSet.filter {
-            let equalSection = $0.indexPath.section == indexPath.section
-            let equalItem = $0.indexPath.item == indexPath.item
-            return equalSection && equalItem
-            }.first
-    }
-    
-    func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes] {
-        return attributesSet.filter { $0.frame.intersects(rect) }
-    }
-    
-    private var originX: CGFloat {
+    private var nextOriginX: CGFloat {
         if attributesSet.isEmpty {
             return configuration.sectionInsets.left
         } else {

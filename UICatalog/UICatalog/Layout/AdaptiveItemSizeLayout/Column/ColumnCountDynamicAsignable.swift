@@ -11,14 +11,6 @@ import UIKit
 public protocol ColumnCountDynamicAsignable {}
 
 extension ColumnCountDynamicAsignable where Self: AdaptiveItemSizeLayoutDelegate {
-    public var layout: AdaptiveItemSizeLayout? {
-        return collectionView.collectionViewLayout as? AdaptiveItemSizeLayout
-    }
-    
-    public var configuration: AdaptiveHeightConfiguration? {
-        return (layout?.container as? ColumnContainer)?.configuration
-    }
-    
     private func reloadLayout(configuration: AdaptiveHeightConfiguration) {
         let newLayout = AdaptiveItemSizeLayout(adaptType: .height(configuration))
         newLayout.delegate = self
@@ -29,7 +21,8 @@ extension ColumnCountDynamicAsignable where Self: AdaptiveItemSizeLayoutDelegate
     
     @discardableResult
     public func incrementColumn() -> Bool {
-        guard var configuration = self.configuration,
+        guard let layout = getAdaptiveItemSizeLayout(),
+            var configuration = (layout.container as? ColumnContainer)?.configuration,
             !configuration.atMaxColumn else { return false }
         configuration.columnCount += 1
         reloadLayout(configuration: configuration)
@@ -38,7 +31,8 @@ extension ColumnCountDynamicAsignable where Self: AdaptiveItemSizeLayoutDelegate
     
     @discardableResult
     public func decrementColumn() -> Bool {
-        guard var configuration = self.configuration,
+        guard let layout = getAdaptiveItemSizeLayout(),
+            var configuration = (layout.container as? ColumnContainer)?.configuration,
             !configuration.atMinColumn else { return false }
         configuration.columnCount -= 1
         reloadLayout(configuration: configuration)
