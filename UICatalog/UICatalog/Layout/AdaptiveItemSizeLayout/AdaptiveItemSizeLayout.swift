@@ -43,6 +43,8 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
                 container.addItem(indexPath: indexPath, itemSize: itemSize)
             }
         }
+        
+        container.finish()
     }
     
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

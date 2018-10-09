@@ -28,12 +28,9 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 10
-        case 1:
-            return 1000
-        default:
-            return 0
+        case 0: return 10
+        case 1: return 1000
+        default: return 0
         }
     }
     

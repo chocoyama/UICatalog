@@ -29,11 +29,12 @@ class RowContainer {
         }
     }
     
-    private func getCapableLine(nextItemSize: CGSize) -> Line? {
+    private func getCapableLine(section: Int, nextItemSize: CGSize) -> Line? {
         return lines.filter {
+            let equalSection = $0.section == section
             let equalHeight = $0.height == nextItemSize.height
             let overLimit = $0.maxX + nextItemSize.width > limitX
-            return equalHeight && !overLimit
+            return equalSection && equalHeight && !overLimit
         }.first
     }
     
@@ -63,7 +64,7 @@ extension RowContainer: Containerable {
     
     func addItem(indexPath: IndexPath, itemSize: CGSize) {
         let line: Line
-        if let capableLine = getCapableLine(nextItemSize: itemSize) {
+        if let capableLine = getCapableLine(section: indexPath.section, nextItemSize: itemSize) {
             line = capableLine
         } else {
             line = addNewLine(section: indexPath.section, height: itemSize.height)
@@ -83,5 +84,9 @@ extension RowContainer: Containerable {
     
     func reset(by collectionView: UICollectionView) {
         lines = []
+    }
+    
+    func finish() {
+        
     }
 }

@@ -18,12 +18,6 @@ class ColumnContainer {
         self.configuration = configuration ?? Configuration()
     }
     
-    private var nextLine: Line? {
-        return lines.sorted { (line1, line2) -> Bool in
-            line1.maxY < line2.maxY
-        }.first
-    }
-    
     private var bottomY: CGFloat {
         let bottomLine = lines.sorted { (line1, line2) -> Bool in
             line1.maxY < line2.maxY
@@ -36,17 +30,12 @@ class ColumnContainer {
         }
     }
     
-    /// あらかじめ必要な分のカラムを生成しておく
-    private func setUpColumns() {
-        var newLines = [Column]()
-        lines.forEach { (line) in
-            newLines.append(Column(
-                configuration: configuration,
-                section: line.section,
-                columnNumber: line.number
-            ))
-        }
-        self.lines = newLines
+    private func getNextLine(section: Int) -> Line? {
+        return lines
+            .filter { $0.section == section }
+            .sorted { (line1, line2) -> Bool in
+                line1.maxY < line2.maxY
+            }.first
     }
 }
 
@@ -65,6 +54,7 @@ extension ColumnContainer: Containerable {
     }
     
     func addItem(indexPath: IndexPath, itemSize: CGSize) {
+        let nextLine = getNextLine(section: indexPath.section)
         nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
@@ -74,5 +64,32 @@ extension ColumnContainer: Containerable {
     
     func reset(by collectionView: UICollectionView) {
         configure(by: collectionView)
+    }
+    
+    func finish() {
+        var bottomMap = [Int: CGFloat]()
+        lines.forEach { (line) in
+            if let bottom = bottomMap[line.section] {
+                if bottom < line.maxY {
+                    bottomMap[line.section] = line.maxY
+                }
+            } else {
+                bottomMap[line.section] = line.maxY
+            }
+        }
+        
+        lines.forEach { (line) in
+            guard let bottom = bottomMap[line.section - 1] else { return }
+            let addingBottom = bottom + configuration.minimumLineSpacing
+            line.attributesSet.forEach {
+                $0.frame = CGRect(
+                    x: $0.frame.origin.x,
+                    y: $0.frame.origin.y + addingBottom,
+                    width: $0.frame.width,
+                    height: $0.frame.height
+                )
+            }
+            line.update(maxY: line.maxY + addingBottom)
+        }
     }
 }

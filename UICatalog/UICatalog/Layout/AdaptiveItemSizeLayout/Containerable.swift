@@ -14,6 +14,7 @@ public protocol Containerable {
     func addItem(indexPath: IndexPath, itemSize: CGSize)
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize
     func reset(by collectionView: UICollectionView)
+    func finish()
 }
 
 extension Containerable {

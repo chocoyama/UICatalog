@@ -57,6 +57,10 @@ extension Column {
         attributesSet.append(attributes)
     }
     
+    func update(maxY: CGFloat) {
+        self.maxY = maxY
+    }
+    
     private var nextOriginY: CGFloat {
         if attributesSet.isEmpty {
             return configuration.sectionInsets.top

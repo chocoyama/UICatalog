@@ -54,6 +54,10 @@ extension Row {
         attributesSet.append(attributes)
     }
     
+    func update(maxY: CGFloat) {
+        fatalError()
+    }
+    
     private var nextOriginX: CGFloat {
         if attributesSet.isEmpty {
             return configuration.sectionInsets.left
