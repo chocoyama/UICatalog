@@ -37,12 +37,10 @@ class AdaptiveItemHeightLayoutViewController: UIViewController {
 
 extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
         return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 1000
         switch section {
         case 0: return 10
         case 1: return 1000
@@ -61,3 +59,4 @@ extension AdaptiveItemHeightLayoutViewController: AdaptiveItemSizeLayoutDelegate
         return .random(min: 150.0, max: 300.0)
     }
 }
+

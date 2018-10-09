@@ -11,6 +11,7 @@ import UIKit
 class RowContainer {
     typealias Configuration = AdaptiveWidthConfiguration
     
+    private(set) var headers: [Header] = []
     var lines: [Line] = []
     let configuration: AdaptiveWidthConfiguration
     
@@ -72,6 +73,10 @@ extension RowContainer: Containerable {
         line.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
+    func addHeader(section: Int, size: CGSize) {
+        headers.append(Header(section: section, size: size))
+    }
+    
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize {
         let height = lines.sorted { (line1, line2) -> Bool in
             return line1.number > line2.number
@@ -87,6 +92,6 @@ extension RowContainer: Containerable {
     }
     
     func finish() {
-        
+//        ヘッダーのframeでずらしていく
     }
 }

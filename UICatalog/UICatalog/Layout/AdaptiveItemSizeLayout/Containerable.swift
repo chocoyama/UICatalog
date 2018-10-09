@@ -9,9 +9,11 @@
 import UIKit
 
 public protocol Containerable {
+    var headers: [Header] { get }
     var lines: [Line] { get set }
     func configure(by collectionView: UICollectionView)
     func addItem(indexPath: IndexPath, itemSize: CGSize)
+    func addHeader(section: Int, size: CGSize)
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize
     func reset(by collectionView: UICollectionView)
     func finish()
@@ -24,5 +26,9 @@ extension Containerable {
 
     func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return lines.compactMap { $0.getAttributes(indexPath: indexPath) }.first
+    }
+    
+    func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return headers.first(where: { $0.section == indexPath.section })?.attributes
     }
 }

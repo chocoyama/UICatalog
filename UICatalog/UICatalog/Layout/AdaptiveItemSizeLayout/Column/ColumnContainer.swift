@@ -11,6 +11,7 @@ import UIKit
 class ColumnContainer {
     typealias Configuration = AdaptiveHeightConfiguration
     
+    private(set) var headers: [Header] = []
     var lines: [Line] = []
     let configuration: AdaptiveHeightConfiguration
     
@@ -58,6 +59,10 @@ extension ColumnContainer: Containerable {
         nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
+    func addHeader(section: Int, size: CGSize) {
+        headers.append(Header(section: section, size: size))
+    }
+    
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize {
         return CGSize(width: collectionViewWidth, height: bottomY)
     }
@@ -67,6 +72,8 @@ extension ColumnContainer: Containerable {
     }
     
     func finish() {
+//        ヘッダーのframeでずらしていく
+        
         var bottomMap = [Int: CGFloat]()
         lines.forEach { (line) in
             if let bottom = bottomMap[line.section] {

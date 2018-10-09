@@ -37,6 +37,11 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
         container.configure(by: collectionView)
         
         for section in (0..<collectionView.numberOfSections) {
+            if let headerSize = delegate?.referenceSizeForHeader(in: section),
+                headerSize != .zero {
+                container.addHeader(section: section, size: headerSize)
+            }
+            
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
                 let itemSize = delegate?.sizeForItem(at: indexPath) ?? .zero
@@ -53,6 +58,10 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
     
     open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return container.layoutAttributesForItem(at: indexPath)
+    }
+    
+    open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return container.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)
     }
     
     open override var collectionViewContentSize: CGSize {
