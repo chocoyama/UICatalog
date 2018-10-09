@@ -16,9 +16,6 @@ class ColumnContainer {
     
     init(configureBy configuration: Configuration?) {
         self.configuration = configuration ?? Configuration()
-        (0..<self.configuration.columnCount).forEach {
-            self.lines.append(Column(configuration: self.configuration, columnNumber: $0))
-        }
     }
     
     private var nextLine: Line? {
@@ -41,16 +38,31 @@ class ColumnContainer {
     
     /// あらかじめ必要な分のカラムを生成しておく
     private func setUpColumns() {
-        let count = lines.count
-        lines = [Column]()
-        (0..<count).forEach {
-            self.lines.append(Column(configuration: configuration, columnNumber: $0))
+        var newLines = [Column]()
+        lines.forEach { (line) in
+            newLines.append(Column(
+                configuration: configuration,
+                section: line.section,
+                columnNumber: line.number
+            ))
         }
+        self.lines = newLines
     }
 }
 
 extension ColumnContainer: Containerable {
-    func setCollectionViewFrame(_ frame: CGRect) {}
+    func configure(by collectionView: UICollectionView) {
+        self.lines = []
+        for section in (0..<collectionView.numberOfSections) {
+            (0..<self.configuration.columnCount).forEach {
+                self.lines.append(Column(
+                    configuration: self.configuration,
+                    section: section,
+                    columnNumber: $0
+                ))
+            }
+        }
+    }
     
     func addItem(indexPath: IndexPath, itemSize: CGSize) {
         nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
@@ -60,7 +72,7 @@ extension ColumnContainer: Containerable {
         return CGSize(width: collectionViewWidth, height: bottomY)
     }
     
-    func reset() {
-        setUpColumns()
+    func reset(by collectionView: UICollectionView) {
+        configure(by: collectionView)
     }
 }

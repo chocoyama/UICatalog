@@ -9,6 +9,7 @@
 import Foundation
 
 public protocol Line {
+    var section: Int { get }
     var number: Int { get }
     var maxX: CGFloat { get }
     var maxY: CGFloat { get }

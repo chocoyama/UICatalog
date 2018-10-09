@@ -10,10 +10,10 @@ import UIKit
 
 public protocol Containerable {
     var lines: [Line] { get set }
-    func setCollectionViewFrame(_ frame: CGRect)
+    func configure(by collectionView: UICollectionView)
     func addItem(indexPath: IndexPath, itemSize: CGSize)
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize
-    func reset()
+    func reset(by collectionView: UICollectionView)
 }
 
 extension Containerable {

@@ -41,9 +41,10 @@ class RowContainer {
     ///
     /// - Parameter height: 生成するItemの高さ
     /// - Returns: 生成したItem
-    private func addNewLine(with height: CGFloat) -> Line {
+    private func addNewLine(section: Int, height: CGFloat) -> Line {
         let newLine = Row(
             configuration: configuration,
+            section: section,
             rowNumber: lines.count,
             height: height,
             originY: nextRowOriginY,
@@ -55,9 +56,9 @@ class RowContainer {
 }
 
 extension RowContainer: Containerable {
-    func setCollectionViewFrame(_ frame: CGRect) {
-        self.collectionViewWidth = frame.width
-        self.limitX = frame.width - configuration.sectionInsets.right
+    func configure(by collectionView: UICollectionView) {
+        self.collectionViewWidth = collectionView.frame.width
+        self.limitX = collectionView.frame.width - configuration.sectionInsets.right
     }
     
     func addItem(indexPath: IndexPath, itemSize: CGSize) {
@@ -65,7 +66,7 @@ extension RowContainer: Containerable {
         if let capableLine = getCapableLine(nextItemSize: itemSize) {
             line = capableLine
         } else {
-            line = addNewLine(with: itemSize.height)
+            line = addNewLine(section: indexPath.section, height: itemSize.height)
         }
         line.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
@@ -80,7 +81,7 @@ extension RowContainer: Containerable {
         return CGSize(width: collectionViewWidth, height: height ?? 0.0)
     }
     
-    func reset() {
+    func reset(by collectionView: UICollectionView) {
         lines = []
     }
 }

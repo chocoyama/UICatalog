@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         case outlineLabel = "OutlineLabel"
         case adaptiveItemHeightLayout = "AdaptiveItemHeightLayout"
         case adaptiveItemWidthLayout = "AdaptiveItemWidthLayout"
+        case soundWaveButton = "SoundWaveButton"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -25,6 +26,7 @@ class ViewController: UIViewController {
             case .outlineLabel: return OutlineLabelViewController()
             case .adaptiveItemHeightLayout: return AdaptiveItemHeightLayoutViewController.instantiate(storyboardName: "AdaptiveItemHeightLayoutViewController")
             case .adaptiveItemWidthLayout: return AdaptiveItemWidthLayoutViewController()
+            case .soundWaveButton: return SoundWaveButtonViewController()
             }
         }
     }

@@ -22,8 +22,19 @@ class AdaptiveItemWidthLayoutViewController: UIViewController {
 }
 
 extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1000
+        switch section {
+        case 0:
+            return 10
+        case 1:
+            return 1000
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

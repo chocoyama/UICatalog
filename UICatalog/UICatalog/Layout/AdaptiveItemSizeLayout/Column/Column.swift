@@ -9,6 +9,7 @@
 import UIKit
 
 class Column: Line {
+    let section: Int
     let number: Int // zero origin
     
     var maxX: CGFloat { return originX + width }
@@ -34,8 +35,10 @@ class Column: Line {
     
     init(
         configuration: AdaptiveHeightConfiguration,
+        section: Int,
         columnNumber: Int
     ) {
+        self.section = section
         self.configuration = configuration
         self.number = columnNumber
     }

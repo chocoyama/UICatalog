@@ -33,8 +33,8 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
         super.prepare()
         
         guard let collectionView = collectionView else { return }
-        reset()
-        container.setCollectionViewFrame(collectionView.frame)
+        reset(by: collectionView)
+        container.configure(by: collectionView)
         
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
@@ -58,7 +58,7 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
         return container.collectionViewContentSize(by: collectionViewWidth)
     }
     
-    open func reset() {
-        container.reset()
+    open func reset(by collectionView: UICollectionView) {
+        container.reset(by: collectionView)
     }
 }

@@ -8,14 +8,39 @@
 
 import UIKit
 
-class SoundWaveButton: UIView, XibInitializable {
-    required init?(coder aDecoder: NSCoder) {
+open class SoundWaveButton: UIView, XibInitializable {
+    public typealias Volume = Double
+    
+    open var delegate: SoundWaveButtonDelegate?
+    
+    @IBOutlet weak var button: UIButton!
+    
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setXibView()
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setXibView()
     }
+    
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        round()
+        button.round()
+    }
+    
+    public func wave(volume: Volume) {
+        
+    }
+    
+    @IBAction func didTappedButton(_ sender: UIButton) {
+        delegate?.soundWaveButton(self, didTappedButton: sender)
+    }
+    
+}
+
+public protocol SoundWaveButtonDelegate: class {
+    func soundWaveButton(_ soundWaveButton: SoundWaveButton, didTappedButton button: UIButton)
 }
