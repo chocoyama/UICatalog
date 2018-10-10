@@ -32,9 +32,18 @@ public enum UICollectionElementKind: String {
 
 extension UICollectionReusableView: ReusableViewRegisterable {}
 extension ReusableViewRegisterable where Self: UICollectionReusableView {
+    public static func register(for collectionView: UICollectionView, ofKind kind: String) {
+        self.register(for: collectionView, ofKind: UICollectionElementKind(stringOf: kind))
+    }
+    
     public static func register(for collectionView: UICollectionView, ofKind kind: UICollectionElementKind) {
         let name = String(describing: Self.self)
-        collectionView.register(Self.self, forSupplementaryViewOfKind: kind.value, withReuseIdentifier: name)
+        let nib = UINib(nibName: name, bundle: nil)
+        collectionView.register(nib, forSupplementaryViewOfKind: kind.value, withReuseIdentifier: name)
+    }
+    
+    public static func dequeue(from collectionView: UICollectionView, ofKind kind: String, for indexPath: IndexPath) -> Self {
+        return self.dequeue(from: collectionView, ofKind: UICollectionElementKind(stringOf: kind), for: indexPath)
     }
     
     public static func dequeue(from collectionView: UICollectionView, ofKind kind: UICollectionElementKind, for indexPath: IndexPath) -> Self {

@@ -17,7 +17,7 @@ class Row: Line {
         return originY + height
     }
     let originX: CGFloat = 0.0
-    let originY: CGFloat
+    var originY: CGFloat
     let width: CGFloat
     let height: CGFloat
     
@@ -54,8 +54,16 @@ extension Row {
         attributesSet.append(attributes)
     }
     
-    func update(maxY: CGFloat) {
-        fatalError()
+    func update(addingBottom: CGFloat) {
+        attributesSet.forEach {
+            $0.frame = CGRect(
+                x: $0.frame.origin.x,
+                y: $0.frame.origin.y + addingBottom,
+                width: $0.frame.width,
+                height: $0.frame.height
+            )
+        }
+        self.originY = originY + addingBottom
     }
     
     private var nextOriginX: CGFloat {

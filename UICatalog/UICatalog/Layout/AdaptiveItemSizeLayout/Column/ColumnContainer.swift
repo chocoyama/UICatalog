@@ -72,7 +72,7 @@ extension ColumnContainer: Containerable {
     }
     
     func finish() {
-//        ヘッダーのframeでずらしていく
+//        ヘッダーのframeでずらしていsく
         
         var bottomMap = [Int: CGFloat]()
         lines.forEach { (line) in
@@ -88,15 +88,7 @@ extension ColumnContainer: Containerable {
         lines.forEach { (line) in
             guard let bottom = bottomMap[line.section - 1] else { return }
             let addingBottom = bottom + configuration.minimumLineSpacing
-            line.attributesSet.forEach {
-                $0.frame = CGRect(
-                    x: $0.frame.origin.x,
-                    y: $0.frame.origin.y + addingBottom,
-                    width: $0.frame.width,
-                    height: $0.frame.height
-                )
-            }
-            line.update(maxY: line.maxY + addingBottom)
+            line.update(addingBottom: line.maxY + addingBottom)
         }
     }
 }

@@ -21,7 +21,9 @@ public protocol Containerable {
 
 extension Containerable {
     func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return lines.flatMap { $0.getAttributes(rect: rect) }
+        let headers = self.headers.flatMap { $0.getAttributes(rect: rect) }
+        let lines = self.lines.flatMap { $0.getAttributes(rect: rect) }
+        return headers + lines
     }
 
     func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {

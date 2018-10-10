@@ -79,7 +79,7 @@ extension RowContainer: Containerable {
     
     func collectionViewContentSize(by collectionViewWidth: CGFloat) -> CGSize {
         let height = lines.sorted { (line1, line2) -> Bool in
-            return line1.number > line2.number
+            line1.number > line2.number
         }
         .first
         .map { $0.maxY }
@@ -92,6 +92,27 @@ extension RowContainer: Containerable {
     }
     
     func finish() {
-//        ヘッダーのframeでずらしていく
+        lines.forEach { (line) in
+            let totalSectionHeight = headers
+                .filter { $0.section <= line.section }
+                .reduce(0, { (total, header) -> CGFloat in
+                    total + header.attributes.frame.height + configuration.minimumLineSpacing
+                })
+            line.update(addingBottom: totalSectionHeight)
+        }
+        
+        headers.forEach { (header) in
+            let previousSectionY = lines
+                .filter { $0.section == header.section - 1 }
+                .sorted(by: { (line1, line2) -> Bool in
+                    line1.maxY > line2.maxY
+                })
+                .first
+                .map { $0.maxY }
+            
+            if let y = previousSectionY {
+                header.update(originY: y + configuration.minimumLineSpacing)
+            }
+        }
     }
 }

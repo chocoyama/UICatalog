@@ -13,6 +13,7 @@ class AdaptiveItemWidthLayoutViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             AdaptiveItemWidthLayoutCollectionViewCell.register(for: collectionView)
+            AdaptiveItemWidthCollectionReusableView.register(for: collectionView, ofKind: .sectionHeader)
             
             let layout = AdaptiveItemSizeLayout(adaptType: .width(.default))
             layout.delegate = self
@@ -28,10 +29,16 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return 10
-        case 1: return 1000
+        case 0: return 500
+        case 1: return 500
         default: return 0
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return AdaptiveItemWidthCollectionReusableView
+                .dequeue(from: collectionView, ofKind: kind, for: indexPath)
+                .configure(title: "section = \(indexPath.section)")
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -44,5 +51,9 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
 extension AdaptiveItemWidthLayoutViewController: AdaptiveItemSizeLayoutDelegate {
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
         return .random(min: 10, max: 80)
+    }
+    
+    func referenceSizeForHeader(in section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 50)
     }
 }

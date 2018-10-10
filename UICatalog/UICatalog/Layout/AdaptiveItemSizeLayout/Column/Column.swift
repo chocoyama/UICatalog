@@ -57,8 +57,16 @@ extension Column {
         attributesSet.append(attributes)
     }
     
-    func update(maxY: CGFloat) {
-        self.maxY = maxY
+    func update(addingBottom: CGFloat) {
+        attributesSet.forEach {
+            $0.frame = CGRect(
+                x: $0.frame.origin.x,
+                y: $0.frame.origin.y + addingBottom,
+                width: $0.frame.width,
+                height: $0.frame.height
+            )
+        }
+        self.maxY = maxY + addingBottom
     }
     
     private var nextOriginY: CGFloat {

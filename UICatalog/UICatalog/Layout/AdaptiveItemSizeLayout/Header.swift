@@ -8,26 +8,29 @@
 
 import Foundation
 
-public struct Header {
+public class Header {
     let section: Int
-    var frame: CGRect
     let attributes: UICollectionViewLayoutAttributes
     
     init(section: Int, size: CGSize) {
         self.section = section
-        self.frame = CGRect(
+        self.attributes = UICollectionViewLayoutAttributes(
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            with: IndexPath(item: 0, section: section)
+        )
+        self.attributes.frame = CGRect(
             x: 0.0,
             y: 0.0,
             width: size.width,
             height: size.height
         )
-        self.attributes = UICollectionViewLayoutAttributes(
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            with: IndexPath(item: 0, section: section)
-        )
     }
     
-    mutating func update(originY: CGFloat) {
-        frame.origin.y = originY
+    func update(originY: CGFloat) {
+        attributes.frame.origin.y = originY
+    }
+    
+    func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes] {
+        return attributes.frame.intersects(rect) ? [attributes] : []
     }
 }
