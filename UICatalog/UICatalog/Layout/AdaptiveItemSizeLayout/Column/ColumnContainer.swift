@@ -90,7 +90,12 @@ extension ColumnContainer: Containerable {
             let headerHeight = headers
                 .first(where: { $0.section == line.section })?
                 .attributes.frame.height ?? 0.0
-            let lineSpacing = line.section == 0 ? configuration.minimumLineSpacing : configuration.minimumLineSpacing * 2
+            let lineSpacing: CGFloat
+            if line.section == 0 {
+                lineSpacing = configuration.minimumLineSpacing
+            } else {
+                lineSpacing = configuration.minimumLineSpacing * 2 - configuration.sectionInsets.top
+            }
             let addingBottom = previousSectionBottom + headerHeight + lineSpacing
             line.update(addingBottom: addingBottom)
             
@@ -102,6 +107,9 @@ extension ColumnContainer: Containerable {
         headers.forEach { (header) in
             if let maxY = maxYDicBySection[header.section - 1] {
                 header.update(originY: maxY + configuration.minimumLineSpacing)
+            } else {
+                // 一番最初のセクションヘッダーの時
+                header.update(originY: configuration.sectionInsets.top)
             }
         }
     }
