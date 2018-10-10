@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AdaptiveItemWidthLayoutCollectionViewCell: UICollectionViewCell {
+class AdaptiveItemCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var label: UILabel!
     
     @discardableResult
-    func configure(by indexPath: IndexPath, backgroundColor: UIColor) -> AdaptiveItemWidthLayoutCollectionViewCell {
+    func configure(by indexPath: IndexPath, backgroundColor: UIColor) -> AdaptiveItemCollectionViewCell {
         label.text = "\(indexPath.item)"
         self.backgroundColor = backgroundColor
         return self

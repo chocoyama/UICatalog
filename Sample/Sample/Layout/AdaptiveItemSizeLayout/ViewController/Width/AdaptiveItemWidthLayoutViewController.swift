@@ -12,7 +12,7 @@ import UICatalog
 class AdaptiveItemWidthLayoutViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            AdaptiveItemWidthLayoutCollectionViewCell.register(for: collectionView)
+            AdaptiveItemCollectionViewCell.register(for: collectionView)
             AdaptiveItemCollectionReusableView.register(for: collectionView, ofKind: .sectionHeader)
             
             let layout = AdaptiveItemSizeLayout(adaptType: .width(.default))
@@ -32,7 +32,7 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
         case 0: return 1000
         case 1: return 1000
         case 2: return 1000
-        default: return 0
+        default: fatalError()
         }
     }
     
@@ -43,7 +43,7 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return AdaptiveItemWidthLayoutCollectionViewCell
+        return AdaptiveItemCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
                 .configure(by: indexPath, backgroundColor: .random)
     }

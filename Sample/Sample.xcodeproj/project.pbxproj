@@ -9,15 +9,14 @@
 /* Begin PBXBuildFile section */
 		6B2713AD215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AB215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift */; };
 		6B2713AE215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */; };
-		6B2713B1215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AF215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.swift */; };
-		6B2713B2215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713B0215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.xib */; };
+		6B2713B1215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AF215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift */; };
+		6B2713B2215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713B0215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib */; };
 		6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF55215770C2006143A4 /* ProgressBarViewController.swift */; };
 		6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */; };
 		6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */; };
 		6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */; };
 		6B33DF802158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */; };
 		6B33DF822158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */; };
-		6B33DF842158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF832158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift */; };
 		6BCD0FF9216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD0FF7216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift */; };
 		6BCD0FFA216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BCD0FF8216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib */; };
 		6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE4EA2152649B00BBB47A /* AppDelegate.swift */; };
@@ -36,15 +35,14 @@
 /* Begin PBXFileReference section */
 		6B2713AB215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemWidthLayoutViewController.swift; sourceTree = "<group>"; };
 		6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemWidthLayoutViewController.xib; sourceTree = "<group>"; };
-		6B2713AF215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemWidthLayoutCollectionViewCell.swift; sourceTree = "<group>"; };
-		6B2713B0215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemWidthLayoutCollectionViewCell.xib; sourceTree = "<group>"; };
+		6B2713AF215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		6B2713B0215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		6B33DF55215770C2006143A4 /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
 		6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressBarViewController.xib; sourceTree = "<group>"; };
 		6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineLabelViewController.swift; sourceTree = "<group>"; };
 		6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutlineLabelViewController.xib; sourceTree = "<group>"; };
 		6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveItemHeightLayoutViewController.swift; sourceTree = "<group>"; };
 		6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdaptiveItemHeightLayoutViewController.storyboard; sourceTree = "<group>"; };
-		6B33DF832158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveSizeCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BCD0FF7216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemCollectionReusableView.swift; sourceTree = "<group>"; };
 		6BCD0FF8216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemCollectionReusableView.xib; sourceTree = "<group>"; };
 		6BDAE4E72152649B00BBB47A /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,15 +72,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6B2713AA215A839800CBB58E /* AdaptiveItemWidthLayout */ = {
+		6B2713AA215A839800CBB58E /* Width */ = {
 			isa = PBXGroup;
 			children = (
 				6B2713AB215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift */,
 				6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */,
-				6B2713AF215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.swift */,
-				6B2713B0215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.xib */,
 			);
-			path = AdaptiveItemWidthLayout;
+			path = Width;
 			sourceTree = "<group>";
 		};
 		6B33DF5221577092006143A4 /* ProgressBar */ = {
@@ -103,14 +99,50 @@
 			path = OutlineLabel;
 			sourceTree = "<group>";
 		};
-		6B33DF7E2158BDE1006143A4 /* AdaptiveItemHeightLayout */ = {
+		6B33DF7E2158BDE1006143A4 /* Height */ = {
 			isa = PBXGroup;
 			children = (
 				6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */,
 				6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */,
-				6B33DF832158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift */,
 			);
-			path = AdaptiveItemHeightLayout;
+			path = Height;
+			sourceTree = "<group>";
+		};
+		6BA5011C216E2424003B530F /* AdaptiveItemSizeLayout */ = {
+			isa = PBXGroup;
+			children = (
+				6BA5011D216E2435003B530F /* ViewController */,
+				6BA5011E216E2450003B530F /* Cell */,
+				6BA5011F216E2455003B530F /* ReusableView */,
+			);
+			path = AdaptiveItemSizeLayout;
+			sourceTree = "<group>";
+		};
+		6BA5011D216E2435003B530F /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6B2713AA215A839800CBB58E /* Width */,
+				6B33DF7E2158BDE1006143A4 /* Height */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6BA5011E216E2450003B530F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6B2713AF215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift */,
+				6B2713B0215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6BA5011F216E2455003B530F /* ReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD0FF7216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift */,
+				6BCD0FF8216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib */,
+			);
+			path = ReusableView;
 			sourceTree = "<group>";
 		};
 		6BDAE4DE2152649B00BBB47A = {
@@ -176,10 +208,7 @@
 		803D6B14215B0A62007C332E /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				6B2713AA215A839800CBB58E /* AdaptiveItemWidthLayout */,
-				6B33DF7E2158BDE1006143A4 /* AdaptiveItemHeightLayout */,
-				6BCD0FF7216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift */,
-				6BCD0FF8216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib */,
+				6BA5011C216E2424003B530F /* AdaptiveItemSizeLayout */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -259,7 +288,7 @@
 				6BDAE4F22152649C00BBB47A /* Assets.xcassets in Resources */,
 				6B2713AE215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib in Resources */,
 				6BDAE4F02152649B00BBB47A /* Main.storyboard in Resources */,
-				6B2713B2215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.xib in Resources */,
+				6B2713B2215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib in Resources */,
 				803D6B11215B0A45007C332E /* SoundWaveButtonViewController.xib in Resources */,
 				6BCD0FFA216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib in Resources */,
 				6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */,
@@ -283,8 +312,7 @@
 				6BDAE4ED2152649B00BBB47A /* ViewController.swift in Sources */,
 				6BCD0FF9216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift in Sources */,
 				6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */,
-				6B33DF842158BE32006143A4 /* AdaptiveSizeCollectionViewCell.swift in Sources */,
-				6B2713B1215A851700CBB58E /* AdaptiveItemWidthLayoutCollectionViewCell.swift in Sources */,
+				6B2713B1215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift in Sources */,
 				6B2713AD215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
