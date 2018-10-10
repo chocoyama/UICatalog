@@ -43,6 +43,7 @@ class ColumnContainer {
 extension ColumnContainer: Containerable {
     func configure(by collectionView: UICollectionView) {
         self.lines = []
+        self.headers = []
         for section in (0..<collectionView.numberOfSections) {
             (0..<self.configuration.columnCount).forEach {
                 self.lines.append(Column(

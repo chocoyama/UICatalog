@@ -89,6 +89,7 @@ extension RowContainer: Containerable {
     
     func reset(by collectionView: UICollectionView) {
         lines = []
+        headers = []
     }
     
     func finish() {
