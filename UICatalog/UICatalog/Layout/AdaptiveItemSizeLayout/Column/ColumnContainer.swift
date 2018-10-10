@@ -72,23 +72,36 @@ extension ColumnContainer: Containerable {
     }
     
     func finish() {
-//        ヘッダーのframeでずらしていsく
+        var maxYDicBySection = [Int: CGFloat]()
         
-        var bottomMap = [Int: CGFloat]()
         lines.forEach { (line) in
-            if let bottom = bottomMap[line.section] {
+            if let bottom = maxYDicBySection[line.section] {
                 if bottom < line.maxY {
-                    bottomMap[line.section] = line.maxY
+                    maxYDicBySection[line.section] = line.maxY
                 }
             } else {
-                bottomMap[line.section] = line.maxY
+                maxYDicBySection[line.section] = line.maxY
             }
         }
-        
+
         lines.forEach { (line) in
-            guard let bottom = bottomMap[line.section - 1] else { return }
-            let addingBottom = bottom + configuration.minimumLineSpacing
-            line.update(addingBottom: line.maxY + addingBottom)
+            let previousSectionBottom = maxYDicBySection[line.section - 1] ?? 0.0
+            let headerHeight = headers
+                .first(where: { $0.section == line.section })?
+                .attributes.frame.height ?? 0.0
+            let lineSpacing = line.section == 0 ? configuration.minimumLineSpacing : configuration.minimumLineSpacing * 2
+            let addingBottom = previousSectionBottom + headerHeight + lineSpacing
+            line.update(addingBottom: addingBottom)
+            
+            if let maxY = maxYDicBySection[line.section], maxY < line.maxY {
+                maxYDicBySection[line.section] = line.maxY
+            }
+        }
+
+        headers.forEach { (header) in
+            if let maxY = maxYDicBySection[header.section - 1] {
+                header.update(originY: maxY + configuration.minimumLineSpacing)
+            }
         }
     }
 }

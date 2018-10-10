@@ -31,11 +31,7 @@ public enum UICollectionElementKind: String {
 }
 
 extension UICollectionReusableView: ReusableViewRegisterable {}
-extension ReusableViewRegisterable where Self: UICollectionReusableView {
-    public static func register(for collectionView: UICollectionView, ofKind kind: String) {
-        self.register(for: collectionView, ofKind: UICollectionElementKind(stringOf: kind))
-    }
-    
+extension ReusableViewRegisterable where Self: UICollectionReusableView {    
     public static func register(for collectionView: UICollectionView, ofKind kind: UICollectionElementKind) {
         let name = String(describing: Self.self)
         let nib = UINib(nibName: name, bundle: nil)

@@ -11,7 +11,11 @@ import UICatalog
 
 class AdaptiveItemHeightLayoutViewController: UIViewController {
 
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            AdaptiveItemCollectionReusableView.register(for: collectionView, ofKind: .sectionHeader)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,15 +41,24 @@ class AdaptiveItemHeightLayoutViewController: UIViewController {
 
 extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return 10
-        case 1: return 1000
+        case 0: return 100
+        case 1: return 100
+        case 2: return 100
+        case 3: return 100
+        case 4: return 100
         default: return 0
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return AdaptiveItemCollectionReusableView
+            .dequeue(from: collectionView, ofKind: kind, for: indexPath)
+            .configure(title: "section = \(indexPath.section)")
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,6 +70,10 @@ extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
 extension AdaptiveItemHeightLayoutViewController: AdaptiveItemSizeLayoutDelegate, ColumnCountDynamicAsignable {
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
         return .random(min: 150.0, max: 300.0)
+    }
+    
+    func referenceSizeForHeader(in section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 50)
     }
 }
 

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AdaptiveItemWidthCollectionReusableView: UICollectionReusableView {
+class AdaptiveItemCollectionReusableView: UICollectionReusableView {
 
     @IBOutlet weak var label: UILabel!
     
     @discardableResult
-    func configure(title: String) -> AdaptiveItemWidthCollectionReusableView {
+    func configure(title: String) -> AdaptiveItemCollectionReusableView {
         self.label.text = title
         return self
     }

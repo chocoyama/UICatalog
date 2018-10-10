@@ -21,7 +21,7 @@ class Column: Line {
         }
         return x
     }
-    let originY: CGFloat = 0.0
+    var originY: CGFloat = 0.0
     var width: CGFloat {
         let totalHorizontalInsets = configuration.sectionInsets.left + configuration.sectionInsets.right
         let totalInterItemSpace = configuration.minimumInterItemSpacing * CGFloat(configuration.totalSpace)
@@ -66,6 +66,7 @@ extension Column {
                 height: $0.frame.height
             )
         }
+        self.originY = originY + addingBottom
         self.maxY = maxY + addingBottom
     }
     

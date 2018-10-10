@@ -13,7 +13,7 @@ class AdaptiveItemWidthLayoutViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             AdaptiveItemWidthLayoutCollectionViewCell.register(for: collectionView)
-            AdaptiveItemWidthCollectionReusableView.register(for: collectionView, ofKind: .sectionHeader)
+            AdaptiveItemCollectionReusableView.register(for: collectionView, ofKind: .sectionHeader)
             
             let layout = AdaptiveItemSizeLayout(adaptType: .width(.default))
             layout.delegate = self
@@ -24,19 +24,20 @@ class AdaptiveItemWidthLayoutViewController: UIViewController {
 
 extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return 500
-        case 1: return 500
+        case 0: return 1000
+        case 1: return 1000
+        case 2: return 1000
         default: return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return AdaptiveItemWidthCollectionReusableView
+        return AdaptiveItemCollectionReusableView
                 .dequeue(from: collectionView, ofKind: kind, for: indexPath)
                 .configure(title: "section = \(indexPath.section)")
     }
