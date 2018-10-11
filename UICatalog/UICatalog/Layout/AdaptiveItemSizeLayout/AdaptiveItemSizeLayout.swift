@@ -37,14 +37,14 @@ open class AdaptiveItemSizeLayout: UICollectionViewLayout {
         container.configure(by: collectionView)
         
         for section in (0..<collectionView.numberOfSections) {
-            if let headerSize = delegate?.referenceSizeForHeader(in: section),
+            if let headerSize = delegate?.adaptiveItemSizeLayout(self, referenceSizeForHeaderIn: section),
                 headerSize != .zero {
                 container.addHeader(section: section, size: headerSize)
             }
             
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
-                let itemSize = delegate?.sizeForItem(at: indexPath) ?? .zero
+                let itemSize = delegate?.adaptiveItemSizeLayout(self, sizeForItemAt: indexPath) ?? .zero
                 container.addItem(indexPath: indexPath, itemSize: itemSize)
             }
         }

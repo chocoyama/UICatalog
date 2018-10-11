@@ -12,8 +12,6 @@ class Column: Line {
     let section: Int
     let number: Int // zero origin
     
-    var maxX: CGFloat { return originX + width }
-    private(set) var maxY: CGFloat = 0.0
     var originX: CGFloat {
         var x = configuration.sectionInsets.left
         if number != 0 {
@@ -22,6 +20,8 @@ class Column: Line {
         return x
     }
     var originY: CGFloat = 0.0
+    var maxX: CGFloat { return originX + width }
+    private(set) var maxY: CGFloat = 0.0
     var width: CGFloat {
         let totalHorizontalInsets = configuration.sectionInsets.left + configuration.sectionInsets.right
         let totalInterItemSpace = configuration.minimumInterItemSpacing * CGFloat(configuration.totalSpace)

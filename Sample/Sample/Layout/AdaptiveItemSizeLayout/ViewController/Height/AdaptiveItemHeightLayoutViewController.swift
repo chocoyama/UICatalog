@@ -61,11 +61,11 @@ extension AdaptiveItemHeightLayoutViewController: UICollectionViewDataSource {
 }
 
 extension AdaptiveItemHeightLayoutViewController: AdaptiveItemSizeLayoutDelegate, ColumnCountDynamicAsignable {
-    func sizeForItem(at indexPath: IndexPath) -> CGSize {
+    func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .random(min: 150.0, max: 300.0)
     }
     
-    func referenceSizeForHeader(in section: Int) -> CGSize {
+    func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, referenceSizeForHeaderIn section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 50)
     }
 }

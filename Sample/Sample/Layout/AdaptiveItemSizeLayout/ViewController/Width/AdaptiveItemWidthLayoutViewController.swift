@@ -50,11 +50,11 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
 }
 
 extension AdaptiveItemWidthLayoutViewController: AdaptiveItemSizeLayoutDelegate {
-    func sizeForItem(at indexPath: IndexPath) -> CGSize {
+    func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .random(min: 10, max: 80)
     }
     
-    func referenceSizeForHeader(in section: Int) -> CGSize {
+    func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, referenceSizeForHeaderIn section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 50)
     }
 }

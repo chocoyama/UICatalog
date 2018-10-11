@@ -10,12 +10,12 @@ import UIKit
 
 public protocol AdaptiveItemSizeLayoutDelegate: class {
     var collectionView: UICollectionView! { get }
-    func sizeForItem(at indexPath: IndexPath) -> CGSize
-    func referenceSizeForHeader(in section: Int) -> CGSize
+    func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, referenceSizeForHeaderIn section: Int) -> CGSize
 }
 
 extension AdaptiveItemSizeLayoutDelegate {
-    public func referenceSizeForHeader(in section: Int) -> CGSize {
+    public func adaptiveItemSizeLayout(_ layout: AdaptiveItemSizeLayout, referenceSizeForHeaderIn section: Int) -> CGSize {
         return .zero
     }
     
