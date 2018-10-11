@@ -49,7 +49,8 @@ extension ColumnContainer: Containerable {
                 self.lines.append(Column(
                     configuration: self.configuration,
                     section: section,
-                    columnNumber: $0
+                    columnNumber: $0,
+                    collectionViewWidth: collectionView.bounds.width
                 ))
             }
         }

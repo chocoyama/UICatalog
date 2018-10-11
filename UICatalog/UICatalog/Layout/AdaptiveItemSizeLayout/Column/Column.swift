@@ -9,8 +9,10 @@
 import UIKit
 
 class Column: Line {
+    let configuration: AdaptiveHeightConfiguration
     let section: Int
     let number: Int // zero origin
+    let collectionViewWidth: CGFloat
     
     var originX: CGFloat {
         var x = configuration.sectionInsets.left
@@ -25,22 +27,23 @@ class Column: Line {
     var width: CGFloat {
         let totalHorizontalInsets = configuration.sectionInsets.left + configuration.sectionInsets.right
         let totalInterItemSpace = configuration.minimumInterItemSpacing * CGFloat(configuration.totalSpace)
-        let itemWidth = (UIScreen.main.bounds.width - totalHorizontalInsets - totalInterItemSpace) / CGFloat(configuration.columnCount)
+        let itemWidth = (collectionViewWidth - totalHorizontalInsets - totalInterItemSpace) / CGFloat(configuration.columnCount)
         return itemWidth
     }
     var height: CGFloat { return maxY }
     
-    private let configuration: AdaptiveHeightConfiguration
     var attributesSet = [UICollectionViewLayoutAttributes]()
     
     init(
         configuration: AdaptiveHeightConfiguration,
         section: Int,
-        columnNumber: Int
+        columnNumber: Int,
+        collectionViewWidth: CGFloat
     ) {
         self.section = section
         self.configuration = configuration
         self.number = columnNumber
+        self.collectionViewWidth = collectionViewWidth
     }
 }
 

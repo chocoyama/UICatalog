@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "80FB2CA6216ED8EE009F8049"
+               BuildableName = "UICatalogTests.xctest"
+               BlueprintName = "UICatalogTests"
+               ReferencedContainer = "container:UICatalog.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6BDAE505215264D700BBB47A"
+            BuildableName = "UICatalog.framework"
+            BlueprintName = "UICatalog"
+            ReferencedContainer = "container:UICatalog.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct AdaptiveHeightConfiguration {
+public struct AdaptiveHeightConfiguration: Equatable {
     public var columnCount: Int
     public var minColumnCount: Int
     public var maxColumnCount: Int
