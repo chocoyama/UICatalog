@@ -21,6 +21,10 @@
 		6B33DF862158C08B006143A4 /* ColumnCountDynamicAsignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */; };
 		6B3D506D216640D800D1BD85 /* UITableView+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D506C216640D800D1BD85 /* UITableView+CustomExtension.swift */; };
 		6B9863A32173982A00D5004C /* PagingChangeSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A22173982A00D5004C /* PagingChangeSubject.swift */; };
+		6B9863A52173A03900D5004C /* CustomUrlScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A42173A03900D5004C /* CustomUrlScheme.swift */; };
+		6B9863A72173A0B000D5004C /* LineMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A62173A0B000D5004C /* LineMessenger.swift */; };
+		6B9863AA2173A1B100D5004C /* ZoomTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A92173A1B100D5004C /* ZoomTransitionAnimator.swift */; };
+		6B9863AC2173A1D100D5004C /* ZoomTransitionAnimateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863AB2173A1D100D5004C /* ZoomTransitionAnimateProtocol.swift */; };
 		6B9BB94221666C040031B96F /* UIViewController+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BB94121666C040031B96F /* UIViewController+CustomExtension.swift */; };
 		6BB8928921732ADF003430DC /* PageSynchronizedContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8928721732ADF003430DC /* PageSynchronizedContainerViewController.swift */; };
 		6BB8928D2173370F003430DC /* PagingChangeSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8928C2173370F003430DC /* PagingChangeSubscriber.swift */; };
@@ -91,6 +95,10 @@
 		6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnCountDynamicAsignable.swift; sourceTree = "<group>"; };
 		6B3D506C216640D800D1BD85 /* UITableView+CustomExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CustomExtension.swift"; sourceTree = "<group>"; };
 		6B9863A22173982A00D5004C /* PagingChangeSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingChangeSubject.swift; sourceTree = "<group>"; };
+		6B9863A42173A03900D5004C /* CustomUrlScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUrlScheme.swift; sourceTree = "<group>"; };
+		6B9863A62173A0B000D5004C /* LineMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineMessenger.swift; sourceTree = "<group>"; };
+		6B9863A92173A1B100D5004C /* ZoomTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionAnimator.swift; sourceTree = "<group>"; };
+		6B9863AB2173A1D100D5004C /* ZoomTransitionAnimateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionAnimateProtocol.swift; sourceTree = "<group>"; };
 		6B9BB94121666C040031B96F /* UIViewController+CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+CustomExtension.swift"; sourceTree = "<group>"; };
 		6BB8928721732ADF003430DC /* PageSynchronizedContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSynchronizedContainerViewController.swift; sourceTree = "<group>"; };
 		6BB8928C2173370F003430DC /* PagingChangeSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingChangeSubscriber.swift; sourceTree = "<group>"; };
@@ -206,6 +214,15 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		6B9863A82173A1AA00D5004C /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				6B9863A92173A1B100D5004C /* ZoomTransitionAnimator.swift */,
+				6B9863AB2173A1D100D5004C /* ZoomTransitionAnimateProtocol.swift */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
 		6BB8928521732AAB003430DC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +301,7 @@
 		6BDAE508215264D700BBB47A /* UICatalog */ = {
 			isa = PBXGroup;
 			children = (
+				6B9863A82173A1AA00D5004C /* Animator */,
 				6BB8928521732AAB003430DC /* ViewController */,
 				6B33DF712158BC75006143A4 /* Layout */,
 				6B33DF702158BC6A006143A4 /* Parts */,
@@ -377,6 +395,8 @@
 			children = (
 				6BDAE55121526B5100BBB47A /* TapticEngine.swift */,
 				80C37A4A21560A0D00977C0B /* Painter.swift */,
+				6B9863A42173A03900D5004C /* CustomUrlScheme.swift */,
+				6B9863A62173A0B000D5004C /* LineMessenger.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -593,6 +613,7 @@
 				6BDAE525215265E200BBB47A /* RangeSlider.swift in Sources */,
 				6BB892B5217377CD003430DC /* SynchronizableCollectionViewController.swift in Sources */,
 				803D6B0C215B0A24007C332E /* SoundWaveButton.swift in Sources */,
+				6B9863AC2173A1D100D5004C /* ZoomTransitionAnimateProtocol.swift in Sources */,
 				6BDAE52D215265EC00BBB47A /* RangeSliderConfiguration.swift in Sources */,
 				6BDAE54421526B2500BBB47A /* XibInitializable.swift in Sources */,
 				6BB892A421735825003430DC /* Pageable.swift in Sources */,
@@ -606,9 +627,11 @@
 				6BDAE54721526B2500BBB47A /* NibInstantiatable.swift in Sources */,
 				6B2713A3215A71A900CBB58E /* Row.swift in Sources */,
 				6BDAE54E21526B3B00BBB47A /* Notification+CustomExtension.swift in Sources */,
+				6B9863AA2173A1B100D5004C /* ZoomTransitionAnimator.swift in Sources */,
 				6BDAE54F21526B3B00BBB47A /* UIView+CustomExtension.swift in Sources */,
 				6BB892912173373C003430DC /* PagingSynchronizer.swift in Sources */,
 				6BB8929521733818003430DC /* InfiniteLoopPageViewController.swift in Sources */,
+				6B9863A72173A0B000D5004C /* LineMessenger.swift in Sources */,
 				6BDAE54D21526B3B00BBB47A /* Color+CustomExtension.swift in Sources */,
 				80C37A4B21560A0D00977C0B /* Painter.swift in Sources */,
 				6BDAE52E215265EC00BBB47A /* PickingState.swift in Sources */,
@@ -630,6 +653,7 @@
 				6B33DF862158C08B006143A4 /* ColumnCountDynamicAsignable.swift in Sources */,
 				6B33DF6A21587A8B006143A4 /* OutlineLabel.swift in Sources */,
 				6B2713B4215A855C00CBB58E /* CGSize+CustomExtension.swift in Sources */,
+				6B9863A52173A03900D5004C /* CustomUrlScheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
