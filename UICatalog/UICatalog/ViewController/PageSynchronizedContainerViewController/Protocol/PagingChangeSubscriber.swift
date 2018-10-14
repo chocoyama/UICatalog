@@ -10,5 +10,5 @@ import Foundation
 
 public protocol PagingChangeSubscriber {
     var pagingSynchronizer: PagingSynchronizer? { get set }
-    func synchronize(pageIndex index: Int)
+    func synchronize(pageIndex index: Int, section: Int)
 }

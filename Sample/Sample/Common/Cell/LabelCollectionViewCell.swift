@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AdaptiveItemCollectionViewCell: UICollectionViewCell {
+class LabelCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var label: UILabel!
     
     @discardableResult
-    func configure(by indexPath: IndexPath, backgroundColor: UIColor) -> AdaptiveItemCollectionViewCell {
+    func configure(by indexPath: IndexPath, backgroundColor: UIColor) -> LabelCollectionViewCell {
         label.text = "\(indexPath.item)"
         self.backgroundColor = backgroundColor
         return self

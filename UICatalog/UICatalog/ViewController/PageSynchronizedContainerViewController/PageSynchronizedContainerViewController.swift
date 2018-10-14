@@ -11,8 +11,7 @@ import UIKit
 open class PageSynchronizedContainerViewController: UIViewController, PagingSynchronizer {
     
     public init(with children: [UIViewController & PagingChangeSubscriber]) {
-        super.init(nibName: "PageSynchronizedViewController", bundle: nil)
-        
+        super.init(nibName: nil, bundle: nil)
         for var childController in children {
             childController.pagingSynchronizer = self
             
@@ -25,12 +24,4 @@ open class PageSynchronizedContainerViewController: UIViewController, PagingSync
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configureLayout<T>(
-        type: T.Type,
-        layoutHandler: (_ parent: UIViewController, _ child: [T]) -> Void
-    ) where T: UIViewController & PagingChangeSubscriber {
-        let child = children.compactMap {  $0 as? T }
-        layoutHandler(self, child)
-    }
-
 }

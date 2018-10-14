@@ -9,18 +9,22 @@
 /* Begin PBXBuildFile section */
 		6B2713AD215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AB215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift */; };
 		6B2713AE215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */; };
-		6B2713B1215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AF215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift */; };
-		6B2713B2215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713B0215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib */; };
+		6B2713B1215A851700CBB58E /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */; };
+		6B2713B2215A851700CBB58E /* LabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */; };
 		6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF55215770C2006143A4 /* ProgressBarViewController.swift */; };
 		6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */; };
 		6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */; };
 		6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */; };
 		6B33DF802158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */; };
 		6B33DF822158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */; };
+		6B9863A021737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B98639E21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift */; };
+		6B9863A121737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B98639F21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib */; };
 		6BB8929A217350B1003430DC /* SampleInfiniteLoopPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB89298217350B1003430DC /* SampleInfiniteLoopPageViewController.swift */; };
 		6BB8929B217350B1003430DC /* SampleInfiniteLoopPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BB89299217350B1003430DC /* SampleInfiniteLoopPageViewController.xib */; };
 		6BB8929E217350F3003430DC /* NumberingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8929C217350F3003430DC /* NumberingViewController.swift */; };
 		6BB8929F217350F3003430DC /* NumberingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BB8929D217350F3003430DC /* NumberingViewController.xib */; };
+		6BB892B221737785003430DC /* SamplePageSynchronizedContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB892B021737785003430DC /* SamplePageSynchronizedContainerViewController.swift */; };
+		6BB892B321737785003430DC /* SamplePageSynchronizedContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BB892B121737785003430DC /* SamplePageSynchronizedContainerViewController.xib */; };
 		6BCD0FF9216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD0FF7216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift */; };
 		6BCD0FFA216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BCD0FF8216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib */; };
 		6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE4EA2152649B00BBB47A /* AppDelegate.swift */; };
@@ -39,18 +43,22 @@
 /* Begin PBXFileReference section */
 		6B2713AB215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemWidthLayoutViewController.swift; sourceTree = "<group>"; };
 		6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemWidthLayoutViewController.xib; sourceTree = "<group>"; };
-		6B2713AF215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		6B2713B0215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
+		6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCollectionViewCell.xib; sourceTree = "<group>"; };
 		6B33DF55215770C2006143A4 /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
 		6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressBarViewController.xib; sourceTree = "<group>"; };
 		6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineLabelViewController.swift; sourceTree = "<group>"; };
 		6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutlineLabelViewController.xib; sourceTree = "<group>"; };
 		6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveItemHeightLayoutViewController.swift; sourceTree = "<group>"; };
 		6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdaptiveItemHeightLayoutViewController.storyboard; sourceTree = "<group>"; };
+		6B98639E21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePageSynchronizedCollectionViewController.swift; sourceTree = "<group>"; };
+		6B98639F21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SamplePageSynchronizedCollectionViewController.xib; sourceTree = "<group>"; };
 		6BB89298217350B1003430DC /* SampleInfiniteLoopPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleInfiniteLoopPageViewController.swift; sourceTree = "<group>"; };
 		6BB89299217350B1003430DC /* SampleInfiniteLoopPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SampleInfiniteLoopPageViewController.xib; sourceTree = "<group>"; };
 		6BB8929C217350F3003430DC /* NumberingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberingViewController.swift; sourceTree = "<group>"; };
 		6BB8929D217350F3003430DC /* NumberingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberingViewController.xib; sourceTree = "<group>"; };
+		6BB892B021737785003430DC /* SamplePageSynchronizedContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePageSynchronizedContainerViewController.swift; sourceTree = "<group>"; };
+		6BB892B121737785003430DC /* SamplePageSynchronizedContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SamplePageSynchronizedContainerViewController.xib; sourceTree = "<group>"; };
 		6BCD0FF7216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemCollectionReusableView.swift; sourceTree = "<group>"; };
 		6BCD0FF8216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemCollectionReusableView.xib; sourceTree = "<group>"; };
 		6BDAE4E72152649B00BBB47A /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,11 +124,19 @@
 			path = Height;
 			sourceTree = "<group>";
 		};
+		6B98639D21737A2900D5004C /* Children */ = {
+			isa = PBXGroup;
+			children = (
+				6B98639E21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift */,
+				6B98639F21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
 		6BA5011C216E2424003B530F /* AdaptiveItemSizeLayout */ = {
 			isa = PBXGroup;
 			children = (
 				6BA5011D216E2435003B530F /* ViewController */,
-				6BA5011E216E2450003B530F /* Cell */,
 				6BA5011F216E2455003B530F /* ReusableView */,
 			);
 			path = AdaptiveItemSizeLayout;
@@ -138,8 +154,8 @@
 		6BA5011E216E2450003B530F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				6B2713AF215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift */,
-				6B2713B0215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib */,
+				6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */,
+				6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -156,12 +172,39 @@
 		6BB8929721735071003430DC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6BB892AF2173775A003430DC /* PageSynchronizedContainerViewController */,
+				6BB892AE2173774A003430DC /* InfiniteLoopPageViewController */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6BB892AD21735FC6003430DC /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6BA5011E216E2450003B530F /* Cell */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6BB892AE2173774A003430DC /* InfiniteLoopPageViewController */ = {
+			isa = PBXGroup;
+			children = (
 				6BB89298217350B1003430DC /* SampleInfiniteLoopPageViewController.swift */,
 				6BB89299217350B1003430DC /* SampleInfiniteLoopPageViewController.xib */,
 				6BB8929C217350F3003430DC /* NumberingViewController.swift */,
 				6BB8929D217350F3003430DC /* NumberingViewController.xib */,
 			);
-			path = ViewController;
+			path = InfiniteLoopPageViewController;
+			sourceTree = "<group>";
+		};
+		6BB892AF2173775A003430DC /* PageSynchronizedContainerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6B98639D21737A2900D5004C /* Children */,
+				6BB892B021737785003430DC /* SamplePageSynchronizedContainerViewController.swift */,
+				6BB892B121737785003430DC /* SamplePageSynchronizedContainerViewController.xib */,
+			);
+			path = PageSynchronizedContainerViewController;
 			sourceTree = "<group>";
 		};
 		6BDAE4DE2152649B00BBB47A = {
@@ -184,6 +227,7 @@
 		6BDAE4E92152649B00BBB47A /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				6BB892AD21735FC6003430DC /* Common */,
 				6BB8929721735071003430DC /* ViewController */,
 				803D6B14215B0A62007C332E /* Layout */,
 				803D6B15215B0A6B007C332E /* Parts */,
@@ -308,9 +352,11 @@
 				6BDAE4F22152649C00BBB47A /* Assets.xcassets in Resources */,
 				6B2713AE215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib in Resources */,
 				6BDAE4F02152649B00BBB47A /* Main.storyboard in Resources */,
-				6B2713B2215A851700CBB58E /* AdaptiveItemCollectionViewCell.xib in Resources */,
+				6B9863A121737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib in Resources */,
+				6B2713B2215A851700CBB58E /* LabelCollectionViewCell.xib in Resources */,
 				6BB8929B217350B1003430DC /* SampleInfiniteLoopPageViewController.xib in Resources */,
 				803D6B11215B0A45007C332E /* SoundWaveButtonViewController.xib in Resources */,
+				6BB892B321737785003430DC /* SamplePageSynchronizedContainerViewController.xib in Resources */,
 				6BB8929F217350F3003430DC /* NumberingViewController.xib in Resources */,
 				6BCD0FFA216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib in Resources */,
 				6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */,
@@ -332,11 +378,13 @@
 				803D6B10215B0A45007C332E /* SoundWaveButtonViewController.swift in Sources */,
 				6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */,
 				6BDAE4ED2152649B00BBB47A /* ViewController.swift in Sources */,
+				6BB892B221737785003430DC /* SamplePageSynchronizedContainerViewController.swift in Sources */,
 				6BB8929A217350B1003430DC /* SampleInfiniteLoopPageViewController.swift in Sources */,
 				6BCD0FF9216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift in Sources */,
+				6B9863A021737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift in Sources */,
 				6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */,
 				6BB8929E217350F3003430DC /* NumberingViewController.swift in Sources */,
-				6B2713B1215A851700CBB58E /* AdaptiveItemCollectionViewCell.swift in Sources */,
+				6B2713B1215A851700CBB58E /* LabelCollectionViewCell.swift in Sources */,
 				6B2713AD215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

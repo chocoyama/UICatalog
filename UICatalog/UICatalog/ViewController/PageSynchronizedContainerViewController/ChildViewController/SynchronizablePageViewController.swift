@@ -45,12 +45,12 @@ extension SynchronizablePageViewController: UIPageViewControllerDelegate {
             guard let currentVC = viewControllers?.first,
                 let currentIndex = getIndex(at: currentVC) else { return }
             
-            pagingSynchronizer?.pagingSynchronizer(subscriber: self, didChangedPageAt: currentIndex)
+            pagingSynchronizer?.pagingSynchronizer(subscriber: self, didChangedPageAt: currentIndex, section: 0)
         }
 }
 
 extension SynchronizablePageViewController: PagingChangeObserver, PagingChangeSubscriber {
-    public func synchronize(pageIndex index: Int) {
+    public func synchronize(pageIndex index: Int, section: Int) {
         guard let currentVC = viewControllers?.first,
             let currentIndex = getIndex(at: currentVC) else { return }
 

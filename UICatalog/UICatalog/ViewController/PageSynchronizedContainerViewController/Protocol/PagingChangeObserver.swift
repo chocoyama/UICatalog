@@ -12,12 +12,12 @@ public protocol PagingChangeObserver {
     var pagingSynchronizer: PagingSynchronizer? { get set }
 }
 extension PagingChangeObserver {
-    public func notifyPageNumberChanged(to page: Int) {
-        pagingSynchronizer?.pagingSynchronizer(subscriber: nil, didChangedPageAt: page)
+    public func notifyPageNumberChanged(to page: Int, section: Int) {
+        pagingSynchronizer?.pagingSynchronizer(subscriber: nil, didChangedPageAt: page, section: section)
     }
 }
 extension PagingChangeObserver where Self: PagingChangeSubscriber {
-    public func notifyPageNumberChanged(to page: Int) {
-        pagingSynchronizer?.pagingSynchronizer(subscriber: self, didChangedPageAt: page)
+    public func notifyPageNumberChanged(to page: Int, section: Int) {
+        pagingSynchronizer?.pagingSynchronizer(subscriber: self, didChangedPageAt: page, section: section)
     }
 }
