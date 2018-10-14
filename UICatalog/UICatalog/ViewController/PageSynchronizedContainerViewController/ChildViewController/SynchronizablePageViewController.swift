@@ -12,20 +12,18 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
     
     open weak var pagingSynchronizer: PagingSynchronizer?
     
-    public override init(
-        with controllers: [UIViewController & Pageable],
-        shouldInfiniteLoop: Bool,
-        transitionStyle: UIPageViewController.TransitionStyle,
-        navigationOrientation: UIPageViewController.NavigationOrientation,
-        options: [UIPageViewController.OptionsKey : Any]?
-    ) {
-        super.init(
-            with: controllers,
-            shouldInfiniteLoop: shouldInfiniteLoop,
-            transitionStyle: transitionStyle,
-            navigationOrientation: navigationOrientation,
-            options: options
-        )
+    public override init(with controllers: [UIViewController & Pageable],
+                         shouldInfiniteLoop: Bool,
+                         transitionStyle: UIPageViewController.TransitionStyle,
+                         navigationOrientation: UIPageViewController.NavigationOrientation,
+                         options: [UIPageViewController.OptionsKey : Any]?) {
+        
+        super.init(with: controllers,
+                   shouldInfiniteLoop: shouldInfiniteLoop,
+                   transitionStyle: transitionStyle,
+                   navigationOrientation: navigationOrientation,
+                   options: options)
+        
         delegate = self
     }
     
@@ -36,24 +34,23 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
 }
 
 extension SynchronizablePageViewController: UIPageViewControllerDelegate {
-        public func pageViewController(
-            _ pageViewController: UIPageViewController,
-            didFinishAnimating finished: Bool,
-            previousViewControllers: [UIViewController],
-            transitionCompleted completed: Bool
-        ) {
-            guard let currentVC = viewControllers?.first,
-                let currentIndex = getIndex(at: currentVC) else { return }
-            
-            pagingSynchronizer?.pagingSynchronizer(subscriber: self, didChangedPageAt: currentIndex, section: 0)
-        }
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   didFinishAnimating finished: Bool,
+                                   previousViewControllers: [UIViewController],
+                                   transitionCompleted completed: Bool) {
+        
+        guard let currentVC = viewControllers?.first,
+            let currentIndex = getIndex(at: currentVC) else { return }
+        
+        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: currentIndex, section: 0)
+    }
 }
 
-extension SynchronizablePageViewController: PagingChangeObserver, PagingChangeSubscriber {
+extension SynchronizablePageViewController: PagingChangeSubject {
     public func synchronize(pageIndex index: Int, section: Int) {
         guard let currentVC = viewControllers?.first,
             let currentIndex = getIndex(at: currentVC) else { return }
-
+        
         let controller = controllers[index]
         let direction: UIPageViewController.NavigationDirection = (index > currentIndex) ? .forward : .reverse
         setViewControllers([controller], direction: direction, animated: true, completion: nil)

@@ -30,7 +30,10 @@ open class SynchronizableCollectionViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
+        layoutSubviews()
+    }
+    
+    private func layoutSubviews() {
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -45,14 +48,16 @@ open class SynchronizableCollectionViewController: UIViewController {
 
 extension SynchronizableCollectionViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        pagingSynchronizer?.pagingSynchronizer(subscriber: self, didChangedPageAt: indexPath.item, section: indexPath.section)
+        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: indexPath.item,
+                                               section: indexPath.section)
     }
 }
 
-extension SynchronizableCollectionViewController: PagingChangeSubscriber, PagingChangeObserver {
+extension SynchronizableCollectionViewController: PagingChangeSubject {
     public func synchronize(pageIndex index: Int, section: Int) {
         collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
-        let indexPath = IndexPath(item: index, section: section)
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        collectionView.selectItem(at: IndexPath(item: index, section: section),
+                                  animated: true,
+                                  scrollPosition: .centeredHorizontally)
     }
 }

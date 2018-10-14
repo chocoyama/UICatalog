@@ -13,18 +13,14 @@ class NumberingViewController: UIViewController, Pageable {
     
     @IBOutlet weak var label: UILabel!
     
-    var page: Int = 0
-    
-    init() {
-        super.init(nibName: "NumberingViewController", bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var page: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.label.text = "\(page)"
+        if let page = page {
+            self.label.text = "\(page)"
+        } else {
+            self.label.text = ""
+        }
     }
 }

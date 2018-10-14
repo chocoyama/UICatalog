@@ -14,13 +14,13 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
     private let synchronizableCollectionVC: SamplePageSynchronizedCollectionViewController
     private let synchronizablePageVC: SynchronizablePageViewController
     private let containerVC: PageSynchronizedContainerViewController
+    
     private let itemCount = 10
     
     init() {
         self.synchronizableCollectionVC = SamplePageSynchronizedCollectionViewController(
             numberOfItems: itemCount
         )
-        
         self.synchronizablePageVC = SynchronizablePageViewController(
             with: (0..<itemCount).map { _ in NumberingViewController() },
             shouldInfiniteLoop: false,
@@ -28,7 +28,6 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
             navigationOrientation: .horizontal,
             options: nil
         )
-        
         self.containerVC = PageSynchronizedContainerViewController(with: [
             synchronizableCollectionVC,
             synchronizablePageVC
@@ -43,7 +42,10 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        layoutSubviews()
+    }
+    
+    private func layoutSubviews() {
         synchronizableCollectionVC.view.translatesAutoresizingMaskIntoConstraints = false
         containerVC.view.addSubview(synchronizableCollectionVC.view)
         NSLayoutConstraint.activate([

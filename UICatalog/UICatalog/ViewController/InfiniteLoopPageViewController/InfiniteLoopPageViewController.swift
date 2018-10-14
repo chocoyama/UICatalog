@@ -13,13 +13,12 @@ open class InfiniteLoopPageViewController: UIPageViewController {
     let controllers: [UIViewController & Pageable]
     let shouldInfiniteLoop: Bool
     
-    public init(
-        with controllers: [UIViewController & Pageable],
-        shouldInfiniteLoop: Bool,
-        transitionStyle: UIPageViewController.TransitionStyle,
-        navigationOrientation: UIPageViewController.NavigationOrientation,
-        options: [UIPageViewController.OptionsKey : Any]?
-    ) {
+    public init(with controllers: [UIViewController & Pageable],
+                shouldInfiniteLoop: Bool,
+                transitionStyle: UIPageViewController.TransitionStyle,
+                navigationOrientation: UIPageViewController.NavigationOrientation,
+                options: [UIPageViewController.OptionsKey : Any]?) {
+        
         self.controllers = controllers
         self.shouldInfiniteLoop = shouldInfiniteLoop
         super.init(transitionStyle: transitionStyle,
@@ -43,7 +42,9 @@ open class InfiniteLoopPageViewController: UIPageViewController {
             setViewControllers([firstVC], direction: .forward, animated: false, completion: nil)
         }
     }
-    
+}
+
+extension InfiniteLoopPageViewController {
     func getIndex(at viewController: UIViewController) -> Int? {
         guard let currentVC = viewController as? Pageable else { return nil }
         return controllers.index { $0.page == currentVC.page }
@@ -64,7 +65,9 @@ open class InfiniteLoopPageViewController: UIPageViewController {
 }
 
 extension InfiniteLoopPageViewController: UIPageViewControllerDataSource {
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        
         if let currentIndex = getIndex(at: viewController) {
             return getViewController(at: controllers.index(before: currentIndex))
         } else {
@@ -72,7 +75,9 @@ extension InfiniteLoopPageViewController: UIPageViewControllerDataSource {
         }
     }
 
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
         if let currentIndex = getIndex(at: viewController) {
             return getViewController(at: controllers.index(after: currentIndex))
         } else {

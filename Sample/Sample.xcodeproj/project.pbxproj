@@ -227,10 +227,10 @@
 		6BDAE4E92152649B00BBB47A /* Sample */ = {
 			isa = PBXGroup;
 			children = (
-				6BB892AD21735FC6003430DC /* Common */,
 				6BB8929721735071003430DC /* ViewController */,
 				803D6B14215B0A62007C332E /* Layout */,
 				803D6B15215B0A6B007C332E /* Parts */,
+				6BB892AD21735FC6003430DC /* Common */,
 				6BDAE4EA2152649B00BBB47A /* AppDelegate.swift */,
 				6BDAE4EC2152649B00BBB47A /* ViewController.swift */,
 				6BDAE5352152686E00BBB47A /* TableViewCell.swift */,

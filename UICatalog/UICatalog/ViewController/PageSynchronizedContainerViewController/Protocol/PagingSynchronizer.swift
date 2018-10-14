@@ -9,16 +9,16 @@
 import Foundation
 
 public protocol PagingSynchronizer: class {
-    func pagingSynchronizer(subscriber: PagingChangeSubscriber?, didChangedPageAt index: Int, section: Int)
+    func pagingSynchronizer(didChangedPageAt index: Int, section: Int)
 }
+
 extension PagingSynchronizer where Self: UIViewController {
-    public func pagingSynchronizer(subscriber: PagingChangeSubscriber?, didChangedPageAt index: Int, section: Int) {
-        children
-            .compactMap { $0 as? PagingChangeSubscriber }
-            .forEach { (subscriber) in
-                DispatchQueue.main.async {
-                    subscriber.synchronize(pageIndex: index, section: section)
+    public func pagingSynchronizer(didChangedPageAt index: Int, section: Int) {
+        children.compactMap { $0 as? PagingChangeSubscriber }
+                .forEach { (subscriber) in
+                    DispatchQueue.main.async {
+                        subscriber.synchronize(pageIndex: index, section: section)
+                    }
                 }
-        }
     }
 }

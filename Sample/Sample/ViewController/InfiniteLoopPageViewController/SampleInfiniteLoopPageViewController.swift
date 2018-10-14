@@ -10,19 +10,16 @@ import UIKit
 import UICatalog
 
 class SampleInfiniteLoopPageViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    
+    let vc = InfiniteLoopPageViewController(
+        with: (0..<10).map { _ in NumberingViewController() },
+        shouldInfiniteLoop: true,
+        transitionStyle: .scroll,
+        navigationOrientation: .horizontal,
+        options: nil
+    )
     
     @IBAction func didTappedButton(_ sender: UIButton) {
-        let vc = InfiniteLoopPageViewController(
-            with: (0..<10).map { _ in NumberingViewController() },
-            shouldInfiniteLoop: true,
-            transitionStyle: .scroll,
-            navigationOrientation: .horizontal,
-            options: nil
-        )
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
