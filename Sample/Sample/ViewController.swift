@@ -18,6 +18,8 @@ class ViewController: UIViewController {
         case adaptiveItemHeightLayout = "AdaptiveItemHeightLayout"
         case adaptiveItemWidthLayout = "AdaptiveItemWidthLayout"
         case soundWaveButton = "SoundWaveButton"
+        case infiniteLoopPageViewController = "InfiniteLoopPageViewController"
+        case pageSynchronizedContainerViewController = "PageSynchronizedContainerViewController"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -27,6 +29,8 @@ class ViewController: UIViewController {
             case .adaptiveItemHeightLayout: return AdaptiveItemHeightLayoutViewController.instantiate(storyboardName: "AdaptiveItemHeightLayoutViewController")
             case .adaptiveItemWidthLayout: return AdaptiveItemWidthLayoutViewController()
             case .soundWaveButton: return SoundWaveButtonViewController()
+            case .infiniteLoopPageViewController: return SampleInfiniteLoopPageViewController()
+            case .pageSynchronizedContainerViewController: return SamplePageSynchronizedContainerViewController()
             }
         }
     }
