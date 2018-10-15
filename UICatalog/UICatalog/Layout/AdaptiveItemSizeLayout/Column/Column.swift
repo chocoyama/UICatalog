@@ -56,7 +56,9 @@ extension Column {
             width: width,
             height: itemSize.height * width / itemSize.width
         )
-        maxY = attributes.frame.maxY
+        
+        maxY = attributes.frame.maxY + configuration.sectionInsets.bottom
+        
         attributesSet.append(attributes)
     }
     
@@ -77,7 +79,7 @@ extension Column {
         if attributesSet.isEmpty {
             return configuration.sectionInsets.top
         } else {
-            return maxY + configuration.minimumLineSpacing
+            return maxY + configuration.minimumLineSpacing - configuration.sectionInsets.bottom
         }
     }
 }

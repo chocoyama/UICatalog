@@ -25,7 +25,7 @@ class ColumnContainer {
         }.last
         
         if let maxY = bottomLine?.maxY {
-            return maxY + configuration.sectionInsets.bottom
+            return maxY
         } else {
             return .leastNormalMagnitude
         }
