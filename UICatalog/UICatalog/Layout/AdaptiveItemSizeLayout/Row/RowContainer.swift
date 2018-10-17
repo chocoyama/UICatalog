@@ -100,7 +100,7 @@ extension RowContainer: Containerable {
                     return total + header.attributes.frame.height
                 })
             let totalMarginHeight = configuration.minimumLineSpacing * CGFloat(line.section + 1)
-            line.update(addingBottom: totalHeaderHeight + totalMarginHeight)
+            line.moveDownward(by: totalHeaderHeight + totalMarginHeight)
         }
         
         headers.forEach { (header) in

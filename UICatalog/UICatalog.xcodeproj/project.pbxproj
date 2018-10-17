@@ -68,6 +68,7 @@
 		80FB2CA2216ED38A009F8049 /* PluggableLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CA1216ED38A009F8049 /* PluggableLayout.swift */; };
 		80FB2CAC216ED8EE009F8049 /* UICatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDAE506215264D700BBB47A /* UICatalog.framework */; };
 		80FB2CB7216ED92D009F8049 /* ColumnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CB6216ED92D009F8049 /* ColumnTests.swift */; };
+		80FB2CBA21749FFA009F8049 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CB921749FFA009F8049 /* RowTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		80FB2CAB216ED8EE009F8049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80FB2CB5216ED92C009F8049 /* UICatalogTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICatalogTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		80FB2CB6216ED92D009F8049 /* ColumnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTests.swift; sourceTree = "<group>"; };
+		80FB2CB921749FFA009F8049 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				80FB2CB4216ED911009F8049 /* Column */,
+				80FB2CB821749FE5009F8049 /* Row */,
 			);
 			path = AdaptiveItemSizeLayout;
 			sourceTree = "<group>";
@@ -484,6 +487,14 @@
 				80FB2CB6216ED92D009F8049 /* ColumnTests.swift */,
 			);
 			path = Column;
+			sourceTree = "<group>";
+		};
+		80FB2CB821749FE5009F8049 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				80FB2CB921749FFA009F8049 /* RowTests.swift */,
+			);
+			path = Row;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -661,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80FB2CBA21749FFA009F8049 /* RowTests.swift in Sources */,
 				80FB2CB7216ED92D009F8049 /* ColumnTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

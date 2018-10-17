@@ -21,7 +21,7 @@ public protocol Line {
     func addAttributes(indexPath: IndexPath, itemSize: CGSize)
     func getAttributes(indexPath: IndexPath) -> UICollectionViewLayoutAttributes?
     func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes]
-    func update(addingBottom: CGFloat)
+    func moveDownward(by point: CGFloat)
 }
 
 extension Line {

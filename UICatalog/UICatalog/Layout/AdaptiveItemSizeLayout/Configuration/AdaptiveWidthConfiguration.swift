@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct AdaptiveWidthConfiguration {
+public struct AdaptiveWidthConfiguration: Equatable {
     public var minimumInterItemSpacing: CGFloat
     public var minimumLineSpacing: CGFloat
     public var sectionInsets: UIEdgeInsets

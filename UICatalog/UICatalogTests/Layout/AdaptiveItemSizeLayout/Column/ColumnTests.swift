@@ -392,7 +392,12 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[0].frame, CGRect(x: 0, y: 0, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 0, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 50)
             XCTAssertEqual(column.height, 50)
             
@@ -401,7 +406,13 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[1].frame, CGRect(x: 0, y: 50, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 0, width: 100, height: 50),
+                    CGRect(x: 0, y: 50, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 100)
             XCTAssertEqual(column.height, 100)
             
@@ -410,7 +421,14 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[2].frame, CGRect(x: 0, y: 100, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 0, width: 100, height: 50),
+                    CGRect(x: 0, y: 50, width: 100, height: 50),
+                    CGRect(x: 0, y: 100, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 150)
             XCTAssertEqual(column.height, 150)
         }
@@ -432,7 +450,12 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[0].frame, CGRect(x: 0, y: 0, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 0, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 50)
             XCTAssertEqual(column.height, 50)
             
@@ -441,7 +464,13 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[1].frame, CGRect(x: 0, y: 55, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 0, width: 100, height: 50),
+                    CGRect(x: 0, y: 55, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 105)
             XCTAssertEqual(column.height, 105)
             
@@ -450,7 +479,14 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[2].frame, CGRect(x: 0, y: 110, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 0, width: 100, height: 50),
+                    CGRect(x: 0, y: 55, width: 100, height: 50),
+                    CGRect(x: 0, y: 110, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 160)
             XCTAssertEqual(column.height, 160)
         }
@@ -472,7 +508,12 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[0].frame, CGRect(x: 0, y: 8.0, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 66)
             XCTAssertEqual(column.height, 66)
             
@@ -481,7 +522,13 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[1].frame, CGRect(x: 0, y: 58, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50),
+                    CGRect(x: 0, y: 58, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 116)
             XCTAssertEqual(column.height, 116)
             
@@ -490,7 +537,14 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[2].frame, CGRect(x: 0, y: 108, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50),
+                    CGRect(x: 0, y: 58, width: 100, height: 50),
+                    CGRect(x: 0, y: 108, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 166)
             XCTAssertEqual(column.height, 166)
         }
@@ -512,7 +566,12 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[0].frame, CGRect(x: 0, y: 8.0, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 66)
             XCTAssertEqual(column.height, 66)
             
@@ -521,7 +580,13 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[1].frame, CGRect(x: 0, y: 63, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50),
+                    CGRect(x: 0, y: 63, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 121)
             XCTAssertEqual(column.height, 121)
             
@@ -530,26 +595,74 @@ class ColumnTests: XCTestCase {
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
-            XCTAssertEqual(column.attributesSet[2].frame, CGRect(x: 0, y: 118, width: 100, height: 50))
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50),
+                    CGRect(x: 0, y: 63, width: 100, height: 50),
+                    CGRect(x: 0, y: 118, width: 100, height: 50)
+                ]
+            )
             XCTAssertEqual(column.maxY, 176)
             XCTAssertEqual(column.height, 176)
         }
     }
     
-    // updateAddingButtonでテストする
-    // func test_originYが正しい値になっていること() {}
-    
-    // addAttributes, updateAddingBottomで確認
-//    func test_maxYが正しい値になっていること() {
-//
-//    }
-    
-    // addAttributes, updateAddingBottomで確認
-//    func test_heightが正しい値になっていること() {}
-    
+    func test_moveDownwardを実行すると正しい値で値が更新されること() {
+        XCTContext.runActivity(named: "") { _ in
+            column = Column.create(
+                configuration: AdaptiveHeightConfiguration(
+                    columnCount: 2,
+                    minimumInterItemSpacing: 0,
+                    minimumLineSpacing: 5,
+                    sectionInsets: UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
+                ),
+                columnNumber: 0,
+                collectionViewWidth: 200
+            )
+            
+            column.addAttributes(
+                indexPath: IndexPath(item: 0, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            column.addAttributes(
+                indexPath: IndexPath(item: 1, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            column.addAttributes(
+                indexPath: IndexPath(item: 2, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 8.0, width: 100, height: 50),
+                    CGRect(x: 0, y: 63, width: 100, height: 50),
+                    CGRect(x: 0, y: 118, width: 100, height: 50)
+                ]
+            )
+            XCTAssertEqual(column.originY, 0)
+            XCTAssertEqual(column.maxY, 176)
+            XCTAssertEqual(column.height, 176)
+            
+            column.moveDownward(by: 100)
+            XCTAssertEqual(
+                column.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0, y: 108.0, width: 100, height: 50),
+                    CGRect(x: 0, y: 163, width: 100, height: 50),
+                    CGRect(x: 0, y: 218, width: 100, height: 50)
+                ]
+            )
+            XCTAssertEqual(column.originY, 100)
+            XCTAssertEqual(column.maxY, 276)
+            XCTAssertEqual(column.height, 276)
+        }
+    }
 }
 
-extension Column {
+fileprivate extension Column {
     class func create(
         configuration: AdaptiveHeightConfiguration = .default,
         section: Int = 0,

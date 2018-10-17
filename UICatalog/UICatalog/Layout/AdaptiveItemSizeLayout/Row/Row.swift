@@ -21,7 +21,7 @@ class Row: Line {
     let width: CGFloat
     let height: CGFloat
     
-    private let configuration: AdaptiveWidthConfiguration
+    let configuration: AdaptiveWidthConfiguration
     var attributesSet = [UICollectionViewLayoutAttributes]()
     
     init(
@@ -43,6 +43,12 @@ class Row: Line {
 
 extension Row {
     func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
+        guard height >= itemSize.height,
+            nextOriginX + itemSize.width <= width else {
+            // TODO: Throw Error
+            return
+        }
+        
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(
             x: nextOriginX,
@@ -54,16 +60,16 @@ extension Row {
         attributesSet.append(attributes)
     }
     
-    func update(addingBottom: CGFloat) {
+    func moveDownward(by point: CGFloat) {
         attributesSet.forEach {
             $0.frame = CGRect(
                 x: $0.frame.origin.x,
-                y: $0.frame.origin.y + addingBottom,
+                y: $0.frame.origin.y + point,
                 width: $0.frame.width,
                 height: $0.frame.height
             )
         }
-        self.originY = originY + addingBottom
+        self.originY = originY + point
     }
     
     private var nextOriginX: CGFloat {
