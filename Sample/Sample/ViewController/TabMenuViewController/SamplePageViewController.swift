@@ -8,15 +8,15 @@
 
 import UIKit
 import UICatalog
+import WebKit
 
 class SamplePageViewController: PageViewController<SamplePage.Entity> {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        label.text = page.title
+        webView.load(URLRequest(url: page.entity))
     }
     
 }

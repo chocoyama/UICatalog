@@ -17,6 +17,8 @@ public protocol MenuViewControllerDelegate: class {
     func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
     func heightForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat
     func insetForMenuView<T>(in menuViewController: MenuViewController<T>) -> UIEdgeInsets
+    func minimumInteritemSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat
+    func minimumLineSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat
 }
 
 open class MenuViewController<T>: SynchronizableCollectionViewController,
@@ -76,5 +78,13 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return delegate?.insetForMenuView(in: self) ?? .zero
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return delegate?.minimumInteritemSpacingForMenuView(in: self) ?? .leastNormalMagnitude
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return delegate?.minimumLineSpacingForMenuView(in: self) ?? .leastNormalMagnitude
     }
 }

@@ -28,7 +28,6 @@ class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
 }
 
 extension SampleTabMenuViewController: MenuViewControllerDelegate {
-    
     func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>) {
         LabelCollectionViewCell.register(for: collectionView)
     }
@@ -41,8 +40,7 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
             .configure(by: page.title, backgroundColor: .random)
     }
     
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
-                               widthForItemAt page: AnyPage<T>) -> CGFloat {
+    func menuViewController<T>(_ menuViewController: MenuViewController<T>, widthForItemAt page: AnyPage<T>) -> CGFloat {
         return 100
     }
     
@@ -52,5 +50,13 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     
     func insetForMenuView<T>(in menuViewController: MenuViewController<T>) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5.0, left: 8.0, bottom: 5.0, right: 8.0)
+    }
+    
+    func minimumInteritemSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat {
+        return 5.0
+    }
+    
+    func minimumLineSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat {
+        return 5.0
     }
 }
