@@ -25,7 +25,7 @@ class ColumnContainer {
         }.last
         
         if let maxY = bottomLine?.maxY {
-            return maxY + configuration.sectionInsets.bottom
+            return maxY
         } else {
             return .leastNormalMagnitude
         }
@@ -97,8 +97,8 @@ extension ColumnContainer: Containerable {
             } else {
                 lineSpacing = configuration.minimumLineSpacing * 2 - configuration.sectionInsets.top
             }
-            let addingBottom = previousSectionBottom + headerHeight + lineSpacing
-            line.update(addingBottom: addingBottom)
+            let downPoint = previousSectionBottom + headerHeight + lineSpacing
+            line.moveDownward(by: downPoint)
             
             if let maxY = maxYDicBySection[line.section], maxY < line.maxY {
                 maxYDicBySection[line.section] = line.maxY

@@ -15,7 +15,14 @@ class AdaptiveItemHeightLayoutViewController: UIViewController {
             LabelCollectionViewCell.register(for: collectionView)
             AdaptiveItemCollectionReusableView.register(for: collectionView, ofKind: .sectionHeader)
             
-            let layout = AdaptiveItemSizeLayout(adaptType: .height(.default))
+            let layout = AdaptiveItemSizeLayout(adaptType: .height(AdaptiveHeightConfiguration(
+                columnCount: 2,
+                minColumnCount: 1,
+                maxColumnCount: Int.max,
+                minimumInterItemSpacing: 5.0,
+                minimumLineSpacing: 10.0,
+                sectionInsets: UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+            )))
             layout.delegate = self
             collectionView.setCollectionViewLayout(layout, animated: false)
         }

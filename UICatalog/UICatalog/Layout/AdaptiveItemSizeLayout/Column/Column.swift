@@ -56,28 +56,30 @@ extension Column {
             width: width,
             height: itemSize.height * width / itemSize.width
         )
-        maxY = attributes.frame.maxY
+        
+        maxY = attributes.frame.maxY + configuration.sectionInsets.bottom
+        
         attributesSet.append(attributes)
     }
     
-    func update(addingBottom: CGFloat) {
+    func moveDownward(by point: CGFloat) {
         attributesSet.forEach {
             $0.frame = CGRect(
                 x: $0.frame.origin.x,
-                y: $0.frame.origin.y + addingBottom,
+                y: $0.frame.origin.y + point,
                 width: $0.frame.width,
                 height: $0.frame.height
             )
         }
-        self.originY = originY + addingBottom
-        self.maxY = maxY + addingBottom
+        self.originY = originY + point
+        self.maxY = maxY + point
     }
     
     private var nextOriginY: CGFloat {
         if attributesSet.isEmpty {
             return configuration.sectionInsets.top
         } else {
-            return maxY + configuration.minimumLineSpacing
+            return maxY + configuration.minimumLineSpacing - configuration.sectionInsets.bottom
         }
     }
 }
