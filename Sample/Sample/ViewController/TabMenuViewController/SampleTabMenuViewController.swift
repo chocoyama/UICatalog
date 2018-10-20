@@ -34,29 +34,14 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                cellForItemAt page: AnyPage<T>,
-                               in collectionView: UICollectionView) -> UICollectionViewCell {
+                               in collectionView: UICollectionView,
+                               dequeueIndexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
-            .dequeue(from: collectionView, indexPath: IndexPath(item: page.number, section: 0))
+            .dequeue(from: collectionView, indexPath: dequeueIndexPath)
             .configure(by: page.title, backgroundColor: .random)
     }
     
     func menuViewController<T>(_ menuViewController: MenuViewController<T>, widthForItemAt page: AnyPage<T>) -> CGFloat {
         return 100
-    }
-    
-    func heightForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat {
-        return 50
-    }
-    
-    func insetForMenuView<T>(in menuViewController: MenuViewController<T>) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5.0, left: 8.0, bottom: 5.0, right: 8.0)
-    }
-    
-    func minimumInteritemSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat {
-        return 5.0
-    }
-    
-    func minimumLineSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat {
-        return 5.0
     }
 }

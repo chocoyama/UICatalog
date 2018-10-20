@@ -11,24 +11,24 @@ import UIKit
 public protocol MenuViewControllerDelegate: class {
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                cellForItemAt page: AnyPage<T>,
-                               in collectionView: UICollectionView) -> UICollectionViewCell
+                               in collectionView: UICollectionView,
+                               dequeueIndexPath: IndexPath) -> UICollectionViewCell
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                widthForItemAt page: AnyPage<T>) -> CGFloat
     func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
-    func heightForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat
-    func insetForMenuView<T>(in menuViewController: MenuViewController<T>) -> UIEdgeInsets
-    func minimumInteritemSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat
-    func minimumLineSpacingForMenuView<T>(in menuViewController: MenuViewController<T>) -> CGFloat
 }
 
 open class MenuViewController<T>: SynchronizableCollectionViewController,
                                   UICollectionViewDataSource,
                                   UICollectionViewDelegateFlowLayout {
+    
+    private let configuration: TabMenuViewController<T>.Configuration
     private let pages: [AnyPage<T>]
     open weak var delegate: MenuViewControllerDelegate?
     
-    public init(with pages: [AnyPage<T>]) {
+    public init(with pages: [AnyPage<T>], configuration: TabMenuViewController<T>.Configuration) {
         self.pages = pages
+        self.configuration = configuration
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -56,7 +56,8 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = delegate?.menuViewController(self,
                                                 cellForItemAt: pages[indexPath.item],
-                                                in: collectionView)
+                                                in: collectionView,
+                                                dequeueIndexPath: indexPath)
         if let cell = cell {
             return cell
         } else {
@@ -65,26 +66,21 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = delegate?.menuViewController(self,
-                                                widthForItemAt: pages[indexPath.item])
-        let height = delegate?.heightForMenuView(in: self)
-        
-        if let width = width, let height = height {
-            return CGSize(width: width, height: height)
-        } else {
+        guard let width = delegate?.menuViewController(self, widthForItemAt: pages[indexPath.item]) else {
             fatalError("Should implement MenuViewControllerDelegate.")
         }
+        return CGSize(width: width, height: configuration.menuViewHeight)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return delegate?.insetForMenuView(in: self) ?? .zero
+        return configuration.menuViewInset
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return delegate?.minimumInteritemSpacingForMenuView(in: self) ?? .leastNormalMagnitude
+        return configuration.menuItemSpacing
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return delegate?.minimumLineSpacingForMenuView(in: self) ?? .leastNormalMagnitude
+        return configuration.menuItemSpacing
     }
 }

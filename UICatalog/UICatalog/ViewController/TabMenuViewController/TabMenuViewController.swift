@@ -9,18 +9,22 @@
 import UIKit
 
 open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
+    
     open weak var menuViewControllerDelegate: MenuViewControllerDelegate? {
         didSet {
             menuViewController.delegate = menuViewControllerDelegate
         }
     }
     
+    private let configuration: Configuration
     private let menuViewController: MenuViewController<T>
     private let synchronizablePageViewController: SynchronizablePageViewController
 
-    public init(with pageViewControllers: [PageViewController<T>]) {
+    public init(with pageViewControllers: [PageViewController<T>], configuration: Configuration = Configuration()) {
+        self.configuration = configuration
+        
         let pages = pageViewControllers.map { $0.page }
-        self.menuViewController = MenuViewController(with: pages)
+        self.menuViewController = MenuViewController(with: pages, configuration: configuration)
         self.synchronizablePageViewController = SynchronizablePageViewController(
             with: pageViewControllers,
             shouldInfiniteLoop: false,
@@ -46,8 +50,8 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
     }
     
     private func layoutSubviews() {
-        let inset = menuViewControllerDelegate?.insetForMenuView(in: menuViewController) ?? .zero
-        let height = menuViewControllerDelegate?.heightForMenuView(in: menuViewController) ?? .leastNormalMagnitude
+        let inset = configuration.menuViewInset
+        let height = configuration.menuViewHeight
         let menuViewHeight = inset.top + height + inset.bottom
         
         menuViewController.view.translatesAutoresizingMaskIntoConstraints = false
