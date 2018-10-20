@@ -18,5 +18,12 @@ class LabelCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = backgroundColor
         return self
     }
+    
+    @discardableResult
+    func configure(by text: String, backgroundColor: UIColor) -> LabelCollectionViewCell {
+        label.text = text
+        self.backgroundColor = backgroundColor
+        return self
+    }
 
 }

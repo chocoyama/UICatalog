@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol Pageable: class {
-    var page: Int? { get set } // zero origin
+    var pageNumber: Int? { get set } // zero origin
 }

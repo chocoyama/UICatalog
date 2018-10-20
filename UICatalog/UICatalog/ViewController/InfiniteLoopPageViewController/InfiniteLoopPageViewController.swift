@@ -27,7 +27,7 @@ open class InfiniteLoopPageViewController: UIPageViewController {
         
         dataSource = self
         for (page, controller) in controllers.enumerated() {
-            controller.page = page
+            controller.pageNumber = page
         }
     }
     
@@ -47,7 +47,7 @@ open class InfiniteLoopPageViewController: UIPageViewController {
 extension InfiniteLoopPageViewController {
     func getIndex(at viewController: UIViewController) -> Int? {
         guard let currentVC = viewController as? Pageable else { return nil }
-        return controllers.index { $0.page == currentVC.page }
+        return controllers.index { $0.pageNumber == currentVC.pageNumber }
     }
     
     func getViewController(at index: Int) -> UIViewController? {

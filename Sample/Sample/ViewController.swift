@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         case soundWaveButton = "SoundWaveButton"
         case infiniteLoopPageViewController = "InfiniteLoopPageViewController"
         case pageSynchronizedContainerViewController = "PageSynchronizedContainerViewController"
+        case tabMenuViewController = "TabMenuViewController"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -31,6 +32,12 @@ class ViewController: UIViewController {
             case .soundWaveButton: return SoundWaveButtonViewController()
             case .infiniteLoopPageViewController: return SampleInfiniteLoopPageViewController()
             case .pageSynchronizedContainerViewController: return SamplePageSynchronizedContainerViewController()
+            case .tabMenuViewController:
+                return SampleTabMenuViewController(samplePages: [
+                    SamplePage(number: 0 , title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
+                    SamplePage(number: 1, title: "Yahoo! JAPAN", entity: URL(string: "https://www.yahoo.co.jp/")!),
+                    SamplePage(number: 2, title: "食べログ", entity: URL(string: "https://tabelog.com/tokyo/")!),
+                ])
             }
         }
     }

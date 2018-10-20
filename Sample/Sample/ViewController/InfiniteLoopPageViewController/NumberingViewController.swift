@@ -13,11 +13,11 @@ class NumberingViewController: UIViewController, Pageable {
     
     @IBOutlet weak var label: UILabel!
     
-    var page: Int?
+    var pageNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let page = page {
+        if let page = pageNumber {
             self.label.text = "\(page)"
         } else {
             self.label.text = ""
