@@ -49,6 +49,29 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: UICollectionViewDelegate
+    
+    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let settingIndex = settingIndex else {
+            super.collectionView(collectionView, didSelectItemAt: indexPath)
+            return
+        }
+        
+        switch indexPath.item {
+        case let index where index < settingIndex:
+            super.collectionView(collectionView, didSelectItemAt: indexPath)
+        case let index where index == settingIndex:
+            showMenuSetting()
+        case let index where index > settingIndex:
+            let adjustedIndexPath = IndexPath(item: indexPath.item - 1,
+                                              section: indexPath.section)
+            super.collectionView(collectionView, didSelectItemAt: adjustedIndexPath)
+        default: break
+        }
+    }
+    
+    // MARK: UICollectionViewDataSource
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
@@ -67,6 +90,8 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
             }
         }
     }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch items[indexPath.item] {
@@ -92,25 +117,6 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return configuration.menuItemSpacing
-    }
-    
-    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let settingIndex = settingIndex else {
-            super.collectionView(collectionView, didSelectItemAt: indexPath)
-            return
-        }
-        
-        switch indexPath.item {
-        case let index where index < settingIndex:
-            super.collectionView(collectionView, didSelectItemAt: indexPath)
-        case let index where index == settingIndex:
-            showMenuSetting()
-        case let index where index > settingIndex:
-            let adjustedIndexPath = IndexPath(item: indexPath.item - 1,
-                                              section: indexPath.section)
-            super.collectionView(collectionView, didSelectItemAt: adjustedIndexPath)
-        default: break
-        }
     }
 }
 
@@ -153,6 +159,11 @@ extension MenuViewController {
     }
     
     private func showMenuSetting() {
-        
+        let pages = self.items.compactMap { item -> AnyPage<T>? in
+            guard case .menu(let page) = item else { return nil }
+            return page
+        }
+        let vc = MenuSettingViewController(pages: pages)
+        present(vc, animated: true, completion: nil)
     }
 }
