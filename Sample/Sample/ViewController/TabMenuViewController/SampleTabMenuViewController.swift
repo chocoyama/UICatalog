@@ -19,7 +19,11 @@ struct SamplePage: Page {
 
 class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
     init(pages: [SamplePage]) {
-        super.init(with: pages.map { SamplePageViewController(with: $0.typeErased()) })
+        let pageViewControllers = pages.map { SamplePageViewController(with: $0.typeErased()) }
+        var configuration = TabMenuConfiguration()
+        configuration.shouldShowMenuSettingItem = true
+        configuration.settingIcon.reductionRate = 0.9
+        super.init(with: pageViewControllers, configuration: configuration)
         self.menuViewControllerDelegate = self
     }
     

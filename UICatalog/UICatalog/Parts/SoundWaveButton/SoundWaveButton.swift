@@ -27,8 +27,8 @@ open class SoundWaveButton: UIView, XibInitializable {
     
     open override func awakeFromNib() {
         super.awakeFromNib()
-        round()
-        button.round()
+        rounded()
+        button.rounded()
     }
     
     public func wave(volume: Volume) {

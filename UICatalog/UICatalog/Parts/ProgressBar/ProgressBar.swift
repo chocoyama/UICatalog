@@ -68,7 +68,7 @@ open class ProgressBar: UIView, XibInitializable {
         coloredViewWidthConstraint.constant = toValue(from: configuration.initialPercent)
         
         if let cornerRadius = configuration.cornerRadius {
-            coloredView.round(cornerRadius: cornerRadius, cornerMasks: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner])
+            coloredView.rounded(cornerRadius: cornerRadius, cornerMasks: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner])
         }
         
         if let (title, color, font) = configuration.labelSetting {

@@ -21,6 +21,10 @@
 		6B33DF7A2158BDBA006143A4 /* ColumnContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF742158BDBA006143A4 /* ColumnContainer.swift */; };
 		6B33DF862158C08B006143A4 /* ColumnCountDynamicAsignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */; };
 		6B3D506D216640D800D1BD85 /* UITableView+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D506C216640D800D1BD85 /* UITableView+CustomExtension.swift */; };
+		6B8DEE31217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE2F217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift */; };
+		6B8DEE32217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE30217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib */; };
+		6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE33217C4A6B00D2D01F /* Images.xcassets */; };
+		6B8DEE36217C535700D2D01F /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE35217C535700D2D01F /* Bundle+.swift */; };
 		6B9863A32173982A00D5004C /* PagingChangeSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A22173982A00D5004C /* PagingChangeSubject.swift */; };
 		6B9863A52173A03900D5004C /* CustomUrlScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A42173A03900D5004C /* CustomUrlScheme.swift */; };
 		6B9863A72173A0B000D5004C /* LineMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A62173A0B000D5004C /* LineMessenger.swift */; };
@@ -101,6 +105,10 @@
 		6B33DF742158BDBA006143A4 /* ColumnContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnContainer.swift; sourceTree = "<group>"; };
 		6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnCountDynamicAsignable.swift; sourceTree = "<group>"; };
 		6B3D506C216640D800D1BD85 /* UITableView+CustomExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CustomExtension.swift"; sourceTree = "<group>"; };
+		6B8DEE2F217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		6B8DEE30217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuSettingCollectionViewCell.xib; sourceTree = "<group>"; };
+		6B8DEE33217C4A6B00D2D01F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6B8DEE35217C535700D2D01F /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		6B9863A22173982A00D5004C /* PagingChangeSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingChangeSubject.swift; sourceTree = "<group>"; };
 		6B9863A42173A03900D5004C /* CustomUrlScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUrlScheme.swift; sourceTree = "<group>"; };
 		6B9863A62173A0B000D5004C /* LineMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineMessenger.swift; sourceTree = "<group>"; };
@@ -226,6 +234,34 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		6B8DEE2C217C49D800D2D01F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B9863AE2174D8FB00D5004C /* TabMenuViewController.swift */,
+				6B9863B2217A0B1700D5004C /* MenuViewController.swift */,
+				6B9863B4217A0B7400D5004C /* PageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6B8DEE2D217C49EB00D2D01F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6B9863B0217A0ADD00D5004C /* Page.swift */,
+				6B29049F217B019200FB7500 /* Configuration.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6B8DEE2E217C49F700D2D01F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6B8DEE2F217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift */,
+				6B8DEE30217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6B9863A82173A1AA00D5004C /* Animator */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,11 +274,9 @@
 		6B9863AD2174D8CB00D5004C /* TabMenuViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6B9863AE2174D8FB00D5004C /* TabMenuViewController.swift */,
-				6B9863B0217A0ADD00D5004C /* Page.swift */,
-				6B9863B2217A0B1700D5004C /* MenuViewController.swift */,
-				6B9863B4217A0B7400D5004C /* PageViewController.swift */,
-				6B29049F217B019200FB7500 /* Configuration.swift */,
+				6B8DEE2D217C49EB00D2D01F /* Model */,
+				6B8DEE2E217C49F700D2D01F /* View */,
+				6B8DEE2C217C49D800D2D01F /* Controller */,
 			);
 			path = TabMenuViewController;
 			sourceTree = "<group>";
@@ -333,6 +367,7 @@
 				6BDAE53721526B1000BBB47A /* Util */,
 				6BDAE509215264D700BBB47A /* UICatalog.h */,
 				6BDAE50A215264D700BBB47A /* Info.plist */,
+				6B8DEE33217C4A6B00D2D01F /* Images.xcassets */,
 			);
 			path = UICatalog;
 			sourceTree = "<group>";
@@ -411,6 +446,7 @@
 				6BDAE54C21526B3B00BBB47A /* UIView+CustomExtension.swift */,
 				6B2713B3215A855C00CBB58E /* CGSize+CustomExtension.swift */,
 				6B3D506C216640D800D1BD85 /* UITableView+CustomExtension.swift */,
+				6B8DEE35217C535700D2D01F /* Bundle+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -616,6 +652,8 @@
 			files = (
 				803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */,
 				6BDAE527215265E200BBB47A /* RangeSliderTab.xib in Resources */,
+				6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */,
+				6B8DEE32217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib in Resources */,
 				6BB8929621733818003430DC /* InfiniteLoopPageViewController.xib in Resources */,
 				6BDAE526215265E200BBB47A /* RangeSlider.xib in Resources */,
 				6B33DF4F21576B67006143A4 /* ProgressBar.xib in Resources */,
@@ -644,6 +682,7 @@
 				800D02C5215C520300F2A55F /* Line.swift in Sources */,
 				6BB8928F21733728003430DC /* PagingChangeObserver.swift in Sources */,
 				6B33DF7A2158BDBA006143A4 /* ColumnContainer.swift in Sources */,
+				6B8DEE31217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift in Sources */,
 				6BDAE54821526B2500BBB47A /* CellRegisterable.swift in Sources */,
 				6BDAE525215265E200BBB47A /* RangeSlider.swift in Sources */,
 				6BB892B5217377CD003430DC /* SynchronizableCollectionViewController.swift in Sources */,
@@ -678,6 +717,7 @@
 				800D02BE215B904A00F2A55F /* Containerable.swift in Sources */,
 				6BDAE529215265E200BBB47A /* RangeSliderTab.swift in Sources */,
 				6B9BB94221666C040031B96F /* UIViewController+CustomExtension.swift in Sources */,
+				6B8DEE36217C535700D2D01F /* Bundle+.swift in Sources */,
 				6BDAE52F215265EC00BBB47A /* SliderValue.swift in Sources */,
 				6BDAE54321526B2500BBB47A /* CellHeightCalculatable.swift in Sources */,
 				6B3D506D216640D800D1BD85 /* UITableView+CustomExtension.swift in Sources */,

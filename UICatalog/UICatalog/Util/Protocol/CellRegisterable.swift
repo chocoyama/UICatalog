@@ -23,8 +23,7 @@ extension CellRegisterable where Self: UITableViewCell {
     }
     
     static public func dequeue(from tableView: UITableView, indexPath: IndexPath) -> Self {
-        let name = String(describing: Self.self)
-        return tableView.dequeueReusableCell(withIdentifier: name, for: indexPath) as! Self
+        return tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! Self
     }
 }
 
@@ -36,7 +35,6 @@ extension CellRegisterable where Self: UICollectionViewCell {
     }
     
     static public func dequeue(from collectionView: UICollectionView, indexPath: IndexPath) -> Self {
-        let name = String(describing: Self.self)
-        return collectionView.dequeueReusableCell(withReuseIdentifier: name, for: indexPath) as! Self
+        return collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! Self
     }
 }

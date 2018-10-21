@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuSettingCollectionViewCell" id="gTV-IL-0wX" customClass="MenuSettingCollectionViewCell" customModule="UICatalog">
+            <rect key="frame" x="0.0" y="0.0" width="122" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="122" height="111"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu_black" translatesAutoresizingMaskIntoConstraints="NO" id="fxA-Nr-8b0">
+                        <rect key="frame" x="0.0" y="0.0" width="122" height="111"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fxA-Nr-8b0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" identifier="left" id="CjK-Ci-UNz"/>
+                <constraint firstAttribute="trailing" secondItem="fxA-Nr-8b0" secondAttribute="trailing" identifier="right" id="Fau-xz-lvR"/>
+                <constraint firstAttribute="bottom" secondItem="fxA-Nr-8b0" secondAttribute="bottom" identifier="bottom" id="I5e-a4-jJa"/>
+                <constraint firstItem="fxA-Nr-8b0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" identifier="top" id="VnZ-e8-rHg"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="122" height="111"/>
+            <connections>
+                <outlet property="imageView" destination="fxA-Nr-8b0" id="dXf-5j-fHj"/>
+                <outlet property="imageViewBottomConstraint" destination="I5e-a4-jJa" id="uzp-0c-FBB"/>
+                <outlet property="imageViewLeftConstraint" destination="CjK-Ci-UNz" id="tyq-i8-5bU"/>
+                <outlet property="imageViewRightConstraint" destination="Fau-xz-lvR" id="g5Z-yc-jTC"/>
+                <outlet property="imageViewTopConstraint" destination="VnZ-e8-rHg" id="36J-EY-0u9"/>
+            </connections>
+            <point key="canvasLocation" x="195.19999999999999" y="181.25937031484258"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="menu_black" width="416" height="416"/>
+    </resources>
+</document>

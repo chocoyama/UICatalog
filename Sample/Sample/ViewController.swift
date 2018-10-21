@@ -34,7 +34,7 @@ class ViewController: UIViewController {
             case .pageSynchronizedContainerViewController: return SamplePageSynchronizedContainerViewController()
             case .tabMenuViewController:
                 return SampleTabMenuViewController(pages: [
-                    .init(number: 0 , title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
+                    .init(number: 0, title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
                     .init(number: 1, title: "Twitter", entity: URL(string: "https://twitter.com/")!),
                     .init(number: 2, title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
                     .init(number: 3, title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),

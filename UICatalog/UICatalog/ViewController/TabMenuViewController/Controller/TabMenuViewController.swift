@@ -16,11 +16,12 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         }
     }
     
-    private let configuration: Configuration
+    private let configuration: TabMenuConfiguration
     private let menuViewController: MenuViewController<T>
     private let synchronizablePageViewController: SynchronizablePageViewController
 
-    public init(with pageViewControllers: [PageViewController<T>], configuration: Configuration = Configuration()) {
+    public init(with pageViewControllers: [PageViewController<T>],
+                configuration: TabMenuConfiguration = TabMenuConfiguration()) {
         self.configuration = configuration
         
         let pages = pageViewControllers.map { $0.page }

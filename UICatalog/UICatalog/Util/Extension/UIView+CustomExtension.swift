@@ -23,7 +23,7 @@ extension UIView {
 // MARK:- Design
 extension UIView {
     @discardableResult
-    public func round() -> Self {
+    public func rounded() -> Self {
         layer.cornerRadius = bounds.width / 2.0
         layer.masksToBounds = false
         clipsToBounds = true
@@ -31,7 +31,7 @@ extension UIView {
     }
     
     @discardableResult
-    public func round(cornerRadius: CGFloat, cornerMasks: CACornerMask = []) -> Self {
+    public func rounded(cornerRadius: CGFloat, cornerMasks: CACornerMask = []) -> Self {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = false
         clipsToBounds = true
