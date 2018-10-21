@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol MenuSettingViewControllerDelegate: class {
+    func menuSettingViewController<T>(_ menuSettingViewController: MenuSettingViewController<T>,
+                                      didCommitPages pages: [AnyPage<T>])
+}
+
 class MenuSettingViewController<T>: UIViewController,
                                     UITableViewDataSource,
                                     UITableViewDelegate {
 
-    @IBOutlet weak var tableView: UITableView! {
+    weak var delegate: MenuSettingViewControllerDelegate?
+    
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
             tableView.delegate = self
@@ -32,11 +39,6 @@ class MenuSettingViewController<T>: UIViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print(pages.map { $0.title })
-    }
-
     @IBAction func didTappedDeleteButton(_ sender: UIBarButtonItem) {
         guard let deleteIndexes = tableView.indexPathsForSelectedRows, !deleteIndexes.isEmpty else {
             let alert = UIAlertController(title: nil, message: "削除するアイテムを選択して下さい", preferredStyle: .alert)
@@ -52,6 +54,7 @@ class MenuSettingViewController<T>: UIViewController,
     }
     
     @IBAction func didTappedDoneButton(_ sender: UIBarButtonItem) {
+        delegate?.menuSettingViewController(self, didCommitPages: pages)
         self.dismiss(animated: true, completion: nil)
     }
     

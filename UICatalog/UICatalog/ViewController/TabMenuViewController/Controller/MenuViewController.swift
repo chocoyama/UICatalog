@@ -30,7 +30,7 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     open weak var delegate: MenuViewControllerDelegate?
     
     private let configuration: TabMenuConfiguration
-    private let items: [Item]
+    private var items: [MenuViewController<T>.Item] = []
     
     public init(with pages: [AnyPage<T>], configuration: TabMenuConfiguration) {
         self.configuration = configuration
@@ -120,9 +120,20 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     }
 }
 
+extension MenuViewController: MenuSettingViewControllerDelegate {
+    func menuSettingViewController<U>(_ menuSettingViewController: MenuSettingViewController<U>, didCommitPages pages: [AnyPage<U>]) {
+//        guard let pages = pages as? [AnyPage<T>] else { return }
+//        self.items = MenuViewController<T>.constructItems(pages: pages,
+//                                                          configuration: self.configuration)
+//        collectionView.reloadData()
+//        
+//        TODO: Pageのデータソースの変更を伝え合うIFを作る必要あり
+    }
+}
+
 extension MenuViewController {
     private class func constructItems(pages: [AnyPage<T>],
-                                      configuration: TabMenuConfiguration) -> [Item] {
+                                      configuration: TabMenuConfiguration) -> [MenuViewController<T>.Item] {
         var items = [Item]()
         if configuration.shouldShowMenuSettingItem {
             items.append(.setting)
@@ -164,6 +175,7 @@ extension MenuViewController {
             return page
         }
         let vc = MenuSettingViewController(pages: pages)
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
 }
