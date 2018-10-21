@@ -8,6 +8,7 @@
 
 import UIKit
 import UICatalog
+import WebKit
 
 struct SamplePage: Page {
     typealias Entity = URL
@@ -17,8 +18,8 @@ struct SamplePage: Page {
 }
 
 class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
-    init(samplePages: [SamplePage]) {
-        super.init(with: samplePages.map { SamplePageViewController(with: $0.typeErased()) })
+    init(pages: [SamplePage]) {
+        super.init(with: pages.map { SamplePageViewController(with: $0.typeErased()) })
         self.menuViewControllerDelegate = self
     }
     
@@ -43,5 +44,11 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     
     func menuViewController<T>(_ menuViewController: MenuViewController<T>, widthForItemAt page: AnyPage<T>) -> CGFloat {
         return 100
+    }
+}
+
+class SamplePageViewController: PageViewController<SamplePage.Entity> {
+    @IBOutlet weak var webView: WKWebView! {
+        didSet { webView.load(URLRequest(url: page.entity)) }
     }
 }

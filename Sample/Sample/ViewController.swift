@@ -33,10 +33,12 @@ class ViewController: UIViewController {
             case .infiniteLoopPageViewController: return SampleInfiniteLoopPageViewController()
             case .pageSynchronizedContainerViewController: return SamplePageSynchronizedContainerViewController()
             case .tabMenuViewController:
-                return SampleTabMenuViewController(samplePages: [
-                    SamplePage(number: 0 , title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
-                    SamplePage(number: 1, title: "Yahoo! JAPAN", entity: URL(string: "https://www.yahoo.co.jp/")!),
-                    SamplePage(number: 2, title: "食べログ", entity: URL(string: "https://tabelog.com/tokyo/")!),
+                return SampleTabMenuViewController(pages: [
+                    .init(number: 0 , title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
+                    .init(number: 1, title: "Twitter", entity: URL(string: "https://twitter.com/")!),
+                    .init(number: 2, title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
+                    .init(number: 3, title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
+                    .init(number: 4, title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
                 ])
             }
         }
