@@ -12,7 +12,6 @@ import WebKit
 
 struct SamplePage: Page {
     typealias Entity = URL
-    var number: Int
     var title: String
     var entity: Entity
 }

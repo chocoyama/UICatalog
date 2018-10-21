@@ -34,11 +34,11 @@ class ViewController: UIViewController {
             case .pageSynchronizedContainerViewController: return SamplePageSynchronizedContainerViewController()
             case .tabMenuViewController:
                 return SampleTabMenuViewController(pages: [
-                    .init(number: 0, title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
-                    .init(number: 1, title: "Twitter", entity: URL(string: "https://twitter.com/")!),
-                    .init(number: 2, title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
-                    .init(number: 3, title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
-                    .init(number: 4, title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
+                    .init(title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
+                    .init(title: "Twitter", entity: URL(string: "https://twitter.com/")!),
+                    .init(title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
+                    .init(title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
+                    .init(title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
                 ])
             }
         }

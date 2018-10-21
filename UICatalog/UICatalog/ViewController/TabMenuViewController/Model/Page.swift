@@ -10,7 +10,6 @@ import Foundation
 
 public protocol Page {
     associatedtype Entity
-    var number: Int { get }
     var title: String { get set }
     var entity: Entity { get set }
 }
@@ -22,12 +21,10 @@ extension Page {
 }
 
 open class AnyPage<Entity>: Page {
-    public var number: Int
     open var title: String
     open var entity: Entity
     
     required public init<T: Page>(page: T) where T.Entity == Entity {
-        self.number = page.number
         self.title = page.title
         self.entity = page.entity
     }

@@ -21,7 +21,7 @@ class MenuSettingViewController<T>: UIViewController,
         }
     }
     
-    private let pages: [AnyPage<T>]
+    private var pages: [AnyPage<T>]
     
     init(pages: [AnyPage<T>]) {
         self.pages = pages
@@ -32,8 +32,9 @@ class MenuSettingViewController<T>: UIViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print(pages.map { $0.title })
     }
 
     @IBAction func didTappedDeleteButton(_ sender: UIBarButtonItem) {
@@ -43,6 +44,11 @@ class MenuSettingViewController<T>: UIViewController,
             present(alert, animated: true, completion: nil)
             return
         }
+        let deleteRows = deleteIndexes.map { $0.row }
+        self.pages = pages
+            .enumerated()
+            .compactMap { deleteRows.contains($0.offset) ? nil : $0.element }
+        tableView.deleteRows(at: deleteIndexes, with: .automatic)
     }
     
     @IBAction func didTappedDoneButton(_ sender: UIBarButtonItem) {
@@ -67,15 +73,11 @@ class MenuSettingViewController<T>: UIViewController,
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
+        pages.insert(pages.remove(at: sourceIndexPath.item), at: destinationIndexPath.item)
     }
 }
