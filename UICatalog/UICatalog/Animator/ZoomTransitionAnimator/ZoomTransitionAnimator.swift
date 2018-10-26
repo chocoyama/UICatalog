@@ -31,79 +31,94 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     }
     
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let fromVC: UIViewController
-        let fromView: UIView
-        let toVC: UIViewController
-        let toView: UIView
-        switch type {
-        case .present:
-            fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-            fromView = fromVC.view
-            toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-            toView = toVC.view
-        case .dismiss:
-            fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-            fromView = fromVC.view
-            toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-            toView = toVC.view
-        }
+        let fromVC = getViewController(using: transitionContext, key: .from)!
+        let toVC = getViewController(using: transitionContext, key: .to)!
         
         switch type {
         case .present:
-            guard
-                let fromVCZoomTransitionAnimatorProtocol = fromVC as? ZoomTransitionFromAnimateProtocol,
-                let transitionImageView = fromVCZoomTransitionAnimatorProtocol.transitionImageView() else {
+            guard let fromVCZoomTransitionAnimator = fromVC as? ZoomTransitionFromAnimateProtocol,
+                let transitionImageView = fromVCZoomTransitionAnimator.transitionImageView() else {
                     return transitionContext.completeTransition(true)
             }
-            let containerView = transitionContext.containerView
-            let maskView = UIView(frame: containerView.frame)
-            maskView.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
-            containerView.addSubview(maskView)
-            
-            let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
-            transitionImageView.frame = convertedRect
-            containerView.addSubview(transitionImageView)
-            
-            UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
-                switch UIApplication.shared.statusBarOrientation {
-                case .portrait, .portraitUpsideDown:
-                    transitionImageView.frame.size.height *= UIScreen.main.bounds.width / transitionImageView.frame.size.width
-                    transitionImageView.frame.size.width = UIScreen.main.bounds.width
-                    transitionImageView.frame.origin.x = 0.0
-                    transitionImageView.frame.origin.y = (UIScreen.main.bounds.height + 20) / 2 - transitionImageView.frame.size.height / 2
-                case .landscapeLeft, .landscapeRight:
-                    transitionImageView.frame.size.width *= UIScreen.main.bounds.height / transitionImageView.frame.size.height
-                    transitionImageView.frame.size.height = UIScreen.main.bounds.height
-                    transitionImageView.frame.origin.x = UIScreen.main.bounds.width / 2 - transitionImageView.frame.size.width / 2
-                    transitionImageView.frame.origin.y = 0.0
-                case .unknown: break
-                }
-            }) { (finished) -> Void in
-                maskView.removeFromSuperview()
-                transitionImageView.removeFromSuperview()
-                containerView.addSubview(toView)
-                transitionContext.completeTransition(true)
-            }
+            presentAnimation(transitionContext: transitionContext,
+                             transitionImageView: transitionImageView,
+                             toView: toVC.view)
         case .dismiss:
-            guard
-                let fromVCZoomTransitionAnimatorProtocol = fromVC as? ZoomTransitionToAnimateProtocol,
-                let toVCZoomTransitionAnimatorProtocol = toVC as? ZoomTransitionFromAnimateProtocol,
-                let transitionImageView = fromVCZoomTransitionAnimatorProtocol.transitionImageView else {
+            guard let fromVCZoomTransitionAnimator = fromVC as? ZoomTransitionToAnimateProtocol,
+                let toVCZoomTransitionAnimator = toVC as? ZoomTransitionFromAnimateProtocol else {
                     return transitionContext.completeTransition(true)
             }
-            let containerView = transitionContext.containerView
-            let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
-            transitionImageView.frame = convertedRect
-            containerView.addSubview(transitionImageView)
-            
-            UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
-                transitionImageView.frame = toVCZoomTransitionAnimatorProtocol.previousFrame()
-            }, completion: { (finished) -> Void in
-                transitionImageView.removeFromSuperview()
-                containerView.addSubview(fromView)
-                toVCZoomTransitionAnimatorProtocol.didEndZoomTransiton()
-                transitionContext.completeTransition(true)
-            })
+            dismissAnimation(fromVCZoomTransitionAnimatorProtocol: fromVCZoomTransitionAnimator,
+                             toVCZoomTransitionAnimatorProtocol: toVCZoomTransitionAnimator,
+                             transitionContext: transitionContext, fromView: fromVC.view)
         }
+    }
+    
+    private func getViewController(using transitionContext: UIViewControllerContextTransitioning,
+                                   key: UITransitionContextViewControllerKey) -> UIViewController? {
+        let fromVC = transitionContext.viewController(forKey: key)
+        if let navigationController = fromVC as? UINavigationController {
+            return navigationController.viewControllers.last
+        } else {
+            return fromVC
+        }
+    }
+    
+    private func presentAnimation(transitionContext: UIViewControllerContextTransitioning,
+                                  transitionImageView: UIImageView,
+                                  toView: UIView) {
+        let containerView = transitionContext.containerView
+        let maskView = UIView(frame: containerView.frame)
+        maskView.backgroundColor = toView.backgroundColor
+        containerView.addSubview(maskView)
+        
+        let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
+        transitionImageView.frame = convertedRect
+        transitionImageView.contentMode = .scaleAspectFit
+        containerView.addSubview(transitionImageView)
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
+            switch UIApplication.shared.statusBarOrientation {
+            case .portrait, .portraitUpsideDown:
+                transitionImageView.frame.size.height *= containerView.frame.width / transitionImageView.frame.size.width
+                transitionImageView.frame.size.width = containerView.frame.width
+                transitionImageView.frame.origin.x = 0.0
+                transitionImageView.frame.origin.y = (UIScreen.main.bounds.height + 20) / 2 - transitionImageView.frame.size.height / 2
+            case .landscapeLeft, .landscapeRight:
+                transitionImageView.frame.size.width *= containerView.frame.height / transitionImageView.frame.size.height
+                transitionImageView.frame.size.height = containerView.frame.height
+                transitionImageView.frame.origin.x = containerView.frame.width / 2 - transitionImageView.frame.size.width / 2
+                transitionImageView.frame.origin.y = 0.0
+            case .unknown: break
+            }
+        }) { (finished) -> Void in
+            maskView.removeFromSuperview()
+            transitionImageView.removeFromSuperview()
+            containerView.addSubview(toView)
+            toView.overlay(on: containerView)
+            transitionContext.completeTransition(true)
+        }
+    }
+    
+    private func dismissAnimation(fromVCZoomTransitionAnimatorProtocol: ZoomTransitionToAnimateProtocol,
+                                  toVCZoomTransitionAnimatorProtocol: ZoomTransitionFromAnimateProtocol,
+                                  transitionContext: UIViewControllerContextTransitioning,
+                                  fromView: UIView) {
+
+        let transitionImageView = fromVCZoomTransitionAnimatorProtocol.transitionImageView
+        let containerView = transitionContext.containerView
+        let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
+        transitionImageView.frame = convertedRect
+        transitionImageView.contentMode = .scaleAspectFit
+        containerView.addSubview(transitionImageView)
+
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
+            transitionImageView.frame = toVCZoomTransitionAnimatorProtocol.previousFrame()
+        }, completion: { (finished) -> Void in
+            transitionImageView.removeFromSuperview()
+            containerView.addSubview(fromView)
+            toVCZoomTransitionAnimatorProtocol.didEndZoomTransiton()
+            transitionContext.completeTransition(true)
+        })
     }
 }

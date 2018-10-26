@@ -7,24 +7,52 @@
 //
 
 import UIKit
+import UICatalog
 
-class ZoomTransitionAnimatorViewController: UIViewController {
+class ZoomTransitionAnimatorViewController: UIViewController, ZoomTransitionFromAnimateProtocol {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    var latestTransitionIndexPath: IndexPath?
+    var selectedImage: UIImage?
+    
+    private let dataSource: [UIImage] = (0..<100).map { _ in UIImage(named: "cat")! }
+    
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            ImageCollectionViewCell.register(for: collectionView)
+        }
     }
+    
+}
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension ZoomTransitionAnimatorViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
     }
-    */
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return ImageCollectionViewCell
+                .dequeue(from: collectionView, indexPath: indexPath)
+                .configure(image: dataSource[indexPath.item])
+    }
+}
 
+extension ZoomTransitionAnimatorViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let image = dataSource[indexPath.item]
+        
+        self.latestTransitionIndexPath = indexPath
+        self.selectedImage = image
+        
+        let vc = ZoomTransitionAnimatorDestinationViewController(image: image)
+        present(vc, animated: true, completion: nil)
+    }
+}
+
+
+extension ZoomTransitionAnimatorViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width / CGFloat(2) - CGFloat(8), height: 200)
+    }
 }

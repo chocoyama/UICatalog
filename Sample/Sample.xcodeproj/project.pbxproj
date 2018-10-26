@@ -17,6 +17,8 @@
 		6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */; };
 		6B33DF802158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */; };
 		6B33DF822158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */; };
+		6B8DEE43218329D400D2D01F /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE41218329D400D2D01F /* ImageCollectionViewCell.swift */; };
+		6B8DEE44218329D400D2D01F /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE42218329D400D2D01F /* ImageCollectionViewCell.xib */; };
 		6B9863A021737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B98639E21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift */; };
 		6B9863A121737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B98639F21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib */; };
 		6B9863B8217A0DF600D5004C /* SampleTabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863B7217A0DF600D5004C /* SampleTabMenuViewController.swift */; };
@@ -59,6 +61,8 @@
 		6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutlineLabelViewController.xib; sourceTree = "<group>"; };
 		6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveItemHeightLayoutViewController.swift; sourceTree = "<group>"; };
 		6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdaptiveItemHeightLayoutViewController.storyboard; sourceTree = "<group>"; };
+		6B8DEE41218329D400D2D01F /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		6B8DEE42218329D400D2D01F /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		6B98639E21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePageSynchronizedCollectionViewController.swift; sourceTree = "<group>"; };
 		6B98639F21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SamplePageSynchronizedCollectionViewController.xib; sourceTree = "<group>"; };
 		6B9863B7217A0DF600D5004C /* SampleTabMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTabMenuViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +144,24 @@
 			path = Height;
 			sourceTree = "<group>";
 		};
+		6B8DEE3F218329B400D2D01F /* LabelCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */,
+				6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */,
+			);
+			path = LabelCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		6B8DEE40218329BF00D2D01F /* ImageCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B8DEE41218329D400D2D01F /* ImageCollectionViewCell.swift */,
+				6B8DEE42218329D400D2D01F /* ImageCollectionViewCell.xib */,
+			);
+			path = ImageCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		6B98639D21737A2900D5004C /* Children */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,8 +201,8 @@
 		6BA5011E216E2450003B530F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */,
-				6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */,
+				6B8DEE40218329BF00D2D01F /* ImageCollectionViewCell */,
+				6B8DEE3F218329B400D2D01F /* LabelCollectionViewCell */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -416,6 +438,7 @@
 				6BB892B321737785003430DC /* SamplePageSynchronizedContainerViewController.xib in Resources */,
 				6B9863BC217A243800D5004C /* SamplePageViewController.xib in Resources */,
 				8013D21C2182C4ED0001CD75 /* RotationImageViewController.xib in Resources */,
+				6B8DEE44218329D400D2D01F /* ImageCollectionViewCell.xib in Resources */,
 				6BB8929F217350F3003430DC /* NumberingViewController.xib in Resources */,
 				6BCD0FFA216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib in Resources */,
 				8013D2232182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib in Resources */,
@@ -437,6 +460,7 @@
 				6BDAE5362152686E00BBB47A /* TableViewCell.swift in Sources */,
 				6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */,
 				6B33DF802158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift in Sources */,
+				6B8DEE43218329D400D2D01F /* ImageCollectionViewCell.swift in Sources */,
 				803D6B10215B0A45007C332E /* SoundWaveButtonViewController.swift in Sources */,
 				6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */,
 				6BDAE4ED2152649B00BBB47A /* ViewController.swift in Sources */,

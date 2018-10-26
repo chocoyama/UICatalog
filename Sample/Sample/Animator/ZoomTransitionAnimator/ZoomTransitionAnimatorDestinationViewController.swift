@@ -11,23 +11,21 @@ import UICatalog
 
 class ZoomTransitionAnimatorDestinationViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
-    var transitionImageView: UIImageView?
-    private let image: UIImage
+    let transitionImageView: UIImageView
     private let defaultImageFrame: CGRect
     
     init(image: UIImage) {
-        self.image = image
+        self.defaultImageFrame = image.screenAdjustFrame
         
-        let screenBounds = UIScreen.main.bounds
-        let height: CGFloat = image.size.height * (screenBounds.width / image.size.width)
-        let width: CGFloat = screenBounds.width
-        let x: CGFloat = 0
-        let y: CGFloat = (screenBounds.height + 20) / 2 - height / 2
-        defaultImageFrame = CGRect(x: x, y: y, width: width, height: height)
+        let imageView = UIImageView(frame: defaultImageFrame)
+        imageView.image = image
+        imageView.backgroundColor = .white
+        self.transitionImageView = imageView
         
         super.init(nibName: "ZoomTransitionAnimatorDestinationViewController", bundle: nil)
         
-        self.transitioningDelegate = self
+        self.transitionImageView.addPanGesture(target: self,
+                                               action: #selector(didRecognizedPanGestureOnImageView(sender:)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,37 +34,17 @@ class ZoomTransitionAnimatorDestinationViewController: UIViewController, UIViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let imageView = createImageView(with: image)
-        self.transitionImageView = imageView
-        self.view.addSubview(imageView)
+        self.transitioningDelegate = self
+        self.view.addSubview(transitionImageView)
     }
     
     func reset() {
         UIView.animate(withDuration: 0.2) {
-            self.transitionImageView?.frame = self.defaultImageFrame
+            self.transitionImageView.frame = self.defaultImageFrame
         }
     }
     
-    private func createImageView(with image: UIImage) -> UIImageView {
-        let imageView = UIImageView(frame: defaultImageFrame)
-        imageView.image = image
-        imageView.backgroundColor = .white
-        addPanGesture(to: imageView)
-        
-        return imageView
-    }
-    
-    @discardableResult
-    private func addPanGesture(to imageView: UIImageView) -> UIImageView {
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self,
-                                                              action: #selector(didRecognizedPanGestureOnImageView(sender:))))
-        return imageView
-    }
-    
     @objc func didRecognizedPanGestureOnImageView(sender: UIPanGestureRecognizer) {
-        guard let transitionImageView = transitionImageView else { return }
         switch sender.state {
         case .changed:
             let view = sender.view
@@ -87,8 +65,28 @@ extension ZoomTransitionAnimatorDestinationViewController: ZoomTransitionToAnima
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZoomTransitionAnimator(type: .present)
     }
-    
+
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZoomTransitionAnimator(type: .dismiss)
+    }
+}
+
+private extension UIImageView {
+    @discardableResult
+    func addPanGesture(target: Any?, action: Selector?) -> UIImageView {
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(UIPanGestureRecognizer(target: target, action: action))
+        return self
+    }
+}
+
+private extension UIImage {
+    var screenAdjustFrame: CGRect {
+        let screenBounds = UIScreen.main.bounds
+        let height: CGFloat = self.size.height * (screenBounds.width / self.size.width)
+        let width: CGFloat = screenBounds.width
+        let x: CGFloat = 0
+        let y: CGFloat = (screenBounds.height + 20) / 2 - height / 2
+        return CGRect(x: x, y: y, width: width, height: height)
     }
 }

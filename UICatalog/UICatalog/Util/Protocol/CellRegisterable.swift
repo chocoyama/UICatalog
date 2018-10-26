@@ -23,6 +23,7 @@ extension CellRegisterable where Self: UITableViewCell {
     }
     
     static public func dequeue(from tableView: UITableView, indexPath: IndexPath) -> Self {
+        
         return tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! Self
     }
 }

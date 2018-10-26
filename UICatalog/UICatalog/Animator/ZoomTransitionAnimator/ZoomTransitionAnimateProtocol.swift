@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol ZoomTransitionToAnimateProtocol {
-    var transitionImageView: UIImageView? { get set }
+    var transitionImageView: UIImageView { get }
 }
 
 public protocol ZoomTransitionFromAnimateProtocol {

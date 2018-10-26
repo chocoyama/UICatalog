@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         case pageSynchronizedContainerViewController = "PageSynchronizedContainerViewController"
         case tabMenuViewController = "TabMenuViewController"
         case rotationImageView = "RotationImageView"
+        case zoomTransitionAnimator = "ZoomTransitionAnimator"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -41,8 +42,8 @@ class ViewController: UIViewController {
                     .init(title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
                     .init(title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
                 ])
-            case .rotationImageView:
-                return RotationImageViewController()
+            case .rotationImageView: return RotationImageViewController()
+            case .zoomTransitionAnimator: return ZoomTransitionAnimatorViewController()
             }
         }
     }
