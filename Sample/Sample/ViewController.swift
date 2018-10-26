@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         case infiniteLoopPageViewController = "InfiniteLoopPageViewController"
         case pageSynchronizedContainerViewController = "PageSynchronizedContainerViewController"
         case tabMenuViewController = "TabMenuViewController"
+        case rotationImageView = "RotationImageView"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -40,6 +41,8 @@ class ViewController: UIViewController {
                     .init(title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
                     .init(title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
                 ])
+            case .rotationImageView:
+                return RotationImageViewController()
             }
         }
     }

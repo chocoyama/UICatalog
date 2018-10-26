@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RotationImageItem" customModule="IntervalZoomImageView" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="ZYC-C3-4As" id="2rc-WI-Qj1"/>
+                <outlet property="scrollView" destination="dDj-Nz-8Qo" id="kpV-eN-Ub2"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="315"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="dDj-Nz-8Qo">
+                    <rect key="frame" x="0.0" y="0.0" width="379" height="315"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZYC-C3-4As">
+                            <rect key="frame" x="0.0" y="0.0" width="379" height="314"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="ZYC-C3-4As" firstAttribute="top" secondItem="dDj-Nz-8Qo" secondAttribute="top" id="ALI-h5-hDd"/>
+                        <constraint firstItem="ZYC-C3-4As" firstAttribute="centerX" secondItem="dDj-Nz-8Qo" secondAttribute="centerX" id="Bfm-3k-aze"/>
+                        <constraint firstItem="ZYC-C3-4As" firstAttribute="centerY" secondItem="dDj-Nz-8Qo" secondAttribute="centerY" id="QWa-BY-RPa"/>
+                        <constraint firstItem="ZYC-C3-4As" firstAttribute="leading" secondItem="dDj-Nz-8Qo" secondAttribute="leading" id="Uhh-t1-z5X"/>
+                        <constraint firstAttribute="bottom" secondItem="ZYC-C3-4As" secondAttribute="bottom" id="j2D-uP-yfN"/>
+                        <constraint firstAttribute="trailing" secondItem="ZYC-C3-4As" secondAttribute="trailing" id="mhy-ue-7sy"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dDj-Nz-8Qo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Yfa-9m-VBM"/>
+                <constraint firstItem="dDj-Nz-8Qo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="k6J-oc-UI7"/>
+                <constraint firstAttribute="bottom" secondItem="dDj-Nz-8Qo" secondAttribute="bottom" id="lkh-bW-o1w"/>
+                <constraint firstAttribute="trailing" secondItem="dDj-Nz-8Qo" secondAttribute="trailing" id="qDt-Cp-k6H"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="65.5" y="-121.5"/>
+        </view>
+    </objects>
+</document>
