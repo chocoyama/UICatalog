@@ -197,8 +197,134 @@ class RowTests: XCTestCase {
             )
             XCTAssertEqual(row.maxX, 600)
         }
+        
+        XCTContext.runActivity(named: "アイテムスペースが0の時") { _ in
+            row = Row.create(
+                configuration: AdaptiveWidthConfiguration(
+                    minimumInterItemSpacing: 0.0,
+                    minimumLineSpacing: 3.0,
+                    sectionInsets: .zero
+                ),
+                height: 100,
+                width: 600
+            )
+            
+            // 1件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 0, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 200)
+            
+            // 2件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 1, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 200.0, y: 0.0, width: 200, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 400)
+            
+            // 3件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 2, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 200.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 400.0, y: 0.0, width: 200, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 600)
+        }
+        
+        XCTContext.runActivity(named: "セクションマージンとアイテムスペースが0でない時") { _ in
+            row = Row.create(
+                configuration: AdaptiveWidthConfiguration(
+                    minimumInterItemSpacing: 5.0,
+                    minimumLineSpacing: 3.0,
+                    sectionInsets: .zero
+                ),
+                height: 100,
+                width: 600
+            )
+            
+            // 1件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 0, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 200)
+            
+            // 2件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 1, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 205.0, y: 0.0, width: 200, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 405)
+            
+            // 3件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 2, section: 0),
+                itemSize: CGSize(width: 200, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 205.0, y: 0.0, width: 200, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 405)
+            
+            // 4件目
+            row.addAttributes(
+                indexPath: IndexPath(item: 3, section: 0),
+                itemSize: CGSize(width: 190, height: 100)
+            )
+            XCTAssertEqual(
+                row.attributesSet.map { $0.frame },
+                [
+                    CGRect(x: 0.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 205.0, y: 0.0, width: 200, height: 100),
+                    CGRect(x: 410.0, y: 0.0, width: 190, height: 100)
+                ]
+            )
+            XCTAssertEqual(row.maxX, 600)
+        }
     }
     
+    
+    func test_moveDownwardを実行すると正しい値でattributesSetとoriginYが更新されること() {
+        
+    }
 }
 
 fileprivate extension Row {
