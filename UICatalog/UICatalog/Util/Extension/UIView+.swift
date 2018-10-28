@@ -59,3 +59,14 @@ extension UIView {
         return self
     }
 }
+
+// MARK:- State
+extension UIView {
+    public func toggle(isHidden: Bool? = nil) {
+        if let isHidden = isHidden {
+            self.isHidden = isHidden
+        } else {
+            self.isHidden = !self.isHidden
+        }
+    }
+}

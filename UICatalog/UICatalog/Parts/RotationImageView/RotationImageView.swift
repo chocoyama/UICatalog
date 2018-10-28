@@ -46,7 +46,6 @@ open class RotationImageView: UIView {
     
     private static let defaultTimeInterval: TimeInterval = 5
     fileprivate var switcher = ImageSwitcher()
-    private var timer: Timer?
     
     open var resources = [Resource]()
     open var interval: TimeInterval = defaultTimeInterval
@@ -56,11 +55,11 @@ open class RotationImageView: UIView {
     fileprivate var stopFlag = false
     
     open func setup() {
-        if resources.isEmpty {
+        guard let firestResource = resources.first else {
             return
         }
         
-        let imageItems = switcher.setup(with: [resources[0]])
+        let imageItems = switcher.setup(with: [firestResource])
         add(imageItems)
     }
     
