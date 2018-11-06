@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         case tabMenuViewController = "TabMenuViewController"
         case rotationImageView = "RotationImageView"
         case zoomTransitionAnimator = "ZoomTransitionAnimator"
+        case overlayMenuView = "OverlayMenuView"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -44,6 +45,7 @@ class ViewController: UIViewController {
                 ])
             case .rotationImageView: return RotationImageViewController()
             case .zoomTransitionAnimator: return ZoomTransitionAnimatorViewController()
+            case .overlayMenuView: return OverlayMenuViewController()
             }
         }
     }

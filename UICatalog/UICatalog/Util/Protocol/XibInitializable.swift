@@ -30,17 +30,12 @@ import UIKit
 public protocol XibInitializable: class {}
 extension XibInitializable where Self: UIView {
     public func setXibView() {
-        let bundle = Bundle(for: type(of: self))
-        let nibName = String(describing: Self.self)
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
+        let nib = UINib(nibName: String(describing: Self.self), bundle: Bundle(for: type(of: self)))
+        let xibView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         
-        self.insertSubview(view, at: 0)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.insertSubview(xibView, at: 0)
+        xibView.overlay(on: self)
+//        self.backgroundColor = .clear
     }
     
     public init() {
