@@ -56,6 +56,7 @@ open class OverlayMenuView: UIView, XibInitializable {
     }
 }
 
+// MARK: Action
 extension OverlayMenuView {
     private func assignGestures() {
         self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
@@ -77,7 +78,7 @@ extension OverlayMenuView {
     @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {
         let nextConstant = contentViewTopConstraint.constant + sender.translation(in: self).y
         
-        let minConstant: CGFloat = 0
+        let minConstant: CGFloat = position.overlay.calculateOriginY(from: self.bounds)
         let maxConstant: CGFloat = position.compact.calculateOriginY(from: self.bounds)
         let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
         
