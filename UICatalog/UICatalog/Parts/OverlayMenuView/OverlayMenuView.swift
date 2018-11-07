@@ -7,23 +7,21 @@
 //
 
 import UIKit
-
+ 
 open class OverlayMenuView: UIView, XibInitializable {
-    
-    public enum Position {
-        case `default`
-        case compact
-        case overlay
-        case none
-    }
 
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var contentView: UIView! {
+        didSet {
+            contentView.rounded(cornerRadius: 15.0,
+                                cornerMasks: [.layerMinXMinYCorner, .layerMaxXMaxYCorner])
+        }
+    }
     @IBOutlet weak var backgroundMaskView: UIView!
     
     @IBOutlet weak var contentViewTopConstraint: NSLayoutConstraint!
     
+    private let position = Position()
     private var configuration = Configuration()
-    private var position: Position = .default
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -38,36 +36,21 @@ open class OverlayMenuView: UIView, XibInitializable {
     open override func awakeFromNib() {
         super.awakeFromNib()
         assignGestures()
-        setUp(position: .default)
+        update(position: position.default)
     }
     
     open func set(configuration: Configuration) {
         self.configuration = configuration
     }
     
-    open func setUp(position: Position, animated: Bool = true) {
-        let originY: CGFloat
-        let alpha: CGFloat
-        
-        switch position {
-        case .default:
-            originY = 200
-            alpha = 0.2
-        case .overlay:
-            originY = 40
-            alpha = 0.2
-        case .compact:
-            let compactHeight: CGFloat = 200
-            originY = self.bounds.height - compactHeight
-            alpha = 0.2
-        case .none:
-            originY = self.frame.height
-            alpha = 0.0
-        }
-        
-        contentViewTopConstraint.constant = originY
+//    open func setUp(to parentView: UIView) {
+//        self.overlay(on: parentView)
+//    }
+
+    open func update(position value: Position.Value, animated: Bool = true) {
+        contentViewTopConstraint.constant = value.calculateOriginY(from: self.bounds)
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
-            self.backgroundMaskView.alpha = alpha
+            self.backgroundMaskView.alpha = value.alpha
             self.layoutIfNeeded()
         }
     }
@@ -75,31 +58,34 @@ open class OverlayMenuView: UIView, XibInitializable {
 
 extension OverlayMenuView {
     private func assignGestures() {
-        backgroundMaskView.addGestureRecognizer(UITapGestureRecognizer(
-            target: self,
-            action: #selector(didTappedMaskView(_:)))
-        )
-        
-        contentView.addGestureRecognizer(UITapGestureRecognizer(
-            target: self,
-            action: #selector(didTappedContentView(_:)))
-        )
+        self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+                                                         action: #selector(didSwipedView(_:))))
+        backgroundMaskView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                       action: #selector(didTappedMaskView(_:))))
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                action: #selector(didTappedContentView(_:))))
     }
     
     @objc private func didTappedMaskView(_ sender: UITapGestureRecognizer) {
-        setUp(position: .compact)
+        update(position: position.compact)
     }
     
     @objc private func didTappedContentView(_ sender: UITapGestureRecognizer) {
-        setUp(position: .overlay)
+        update(position: position.overlay)
+    }
+    
+    @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {
+        let nextConstant = contentViewTopConstraint.constant + sender.translation(in: self).y
+        
+        let minConstant: CGFloat = 0
+        let maxConstant: CGFloat = position.compact.calculateOriginY(from: self.bounds)
+        let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
+        
+        if shouldMoveMenu {
+            contentViewTopConstraint.constant = nextConstant
+        }
+        
+        sender.setTranslation(.zero, in: self)
     }
 }
 
- extension OverlayMenuView {
-    public struct Configuration {
-        struct Position
-        typealias PositionValue = (height: CGFloat, alpha: CGFloat)
-        
-        let
-    }
- }
