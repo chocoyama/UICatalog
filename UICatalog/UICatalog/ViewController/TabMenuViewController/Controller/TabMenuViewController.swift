@@ -10,9 +10,9 @@ import UIKit
 
 open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
     
-    open weak var menuViewControllerDelegate: MenuViewControllerDelegate? {
+    open weak var delegate: MenuViewControllerDelegate? {
         didSet {
-            menuViewController.delegate = menuViewControllerDelegate
+            menuViewController.delegate = delegate
         }
     }
     
@@ -72,5 +72,11 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
             synchronizablePageViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
             synchronizablePageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    open func update(to pageViewControllers: [PageViewController<T>]) {
+        let pages = pageViewControllers.map { $0.page }
+        menuViewController.update(to: pages)
+        synchronizablePageViewController.update(to: pageViewControllers)
     }
 }

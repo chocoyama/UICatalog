@@ -23,7 +23,7 @@ class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
         configuration.shouldShowMenuSettingItem = true
         configuration.settingIcon.reductionRate = 0.9
         super.init(with: pageViewControllers, configuration: configuration)
-        self.menuViewControllerDelegate = self
+        self.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,6 +47,13 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     
     func menuViewController<T>(_ menuViewController: MenuViewController<T>, widthForItemAt page: AnyPage<T>) -> CGFloat {
         return 100
+    }
+    
+    func menuViewController<T>(_ menuViewController: MenuViewController<T>, didUpdated pages: [AnyPage<T>]) {
+        // TODO: キャストしなくてもなんとかならないか
+        guard let pages = pages as? [AnyPage<SamplePage.Entity>] else { return }
+        let pageViewControllers = pages.map { SamplePageViewController(with: $0) }
+        update(to: pageViewControllers)
     }
 }
 

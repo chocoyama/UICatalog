@@ -10,7 +10,7 @@ import UIKit
 
 open class InfiniteLoopPageViewController: UIPageViewController {
 
-    let controllers: [UIViewController & Pageable]
+    private(set) var controllers: [UIViewController & Pageable]
     let shouldInfiniteLoop: Bool
     
     public init(with controllers: [UIViewController & Pageable],
@@ -20,15 +20,14 @@ open class InfiniteLoopPageViewController: UIPageViewController {
                 options: [UIPageViewController.OptionsKey : Any]?) {
         
         self.controllers = controllers
+        controllers.enumerated().forEach { $0.element.pageNumber = $0.offset }
+        
         self.shouldInfiniteLoop = shouldInfiniteLoop
+        
         super.init(transitionStyle: transitionStyle,
                    navigationOrientation: navigationOrientation,
                    options: options)
-        
         dataSource = self
-        for (page, controller) in controllers.enumerated() {
-            controller.pageNumber = page
-        }
     }
     
     public required init?(coder: NSCoder) {
@@ -37,10 +36,19 @@ open class InfiniteLoopPageViewController: UIPageViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let firstVC = controllers.first {
-            setViewControllers([firstVC], direction: .forward, animated: false, completion: nil)
-        }
+        setUp(at: 0)
+    }
+    
+    open func update(to controllers: [UIViewController & Pageable], at page: Int = 0) {
+        self.controllers = controllers
+        controllers.enumerated().forEach { $0.element.pageNumber = $0.offset }
+        setUp(at: page)
+    }
+    
+    private func setUp(at page: Int) {
+        let index = controllers.indices ~= page ? page : 0
+        let controller = controllers[index]
+        setViewControllers([controller], direction: .forward, animated: false, completion: nil)
     }
 }
 

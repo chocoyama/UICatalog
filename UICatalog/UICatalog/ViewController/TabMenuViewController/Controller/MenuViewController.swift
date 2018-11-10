@@ -16,6 +16,8 @@ public protocol MenuViewControllerDelegate: class {
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                widthForItemAt page: AnyPage<T>) -> CGFloat
     func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
+    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
+                               didUpdated pages: [AnyPage<T>])
 }
 
 open class MenuViewController<T>: SynchronizableCollectionViewController,
@@ -47,6 +49,12 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    open func update(to pages: [AnyPage<T>]) {
+        self.items = MenuViewController<T>.constructItems(pages: pages,
+                                                          configuration: configuration)
+        collectionView.reloadData()
     }
     
     // MARK: UICollectionViewDelegate
@@ -122,12 +130,8 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
 
 extension MenuViewController: MenuSettingViewControllerDelegate {
     func menuSettingViewController<U>(_ menuSettingViewController: MenuSettingViewController<U>, didCommitPages pages: [AnyPage<U>]) {
-//        guard let pages = pages as? [AnyPage<T>] else { return }
-//        self.items = MenuViewController<T>.constructItems(pages: pages,
-//                                                          configuration: self.configuration)
-//        collectionView.reloadData()
-//        
-//        TODO: Pageのデータソースの変更を伝え合うIFを作る必要あり
+        guard let pages = pages as? [AnyPage<T>] else { return }
+        delegate?.menuViewController(self, didUpdated: pages)
     }
 }
 
