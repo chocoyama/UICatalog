@@ -15,9 +15,10 @@ public protocol MenuViewControllerDelegate: class {
                                dequeueIndexPath: IndexPath) -> UICollectionViewCell
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                widthForItemAt page: AnyPage<T>) -> CGFloat
-    func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                didUpdated pages: [AnyPage<T>])
+    func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
+    func didSelectedAddIcon<T>(at: UICollectionView, in menuViewController: MenuViewController<T>)
 }
 
 open class MenuViewController<T>: SynchronizableCollectionViewController,
@@ -27,6 +28,7 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     enum Item {
         case setting
         case menu(page: AnyPage<T>)
+        case add
     }
     
     open weak var delegate: MenuViewControllerDelegate?
@@ -61,21 +63,14 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     // MARK: UICollectionViewDelegate
     
     public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let settingIndex = settingIndex else {
-            super.collectionView(collectionView, didSelectItemAt: indexPath)
-            return
-        }
-        
-        switch indexPath.item {
-        case let index where index < settingIndex:
-            super.collectionView(collectionView, didSelectItemAt: indexPath)
-        case let index where index == settingIndex:
+        if indexPath.item == settingIndex {
             showMenuSetting()
-        case let index where index > settingIndex:
-            let adjustedIndexPath = IndexPath(item: indexPath.item - 1,
-                                              section: indexPath.section)
-            super.collectionView(collectionView, didSelectItemAt: adjustedIndexPath)
-        default: break
+        } else if indexPath.item == addIndex {
+            delegate?.didSelectedAddIcon(at: collectionView, in: self)
+        } else {
+            let adjustItem = configuration.shouldShowMenuSettingItem ? indexPath.item - 1 : indexPath.item
+            pagingSynchronizer?.pagingSynchronizer(changePageOnly: self, index: indexPath.item, section: indexPath.section)
+            pagingSynchronizer?.pagingSynchronizer(changePageExcept: self, index: adjustItem, section: indexPath.section)
         }
     }
     
@@ -88,15 +83,19 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch items[indexPath.item] {
         case .setting:
-            return MenuSettingCollectionViewCell
+            return MenuActionIconCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
-                .configure(configuration: configuration.settingIcon)
+                .configure(iconConfiguration: configuration.settingIcon)
         case .menu(let page):
             if let cell = delegate?.menuViewController(self, cellForItemAt: page, in: collectionView, dequeueIndexPath: indexPath) {
                 return cell
             } else {
                 fatalError("Should implement MenuViewControllerDelegate.")
             }
+        case .add:
+            return MenuActionIconCollectionViewCell
+                .dequeue(from: collectionView, indexPath: indexPath)
+                .configure(iconConfiguration: configuration.addIcon)
         }
     }
     
@@ -113,6 +112,9 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
             } else {
                 fatalError("Should implement MenuViewControllerDelegate.")
             }
+        case .add:
+            let diameter = configuration.menuViewHeight * CGFloat(configuration.addIcon.reductionRate)
+            return CGSize(width: diameter, height: diameter)
         }
     }
     
@@ -150,10 +152,17 @@ extension MenuViewController {
     private class func constructItems(pages: [AnyPage<T>],
                                       configuration: TabMenuConfiguration) -> [MenuViewController<T>.Item] {
         var items = [Item]()
+        
         if configuration.shouldShowMenuSettingItem {
             items.append(.setting)
         }
+        
         items.append(contentsOf: pages.map { MenuViewController.Item.menu(page: $0) })
+        
+        if configuration.shouldShowAddButton {
+            items.append(.add)
+        }
+        
         return items
     }
     
@@ -172,7 +181,7 @@ extension MenuViewController {
     
     private func registerCells() {
         delegate?.registerCellTo(collectionView: collectionView, in: self)
-        MenuSettingCollectionViewCell.register(for: collectionView, bundle: .current)
+        MenuActionIconCollectionViewCell.register(for: collectionView, bundle: .current)
     }
     
     private func assignActions() {
@@ -184,7 +193,16 @@ extension MenuViewController {
         return items.firstIndex {
             switch $0 {
             case .setting: return true
-            case .menu(_): return false
+            case .menu(_), .add: return false
+            }
+        }
+    }
+    
+    private var addIndex: Int? {
+        return items.firstIndex {
+            switch $0 {
+            case .add: return true
+            case .setting, .menu(_): return false
             }
         }
     }

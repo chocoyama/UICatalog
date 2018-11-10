@@ -20,6 +20,7 @@ public struct TabMenuConfiguration {
     
     // MARK: Add
     public var shouldShowAddButton: Bool = false
+    public var addIcon = AddIcon()
     
     // MARK: Action
     public var longPressBehavior: LongPressBehavior = .none
@@ -34,9 +35,16 @@ extension TabMenuConfiguration {
     }
 }
 
+protocol IconConfiguration {
+    var image: UIImage { get }
+    var backgroundColor: UIColor { get set }
+    var reductionRate: Double  { get set }
+}
+
 extension TabMenuConfiguration {
-    public struct SettingIcon {
-        public enum MenuColor {
+    
+    public struct SettingIcon: IconConfiguration {
+        public enum Color {
             case black
             case white
             
@@ -50,8 +58,32 @@ extension TabMenuConfiguration {
             }
         }
         
-        public var menuColor: MenuColor = .black
+        public var color: Color = .black
         public var backgroundColor: UIColor = .lightGray
         public var reductionRate: Double = 1.0
+        
+        public var image: UIImage { return color.image }
+    }
+    
+    public struct AddIcon: IconConfiguration {
+        public enum Color {
+            case black
+            case white
+            
+            internal var image: UIImage {
+                let imageName: String
+                switch self {
+                case .black: imageName = "plus_black"
+                case .white: imageName = "plus_white"
+                }
+                return UIImage(named: imageName, in: .current, compatibleWith: nil)!
+            }
+        }
+        
+        public var color: Color = .black
+        public var backgroundColor: UIColor = .lightGray
+        public var reductionRate: Double = 1.0
+        
+        public var image: UIImage { return color.image }
     }
 }

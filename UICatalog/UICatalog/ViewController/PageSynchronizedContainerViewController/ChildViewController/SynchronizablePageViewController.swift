@@ -17,7 +17,6 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
                          transitionStyle: UIPageViewController.TransitionStyle,
                          navigationOrientation: UIPageViewController.NavigationOrientation,
                          options: [UIPageViewController.OptionsKey : Any]?) {
-        
         super.init(with: controllers,
                    shouldInfiniteLoop: shouldInfiniteLoop,
                    transitionStyle: transitionStyle,
@@ -42,12 +41,12 @@ extension SynchronizablePageViewController: UIPageViewControllerDelegate {
         guard let currentVC = viewControllers?.first,
             let currentIndex = getIndex(at: currentVC) else { return }
         
-        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: currentIndex, section: 0)
+        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: currentIndex, section: 0, observer: self)
     }
 }
 
 extension SynchronizablePageViewController: PagingChangeSubject {
-    public func synchronize(pageIndex index: Int, section: Int) {
+    public func synchronize(pageIndex index: Int, section: Int, observer: PagingChangeObserver) {
         guard let currentVC = viewControllers?.first,
             let currentIndex = getIndex(at: currentVC) else { return }
         

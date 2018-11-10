@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol PagingChangeSubscriber {
+public protocol PagingChangeSubscriber: NSObjectProtocol {
     var pagingSynchronizer: PagingSynchronizer? { get set }
-    func synchronize(pageIndex index: Int, section: Int)
+    func synchronize(pageIndex index: Int, section: Int, observer: PagingChangeObserver)
 }

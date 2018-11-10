@@ -21,8 +21,8 @@
 		6B33DF7A2158BDBA006143A4 /* ColumnContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF742158BDBA006143A4 /* ColumnContainer.swift */; };
 		6B33DF862158C08B006143A4 /* ColumnCountDynamicAsignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */; };
 		6B3D506D216640D800D1BD85 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D506C216640D800D1BD85 /* UITableView+.swift */; };
-		6B8DEE31217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE2F217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift */; };
-		6B8DEE32217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE30217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib */; };
+		6B8DEE31217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE2F217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift */; };
+		6B8DEE32217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE30217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib */; };
 		6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE33217C4A6B00D2D01F /* Images.xcassets */; };
 		6B8DEE36217C535700D2D01F /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE35217C535700D2D01F /* Bundle+.swift */; };
 		6B8DEE39217C64A600D2D01F /* MenuSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE37217C64A600D2D01F /* MenuSettingViewController.swift */; };
@@ -123,8 +123,8 @@
 		6B33DF742158BDBA006143A4 /* ColumnContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnContainer.swift; sourceTree = "<group>"; };
 		6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnCountDynamicAsignable.swift; sourceTree = "<group>"; };
 		6B3D506C216640D800D1BD85 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
-		6B8DEE2F217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSettingCollectionViewCell.swift; sourceTree = "<group>"; };
-		6B8DEE30217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuSettingCollectionViewCell.xib; sourceTree = "<group>"; };
+		6B8DEE2F217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuActionIconCollectionViewCell.swift; sourceTree = "<group>"; };
+		6B8DEE30217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuActionIconCollectionViewCell.xib; sourceTree = "<group>"; };
 		6B8DEE33217C4A6B00D2D01F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6B8DEE35217C535700D2D01F /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		6B8DEE37217C64A600D2D01F /* MenuSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSettingViewController.swift; sourceTree = "<group>"; };
@@ -297,8 +297,8 @@
 		6B8DEE2E217C49F700D2D01F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6B8DEE2F217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift */,
-				6B8DEE30217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib */,
+				6B8DEE2F217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift */,
+				6B8DEE30217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib */,
 				6B8DEE3B217C67C000D2D01F /* MenuSettingTableViewCell.swift */,
 				6B8DEE3C217C67C000D2D01F /* MenuSettingTableViewCell.xib */,
 			);
@@ -749,7 +749,7 @@
 				803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */,
 				6BDAE527215265E200BBB47A /* RangeSliderTab.xib in Resources */,
 				6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */,
-				6B8DEE32217C4A1F00D2D01F /* MenuSettingCollectionViewCell.xib in Resources */,
+				6B8DEE32217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib in Resources */,
 				6B8DEE3E217C67C000D2D01F /* MenuSettingTableViewCell.xib in Resources */,
 				8013D2122182C39A0001CD75 /* RotationImageItem.xib in Resources */,
 				6BB8929621733818003430DC /* InfiniteLoopPageViewController.xib in Resources */,
@@ -784,7 +784,7 @@
 				800D02C5215C520300F2A55F /* Line.swift in Sources */,
 				6BB8928F21733728003430DC /* PagingChangeObserver.swift in Sources */,
 				6B33DF7A2158BDBA006143A4 /* ColumnContainer.swift in Sources */,
-				6B8DEE31217C4A1F00D2D01F /* MenuSettingCollectionViewCell.swift in Sources */,
+				6B8DEE31217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift in Sources */,
 				6BDAE54821526B2500BBB47A /* CellRegisterable.swift in Sources */,
 				6BDAE525215265E200BBB47A /* RangeSlider.swift in Sources */,
 				8013D20A2182C3850001CD75 /* RotationImageView+RoopGenerator.swift in Sources */,

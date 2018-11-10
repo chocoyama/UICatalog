@@ -13,7 +13,7 @@ open class PageSynchronizedContainerViewController: UIViewController, PagingSync
     public init(with children: [UIViewController & PagingChangeSubscriber]) {
         super.init(nibName: nil, bundle: nil)
         
-        for var childController in children {
+        for childController in children {
             childController.pagingSynchronizer = self
             
             addChild(childController)

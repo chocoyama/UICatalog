@@ -29,7 +29,9 @@ class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
         
         var configuration = TabMenuConfiguration()
         configuration.shouldShowMenuSettingItem = true
-        configuration.settingIcon.reductionRate = 0.9
+        configuration.settingIcon.reductionRate = 0.8
+        configuration.shouldShowAddButton = true
+        configuration.addIcon.reductionRate = 0.8
         configuration.longPressBehavior = .presentMenu
         
         super.init(with: pageViewControllers, configuration: configuration)
@@ -66,6 +68,10 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
             self.cache.get(from: $0) ?? SamplePageViewController(with: $0)
         }
         update(to: pageViewControllers)
+    }
+    
+    func didSelectedAddIcon<T>(at: UICollectionView, in menuViewController: MenuViewController<T>) {
+        
     }
 }
 

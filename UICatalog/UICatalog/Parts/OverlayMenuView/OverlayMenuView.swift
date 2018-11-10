@@ -13,12 +13,13 @@ open class OverlayMenuView: UIView, XibInitializable {
     @IBOutlet weak var contentView: UIView! {
         didSet {
             contentView
+                .rounded(cornerRadius: 15.0,
+                         cornerMasks: [.layerMinXMinYCorner, .layerMaxXMinYCorner],
+                         masksToBounds: false)
                 .addDropShadow(offsetSize: CGSize(width: 0.0, height: -1.0),
                                opacity: 0.1,
                                radius: 2.0,
                                color: .black)
-                .rounded(cornerRadius: 15.0,
-                         cornerMasks: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
     }
     @IBOutlet weak var backgroundMaskView: UIView!
@@ -43,9 +44,23 @@ open class OverlayMenuView: UIView, XibInitializable {
         update(position: position.default)
     }
     
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let tappedView = super.hitTest(point, with: event)
+        
+        if !configuration.enablePresentingViewInteraction {
+            return tappedView
+        }
+        
+        if tappedView == contentView {
+            return contentView
+        } else {
+            update(position: position.compact)
+            return nil
+        }
+    }
+    
     open func setUp(with configuration: Configuration) {
         self.configuration = configuration
-        
         configureSubviews(by: configuration)
         assignGestures(by: configuration)
     }

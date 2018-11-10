@@ -49,12 +49,13 @@ open class SynchronizableCollectionViewController: UIViewController {
 extension SynchronizableCollectionViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: indexPath.item,
-                                               section: indexPath.section)
+                                               section: indexPath.section,
+                                               observer: self)
     }
 }
 
 extension SynchronizableCollectionViewController: PagingChangeSubject {
-    public func synchronize(pageIndex index: Int, section: Int) {
+    public func synchronize(pageIndex index: Int, section: Int, observer: PagingChangeObserver) {
         collectionView.indexPathsForSelectedItems?.forEach { collectionView.deselectItem(at: $0, animated: true) }
         collectionView.selectItem(at: IndexPath(item: index, section: section),
                                   animated: true,

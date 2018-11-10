@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuSettingCollectionViewCell: UICollectionViewCell {
+class MenuActionIconCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageViewLeftConstraint: NSLayoutConstraint!
@@ -17,11 +17,11 @@ class MenuSettingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
     
     @discardableResult
-    func configure(configuration: TabMenuConfiguration.SettingIcon) -> Self {
-        rounded()
+    func configure(iconConfiguration: IconConfiguration) -> Self {
         adjustImageSize()
-        imageView.image = configuration.menuColor.image
-        contentView.backgroundColor = configuration.backgroundColor
+        imageView.image = iconConfiguration.image
+        contentView.backgroundColor = iconConfiguration.backgroundColor
+        rounded()
         return self
     }
     

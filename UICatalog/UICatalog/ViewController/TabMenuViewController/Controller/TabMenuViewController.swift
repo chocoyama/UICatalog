@@ -8,6 +8,37 @@
 
 import UIKit
 
+class ContentsPageViewController: SynchronizablePageViewController {
+    private let configuration: TabMenuConfiguration
+    
+    public init(with controllers: [UIViewController & Pageable],
+                configuration: TabMenuConfiguration,
+                shouldInfiniteLoop: Bool,
+                transitionStyle: UIPageViewController.TransitionStyle,
+                navigationOrientation: UIPageViewController.NavigationOrientation,
+                options: [UIPageViewController.OptionsKey : Any]?) {
+        self.configuration = configuration
+        super.init(with: controllers,
+                   shouldInfiniteLoop: shouldInfiniteLoop,
+                   transitionStyle: transitionStyle,
+                   navigationOrientation: navigationOrientation,
+                   options: options)
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let currentVC = viewControllers?.first,
+            let currentIndex = getIndex(at: currentVC) else { return }
+        
+        let adjustIndex = configuration.shouldShowMenuSettingItem ? currentIndex + 1 : currentIndex
+        pagingSynchronizer?.pagingSynchronizer(changePageOnly: self, index: currentIndex, section: 0)
+        pagingSynchronizer?.pagingSynchronizer(changePageExcept: self, index: adjustIndex, section: 0)
+    }
+}
+
 open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
     
     open weak var delegate: MenuViewControllerDelegate? {
@@ -20,7 +51,7 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
     
     private let configuration: TabMenuConfiguration
     private let menuViewController: MenuViewController<T>
-    private let synchronizablePageViewController: SynchronizablePageViewController
+    private let contentsPageViewController: ContentsPageViewController
 
     public init(with pageViewControllers: [PageViewController<T>],
                 configuration: TabMenuConfiguration = TabMenuConfiguration()) {
@@ -28,8 +59,9 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         
         let pages = pageViewControllers.map { $0.page }
         self.menuViewController = MenuViewController(with: pages, configuration: configuration)
-        self.synchronizablePageViewController = SynchronizablePageViewController(
+        self.contentsPageViewController = ContentsPageViewController(
             with: pageViewControllers,
+            configuration: configuration,
             shouldInfiniteLoop: false,
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,
@@ -39,7 +71,7 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         
         let children: [UIViewController & PagingChangeSubscriber] = [
             self.menuViewController,
-            self.synchronizablePageViewController
+            self.contentsPageViewController
         ]
         super.init(with: children)
     }
@@ -67,20 +99,20 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
             menuViewController.view.heightAnchor.constraint(equalToConstant: menuViewHeight)
         ])
 
-        synchronizablePageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(synchronizablePageViewController.view)
+        contentsPageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(contentsPageViewController.view)
         NSLayoutConstraint.activate([
-            synchronizablePageViewController.view.topAnchor.constraint(equalTo: menuViewController.view.bottomAnchor),
-            synchronizablePageViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-            synchronizablePageViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-            synchronizablePageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            contentsPageViewController.view.topAnchor.constraint(equalTo: menuViewController.view.bottomAnchor),
+            contentsPageViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+            contentsPageViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
+            contentsPageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
     open func update(to pageViewControllers: [PageViewController<T>]) {
         let pages = pageViewControllers.map { $0.page }
         menuViewController.update(to: pages)
-        synchronizablePageViewController.update(to: pageViewControllers)
+        contentsPageViewController.update(to: pageViewControllers)
         cache.save(pageViewControllers)
     }
 }

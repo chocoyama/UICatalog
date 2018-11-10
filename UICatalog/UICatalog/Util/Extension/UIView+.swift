@@ -23,16 +23,18 @@ extension UIView {
 // MARK:- Design
 extension UIView {
     @discardableResult
-    public func rounded() -> Self {
+    public func rounded(masksToBounds: Bool = true) -> Self {
         layer.cornerRadius = bounds.width / 2.0
-        layer.masksToBounds = false
+        layer.masksToBounds = masksToBounds
         return self
     }
     
     @discardableResult
-    public func rounded(cornerRadius: CGFloat, cornerMasks: CACornerMask = []) -> Self {
+    public func rounded(cornerRadius: CGFloat,
+                        cornerMasks: CACornerMask = [],
+                        masksToBounds: Bool = true) -> Self {
         layer.cornerRadius = cornerRadius
-        layer.masksToBounds = false
+        layer.masksToBounds = masksToBounds
         
         if !cornerMasks.isEmpty {
             layer.maskedCorners = cornerMasks

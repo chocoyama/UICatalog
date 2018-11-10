@@ -8,12 +8,12 @@
 
 import Foundation
 
-public protocol PagingChangeObserver {
+public protocol PagingChangeObserver: NSObjectProtocol {
     var pagingSynchronizer: PagingSynchronizer? { get set }
 }
 
 extension PagingChangeObserver {
-    public func notifyPageNumberChanged(to page: Int, section: Int) {
-        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: page, section: section)
+    public func notifyPageNumberChanged(to page: Int, section: Int, observer: PagingChangeObserver) {
+        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: page, section: section, observer: observer)
     }
 }
