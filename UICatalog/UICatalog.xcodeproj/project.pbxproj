@@ -29,6 +29,7 @@
 		6B8DEE3A217C64A600D2D01F /* MenuSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE38217C64A600D2D01F /* MenuSettingViewController.xib */; };
 		6B8DEE3D217C67C000D2D01F /* MenuSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE3B217C67C000D2D01F /* MenuSettingTableViewCell.swift */; };
 		6B8DEE3E217C67C000D2D01F /* MenuSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE3C217C67C000D2D01F /* MenuSettingTableViewCell.xib */; };
+		6B8E2CC82196C69600CAC6FB /* PageViewControllerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E2CC72196C69600CAC6FB /* PageViewControllerCache.swift */; };
 		6B9863A32173982A00D5004C /* PagingChangeSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A22173982A00D5004C /* PagingChangeSubject.swift */; };
 		6B9863A52173A03900D5004C /* CustomUrlScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A42173A03900D5004C /* CustomUrlScheme.swift */; };
 		6B9863A72173A0B000D5004C /* LineMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9863A62173A0B000D5004C /* LineMessenger.swift */; };
@@ -130,6 +131,7 @@
 		6B8DEE38217C64A600D2D01F /* MenuSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuSettingViewController.xib; sourceTree = "<group>"; };
 		6B8DEE3B217C67C000D2D01F /* MenuSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSettingTableViewCell.swift; sourceTree = "<group>"; };
 		6B8DEE3C217C67C000D2D01F /* MenuSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuSettingTableViewCell.xib; sourceTree = "<group>"; };
+		6B8E2CC72196C69600CAC6FB /* PageViewControllerCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewControllerCache.swift; sourceTree = "<group>"; };
 		6B9863A22173982A00D5004C /* PagingChangeSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingChangeSubject.swift; sourceTree = "<group>"; };
 		6B9863A42173A03900D5004C /* CustomUrlScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUrlScheme.swift; sourceTree = "<group>"; };
 		6B9863A62173A0B000D5004C /* LineMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineMessenger.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			children = (
 				6B9863B0217A0ADD00D5004C /* Page.swift */,
 				6B29049F217B019200FB7500 /* Configuration.swift */,
+				6B8E2CC72196C69600CAC6FB /* PageViewControllerCache.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				6BB892912173373C003430DC /* PagingSynchronizer.swift in Sources */,
 				6B8DEE39217C64A600D2D01F /* MenuSettingViewController.swift in Sources */,
 				6BB8929521733818003430DC /* InfiniteLoopPageViewController.swift in Sources */,
+				6B8E2CC82196C69600CAC6FB /* PageViewControllerCache.swift in Sources */,
 				8013D20D2182C3850001CD75 /* RotationImageView+Animator.swift in Sources */,
 				6B9863A72173A0B000D5004C /* LineMessenger.swift in Sources */,
 				6BDAE54D21526B3B00BBB47A /* Color+.swift in Sources */,

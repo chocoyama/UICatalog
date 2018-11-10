@@ -16,6 +16,8 @@ public protocol MenuViewControllerDelegate: class {
     func menuViewController<T>(_ menuViewController: MenuViewController<T>,
                                widthForItemAt page: AnyPage<T>) -> CGFloat
     func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
+    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
+                               didUpdated pages: [AnyPage<T>])
 }
 
 open class MenuViewController<T>: SynchronizableCollectionViewController,
@@ -43,10 +45,17 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     open override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
+        assignActions()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    open func update(to pages: [AnyPage<T>]) {
+        self.items = MenuViewController<T>.constructItems(pages: pages,
+                                                          configuration: configuration)
+        collectionView.reloadData()
     }
     
     // MARK: UICollectionViewDelegate
@@ -118,16 +127,22 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return configuration.menuItemSpacing
     }
+    
+    // MARK: User Action
+    @objc private func viewDidLongPressed(_ sender: UILongPressGestureRecognizer) {
+        switch configuration.longPressBehavior {
+        case .presentMenu:
+            showMenuSetting()
+        case .none:
+            break
+        }
+    }
 }
 
 extension MenuViewController: MenuSettingViewControllerDelegate {
     func menuSettingViewController<U>(_ menuSettingViewController: MenuSettingViewController<U>, didCommitPages pages: [AnyPage<U>]) {
-//        guard let pages = pages as? [AnyPage<T>] else { return }
-//        self.items = MenuViewController<T>.constructItems(pages: pages,
-//                                                          configuration: self.configuration)
-//        collectionView.reloadData()
-//        
-//        TODO: Pageのデータソースの変更を伝え合うIFを作る必要あり
+        guard let pages = pages as? [AnyPage<T>] else { return }
+        delegate?.menuViewController(self, didUpdated: pages)
     }
 }
 
@@ -158,6 +173,11 @@ extension MenuViewController {
     private func registerCells() {
         delegate?.registerCellTo(collectionView: collectionView, in: self)
         MenuSettingCollectionViewCell.register(for: collectionView, bundle: .current)
+    }
+    
+    private func assignActions() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(viewDidLongPressed(_:)))
+        collectionView.addGestureRecognizer(longPressGesture)
     }
     
     private var settingIndex: Int? {

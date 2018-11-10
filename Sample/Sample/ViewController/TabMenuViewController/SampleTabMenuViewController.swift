@@ -12,18 +12,28 @@ import WebKit
 
 struct SamplePage: Page {
     typealias Entity = URL
+    var id: String
     var title: String
     var entity: Entity
+    
+    init(id: String? = nil, title: String, entity: Entity) {
+        self.id = id ?? title
+        self.title = title
+        self.entity = entity
+    }
 }
 
 class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
     init(pages: [SamplePage]) {
         let pageViewControllers = pages.map { SamplePageViewController(with: $0.typeErased()) }
+        
         var configuration = TabMenuConfiguration()
         configuration.shouldShowMenuSettingItem = true
         configuration.settingIcon.reductionRate = 0.9
+        configuration.longPressBehavior = .presentMenu
+        
         super.init(with: pageViewControllers, configuration: configuration)
-        self.menuViewControllerDelegate = self
+        self.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,6 +57,15 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     
     func menuViewController<T>(_ menuViewController: MenuViewController<T>, widthForItemAt page: AnyPage<T>) -> CGFloat {
         return 100
+    }
+    
+    func menuViewController<T>(_ menuViewController: MenuViewController<T>, didUpdated pages: [AnyPage<T>]) {
+        // TODO: キャストしなくてもなんとかならないか
+        guard let pages = pages as? [AnyPage<SamplePage.Entity>] else { return }
+        let pageViewControllers = pages.map {
+            self.cache.get(from: $0) ?? SamplePageViewController(with: $0)
+        }
+        update(to: pageViewControllers)
     }
 }
 

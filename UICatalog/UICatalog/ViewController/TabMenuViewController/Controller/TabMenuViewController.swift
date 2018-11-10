@@ -10,11 +10,13 @@ import UIKit
 
 open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
     
-    open weak var menuViewControllerDelegate: MenuViewControllerDelegate? {
+    open weak var delegate: MenuViewControllerDelegate? {
         didSet {
-            menuViewController.delegate = menuViewControllerDelegate
+            menuViewController.delegate = delegate
         }
     }
+    
+    public let cache = PageViewControllerCache<T>()
     
     private let configuration: TabMenuConfiguration
     private let menuViewController: MenuViewController<T>
@@ -33,6 +35,7 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
             navigationOrientation: .horizontal,
             options: nil
         )
+        cache.save(pageViewControllers)
         
         let children: [UIViewController & PagingChangeSubscriber] = [
             self.menuViewController,
@@ -72,5 +75,12 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
             synchronizablePageViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
             synchronizablePageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    open func update(to pageViewControllers: [PageViewController<T>]) {
+        let pages = pageViewControllers.map { $0.page }
+        menuViewController.update(to: pages)
+        synchronizablePageViewController.update(to: pageViewControllers)
+        cache.save(pageViewControllers)
     }
 }
