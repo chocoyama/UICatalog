@@ -12,8 +12,13 @@ open class OverlayMenuView: UIView, XibInitializable {
 
     @IBOutlet weak var contentView: UIView! {
         didSet {
-            contentView.rounded(cornerRadius: 15.0,
-                                cornerMasks: [.layerMinXMinYCorner, .layerMaxXMaxYCorner])
+            contentView
+                .addDropShadow(offsetSize: CGSize(width: 0.0, height: -1.0),
+                               opacity: 0.1,
+                               radius: 2.0,
+                               color: .black)
+                .rounded(cornerRadius: 15.0,
+                         cornerMasks: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
     }
     @IBOutlet weak var backgroundMaskView: UIView!
@@ -35,12 +40,14 @@ open class OverlayMenuView: UIView, XibInitializable {
     
     open override func awakeFromNib() {
         super.awakeFromNib()
-        assignGestures()
         update(position: position.default)
     }
     
-    open func set(configuration: Configuration) {
+    open func setUp(with configuration: Configuration) {
         self.configuration = configuration
+        
+        configureSubviews(by: configuration)
+        assignGestures(by: configuration)
     }
     
 //    open func setUp(to parentView: UIView) {
@@ -54,17 +61,32 @@ open class OverlayMenuView: UIView, XibInitializable {
             self.layoutIfNeeded()
         }
     }
+    
+    private func configureSubviews(by configuration: Configuration) {
+        if configuration.enablePresentingViewInteraction {
+            backgroundMaskView.isHidden = true
+        } else {
+            backgroundMaskView.isHidden = false
+        }
+    }
 }
 
 // MARK: Action
 extension OverlayMenuView {
-    private func assignGestures() {
-        self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
-                                                         action: #selector(didSwipedView(_:))))
-        backgroundMaskView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                       action: #selector(didTappedMaskView(_:))))
-        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                action: #selector(didTappedContentView(_:))))
+    private func assignGestures(by configuration: Configuration) {
+        if configuration.enablePresentingViewInteraction {
+            contentView.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+                                                                    action: #selector(didSwipedView(_:))))
+            contentView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                    action: #selector(didTappedContentView(_:))))
+        } else {
+            self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+                                                             action: #selector(didSwipedView(_:))))
+            backgroundMaskView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                           action: #selector(didTappedMaskView(_:))))
+            contentView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                    action: #selector(didTappedContentView(_:))))
+        }
     }
     
     @objc private func didTappedMaskView(_ sender: UITapGestureRecognizer) {

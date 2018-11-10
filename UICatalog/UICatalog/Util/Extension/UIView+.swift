@@ -26,7 +26,6 @@ extension UIView {
     public func rounded() -> Self {
         layer.cornerRadius = bounds.width / 2.0
         layer.masksToBounds = false
-        clipsToBounds = true
         return self
     }
     
@@ -34,7 +33,6 @@ extension UIView {
     public func rounded(cornerRadius: CGFloat, cornerMasks: CACornerMask = []) -> Self {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = false
-        clipsToBounds = true
         
         if !cornerMasks.isEmpty {
             layer.maskedCorners = cornerMasks
@@ -51,10 +49,13 @@ extension UIView {
     }
     
     @discardableResult
-    public func addDropShadow(offset: CGFloat, opacity: Float, radius: CGFloat) -> Self {
-        layer.shadowOffset = CGSize(width: offset, height: offset)
+    public func addDropShadow(offsetSize: CGSize,
+                              opacity: Float,
+                              radius: CGFloat,
+                              color: UIColor) -> Self {
+        layer.shadowOffset = offsetSize
         layer.shadowOpacity = opacity
-        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowColor = color.cgColor
         layer.shadowRadius = radius
         return self
     }

@@ -15,6 +15,10 @@ class OverlayMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var configuration = OverlayMenuView.Configuration()
+        configuration.enablePresentingViewInteraction = true
+        overlayMenuView.setUp(with: configuration)
     }
     
 }

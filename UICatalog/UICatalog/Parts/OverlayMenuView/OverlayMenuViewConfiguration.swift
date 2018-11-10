@@ -10,6 +10,8 @@ import Foundation
 
 extension OverlayMenuView {
     public struct Configuration {
-        var enablePresentingViewInteraction: Bool = false
+        public var enablePresentingViewInteraction: Bool = false
+        
+        public init() {}
     }
 }
