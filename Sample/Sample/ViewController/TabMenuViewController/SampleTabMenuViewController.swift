@@ -12,8 +12,15 @@ import WebKit
 
 struct SamplePage: Page {
     typealias Entity = URL
+    var id: String
     var title: String
     var entity: Entity
+    
+    init(id: String? = nil, title: String, entity: Entity) {
+        self.id = id ?? title
+        self.title = title
+        self.entity = entity
+    }
 }
 
 class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
@@ -52,7 +59,9 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     func menuViewController<T>(_ menuViewController: MenuViewController<T>, didUpdated pages: [AnyPage<T>]) {
         // TODO: キャストしなくてもなんとかならないか
         guard let pages = pages as? [AnyPage<SamplePage.Entity>] else { return }
-        let pageViewControllers = pages.map { SamplePageViewController(with: $0) }
+        let pageViewControllers = pages.map {
+            self.cache.get(from: $0) ?? SamplePageViewController(with: $0)
+        }
         update(to: pageViewControllers)
     }
 }

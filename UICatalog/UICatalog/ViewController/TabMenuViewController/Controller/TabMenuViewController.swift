@@ -16,6 +16,8 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         }
     }
     
+    public let cache = PageViewControllerCache<T>()
+    
     private let configuration: TabMenuConfiguration
     private let menuViewController: MenuViewController<T>
     private let synchronizablePageViewController: SynchronizablePageViewController
@@ -33,6 +35,7 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
             navigationOrientation: .horizontal,
             options: nil
         )
+        cache.save(pageViewControllers)
         
         let children: [UIViewController & PagingChangeSubscriber] = [
             self.menuViewController,
@@ -78,5 +81,6 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         let pages = pageViewControllers.map { $0.page }
         menuViewController.update(to: pages)
         synchronizablePageViewController.update(to: pageViewControllers)
+        cache.save(pageViewControllers)
     }
 }
