@@ -26,9 +26,12 @@ struct SamplePage: Page {
 class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
     init(pages: [SamplePage]) {
         let pageViewControllers = pages.map { SamplePageViewController(with: $0.typeErased()) }
+        
         var configuration = TabMenuConfiguration()
         configuration.shouldShowMenuSettingItem = true
         configuration.settingIcon.reductionRate = 0.9
+        configuration.longPressBehavior = .presentMenu
+        
         super.init(with: pageViewControllers, configuration: configuration)
         self.delegate = self
     }

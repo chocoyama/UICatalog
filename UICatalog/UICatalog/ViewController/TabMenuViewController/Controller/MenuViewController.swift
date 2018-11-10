@@ -45,6 +45,7 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     open override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
+        assignActions()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -126,6 +127,16 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return configuration.menuItemSpacing
     }
+    
+    // MARK: User Action
+    @objc private func viewDidLongPressed(_ sender: UILongPressGestureRecognizer) {
+        switch configuration.longPressBehavior {
+        case .presentMenu:
+            showMenuSetting()
+        case .none:
+            break
+        }
+    }
 }
 
 extension MenuViewController: MenuSettingViewControllerDelegate {
@@ -162,6 +173,11 @@ extension MenuViewController {
     private func registerCells() {
         delegate?.registerCellTo(collectionView: collectionView, in: self)
         MenuSettingCollectionViewCell.register(for: collectionView, bundle: .current)
+    }
+    
+    private func assignActions() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(viewDidLongPressed(_:)))
+        collectionView.addGestureRecognizer(longPressGesture)
     }
     
     private var settingIndex: Int? {

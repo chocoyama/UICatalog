@@ -9,15 +9,20 @@
 import UIKit
 
 public struct TabMenuConfiguration {
-    public var shouldShowMenuSettingItem: Bool = false
-    public var shouldShowAddButton: Bool = false
-    public var longPressBehavior: LongPressBehavior = .none
-    
+    // MARK: Appearance
     public var menuViewHeight: CGFloat = 50
     public var menuViewInset: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 8.0, bottom: 5.0, right: 8.0)
     public var menuItemSpacing: CGFloat = 5.0
     
+    // MARK: Setting
+    public var shouldShowMenuSettingItem: Bool = false
     public var settingIcon = SettingIcon()
+    
+    // MARK: Add
+    public var shouldShowAddButton: Bool = false
+    
+    // MARK: Action
+    public var longPressBehavior: LongPressBehavior = .none
     
     public init() {}
 }
@@ -25,7 +30,6 @@ public struct TabMenuConfiguration {
 extension TabMenuConfiguration {
     public enum LongPressBehavior {
         case none
-        case delete
         case presentMenu
     }
 }
