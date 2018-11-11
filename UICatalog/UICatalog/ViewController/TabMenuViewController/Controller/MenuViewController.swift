@@ -12,13 +12,17 @@ public protocol MenuViewControllerDelegate: class {
     func menuViewController(_ menuViewController: MenuViewController,
                             cellForItemAt menu: Menu,
                             in collectionView: UICollectionView,
-                            dequeueIndexPath: IndexPath) -> UICollectionViewCell
+                            at indexPath: IndexPath) -> UICollectionViewCell
     func menuViewController(_ menuViewController: MenuViewController,
                             widthForItemAt menu: Menu) -> CGFloat
     func menuViewController(_ menuViewController: MenuViewController,
                             didUpdated menu: [Menu])
     func registerCellTo(collectionView: UICollectionView, in menuViewController: MenuViewController)
     func didSelectedAddIcon(at: UICollectionView, in menuViewController: MenuViewController)
+}
+
+extension MenuViewControllerDelegate {
+    public func didSelectedAddIcon(at: UICollectionView, in menuViewController: MenuViewController) {}
 }
 
 open class MenuViewController: SynchronizableCollectionViewController,
@@ -87,7 +91,7 @@ open class MenuViewController: SynchronizableCollectionViewController,
                 .dequeue(from: collectionView, indexPath: indexPath)
                 .configure(iconConfiguration: configuration.settingIcon)
         case .menu(let menu):
-            if let cell = delegate?.menuViewController(self, cellForItemAt: menu, in: collectionView, dequeueIndexPath: indexPath) {
+            if let cell = delegate?.menuViewController(self, cellForItemAt: menu, in: collectionView, at: indexPath) {
                 return cell
             } else {
                 fatalError("Should implement MenuViewControllerDelegate.")

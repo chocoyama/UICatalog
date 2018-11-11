@@ -14,10 +14,10 @@ class SampleTabMenuViewController: TabMenuViewController {
     private let cache = PageCache()
     
     init(topMenu: TopMenu, sampleMenus: [SampleMenu], configuration: TabMenuConfiguration) {
-        self.menus = [topMenu] + sampleMenus
+        menus = [topMenu] + sampleMenus
         super.init(menus: menus, configuration: configuration)
-        self.delegate = self
-        self.dataSource = self
+        delegate = self
+        dataSource = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,9 +33,9 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     func menuViewController(_ menuViewController: MenuViewController,
                             cellForItemAt menu: Menu,
                             in collectionView: UICollectionView,
-                            dequeueIndexPath: IndexPath) -> UICollectionViewCell {
+                            at indexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
-            .dequeue(from: collectionView, indexPath: dequeueIndexPath)
+            .dequeue(from: collectionView, indexPath: indexPath)
             .configure(by: menu.title, backgroundColor: .random)
     }
     
@@ -47,30 +47,26 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
         self.menus = menus
         update(to: menus)
     }
-    
-    func didSelectedAddIcon(at: UICollectionView, in menuViewController: MenuViewController) {
-        
-    }
 }
 
 extension SampleTabMenuViewController: PageableViewControllerDataSource {
     func viewController(at index: Int) -> (UIViewController & Pageable)? {
         let menu = menus[index]
-        if let cachedVC = cache.get(from: menu.id) {
-            return cachedVC
-        }
         
+        if let cachedVC = cache.get(from: menu.id) { return cachedVC }
+        
+        let vc: (UIViewController & Pageable)
         switch menu {
-        case let topMenu as TopMenu:
-            let vc = SampleTopPageViewController(with: topMenu, pageNumber: index)
-            cache.save(vc, with: menu.id)
-            return vc
-        case let sampleMenu as SampleMenu:
-            let vc = SampleContentsPageViewController(with: sampleMenu, pageNumber: index)
-            cache.save(vc, with: menu.id)
-            return vc
+        case let menu as TopMenu:
+            vc = SampleTopPageViewController(with: menu, pageNumber: index)
+        case let menu as SampleMenu:
+            vc = SampleContentsPageViewController(with: menu, pageNumber: index)
         default:
             return nil
         }
+        
+        cache.save(vc, with: menu.id)
+        return vc
     }
 }
+
