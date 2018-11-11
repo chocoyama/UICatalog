@@ -11,5 +11,7 @@ import Foundation
 open class Page {
     var number: Int?
     
-    public init() {}
+    public init(number: Int? = nil) {
+        self.number = number
+    }
 }

@@ -41,7 +41,6 @@ open class InfiniteLoopPageViewController: UIPageViewController {
     
     open func update(to pages: [Page], at page: Int = 0) {
         self.pages = pages
-        pages.enumerated().forEach { $0.element.number = $0.offset }
         setUp(at: page)
     }
     

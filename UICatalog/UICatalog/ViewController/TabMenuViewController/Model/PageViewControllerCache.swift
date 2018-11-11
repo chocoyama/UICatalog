@@ -13,7 +13,7 @@ open class PageCache {
     
     public init() {}
     
-    open func save(_ viewController: (UIViewController & Pageable), by id: String) {
+    open func save(_ viewController: (UIViewController & Pageable), with id: String) {
         viewControllers[id] = viewController
     }
     

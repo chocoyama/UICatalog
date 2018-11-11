@@ -77,7 +77,9 @@ open class TabMenuViewController: PageSynchronizedContainerViewController {
     }
     
     open func update(to menus: [Menu]) {
+        let pages = menus.enumerated().map { Page(number: $0.offset) }
+        
         menuViewController.update(to: menus)
-        contentsPageViewController.update(to: menus.map { _ in Page() })
+        contentsPageViewController.update(to: pages)
     }
 }
