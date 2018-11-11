@@ -22,7 +22,7 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
             numberOfItems: itemCount
         )
         self.synchronizablePageVC = SynchronizablePageViewController(
-            with: (0..<itemCount).map { _ in NumberingViewController() },
+            pages: (0..<itemCount).map { _ in Page() },
             shouldInfiniteLoop: false,
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,
@@ -34,6 +34,7 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
         ])
         
         super.init(nibName: "SamplePageSynchronizedContainerViewController", bundle: nil)
+        self.synchronizablePageVC.pageableDataSource = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,5 +68,11 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
 
     @IBAction func didTappedButton(_ sender: UIButton) {
         navigationController?.pushViewController(containerVC, animated: true)
+    }
+}
+
+extension SamplePageSynchronizedContainerViewController: PageableViewControllerDataSource {
+    func viewController(at index: Int) -> (UIViewController & Pageable)? {
+        return NumberingViewController(pageNumber: index)
     }
 }

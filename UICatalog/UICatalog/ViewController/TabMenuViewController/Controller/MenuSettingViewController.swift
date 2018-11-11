@@ -10,7 +10,7 @@ import UIKit
 
 protocol MenuSettingViewControllerDelegate: class {
     func menuSettingViewController(_ menuSettingViewController: MenuSettingViewController,
-                                   didCommitPages pages: [Page])
+                                   didCommitMenus menus: [Menu])
 }
 
 class MenuSettingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -26,10 +26,10 @@ class MenuSettingViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    private var pages: [Page]
+    private var menus: [Menu]
     
-    init(pages: [Page]) {
-        self.pages = pages
+    init(menus: [Menu]) {
+        self.menus = menus
         super.init(nibName: "MenuSettingViewController", bundle: .current)
     }
     
@@ -45,40 +45,40 @@ class MenuSettingViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         let deleteRows = deleteIndexes.map { $0.row }
-        self.pages = pages
+        self.menus = menus
             .enumerated()
             .compactMap { deleteRows.contains($0.offset) ? nil : $0.element }
         tableView.deleteRows(at: deleteIndexes, with: .automatic)
     }
     
     @IBAction func didTappedDoneButton(_ sender: UIBarButtonItem) {
-        delegate?.menuSettingViewController(self, didCommitPages: pages)
+        delegate?.menuSettingViewController(self, didCommitMenus: menus)
         self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pages.count
+        return menus.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return MenuSettingTableViewCell
             .dequeue(from: tableView, indexPath: indexPath)
-            .configure(title: pages[indexPath.row].title)
+            .configure(title: menus[indexPath.row].title)
     }
     
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return !pages[indexPath.row].pinned
+        return !menus[indexPath.row].pinned
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return !pages[indexPath.row].pinned
+        return !menus[indexPath.row].pinned
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        pages.insert(pages.remove(at: sourceIndexPath.item), at: destinationIndexPath.item)
+        menus.insert(menus.remove(at: sourceIndexPath.item), at: destinationIndexPath.item)
     }
 }

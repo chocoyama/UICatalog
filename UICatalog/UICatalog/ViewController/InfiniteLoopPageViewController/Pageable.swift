@@ -9,5 +9,9 @@
 import Foundation
 
 public protocol Pageable: class {
-    var pageNumber: Int? { get set } // zero origin
+    var pageNumber: Int { get set } // zero origin
+}
+
+public protocol PageableViewControllerDataSource: class {
+    func viewController(at index: Int) -> (UIViewController & Pageable)?
 }

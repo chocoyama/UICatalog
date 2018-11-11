@@ -12,12 +12,12 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
     
     open weak var pagingSynchronizer: PagingSynchronizer?
     
-    public override init(with controllers: [UIViewController & Pageable],
+    public override init(pages: [Page],
                          shouldInfiniteLoop: Bool,
                          transitionStyle: UIPageViewController.TransitionStyle,
                          navigationOrientation: UIPageViewController.NavigationOrientation,
                          options: [UIPageViewController.OptionsKey : Any]?) {
-        super.init(with: controllers,
+        super.init(pages: pages,
                    shouldInfiniteLoop: shouldInfiniteLoop,
                    transitionStyle: transitionStyle,
                    navigationOrientation: navigationOrientation,
@@ -50,8 +50,7 @@ extension SynchronizablePageViewController: PagingChangeSubject {
         guard let currentVC = viewControllers?.first,
             let currentIndex = getIndex(at: currentVC) else { return }
         
-        let controller = controllers[index]
         let direction: UIPageViewController.NavigationDirection = (index > currentIndex) ? .forward : .reverse
-        setViewControllers([controller], direction: direction, animated: true, completion: nil)
+        setUp(at: index, direction: direction)
     }
 }

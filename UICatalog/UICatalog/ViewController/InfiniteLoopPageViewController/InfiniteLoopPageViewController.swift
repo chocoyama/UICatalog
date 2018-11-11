@@ -9,18 +9,18 @@
 import UIKit
 
 open class InfiniteLoopPageViewController: UIPageViewController {
-
-    private(set) var controllers: [UIViewController & Pageable]
+    open weak var pageableDataSource: PageableViewControllerDataSource?
+    private(set) var pages: [Page]
+    
     let shouldInfiniteLoop: Bool
     
-    public init(with controllers: [UIViewController & Pageable],
+    public init(pages: [Page],
                 shouldInfiniteLoop: Bool,
                 transitionStyle: UIPageViewController.TransitionStyle,
                 navigationOrientation: UIPageViewController.NavigationOrientation,
                 options: [UIPageViewController.OptionsKey : Any]?) {
-        
-        self.controllers = controllers
-        controllers.enumerated().forEach { $0.element.pageNumber = $0.offset }
+        self.pages = pages
+        self.pages.enumerated().forEach { $0.element.number = $0.offset }
         
         self.shouldInfiniteLoop = shouldInfiniteLoop
         
@@ -39,35 +39,40 @@ open class InfiniteLoopPageViewController: UIPageViewController {
         setUp(at: 0)
     }
     
-    open func update(to controllers: [UIViewController & Pageable], at page: Int = 0) {
-        self.controllers = controllers
-        controllers.enumerated().forEach { $0.element.pageNumber = $0.offset }
+    open func update(to pages: [Page], at page: Int = 0) {
+        self.pages = pages
+        pages.enumerated().forEach { $0.element.number = $0.offset }
         setUp(at: page)
     }
     
-    private func setUp(at page: Int) {
-        let index = controllers.indices ~= page ? page : 0
-        let controller = controllers[index]
-        setViewControllers([controller], direction: .forward, animated: false, completion: nil)
+    func setUp(at page: Int, direction: UIPageViewController.NavigationDirection = .forward) {
+        let index = pages.indices ~= page ? page : 0
+        if let controller = getViewController(at: index) {
+            setViewControllers([controller], direction: direction, animated: false, completion: nil)
+        }
     }
 }
 
 extension InfiniteLoopPageViewController {
     func getIndex(at viewController: UIViewController) -> Int? {
         guard let currentVC = viewController as? Pageable else { return nil }
-        return controllers.index { $0.pageNumber == currentVC.pageNumber }
+        return pages.index { $0.number == currentVC.pageNumber }
     }
     
     func getViewController(at index: Int) -> UIViewController? {
         switch index {
         case -1 where shouldInfiniteLoop:
-            return controllers.last
+            if let lastIndex = pages.indices.last {
+                return pageableDataSource?.viewController(at: lastIndex)
+            } else {
+                return nil
+            }
         case -1:
             return nil
-        case 0...(controllers.count - 1):
-            return controllers[index]
+        case 0...(pages.count - 1):
+            return pageableDataSource?.viewController(at: index)
         default:
-            return shouldInfiniteLoop ? controllers.first : nil
+            return shouldInfiniteLoop ? pageableDataSource?.viewController(at: 0) : nil
         }
     }
 }
@@ -75,9 +80,8 @@ extension InfiniteLoopPageViewController {
 extension InfiniteLoopPageViewController: UIPageViewControllerDataSource {
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
         if let currentIndex = getIndex(at: viewController) {
-            return getViewController(at: controllers.index(before: currentIndex))
+            return getViewController(at: pages.index(before: currentIndex))
         } else {
             return nil
         }
@@ -85,9 +89,8 @@ extension InfiniteLoopPageViewController: UIPageViewControllerDataSource {
 
     public func pageViewController(_ pageViewController: UIPageViewController,
                                    viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
         if let currentIndex = getIndex(at: viewController) {
-            return getViewController(at: controllers.index(after: currentIndex))
+            return getViewController(at: pages.index(after: currentIndex))
         } else {
             return nil
         }

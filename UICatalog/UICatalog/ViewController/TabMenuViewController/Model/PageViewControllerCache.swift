@@ -8,15 +8,25 @@
 
 import UIKit
 
-open class PageViewControllerCache {
-    private var viewControllers: [PageViewController] = []
+open class PageCache {
+    private var viewControllers: [String: (UIViewController & Pageable)] = [:]
     
-    func save(_ viewControllers: [PageViewController]) {
-        self.viewControllers = viewControllers
+    public init() {}
+    
+    open func save(_ viewController: (UIViewController & Pageable), by id: String) {
+        viewControllers[id] = viewController
     }
     
-    open func get(from page: Page) -> PageViewController? {
-        return viewControllers.first { $0.page.id == page.id }
+    open func get(from id: String) -> (UIViewController & Pageable)? {
+        if viewControllers.keys.contains(id) {
+            return viewControllers[id]
+        } else {
+            return nil
+        }
+    }
+    
+    open func clear() {
+        viewControllers = [:]
     }
 }
 

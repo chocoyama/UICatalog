@@ -11,21 +11,21 @@ import UIKit
 class ContentsPageViewController: SynchronizablePageViewController {
     private let configuration: TabMenuConfiguration
     
-    public init(with controllers: [UIViewController & Pageable],
-                configuration: TabMenuConfiguration,
-                shouldInfiniteLoop: Bool,
-                transitionStyle: UIPageViewController.TransitionStyle,
-                navigationOrientation: UIPageViewController.NavigationOrientation,
+    init(pages: [Page],
+         configuration: TabMenuConfiguration,
+         shouldInfiniteLoop: Bool,
+         transitionStyle: UIPageViewController.TransitionStyle,
+         navigationOrientation: UIPageViewController.NavigationOrientation,
                 options: [UIPageViewController.OptionsKey : Any]?) {
         self.configuration = configuration
-        super.init(with: controllers,
+        super.init(pages: pages,
                    shouldInfiniteLoop: shouldInfiniteLoop,
                    transitionStyle: transitionStyle,
                    navigationOrientation: navigationOrientation,
                    options: options)
     }
     
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

@@ -1,5 +1,5 @@
 //
-//  Page.swift
+//  Menu.swift
 //  UICatalog
 //
 //  Created by Takuya Yokoyama on 2018/10/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Page {
+public protocol Menu {
     var id: String { get set }
     var title: String { get set }
     var pinned: Bool { get set }

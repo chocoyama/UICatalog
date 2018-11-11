@@ -10,13 +10,13 @@ import UIKit
 
 public protocol MenuViewControllerDelegate: class {
     func menuViewController(_ menuViewController: MenuViewController,
-                            cellForItemAt page: Page,
+                            cellForItemAt menu: Menu,
                             in collectionView: UICollectionView,
                             dequeueIndexPath: IndexPath) -> UICollectionViewCell
     func menuViewController(_ menuViewController: MenuViewController,
-                            widthForItemAt page: Page) -> CGFloat
+                            widthForItemAt menu: Menu) -> CGFloat
     func menuViewController(_ menuViewController: MenuViewController,
-                            didUpdated pages: [Page])
+                            didUpdated menu: [Menu])
     func registerCellTo(collectionView: UICollectionView, in menuViewController: MenuViewController)
     func didSelectedAddIcon(at: UICollectionView, in menuViewController: MenuViewController)
 }
@@ -27,7 +27,7 @@ open class MenuViewController: SynchronizableCollectionViewController,
     
     enum Item {
         case setting
-        case menu(page: Page)
+        case menu(Menu)
         case add
     }
     
@@ -36,9 +36,9 @@ open class MenuViewController: SynchronizableCollectionViewController,
     private let configuration: TabMenuConfiguration
     private var items: [MenuViewController.Item] = []
     
-    public init(with pages: [Page], configuration: TabMenuConfiguration) {
+    public init(with menus: [Menu], configuration: TabMenuConfiguration) {
         self.configuration = configuration
-        self.items = MenuViewController.constructItems(pages: pages,
+        self.items = MenuViewController.constructItems(menus: menus,
                                                           configuration: configuration)
         super.init(layout: MenuViewController.constructLayout())
         configureCollectionView()
@@ -54,9 +54,9 @@ open class MenuViewController: SynchronizableCollectionViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func update(to pages: [Page]) {
-        self.items = MenuViewController.constructItems(pages: pages,
-                                                          configuration: configuration)
+    open func update(to menus: [Menu]) {
+        self.items = MenuViewController.constructItems(menus: menus,
+                                                       configuration: configuration)
         collectionView.reloadData()
     }
     
@@ -86,8 +86,8 @@ open class MenuViewController: SynchronizableCollectionViewController,
             return MenuActionIconCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
                 .configure(iconConfiguration: configuration.settingIcon)
-        case .menu(let page):
-            if let cell = delegate?.menuViewController(self, cellForItemAt: page, in: collectionView, dequeueIndexPath: indexPath) {
+        case .menu(let menu):
+            if let cell = delegate?.menuViewController(self, cellForItemAt: menu, in: collectionView, dequeueIndexPath: indexPath) {
                 return cell
             } else {
                 fatalError("Should implement MenuViewControllerDelegate.")
@@ -106,8 +106,8 @@ open class MenuViewController: SynchronizableCollectionViewController,
         case .setting:
             let diameter = configuration.menuViewHeight * CGFloat(configuration.settingIcon.reductionRate)
             return CGSize(width: diameter, height: diameter)
-        case .menu(let page):
-            if let width = delegate?.menuViewController(self, widthForItemAt: page) {
+        case .menu(let menu):
+            if let width = delegate?.menuViewController(self, widthForItemAt: menu) {
                 return CGSize(width: width, height: configuration.menuViewHeight)
             } else {
                 fatalError("Should implement MenuViewControllerDelegate.")
@@ -142,13 +142,13 @@ open class MenuViewController: SynchronizableCollectionViewController,
 }
 
 extension MenuViewController: MenuSettingViewControllerDelegate {
-    func menuSettingViewController(_ menuSettingViewController: MenuSettingViewController, didCommitPages pages: [Page]) {
-        delegate?.menuViewController(self, didUpdated: pages)
+    func menuSettingViewController(_ menuSettingViewController: MenuSettingViewController, didCommitMenus menus: [Menu]) {
+        delegate?.menuViewController(self, didUpdated: menus)
     }
 }
 
 extension MenuViewController {
-    private class func constructItems(pages: [Page],
+    private class func constructItems(menus: [Menu],
                                       configuration: TabMenuConfiguration) -> [MenuViewController.Item] {
         var items = [Item]()
         
@@ -156,7 +156,7 @@ extension MenuViewController {
             items.append(.setting)
         }
         
-        items.append(contentsOf: pages.map { MenuViewController.Item.menu(page: $0) })
+        items.append(contentsOf: menus.map { MenuViewController.Item.menu($0) })
         
         if configuration.shouldShowAddButton {
             items.append(.add)
@@ -207,11 +207,11 @@ extension MenuViewController {
     }
     
     private func showMenuSetting() {
-        let pages = self.items.compactMap { item -> Page? in
-            guard case .menu(let page) = item else { return nil }
-            return page
+        let menus = self.items.compactMap { item -> Menu? in
+            guard case .menu(let menu) = item else { return nil }
+            return menu
         }
-        let vc = MenuSettingViewController(pages: pages)
+        let vc = MenuSettingViewController(menus: menus)
         vc.delegate = self
         present(vc, animated: true, completion: nil)
     }

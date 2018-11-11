@@ -11,32 +11,30 @@ import UIKit
 open class TabMenuViewController: PageSynchronizedContainerViewController {
     
     open weak var delegate: MenuViewControllerDelegate? {
-        didSet {
-            menuViewController.delegate = delegate
-        }
+        get { return menuViewController.delegate }
+        set { menuViewController.delegate = newValue }
     }
-    
-    public let cache = PageViewControllerCache()
+    open var dataSource: PageableViewControllerDataSource? {
+        get { return contentsPageViewController.pageableDataSource }
+        set { contentsPageViewController.pageableDataSource = newValue }
+    }
     
     private let configuration: TabMenuConfiguration
     private let menuViewController: MenuViewController
     private let contentsPageViewController: ContentsPageViewController
 
-    public init(with pageViewControllers: [PageViewController],
+    public init(menus: [Menu],
                 configuration: TabMenuConfiguration = TabMenuConfiguration()) {
         self.configuration = configuration
-        
-        let pages = pageViewControllers.map { $0.page }
-        self.menuViewController = MenuViewController(with: pages, configuration: configuration)
+        self.menuViewController = MenuViewController(with: menus, configuration: configuration)
         self.contentsPageViewController = ContentsPageViewController(
-            with: pageViewControllers,
+            pages: menus.map { _ in Page() },
             configuration: configuration,
             shouldInfiniteLoop: false,
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,
             options: nil
         )
-        cache.save(pageViewControllers)
         
         let children: [UIViewController & PagingChangeSubscriber] = [
             self.menuViewController,
@@ -78,10 +76,8 @@ open class TabMenuViewController: PageSynchronizedContainerViewController {
         ])
     }
     
-    open func update(to pageViewControllers: [PageViewController]) {
-        let pages = pageViewControllers.map { $0.page }
-        menuViewController.update(to: pages)
-        contentsPageViewController.update(to: pageViewControllers)
-        cache.save(pageViewControllers)
+    open func update(to menus: [Menu]) {
+        menuViewController.update(to: menus)
+        contentsPageViewController.update(to: menus.map { _ in Page() })
     }
 }
