@@ -8,37 +8,6 @@
 
 import UIKit
 
-class ContentsPageViewController: SynchronizablePageViewController {
-    private let configuration: TabMenuConfiguration
-    
-    public init(with controllers: [UIViewController & Pageable],
-                configuration: TabMenuConfiguration,
-                shouldInfiniteLoop: Bool,
-                transitionStyle: UIPageViewController.TransitionStyle,
-                navigationOrientation: UIPageViewController.NavigationOrientation,
-                options: [UIPageViewController.OptionsKey : Any]?) {
-        self.configuration = configuration
-        super.init(with: controllers,
-                   shouldInfiniteLoop: shouldInfiniteLoop,
-                   transitionStyle: transitionStyle,
-                   navigationOrientation: navigationOrientation,
-                   options: options)
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        guard let currentVC = viewControllers?.first,
-            let currentIndex = getIndex(at: currentVC) else { return }
-        
-        let adjustIndex = configuration.shouldShowMenuSettingItem ? currentIndex + 1 : currentIndex
-        pagingSynchronizer?.pagingSynchronizer(changePageOnly: self, index: currentIndex, section: 0)
-        pagingSynchronizer?.pagingSynchronizer(changePageExcept: self, index: adjustIndex, section: 0)
-    }
-}
-
 open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
     
     open weak var delegate: MenuViewControllerDelegate? {

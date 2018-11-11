@@ -15,11 +15,13 @@ struct SamplePage: Page {
     var id: String
     var title: String
     var entity: Entity
+    var pinned: Bool
     
-    init(id: String? = nil, title: String, entity: Entity) {
+    init(id: String? = nil, title: String, entity: Entity, pinned: Bool = false) {
         self.id = id ?? title
         self.title = title
         self.entity = entity
+        self.pinned = pinned
     }
 }
 
