@@ -9,38 +9,38 @@
 import UIKit
 
 public protocol MenuViewControllerDelegate: class {
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
-                               cellForItemAt page: AnyPage<T>,
-                               in collectionView: UICollectionView,
-                               dequeueIndexPath: IndexPath) -> UICollectionViewCell
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
-                               widthForItemAt page: AnyPage<T>) -> CGFloat
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
-                               didUpdated pages: [AnyPage<T>])
-    func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>)
-    func didSelectedAddIcon<T>(at: UICollectionView, in menuViewController: MenuViewController<T>)
+    func menuViewController(_ menuViewController: MenuViewController,
+                            cellForItemAt page: Page,
+                            in collectionView: UICollectionView,
+                            dequeueIndexPath: IndexPath) -> UICollectionViewCell
+    func menuViewController(_ menuViewController: MenuViewController,
+                            widthForItemAt page: Page) -> CGFloat
+    func menuViewController(_ menuViewController: MenuViewController,
+                            didUpdated pages: [Page])
+    func registerCellTo(collectionView: UICollectionView, in menuViewController: MenuViewController)
+    func didSelectedAddIcon(at: UICollectionView, in menuViewController: MenuViewController)
 }
 
-open class MenuViewController<T>: SynchronizableCollectionViewController,
-                                  UICollectionViewDataSource,
-                                  UICollectionViewDelegateFlowLayout {
+open class MenuViewController: SynchronizableCollectionViewController,
+                               UICollectionViewDataSource,
+                               UICollectionViewDelegateFlowLayout {
     
     enum Item {
         case setting
-        case menu(page: AnyPage<T>)
+        case menu(page: Page)
         case add
     }
     
     open weak var delegate: MenuViewControllerDelegate?
     
     private let configuration: TabMenuConfiguration
-    private var items: [MenuViewController<T>.Item] = []
+    private var items: [MenuViewController.Item] = []
     
-    public init(with pages: [AnyPage<T>], configuration: TabMenuConfiguration) {
+    public init(with pages: [Page], configuration: TabMenuConfiguration) {
         self.configuration = configuration
-        self.items = MenuViewController<T>.constructItems(pages: pages,
+        self.items = MenuViewController.constructItems(pages: pages,
                                                           configuration: configuration)
-        super.init(layout: MenuViewController<T>.constructLayout())
+        super.init(layout: MenuViewController.constructLayout())
         configureCollectionView()
     }
     
@@ -54,8 +54,8 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func update(to pages: [AnyPage<T>]) {
-        self.items = MenuViewController<T>.constructItems(pages: pages,
+    open func update(to pages: [Page]) {
+        self.items = MenuViewController.constructItems(pages: pages,
                                                           configuration: configuration)
         collectionView.reloadData()
     }
@@ -142,15 +142,14 @@ open class MenuViewController<T>: SynchronizableCollectionViewController,
 }
 
 extension MenuViewController: MenuSettingViewControllerDelegate {
-    func menuSettingViewController<U>(_ menuSettingViewController: MenuSettingViewController<U>, didCommitPages pages: [AnyPage<U>]) {
-        guard let pages = pages as? [AnyPage<T>] else { return }
+    func menuSettingViewController(_ menuSettingViewController: MenuSettingViewController, didCommitPages pages: [Page]) {
         delegate?.menuViewController(self, didUpdated: pages)
     }
 }
 
 extension MenuViewController {
-    private class func constructItems(pages: [AnyPage<T>],
-                                      configuration: TabMenuConfiguration) -> [MenuViewController<T>.Item] {
+    private class func constructItems(pages: [Page],
+                                      configuration: TabMenuConfiguration) -> [MenuViewController.Item] {
         var items = [Item]()
         
         if configuration.shouldShowMenuSettingItem {
@@ -208,7 +207,7 @@ extension MenuViewController {
     }
     
     private func showMenuSetting() {
-        let pages = self.items.compactMap { item -> AnyPage<T>? in
+        let pages = self.items.compactMap { item -> Page? in
             guard case .menu(let page) = item else { return nil }
             return page
         }

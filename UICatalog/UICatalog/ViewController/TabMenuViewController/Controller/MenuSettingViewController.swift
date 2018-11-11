@@ -9,13 +9,11 @@
 import UIKit
 
 protocol MenuSettingViewControllerDelegate: class {
-    func menuSettingViewController<T>(_ menuSettingViewController: MenuSettingViewController<T>,
-                                      didCommitPages pages: [AnyPage<T>])
+    func menuSettingViewController(_ menuSettingViewController: MenuSettingViewController,
+                                   didCommitPages pages: [Page])
 }
 
-class MenuSettingViewController<T>: UIViewController,
-                                    UITableViewDataSource,
-                                    UITableViewDelegate {
+class MenuSettingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     weak var delegate: MenuSettingViewControllerDelegate?
     
@@ -28,9 +26,9 @@ class MenuSettingViewController<T>: UIViewController,
         }
     }
     
-    private var pages: [AnyPage<T>]
+    private var pages: [Page]
     
-    init(pages: [AnyPage<T>]) {
+    init(pages: [Page]) {
         self.pages = pages
         super.init(nibName: "MenuSettingViewController", bundle: .current)
     }

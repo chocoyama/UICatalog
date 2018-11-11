@@ -11,7 +11,7 @@ import UICatalog
 import WebKit
 
 struct SamplePage: Page {
-    typealias Entity = URL
+    typealias Entity = URL 
     var id: String
     var title: String
     var entity: Entity
@@ -25,18 +25,12 @@ struct SamplePage: Page {
     }
 }
 
-class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
-    init(pages: [SamplePage]) {
-        let pageViewControllers = pages.map { SamplePageViewController(with: $0.typeErased()) }
-        
-        var configuration = TabMenuConfiguration()
-        configuration.shouldShowMenuSettingItem = true
-        configuration.settingIcon.reductionRate = 0.8
-        configuration.shouldShowAddButton = true
-        configuration.addIcon.reductionRate = 0.8
-        configuration.longPressBehavior = .presentMenu
-        
-        super.init(with: pageViewControllers, configuration: configuration)
+class SampleTabMenuViewController: TabMenuViewController {
+    init(top: SamplePage, pages: [SamplePage], configuration: TabMenuConfiguration) {
+        let topPageViewController = SampleTopPageViewController(with: top)
+        let pageViewControllers = pages.map { SamplePageViewController(with: $0) }
+        super.init(with: [topPageViewController] + pageViewControllers,
+                   configuration: configuration)
         self.delegate = self
     }
     
@@ -46,12 +40,12 @@ class SampleTabMenuViewController: TabMenuViewController<SamplePage.Entity> {
 }
 
 extension SampleTabMenuViewController: MenuViewControllerDelegate {
-    func registerCellTo<T>(collectionView: UICollectionView, in menuViewController: MenuViewController<T>) {
+    func registerCellTo(collectionView: UICollectionView, in menuViewController: MenuViewController) {
         LabelCollectionViewCell.register(for: collectionView)
     }
     
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>,
-                               cellForItemAt page: AnyPage<T>,
+    func menuViewController(_ menuViewController: MenuViewController,
+                               cellForItemAt page: Page,
                                in collectionView: UICollectionView,
                                dequeueIndexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
@@ -59,26 +53,44 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
             .configure(by: page.title, backgroundColor: .random)
     }
     
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>, widthForItemAt page: AnyPage<T>) -> CGFloat {
+    func menuViewController(_ menuViewController: MenuViewController, widthForItemAt page: Page) -> CGFloat {
         return 100
     }
     
-    func menuViewController<T>(_ menuViewController: MenuViewController<T>, didUpdated pages: [AnyPage<T>]) {
-        // TODO: キャストしなくてもなんとかならないか
-        guard let pages = pages as? [AnyPage<SamplePage.Entity>] else { return }
+    func menuViewController(_ menuViewController: MenuViewController, didUpdated pages: [Page]) {
         let pageViewControllers = pages.map {
             self.cache.get(from: $0) ?? SamplePageViewController(with: $0)
         }
         update(to: pageViewControllers)
     }
     
-    func didSelectedAddIcon<T>(at: UICollectionView, in menuViewController: MenuViewController<T>) {
+    func didSelectedAddIcon(at: UICollectionView, in menuViewController: MenuViewController) {
         
     }
 }
 
-class SamplePageViewController: PageViewController<SamplePage.Entity> {
+class SampleTopPageViewController: PageViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        
+        let label = UILabel()
+        label.text = page.title
+        view.addSubview(label)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+}
+class SamplePageViewController: PageViewController {
     @IBOutlet weak var webView: WKWebView! {
-        didSet { webView.load(URLRequest(url: page.entity)) }
+        didSet {
+            guard let samplePage = page as? SamplePage else { return }
+            webView.load(URLRequest(url: samplePage.entity))
+        }
     }
 }

@@ -36,13 +36,24 @@ class ViewController: UIViewController {
             case .infiniteLoopPageViewController: return SampleInfiniteLoopPageViewController()
             case .pageSynchronizedContainerViewController: return SamplePageSynchronizedContainerViewController()
             case .tabMenuViewController:
-                return SampleTabMenuViewController(pages: [
-                    .init(title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
-                    .init(title: "Twitter", entity: URL(string: "https://twitter.com/")!),
-                    .init(title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
-                    .init(title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
-                    .init(title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
-                ])
+                var configuration = TabMenuConfiguration()
+                configuration.shouldShowMenuSettingItem = true
+                configuration.settingIcon.reductionRate = 0.8
+                configuration.shouldShowAddButton = true
+                configuration.addIcon.reductionRate = 0.8
+                configuration.longPressBehavior = .presentMenu
+                
+                return SampleTabMenuViewController(
+                    top: .init(title: "トップ", entity: URL(string: "http://www.yahoo.co.jp")!, pinned: true),
+                    pages: [
+                        .init(title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
+                        .init(title: "Twitter", entity: URL(string: "https://twitter.com/")!),
+                        .init(title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
+                        .init(title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
+                        .init(title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
+                    ],
+                    configuration: configuration
+                )
             case .rotationImageView: return RotationImageViewController()
             case .zoomTransitionAnimator: return ZoomTransitionAnimatorViewController()
             case .overlayMenuView: return OverlayMenuViewController()

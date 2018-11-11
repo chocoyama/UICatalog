@@ -8,11 +8,11 @@
 
 import UIKit
 
-open class PageViewController<T>: UIViewController, Pageable {
-    public let page: AnyPage<T>
+open class PageViewController: UIViewController, Pageable {
+    public let page: Page
     open var pageNumber: Int?
     
-    public init(with page: AnyPage<T>) {
+    public init(with page: Page) {
         self.page = page
         super.init(nibName: nil, bundle: nil)
     }

@@ -8,15 +8,15 @@
 
 import UIKit
 
-open class PageViewControllerCache<T> {
-    private var viewControllers: [PageViewController<T>] = []
+open class PageViewControllerCache {
+    private var viewControllers: [PageViewController] = []
     
-    func save(_ viewControllers: [PageViewController<T>]) {
+    func save(_ viewControllers: [PageViewController]) {
         self.viewControllers = viewControllers
     }
     
-    open func get(from page: AnyPage<T>) -> PageViewController<T>? {
-        return viewControllers.first { $0.page == page }
+    open func get(from page: Page) -> PageViewController? {
+        return viewControllers.first { $0.page.id == page.id }
     }
 }
 

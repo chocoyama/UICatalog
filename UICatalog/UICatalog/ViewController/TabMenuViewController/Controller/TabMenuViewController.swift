@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
+open class TabMenuViewController: PageSynchronizedContainerViewController {
     
     open weak var delegate: MenuViewControllerDelegate? {
         didSet {
@@ -16,13 +16,13 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         }
     }
     
-    public let cache = PageViewControllerCache<T>()
+    public let cache = PageViewControllerCache()
     
     private let configuration: TabMenuConfiguration
-    private let menuViewController: MenuViewController<T>
+    private let menuViewController: MenuViewController
     private let contentsPageViewController: ContentsPageViewController
 
-    public init(with pageViewControllers: [PageViewController<T>],
+    public init(with pageViewControllers: [PageViewController],
                 configuration: TabMenuConfiguration = TabMenuConfiguration()) {
         self.configuration = configuration
         
@@ -78,7 +78,7 @@ open class TabMenuViewController<T>: PageSynchronizedContainerViewController {
         ])
     }
     
-    open func update(to pageViewControllers: [PageViewController<T>]) {
+    open func update(to pageViewControllers: [PageViewController]) {
         let pages = pageViewControllers.map { $0.page }
         menuViewController.update(to: pages)
         contentsPageViewController.update(to: pageViewControllers)
