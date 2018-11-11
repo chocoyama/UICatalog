@@ -24,7 +24,7 @@ struct SampleMenu: Menu {
     }
 }
 
-class SamplePageViewController: UIViewController, Pageable {
+class SampleContentsPageViewController: UIViewController, Pageable {
     var pageNumber: Int
     
     private let sampleMenu: SampleMenu
@@ -32,7 +32,7 @@ class SamplePageViewController: UIViewController, Pageable {
     init(with sampleMenu: SampleMenu, pageNumber: Int) {
         self.sampleMenu = sampleMenu
         self.pageNumber = pageNumber
-        super.init(nibName: "SamplePageViewController", bundle: nil)
+        super.init(nibName: "SampleContentsPageViewController", bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

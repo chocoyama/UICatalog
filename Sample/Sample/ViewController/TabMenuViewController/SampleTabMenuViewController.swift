@@ -66,7 +66,7 @@ extension SampleTabMenuViewController: PageableViewControllerDataSource {
             cache.save(vc, with: menu.id)
             return vc
         case let sampleMenu as SampleMenu:
-            let vc = SamplePageViewController(with: sampleMenu, pageNumber: index)
+            let vc = SampleContentsPageViewController(with: sampleMenu, pageNumber: index)
             cache.save(vc, with: menu.id)
             return vc
         default:
