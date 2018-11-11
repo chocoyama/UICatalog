@@ -44,13 +44,13 @@ class ViewController: UIViewController {
                 configuration.longPressBehavior = .presentMenu
                 
                 return SampleTabMenuViewController(
-                    top: .init(title: "トップ", entity: URL(string: "http://www.yahoo.co.jp")!, pinned: true),
+                    top: TopPage(title: "トップ"),
                     pages: [
-                        .init(title: "Google", entity: URL(string: "https://www.google.co.jp/")!),
-                        .init(title: "Twitter", entity: URL(string: "https://twitter.com/")!),
-                        .init(title: "Instagram", entity: URL(string: "https://www.instagram.com/")!),
-                        .init(title: "Facebook", entity: URL(string: "https://www.facebook.com/")!),
-                        .init(title: "Amazon", entity: URL(string: "https://www.amazon.co.jp/")!),
+                        SamplePage(title: "Google", url: URL(string: "https://www.google.co.jp/")!),
+                        SamplePage(title: "Twitter", url: URL(string: "https://twitter.com/")!),
+                        SamplePage(title: "Instagram", url: URL(string: "https://www.instagram.com/")!),
+                        SamplePage(title: "Facebook", url: URL(string: "https://www.facebook.com/")!),
+                        SamplePage(title: "Amazon", url: URL(string: "https://www.amazon.co.jp/")!),
                     ],
                     configuration: configuration
                 )

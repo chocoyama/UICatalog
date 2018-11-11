@@ -10,27 +10,39 @@ import UIKit
 import UICatalog
 import WebKit
 
-struct SamplePage: Page {
-    typealias Entity = URL 
+struct TopPage: Page {
     var id: String
     var title: String
-    var entity: Entity
     var pinned: Bool
     
-    init(id: String? = nil, title: String, entity: Entity, pinned: Bool = false) {
+    init(title: String) {
+        self.id = title
+        self.title = title
+        self.pinned = true
+    }
+}
+
+struct SamplePage: Page {
+    var id: String
+    var title: String
+    var url: URL
+    var pinned: Bool
+    
+    init(id: String? = nil, title: String, url: URL, pinned: Bool = false) {
         self.id = id ?? title
         self.title = title
-        self.entity = entity
+        self.url = url
         self.pinned = pinned
     }
 }
 
 class SampleTabMenuViewController: TabMenuViewController {
-    init(top: SamplePage, pages: [SamplePage], configuration: TabMenuConfiguration) {
-        let topPageViewController = SampleTopPageViewController(with: top)
-        let pageViewControllers = pages.map { SamplePageViewController(with: $0) }
-        super.init(with: [topPageViewController] + pageViewControllers,
-                   configuration: configuration)
+    init(top: TopPage, pages: [SamplePage], configuration: TabMenuConfiguration) {
+        var viewControllers: [PageViewController] = []
+        viewControllers.append(SampleTopPageViewController(with: top))
+        viewControllers.append(contentsOf: pages.map { SamplePageViewController(with: $0) })
+        
+        super.init(with: viewControllers, configuration: configuration)
         self.delegate = self
     }
     
@@ -45,9 +57,9 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     }
     
     func menuViewController(_ menuViewController: MenuViewController,
-                               cellForItemAt page: Page,
-                               in collectionView: UICollectionView,
-                               dequeueIndexPath: IndexPath) -> UICollectionViewCell {
+                            cellForItemAt page: Page,
+                            in collectionView: UICollectionView,
+                            dequeueIndexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
             .dequeue(from: collectionView, indexPath: dequeueIndexPath)
             .configure(by: page.title, backgroundColor: .random)
@@ -88,9 +100,6 @@ class SampleTopPageViewController: PageViewController {
 }
 class SamplePageViewController: PageViewController {
     @IBOutlet weak var webView: WKWebView! {
-        didSet {
-            guard let samplePage = page as? SamplePage else { return }
-            webView.load(URLRequest(url: samplePage.entity))
-        }
+        didSet { webView.load(URLRequest(url: (page as! SamplePage).url)) }
     }
 }
