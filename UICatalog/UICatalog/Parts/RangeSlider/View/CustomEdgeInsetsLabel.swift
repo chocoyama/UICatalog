@@ -11,19 +11,21 @@ import UIKit
 @IBDesignable
 open class CustomEdgeInsetsLabel: UILabel {
     
-    @IBInspectable var verticalInset:CGFloat = 2.0
-    @IBInspectable var horizontalInset:CGFloat = 4.0
+    @IBInspectable open var topInset: CGFloat = 1.0
+    @IBInspectable open var bottomInset: CGFloat = 1.0
+    @IBInspectable open var leftInset: CGFloat = 2.0
+    @IBInspectable open var rightInset: CGFloat = 2.0
     
     override open func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
+        let insets = UIEdgeInsets(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
         return super.drawText(in: rect.inset(by: insets))
     }
 
     override open var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         
-        let width = (size.width > 0) ? size.width + horizontalInset * 2 : size.width
-        let height = (size.height > 0) ? size.height + verticalInset * 2 : size.height
+        let width = (size.width > 0) ? size.width + leftInset + rightInset : size.width
+        let height = (size.height > 0) ? size.height + topInset + bottomInset * 2 : size.height
      
         return CGSize(width: width, height: height)
     }
@@ -50,6 +52,6 @@ open class CustomEdgeInsetsLabel: UILabel {
     open var customizedFrame: CGRect {
         var newFrame = self.frame
         newFrame.size = self.intrinsicContentSize
-        return newFrame.offsetBy(dx: 0, dy: -verticalInset)
+        return newFrame.offsetBy(dx: 0, dy: -(topInset + bottomInset))
     }
 }
