@@ -29,10 +29,7 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
         LabelCollectionViewCell.register(for: collectionView)
     }
     
-    func menuViewController(_ menuViewController: MenuViewController,
-                            cellForItemAt menu: Menu,
-                            in collectionView: UICollectionView,
-                            at indexPath: IndexPath) -> UICollectionViewCell {
+    func menuViewController(_ menuViewController: MenuViewController, cellForItemAt menu: Menu, in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
             .dequeue(from: collectionView, indexPath: indexPath)
             .configure(by: menu.title, backgroundColor: .random)
@@ -56,12 +53,9 @@ extension SampleTabMenuViewController: PageableViewControllerDataSource {
         
         let vc: (UIViewController & Pageable)
         switch menu {
-        case let menu as TopMenu:
-            vc = SampleTopPageViewController(with: menu, pageNumber: index)
-        case let menu as SampleMenu:
-            vc = SampleContentsPageViewController(with: menu, pageNumber: index)
-        default:
-            return nil
+        case let menu as TopMenu: vc = SampleTopPageViewController(with: menu, pageNumber: index)
+        case let menu as SampleMenu: vc = SampleContentsPageViewController(with: menu, pageNumber: index)
+        default: return nil
         }
         
         cache.save(vc, with: menu.id)
