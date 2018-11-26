@@ -1,11 +1,3 @@
-//
-//  RangeSliderValue.swift
-//  YPointAlert
-//
-//  Created by Takuya Yokoyama on 2018/02/18.
-//  Copyright © 2017年 Takuya Yokoyama. All rights reserved.
-//
-
 import Foundation
 
 struct SliderValue {

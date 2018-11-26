@@ -1,11 +1,3 @@
-//
-//  RotationImageItem.swift
-//  YPointAlert
-//
-//  Created by takyokoy on 2017/06/27.
-//  Copyright © 2017年 Yahoo! JAPAN. All rights reserved.
-//
-
 import UIKit
 
 /// ローテーションする画像の1枚分を担うView。
