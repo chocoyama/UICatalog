@@ -11,7 +11,6 @@ import UICatalog
 
 class SampleTabMenuViewController: TabMenuViewController {
     private var menus: [Menu]
-    private let cache = PageCache()
     
     init(topMenu: TopMenu, sampleMenus: [SampleMenu], configuration: TabMenuConfiguration) {
         menus = [topMenu] + sampleMenus
@@ -50,7 +49,7 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
 }
 
 extension SampleTabMenuViewController: PageableViewControllerDataSource {
-    func viewController(at index: Int) -> (UIViewController & Pageable)? {
+    func viewController(at index: Int, cache: PageCache) -> (UIViewController & Pageable)? {
         let menu = menus[index]
         
         if let cachedVC = cache.get(from: menu.id) { return cachedVC }

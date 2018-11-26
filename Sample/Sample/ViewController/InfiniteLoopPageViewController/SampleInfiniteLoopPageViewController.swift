@@ -35,7 +35,7 @@ class SampleInfiniteLoopPageViewController: UIViewController {
 }
 
 extension SampleInfiniteLoopPageViewController: PageableViewControllerDataSource {
-    func viewController(at index: Int) -> (UIViewController & Pageable)? {
+    func viewController(at index: Int, cache: PageCache) -> (UIViewController & Pageable)? {
         return NumberingViewController(pageNumber: index)
     }
 }

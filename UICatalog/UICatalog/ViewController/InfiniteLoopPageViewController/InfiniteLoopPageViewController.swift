@@ -13,6 +13,7 @@ open class InfiniteLoopPageViewController: UIPageViewController {
     private(set) var pages: [Page]
     
     let shouldInfiniteLoop: Bool
+    let pageCache = PageCache()
     
     public init(pages: [Page],
                 shouldInfiniteLoop: Bool,
@@ -62,16 +63,16 @@ extension InfiniteLoopPageViewController {
         switch index {
         case -1 where shouldInfiniteLoop:
             if let lastIndex = pages.indices.last {
-                return pageableDataSource?.viewController(at: lastIndex)
+                return pageableDataSource?.viewController(at: lastIndex, cache: pageCache)
             } else {
                 return nil
             }
         case -1:
             return nil
         case 0...(pages.count - 1):
-            return pageableDataSource?.viewController(at: index)
+            return pageableDataSource?.viewController(at: index, cache: pageCache)
         default:
-            return shouldInfiniteLoop ? pageableDataSource?.viewController(at: 0) : nil
+            return shouldInfiniteLoop ? pageableDataSource?.viewController(at: 0, cache: pageCache) : nil
         }
     }
 }

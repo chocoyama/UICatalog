@@ -13,5 +13,5 @@ public protocol Pageable: class {
 }
 
 public protocol PageableViewControllerDataSource: class {
-    func viewController(at index: Int) -> (UIViewController & Pageable)?
+    func viewController(at index: Int, cache: PageCache) -> (UIViewController & Pageable)?
 }
