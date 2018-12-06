@@ -256,6 +256,7 @@
 		6B33DF702158BC6A006143A4 /* Parts */ = {
 			isa = PBXGroup;
 			children = (
+				808B530B21AB7CC3005BB6E4 /* ToastView */,
 				80400F13219001D9002622C9 /* OverlayMenuView */,
 				8013D2032182C36A0001CD75 /* RotationImageView */,
 				803D6B0D215B0A29007C332E /* SoundWaveButton */,
@@ -603,6 +604,13 @@
 				8008E6BC2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift */,
 			);
 			path = OverlayMenuView;
+			sourceTree = "<group>";
+		};
+		808B530B21AB7CC3005BB6E4 /* ToastView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ToastView;
 			sourceTree = "<group>";
 		};
 		80FB2CA0216ED35C009F8049 /* PluggableLayout */ = {
