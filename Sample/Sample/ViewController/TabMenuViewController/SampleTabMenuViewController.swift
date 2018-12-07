@@ -32,7 +32,7 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
     func menuViewController(_ menuViewController: MenuViewController, cellForItemAt menu: Menu, in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
             .dequeue(from: collectionView, indexPath: indexPath)
-            .configure(by: menu.title, backgroundColor: .random)
+            .configure(for: menu.title, backgroundColor: .random)
     }
     
     func menuViewController(_ menuViewController: MenuViewController, widthForItemAt menu: Menu) -> CGFloat {

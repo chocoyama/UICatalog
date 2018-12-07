@@ -45,7 +45,7 @@ extension AdaptiveItemWidthLayoutViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return LabelCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
-                .configure(by: indexPath, backgroundColor: .random)
+                .configure(for: indexPath, backgroundColor: .random)
     }
 }
 

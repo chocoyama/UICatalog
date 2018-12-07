@@ -93,6 +93,10 @@
 		803D6B0C215B0A24007C332E /* SoundWaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803D6B0A215B0A24007C332E /* SoundWaveButton.swift */; };
 		80400F1521900203002622C9 /* OverlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1421900203002622C9 /* OverlayMenuView.swift */; };
 		80400F172190046A002622C9 /* OverlayMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80400F162190046A002622C9 /* OverlayMenuView.xib */; };
+		80471D4221B9F9CC000E1D23 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80471D4021B9F9CC000E1D23 /* ImageDetailViewController.swift */; };
+		80471D4321B9F9CC000E1D23 /* ImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80471D4121B9F9CC000E1D23 /* ImageDetailViewController.xib */; };
+		80471D4821B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */; };
+		80471D4921B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80471D4721B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib */; };
 		80C37A4B21560A0D00977C0B /* Painter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C37A4A21560A0D00977C0B /* Painter.swift */; };
 		80FB2CA2216ED38A009F8049 /* PluggableLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CA1216ED38A009F8049 /* PluggableLayout.swift */; };
 		80FB2CAC216ED8EE009F8049 /* UICatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDAE506215264D700BBB47A /* UICatalog.framework */; };
@@ -199,6 +203,10 @@
 		803D6B0A215B0A24007C332E /* SoundWaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundWaveButton.swift; sourceTree = "<group>"; };
 		80400F1421900203002622C9 /* OverlayMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuView.swift; sourceTree = "<group>"; };
 		80400F162190046A002622C9 /* OverlayMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayMenuView.xib; sourceTree = "<group>"; };
+		80471D4021B9F9CC000E1D23 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		80471D4121B9F9CC000E1D23 /* ImageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDetailViewController.xib; sourceTree = "<group>"; };
+		80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
+		80471D4721B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageDetailThumbnailCollectionViewCell.xib; sourceTree = "<group>"; };
 		80C37A4A21560A0D00977C0B /* Painter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painter.swift; sourceTree = "<group>"; };
 		80FB2CA1216ED38A009F8049 /* PluggableLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluggableLayout.swift; sourceTree = "<group>"; };
 		80FB2CA7216ED8EE009F8049 /* UICatalogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UICatalogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -331,6 +339,7 @@
 		6BB8928521732AAB003430DC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				80471D3F21B9F9C0000E1D23 /* ImageDetailViewController */,
 				6B9863AD2174D8CB00D5004C /* TabMenuViewController */,
 				6BB89292217337F2003430DC /* InfiniteLoopPageViewController */,
 				6BB8928621732AB3003430DC /* PageSynchronizedContainerViewController */,
@@ -606,6 +615,33 @@
 			path = OverlayMenuView;
 			sourceTree = "<group>";
 		};
+		80471D3F21B9F9C0000E1D23 /* ImageDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				80471D4521B9FA58000E1D23 /* ViewController */,
+				80471D4421B9FA53000E1D23 /* Cell */,
+			);
+			path = ImageDetailViewController;
+			sourceTree = "<group>";
+		};
+		80471D4421B9FA53000E1D23 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */,
+				80471D4721B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		80471D4521B9FA58000E1D23 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				80471D4021B9F9CC000E1D23 /* ImageDetailViewController.swift */,
+				80471D4121B9F9CC000E1D23 /* ImageDetailViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		808B530B21AB7CC3005BB6E4 /* ToastView */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,12 +795,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B8DEE3A217C64A600D2D01F /* MenuSettingViewController.xib in Resources */,
+				80471D4321B9F9CC000E1D23 /* ImageDetailViewController.xib in Resources */,
 				8013D2172182C3A70001CD75 /* RotationImageView.xib in Resources */,
 				803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */,
 				6BDAE527215265E200BBB47A /* RangeSliderTab.xib in Resources */,
 				6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */,
 				6B8DEE32217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib in Resources */,
 				6B8DEE3E217C67C000D2D01F /* MenuSettingTableViewCell.xib in Resources */,
+				80471D4921B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib in Resources */,
 				8013D2122182C39A0001CD75 /* RotationImageItem.xib in Resources */,
 				6BB8929621733818003430DC /* InfiniteLoopPageViewController.xib in Resources */,
 				6BDAE526215265E200BBB47A /* RangeSlider.xib in Resources */,
@@ -791,6 +829,7 @@
 				8008E6BD2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift in Sources */,
 				6B30C4F82198004800A87018 /* ContentsPageViewController.swift in Sources */,
 				6BCD0FF6216CDFE700134159 /* Header.swift in Sources */,
+				80471D4821B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift in Sources */,
 				6BCD0FF42168815D00134159 /* ChatLayout.swift in Sources */,
 				6B2713A7215A72CF00CBB58E /* AdaptiveWidthConfiguration.swift in Sources */,
 				6B2904A0217B019200FB7500 /* Configuration.swift in Sources */,
@@ -851,6 +890,7 @@
 				6BB892A2217357FF003430DC /* SynchronizablePageViewController.swift in Sources */,
 				8013D2162182C3A70001CD75 /* RotationImageView.swift in Sources */,
 				80FB2CA2216ED38A009F8049 /* PluggableLayout.swift in Sources */,
+				80471D4221B9F9CC000E1D23 /* ImageDetailViewController.swift in Sources */,
 				6BDAE55221526B5100BBB47A /* TapticEngine.swift in Sources */,
 				8013D20C2182C3850001CD75 /* RotationImageView+Resource.swift in Sources */,
 				6BDAE54621526B2500BBB47A /* ReusableViewRegisterable.swift in Sources */,

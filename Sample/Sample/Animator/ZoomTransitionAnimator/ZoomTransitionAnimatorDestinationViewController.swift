@@ -9,7 +9,7 @@
 import UIKit
 import UICatalog
 
-class ZoomTransitionAnimatorDestinationViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class ImageDetailViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     let transitionImageView: UIImageView
     private let defaultImageFrame: CGRect
@@ -61,7 +61,7 @@ class ZoomTransitionAnimatorDestinationViewController: UIViewController, UIViewC
     }
 }
 
-extension ZoomTransitionAnimatorDestinationViewController: ZoomTransitionToAnimateProtocol {
+extension ImageDetailViewController: ZoomTransitionToAnimateProtocol {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZoomTransitionAnimator(type: .present)
     }

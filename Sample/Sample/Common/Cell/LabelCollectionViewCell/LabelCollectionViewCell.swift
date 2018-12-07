@@ -13,14 +13,14 @@ class LabelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var label: UILabel!
     
     @discardableResult
-    func configure(by indexPath: IndexPath, backgroundColor: UIColor) -> LabelCollectionViewCell {
+    func configure(for indexPath: IndexPath, backgroundColor: UIColor) -> Self {
         label.text = "\(indexPath.item)"
         self.backgroundColor = backgroundColor
         return self
     }
     
     @discardableResult
-    func configure(by text: String, backgroundColor: UIColor) -> LabelCollectionViewCell {
+    func configure(for text: String, backgroundColor: UIColor) -> Self {
         label.text = text
         self.backgroundColor = backgroundColor
         return self

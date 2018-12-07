@@ -46,8 +46,6 @@
 		8013D21C2182C4ED0001CD75 /* RotationImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8013D21A2182C4ED0001CD75 /* RotationImageViewController.xib */; };
 		8013D2222182CF610001CD75 /* ZoomTransitionAnimatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2202182CF610001CD75 /* ZoomTransitionAnimatorViewController.swift */; };
 		8013D2232182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8013D2212182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib */; };
-		8013D2282182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2262182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.swift */; };
-		8013D2292182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8013D2272182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.xib */; };
 		803D6B10215B0A45007C332E /* SoundWaveButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803D6B0E215B0A45007C332E /* SoundWaveButtonViewController.swift */; };
 		803D6B11215B0A45007C332E /* SoundWaveButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 803D6B0F215B0A45007C332E /* SoundWaveButtonViewController.xib */; };
 		80400F1B21911988002622C9 /* OverlayMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1921911988002622C9 /* OverlayMenuViewController.swift */; };
@@ -96,8 +94,6 @@
 		8013D21A2182C4ED0001CD75 /* RotationImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RotationImageViewController.xib; sourceTree = "<group>"; };
 		8013D2202182CF610001CD75 /* ZoomTransitionAnimatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionAnimatorViewController.swift; sourceTree = "<group>"; };
 		8013D2212182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZoomTransitionAnimatorViewController.xib; sourceTree = "<group>"; };
-		8013D2262182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionAnimatorDestinationViewController.swift; sourceTree = "<group>"; };
-		8013D2272182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZoomTransitionAnimatorDestinationViewController.xib; sourceTree = "<group>"; };
 		803D6B0E215B0A45007C332E /* SoundWaveButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundWaveButtonViewController.swift; sourceTree = "<group>"; };
 		803D6B0F215B0A45007C332E /* SoundWaveButtonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SoundWaveButtonViewController.xib; sourceTree = "<group>"; };
 		80400F1921911988002622C9 /* OverlayMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuViewController.swift; sourceTree = "<group>"; };
@@ -333,8 +329,6 @@
 			children = (
 				8013D2202182CF610001CD75 /* ZoomTransitionAnimatorViewController.swift */,
 				8013D2212182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib */,
-				8013D2262182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.swift */,
-				8013D2272182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.xib */,
 			);
 			path = ZoomTransitionAnimator;
 			sourceTree = "<group>";
@@ -446,7 +440,6 @@
 			files = (
 				6B33DF822158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard in Resources */,
 				6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */,
-				8013D2292182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.xib in Resources */,
 				6BDAE4F52152649C00BBB47A /* LaunchScreen.storyboard in Resources */,
 				6BDAE4F22152649C00BBB47A /* Assets.xcassets in Resources */,
 				6B2713AE215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib in Resources */,
@@ -490,7 +483,6 @@
 				6BCD0FF9216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift in Sources */,
 				6BCCA10A219863810011EBD8 /* SampleContentsPageViewController.swift in Sources */,
 				6B9863A021737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift in Sources */,
-				8013D2282182D36A0001CD75 /* ZoomTransitionAnimatorDestinationViewController.swift in Sources */,
 				6BDAE4EB2152649B00BBB47A /* AppDelegate.swift in Sources */,
 				6B9863B8217A0DF600D5004C /* SampleTabMenuViewController.swift in Sources */,
 				6BB8929E217350F3003430DC /* NumberingViewController.swift in Sources */,
