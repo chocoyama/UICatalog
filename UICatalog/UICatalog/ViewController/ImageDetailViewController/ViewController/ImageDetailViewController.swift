@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class ImageDetailViewController: UIViewController, UIViewControllerTransitioningDelegate {
+open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateProtocol {
     
     public let transitionImageView: UIImageView
     private let defaultImageFrame: CGRect
@@ -49,29 +49,34 @@ open class ImageDetailViewController: UIViewController, UIViewControllerTransiti
     }
     
     open func reset() {
-        UIView.animate(withDuration: 0.2) {
+        UIViewPropertyAnimator(duration: 0.8, dampingRatio: 0.4) {
             self.transitionImageView.frame = self.defaultImageFrame
-        }
+        }.startAnimation()
     }
     
     @objc open func didRecognizedPanGestureOnImageView(sender: UIPanGestureRecognizer) {
+        let view = sender.view
+        let translation = sender.translation(in: view)
+        let position = CGPoint(x: translation.x + self.defaultImageFrame.midX, y: translation.y + self.defaultImageFrame.midY)
+        
         switch sender.state {
+        case .began:
+            transitionImageView.frame = self.defaultImageFrame
         case .changed:
-            let view = sender.view
-            let translationPoint = sender.translation(in: view)
-            transitionImageView.frame.origin.y = defaultImageFrame.origin.y + translationPoint.y
+            transitionImageView.center = position
         case .ended:
-            if transitionImageView.frame.origin.y == defaultImageFrame.origin.y {
-                reset()
-            } else {
+            if abs(transitionImageView.center.y - defaultImageFrame.midY) >= 200 {
                 dismiss(animated: true, completion: nil)
+            } else {
+                reset()
             }
-        default: break
+        default:
+            break
         }
     }
 }
 
-extension ImageDetailViewController: ZoomTransitionToAnimateProtocol {
+extension ImageDetailViewController: UIViewControllerTransitioningDelegate {
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ZoomTransitionAnimator(type: .present)
     }
@@ -121,7 +126,7 @@ private extension UIImage {
         let height: CGFloat = self.size.height * (screenBounds.width / self.size.width)
         let width: CGFloat = screenBounds.width
         let x: CGFloat = 0
-        let y: CGFloat = (screenBounds.height + 20) / 2 - height / 2
+        let y: CGFloat = (screenBounds.height) / 2 - height / 2
         return CGRect(x: x, y: y, width: width, height: height)
     }
 }

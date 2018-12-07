@@ -83,7 +83,7 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
                 transitionImageView.frame.size.height *= containerView.frame.width / transitionImageView.frame.size.width
                 transitionImageView.frame.size.width = containerView.frame.width
                 transitionImageView.frame.origin.x = 0.0
-                transitionImageView.frame.origin.y = (UIScreen.main.bounds.height + 20) / 2 - transitionImageView.frame.size.height / 2
+                transitionImageView.frame.origin.y = (UIScreen.main.bounds.height) / 2 - transitionImageView.frame.size.height / 2
             case .landscapeLeft, .landscapeRight:
                 transitionImageView.frame.size.width *= containerView.frame.height / transitionImageView.frame.size.height
                 transitionImageView.frame.size.height = containerView.frame.height
