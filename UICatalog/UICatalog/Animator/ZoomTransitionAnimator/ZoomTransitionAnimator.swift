@@ -117,6 +117,8 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         }) { (finished) -> Void in
             maskView.removeFromSuperview()
             transitionImageView.removeFromSuperview()
+            containerView.backgroundColor = .clear
+            toView.backgroundColor = self.backgroundColor.toColor
             containerView.addSubview(toView)
             toView.overlay(on: containerView)
             transitionContext.completeTransition(true)

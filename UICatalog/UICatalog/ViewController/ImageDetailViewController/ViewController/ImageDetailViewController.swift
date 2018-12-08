@@ -14,6 +14,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     private let defaultImageFrame: CGRect
     
     private let images: [UIImage]
+    private let backgroundColor: ZoomTransitionAnimator.BackgroundColor
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -23,8 +24,9 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         }
     }
     
-    public init(images: [UIImage]) {
+    public init(images: [UIImage], backgroundColor: ZoomTransitionAnimator.BackgroundColor) {
         self.images = images
+        self.backgroundColor = backgroundColor
         self.defaultImageFrame = images[0].screenAdjustFrame
         
         let imageView = UIImageView(frame: defaultImageFrame)
@@ -51,23 +53,35 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     }
     
     open func reset() {
-        UIViewPropertyAnimator(duration: 0.8, dampingRatio: 0.4) {
+        UIView.animate(withDuration: 0.2) {
+            self.view.backgroundColor = self.backgroundColor.toColor
+            self.collectionView.alpha = 1.0
             self.transitionImageView.frame = self.defaultImageFrame
-        }.startAnimation()
+        }
+//        UIViewPropertyAnimator(duration: 0.8, dampingRatio: 0.4) {
+//            self.view.backgroundColor = self.backgroundColor.toColor
+//            self.collectionView.alpha = 1.0
+//            self.transitionImageView.frame = self.defaultImageFrame
+//        }.startAnimation()
     }
     
     @objc open func didRecognizedPanGestureOnImageView(sender: UIPanGestureRecognizer) {
         let view = sender.view
         let translation = sender.translation(in: view)
-        let position = CGPoint(x: translation.x + self.defaultImageFrame.midX, y: translation.y + self.defaultImageFrame.midY)
+        let position = CGPoint(x: translation.x + self.defaultImageFrame.midX,
+                               y: translation.y + self.defaultImageFrame.midY)
+        let threshold: CGFloat = 180
+        let fraction = abs(translation.y / threshold)
         
         switch sender.state {
         case .began:
             transitionImageView.frame = self.defaultImageFrame
         case .changed:
+            self.view.backgroundColor = backgroundColor.toColor.withAlphaComponent(0.9 - fraction * 0.6)
+            self.collectionView.alpha = 1.0 - fraction
             transitionImageView.center = position
         case .ended:
-            if abs(transitionImageView.center.y - defaultImageFrame.midY) >= 200 {
+            if fraction >= 1.0 {
                 dismiss(animated: true, completion: nil)
             } else {
                 reset()
@@ -80,11 +94,11 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
 
 extension ImageDetailViewController: UIViewControllerTransitioningDelegate {
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomTransitionAnimator(type: .present, backgroundColor: .white)
+        return ZoomTransitionAnimator(type: .present, backgroundColor: backgroundColor)
     }
 
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomTransitionAnimator(type: .dismiss, backgroundColor: .white)
+        return ZoomTransitionAnimator(type: .dismiss, backgroundColor: backgroundColor)
     }
 }
 

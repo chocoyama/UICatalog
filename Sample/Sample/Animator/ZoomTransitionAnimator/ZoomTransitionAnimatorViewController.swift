@@ -45,7 +45,7 @@ extension ZoomTransitionAnimatorViewController: UICollectionViewDelegate {
         self.latestTransitionIndexPath = indexPath
         self.selectedImage = image
         
-        let vc = ImageDetailViewController(images: [image, image, image, image])
+        let vc = ImageDetailViewController(images: [image, image, image, image], backgroundColor: .black)
         present(vc, animated: true, completion: nil)
     }
 }
