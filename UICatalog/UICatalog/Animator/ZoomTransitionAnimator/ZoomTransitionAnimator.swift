@@ -15,15 +15,32 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         case dismiss
     }
     
-    private var type: AnimatorType = .present
-    
-    override init() {
-        super.init()
+    public enum BackgroundColor {
+        case white
+        case black
+        
+        var fromColor: UIColor {
+            switch self {
+            case .white: return UIColor(white: 1.0, alpha: 0.0)
+            case .black: return UIColor(white: 0.0, alpha: 0.0)
+            }
+        }
+        
+        var toColor: UIColor {
+            switch self {
+            case .white: return UIColor(white: 1.0, alpha: 0.9)
+            case .black: return UIColor(white: 0.0, alpha: 0.9)
+            }
+        }
     }
     
-    public init(type: AnimatorType) {
-        super.init()
+    private let type: AnimatorType
+    private let backgroundColor: BackgroundColor
+    
+    public init(type: AnimatorType, backgroundColor: BackgroundColor) {
         self.type = type
+        self.backgroundColor = backgroundColor
+        super.init()
     }
     
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -67,17 +84,23 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     private func presentAnimation(transitionContext: UIViewControllerContextTransitioning,
                                   transitionImageView: UIImageView,
                                   toView: UIView) {
+        // setup containerView
         let containerView = transitionContext.containerView
+        containerView.backgroundColor = backgroundColor.fromColor
+        
+        // setup mask view
         let maskView = UIView(frame: containerView.frame)
         maskView.backgroundColor = toView.backgroundColor
         containerView.addSubview(maskView)
         
+        // setup transitionImageView
         let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
         transitionImageView.frame = convertedRect
         transitionImageView.contentMode = .scaleAspectFit
         containerView.addSubview(transitionImageView)
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
+            containerView.backgroundColor = self.backgroundColor.toColor
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:
                 transitionImageView.frame.size.height *= containerView.frame.width / transitionImageView.frame.size.width
@@ -104,15 +127,18 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
                                   toVCZoomTransitionAnimatorProtocol: ZoomTransitionFromAnimateProtocol,
                                   transitionContext: UIViewControllerContextTransitioning,
                                   fromView: UIView) {
-
-        let transitionImageView = fromVCZoomTransitionAnimatorProtocol.transitionImageView
+        // setup containerView
         let containerView = transitionContext.containerView
+        
+        // setup transitionImageView
+        let transitionImageView = fromVCZoomTransitionAnimatorProtocol.transitionImageView
         let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
         transitionImageView.frame = convertedRect
         transitionImageView.contentMode = .scaleAspectFit
         containerView.addSubview(transitionImageView)
 
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
+            containerView.backgroundColor = self.backgroundColor.fromColor
             transitionImageView.frame = toVCZoomTransitionAnimatorProtocol.previousFrame()
         }, completion: { (finished) -> Void in
             transitionImageView.removeFromSuperview()

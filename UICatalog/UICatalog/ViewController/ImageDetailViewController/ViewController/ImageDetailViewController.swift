@@ -29,11 +29,13 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         
         let imageView = UIImageView(frame: defaultImageFrame)
         imageView.image = images[0]
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .clear
         self.transitionImageView = imageView
         
         super.init(nibName: "ImageDetailViewController", bundle: .current)
         
+        self.modalPresentationStyle = .overCurrentContext
+        self.view.backgroundColor = .clear
         self.transitionImageView.addPanGesture(target: self,
                                                action: #selector(didRecognizedPanGestureOnImageView(sender:)))
     }
@@ -78,11 +80,11 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
 
 extension ImageDetailViewController: UIViewControllerTransitioningDelegate {
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomTransitionAnimator(type: .present)
+        return ZoomTransitionAnimator(type: .present, backgroundColor: .white)
     }
 
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ZoomTransitionAnimator(type: .dismiss)
+        return ZoomTransitionAnimator(type: .dismiss, backgroundColor: .white)
     }
 }
 
