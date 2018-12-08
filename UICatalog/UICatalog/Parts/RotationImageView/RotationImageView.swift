@@ -47,7 +47,7 @@ open class RotationImageView: UIView {
     private static let defaultTimeInterval: TimeInterval = 5
     fileprivate var switcher = ImageSwitcher()
     
-    open var resources = [Resource]()
+    open var resources = [PhotoResource]()
     open var interval: TimeInterval = defaultTimeInterval
     open var animation: Animation?
     
@@ -90,7 +90,7 @@ open class RotationImageView: UIView {
         animation = nil
     }
     
-    open func append(_ resources: [Resource]) {
+    open func append(_ resources: [PhotoResource]) {
         switcher.append(resources)
     }
 

@@ -46,9 +46,9 @@ extension RotationImageView {
         }
         
         fileprivate var elements: [Element] = []
-        fileprivate let generator: RoopGenerator<Resource>
+        fileprivate let generator: RoopGenerator<PhotoResource>
         
-        init(resources: [Resource]) {
+        init(resources: [PhotoResource]) {
             self.elements = (0..<State.sequence.count).map{ _ in Element(item: .init(), state: nil) }
             self.generator = RoopGenerator(elements: resources)
         }
@@ -99,7 +99,7 @@ extension RotationImageView.DisplayManager {
         elements = elements.compactMap { $0.nextState() }
     }
     
-    func append(_ resources: [RotationImageView.Resource]) {
+    func append(_ resources: [PhotoResource]) {
         self.generator.append(resources)
     }
     

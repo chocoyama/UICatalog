@@ -16,12 +16,12 @@ extension RotationImageView {
         private let animator = Animator()
         private var isFirstSwitch: Bool = true
         
-        func setup(with resources: [Resource]) -> [RotationImageItem] {
+        func setup(with resources: [PhotoResource]) -> [RotationImageItem] {
             displayManager = DisplayManager(resources: resources)
             return displayManager?.setup() ?? []
         }
         
-        func append(_ resources: [Resource]) {
+        func append(_ resources: [PhotoResource]) {
             self.displayManager?.append(resources)
         }
         
