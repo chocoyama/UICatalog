@@ -16,6 +16,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     private let images: [UIImage]
     private let backgroundColor: ZoomTransitionAnimator.BackgroundColor
     
+    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             ImageDetailThumbnailCollectionViewCell.register(for: collectionView, bundle: .current)
@@ -49,6 +50,13 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.transitioningDelegate = self
+        
+        switch backgroundColor {
+        case .white:
+            closeButton.imageView?.image = UIImage(named: "close/black")
+        case .black:
+            closeButton.imageView?.image = UIImage(named: "close/white")
+        }
         self.view.addSubview(transitionImageView)
     }
     
@@ -56,11 +64,13 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         UIView.animate(withDuration: 0.2) {
             self.view.backgroundColor = self.backgroundColor.toColor
             self.collectionView.alpha = 1.0
+            self.closeButton.alpha = 1.0
             self.transitionImageView.frame = self.defaultImageFrame
         }
 //        UIViewPropertyAnimator(duration: 0.8, dampingRatio: 0.4) {
 //            self.view.backgroundColor = self.backgroundColor.toColor
 //            self.collectionView.alpha = 1.0
+//            self.closeButton.alpha = 1.0
 //            self.transitionImageView.frame = self.defaultImageFrame
 //        }.startAnimation()
     }
@@ -79,6 +89,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         case .changed:
             self.view.backgroundColor = backgroundColor.toColor.withAlphaComponent(0.9 - fraction * 0.6)
             self.collectionView.alpha = 1.0 - fraction
+            self.closeButton.alpha = 1.0 - fraction
             transitionImageView.center = position
         case .ended:
             if fraction >= 1.0 {
@@ -89,6 +100,10 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         default:
             break
         }
+    }
+    
+    @IBAction func didTappedCloseButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
