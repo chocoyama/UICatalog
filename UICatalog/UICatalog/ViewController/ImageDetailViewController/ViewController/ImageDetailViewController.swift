@@ -16,6 +16,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     private let resources: [PhotoResource]
     private let backgroundColor: ZoomTransitionAnimator.BackgroundColor
     
+    @IBOutlet weak var pageCounterLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var detailCollectionView: UICollectionView! {
         didSet {
@@ -65,14 +66,23 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     }
     
     private func configureSubviews() {
+        // panGesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didRecognizedPanGestureOnImageView(sender:)))
         panGesture.delegate = self
         self.view.addGestureRecognizer(panGesture)
         
+        // pageCounterLabel, closeButton
+        pageCounterLabel.text = "1 / \(resources.count)"
         switch backgroundColor {
-        case .white: closeButton.imageView?.image = UIImage(named: "close/black")
-        case .black: closeButton.imageView?.image = UIImage(named: "close/white")
+        case .white:
+            pageCounterLabel.textColor = .black
+            closeButton.imageView?.image = UIImage(named: "close/black")
+        case .black:
+            pageCounterLabel.textColor = .white
+            closeButton.imageView?.image = UIImage(named: "close/white")
         }
+        
+        // transitionImageView
         view.addSubview(transitionImageView)
         transitionImageView.isHidden = true
     }
@@ -154,6 +164,9 @@ extension ImageDetailViewController: UICollectionViewDelegate {
             [detailCollectionView, thumbnailCollectionView].forEach {
                 $0.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             }
+            
+            pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
+            
             switch resources[indexPath.item] {
             case .image(let image): self.transitionImageView.image = image
             }
@@ -185,6 +198,8 @@ extension ImageDetailViewController: UICollectionViewDelegate {
             break
         case detailCollectionView:
             if let indexPath = detailCollectionView.centerIndexPath {
+                pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
+                
                 thumbnailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             }
         default:

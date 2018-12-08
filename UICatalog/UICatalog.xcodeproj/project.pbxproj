@@ -84,7 +84,7 @@
 		800D02C5215C520300F2A55F /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02C4215C520300F2A55F /* Line.swift */; };
 		8013D20A2182C3850001CD75 /* RotationImageView+RoopGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2052182C3850001CD75 /* RotationImageView+RoopGenerator.swift */; };
 		8013D20B2182C3850001CD75 /* RotationImageView+ImageSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2062182C3850001CD75 /* RotationImageView+ImageSwitcher.swift */; };
-		8013D20C2182C3850001CD75 /* RotationImageView+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2072182C3850001CD75 /* RotationImageView+Resource.swift */; };
+		8013D20C2182C3850001CD75 /* PhotoResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2072182C3850001CD75 /* PhotoResource.swift */; };
 		8013D20D2182C3850001CD75 /* RotationImageView+Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2082182C3850001CD75 /* RotationImageView+Animator.swift */; };
 		8013D20E2182C3850001CD75 /* RotationImageView+DisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8013D2092182C3850001CD75 /* RotationImageView+DisplayManager.swift */; };
 		8013D2122182C39A0001CD75 /* RotationImageItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8013D2102182C39A0001CD75 /* RotationImageItem.xib */; };
@@ -196,7 +196,7 @@
 		800D02C4215C520300F2A55F /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		8013D2052182C3850001CD75 /* RotationImageView+RoopGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RotationImageView+RoopGenerator.swift"; sourceTree = "<group>"; };
 		8013D2062182C3850001CD75 /* RotationImageView+ImageSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RotationImageView+ImageSwitcher.swift"; sourceTree = "<group>"; };
-		8013D2072182C3850001CD75 /* RotationImageView+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RotationImageView+Resource.swift"; sourceTree = "<group>"; };
+		8013D2072182C3850001CD75 /* PhotoResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoResource.swift; sourceTree = "<group>"; };
 		8013D2082182C3850001CD75 /* RotationImageView+Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RotationImageView+Animator.swift"; sourceTree = "<group>"; };
 		8013D2092182C3850001CD75 /* RotationImageView+DisplayManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RotationImageView+DisplayManager.swift"; sourceTree = "<group>"; };
 		8013D2102182C39A0001CD75 /* RotationImageItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationImageItem.xib; sourceTree = "<group>"; };
@@ -422,6 +422,7 @@
 		6BDAE508215264D700BBB47A /* UICatalog */ = {
 			isa = PBXGroup;
 			children = (
+				6BEFD44D21BB91A3001E12BF /* Model */,
 				6B9863A82173A1AA00D5004C /* Animator */,
 				6BB8928521732AAB003430DC /* ViewController */,
 				6B33DF712158BC75006143A4 /* Layout */,
@@ -526,6 +527,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		6BEFD44D21BB91A3001E12BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8013D2072182C3850001CD75 /* PhotoResource.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		800D02BC215B903300F2A55F /* AdaptiveItemSizeLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,7 +586,6 @@
 				8013D2082182C3850001CD75 /* RotationImageView+Animator.swift */,
 				8013D2092182C3850001CD75 /* RotationImageView+DisplayManager.swift */,
 				8013D2062182C3850001CD75 /* RotationImageView+ImageSwitcher.swift */,
-				8013D2072182C3850001CD75 /* RotationImageView+Resource.swift */,
 				8013D2052182C3850001CD75 /* RotationImageView+RoopGenerator.swift */,
 			);
 			path = Model;
@@ -900,7 +908,7 @@
 				80FB2CA2216ED38A009F8049 /* PluggableLayout.swift in Sources */,
 				80471D4221B9F9CC000E1D23 /* ImageDetailViewController.swift in Sources */,
 				6BDAE55221526B5100BBB47A /* TapticEngine.swift in Sources */,
-				8013D20C2182C3850001CD75 /* RotationImageView+Resource.swift in Sources */,
+				8013D20C2182C3850001CD75 /* PhotoResource.swift in Sources */,
 				6BDAE54621526B2500BBB47A /* ReusableViewRegisterable.swift in Sources */,
 				8013D20B2182C3850001CD75 /* RotationImageView+ImageSwitcher.swift in Sources */,
 				8013D2132182C39A0001CD75 /* RotationImageItem.swift in Sources */,
