@@ -77,6 +77,8 @@
 		6BDAE54E21526B3B00BBB47A /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE54B21526B3B00BBB47A /* Notification+.swift */; };
 		6BDAE54F21526B3B00BBB47A /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE54C21526B3B00BBB47A /* UIView+.swift */; };
 		6BDAE55221526B5100BBB47A /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE55121526B5100BBB47A /* TapticEngine.swift */; };
+		6BEFD45221BB967A001E12BF /* ImageDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEFD45021BB967A001E12BF /* ImageDetailCollectionViewCell.swift */; };
+		6BEFD45321BB967A001E12BF /* ImageDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BEFD45121BB967A001E12BF /* ImageDetailCollectionViewCell.xib */; };
 		8008E6BB2192A8F20083D920 /* OverlayMenuViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E6BA2192A8F20083D920 /* OverlayMenuViewPosition.swift */; };
 		8008E6BD2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E6BC2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift */; };
 		800D02BE215B904A00F2A55F /* Containerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02BD215B904A00F2A55F /* Containerable.swift */; };
@@ -189,6 +191,8 @@
 		6BDAE54B21526B3B00BBB47A /* Notification+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
 		6BDAE54C21526B3B00BBB47A /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		6BDAE55121526B5100BBB47A /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
+		6BEFD45021BB967A001E12BF /* ImageDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		6BEFD45121BB967A001E12BF /* ImageDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		8008E6BA2192A8F20083D920 /* OverlayMenuViewPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuViewPosition.swift; sourceTree = "<group>"; };
 		8008E6BC2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuViewConfiguration.swift; sourceTree = "<group>"; };
 		800D02BD215B904A00F2A55F /* Containerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containerable.swift; sourceTree = "<group>"; };
@@ -535,6 +539,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6BEFD44E21BB9651001E12BF /* Thumbnail */ = {
+			isa = PBXGroup;
+			children = (
+				80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */,
+				80471D4721B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib */,
+			);
+			path = Thumbnail;
+			sourceTree = "<group>";
+		};
+		6BEFD44F21BB965E001E12BF /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				6BEFD45021BB967A001E12BF /* ImageDetailCollectionViewCell.swift */,
+				6BEFD45121BB967A001E12BF /* ImageDetailCollectionViewCell.xib */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		800D02BC215B903300F2A55F /* AdaptiveItemSizeLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,8 +663,8 @@
 		80471D4421B9FA53000E1D23 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */,
-				80471D4721B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib */,
+				6BEFD44F21BB965E001E12BF /* Detail */,
+				6BEFD44E21BB9651001E12BF /* Thumbnail */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -814,6 +836,7 @@
 				803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */,
 				6BDAE527215265E200BBB47A /* RangeSliderTab.xib in Resources */,
 				6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */,
+				6BEFD45321BB967A001E12BF /* ImageDetailCollectionViewCell.xib in Resources */,
 				6B8DEE32217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib in Resources */,
 				6B8DEE3E217C67C000D2D01F /* MenuSettingTableViewCell.xib in Resources */,
 				80471D4921B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.xib in Resources */,
@@ -913,6 +936,7 @@
 				8013D20B2182C3850001CD75 /* RotationImageView+ImageSwitcher.swift in Sources */,
 				8013D2132182C39A0001CD75 /* RotationImageItem.swift in Sources */,
 				6B33DF862158C08B006143A4 /* ColumnCountDynamicAsignable.swift in Sources */,
+				6BEFD45221BB967A001E12BF /* ImageDetailCollectionViewCell.swift in Sources */,
 				6B9863B1217A0ADD00D5004C /* Menu.swift in Sources */,
 				6B33DF6A21587A8B006143A4 /* OutlineLabel.swift in Sources */,
 				6B2713B4215A855C00CBB58E /* CGSize+.swift in Sources */,

@@ -8,7 +8,15 @@
 
 import UIKit
 
+public protocol ImageDetailViewControllerDelegate: class {
+    func imageDetailViewController(_ imageDetailViewController: ImageDetailViewController,
+                                   shouldLoadImageUrl url: URL,
+                                   to imageView: UIImageView)
+}
+
 open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateProtocol {
+    
+    open weak var delegate: ImageDetailViewControllerDelegate?
     
     public let transitionImageView: UIImageView
     private let defaultImageFrame: CGRect
@@ -20,7 +28,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var detailCollectionView: UICollectionView! {
         didSet {
-            ImageDetailThumbnailCollectionViewCell.register(for: detailCollectionView, bundle: .current)
+            ImageDetailCollectionViewCell.register(for: detailCollectionView, bundle: .current)
             detailCollectionView.dataSource = self
             detailCollectionView.delegate = self
         }
@@ -33,18 +41,15 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         }
     }
     
-    public init(resources: [PhotoResource], backgroundColor: ZoomTransitionAnimator.BackgroundColor) {
+    public init(firstImage: UIImage, resources: [PhotoResource], backgroundColor: ZoomTransitionAnimator.BackgroundColor) {
         self.backgroundColor = backgroundColor
         
         self.resources = resources
-        switch resources[0] {
-        case .image(let image):
-            self.defaultImageFrame = image.screenAdjustFrame
-            let imageView = UIImageView(frame: defaultImageFrame)
-            imageView.image = image
-            imageView.backgroundColor = .clear
-            self.transitionImageView = imageView
-        }
+        self.defaultImageFrame = firstImage.screenAdjustFrame
+        let imageView = UIImageView(frame: defaultImageFrame)
+        imageView.image = firstImage
+        imageView.backgroundColor = .clear
+        self.transitionImageView = imageView
         
         super.init(nibName: "ImageDetailViewController", bundle: .current)
         prepareAnimation()
@@ -130,6 +135,18 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     @IBAction func didTappedCloseButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    
+    private func requestSetImage(_ urlString: String, to imageView: UIImageView) {
+        guard let url = URL(string: urlString) else { return }
+        requestSetImage(url, to: imageView)
+    }
+    
+    private func requestSetImage(_ url: URL, to imageView: UIImageView) {
+        delegate?.imageDetailViewController(self,
+                                            shouldLoadImageUrl: url,
+                                            to: imageView)
+    }
+    
 }
 
 extension ImageDetailViewController: UIViewControllerTransitioningDelegate {
@@ -148,11 +165,39 @@ extension ImageDetailViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch resources[indexPath.item] {
-        case .image(let image):
-            return ImageDetailThumbnailCollectionViewCell
-                .dequeue(from: collectionView, indexPath: indexPath)
-                .configure(for: image)
+        switch collectionView {
+        case thumbnailCollectionView:
+            switch resources[indexPath.item] {
+            case .image(let image):
+                return ImageDetailThumbnailCollectionViewCell
+                    .dequeue(from: collectionView, indexPath: indexPath)
+                    .configure(for: image)
+            case .url(let url):
+                let cell = ImageDetailThumbnailCollectionViewCell.dequeue(from: collectionView, indexPath: indexPath)
+                requestSetImage(url, to: cell.imageView)
+                return cell
+            case .urlString(let urlString):
+                let cell = ImageDetailThumbnailCollectionViewCell.dequeue(from: collectionView, indexPath: indexPath)
+                requestSetImage(urlString, to: cell.imageView)
+                return cell
+            }
+        case detailCollectionView:
+            switch resources[indexPath.item] {
+            case .image(let image):
+                return ImageDetailCollectionViewCell
+                    .dequeue(from: collectionView, indexPath: indexPath)
+                    .configure(for: image)
+            case .url(let url):
+                let cell = ImageDetailCollectionViewCell.dequeue(from: collectionView, indexPath: indexPath)
+                requestSetImage(url, to: cell.imageView)
+                return cell
+            case .urlString(let urlString):
+                let cell = ImageDetailCollectionViewCell.dequeue(from: collectionView, indexPath: indexPath)
+                requestSetImage(urlString, to: cell.imageView)
+                return cell
+            }
+        default:
+            return UICollectionViewCell()
         }
     }
 }
@@ -168,7 +213,9 @@ extension ImageDetailViewController: UICollectionViewDelegate {
             pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
             
             switch resources[indexPath.item] {
-            case .image(let image): self.transitionImageView.image = image
+            case .image(let image): transitionImageView.image = image
+            case .url(let url): requestSetImage(url, to: transitionImageView)
+            case .urlString(let urlString): requestSetImage(urlString, to: transitionImageView)
             }
         case detailCollectionView:
             break
@@ -184,7 +231,9 @@ extension ImageDetailViewController: UICollectionViewDelegate {
         case detailCollectionView:
             if let indexPath = detailCollectionView.centerIndexPath {
                 switch resources[indexPath.item] {
-                case .image(let image): self.transitionImageView.image = image
+                case .image(let image): transitionImageView.image = image
+                case .url(let url): requestSetImage(url, to: transitionImageView)
+                case .urlString(let urlString): requestSetImage(urlString, to: transitionImageView)
                 }
             }
         default:
@@ -210,17 +259,19 @@ extension ImageDetailViewController: UICollectionViewDelegate {
 
 extension ImageDetailViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch collectionView {
-        case thumbnailCollectionView:
-            let collectionViewHeight = collectionView.bounds.height
-            return CGSize(width: collectionViewHeight, height: collectionViewHeight)
-        case detailCollectionView:
-            switch resources[indexPath.item] {
-            case .image(let image): return image.screenAdjustFrame.size
-            }
-        default:
-            return .zero
-        }
+        let collectionViewHeight = collectionView.bounds.height
+        return CGSize(width: collectionViewHeight, height: collectionViewHeight)
+//        switch collectionView {
+//        case thumbnailCollectionView:
+//            let collectionViewHeight = collectionView.bounds.height
+//            return CGSize(width: collectionViewHeight, height: collectionViewHeight)
+//        case detailCollectionView:
+//            switch resources[indexPath.item] {
+//            case .image(let image): return image.screenAdjustFrame.size
+//            }
+//        default:
+//            return .zero
+//        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

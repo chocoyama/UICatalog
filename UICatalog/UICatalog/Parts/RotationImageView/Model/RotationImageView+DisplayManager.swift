@@ -104,3 +104,19 @@ extension RotationImageView.DisplayManager {
     }
     
 }
+
+private extension PhotoResource {
+    func load(to rotationImageItem: RotationImageItem) {
+        rotationImageItem.resetScale()
+        load(to: rotationImageItem.imageView)
+    }
+    
+    func load(to imageView: UIImageView) {
+        // TODO: urlとurlStringに対応する
+        switch self {
+        case .image(let image): imageView.image = image
+        case .url(_): break
+        case .urlString(_): break
+        }
+    }
+}
