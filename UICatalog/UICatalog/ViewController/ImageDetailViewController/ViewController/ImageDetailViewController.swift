@@ -17,11 +17,18 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     private let backgroundColor: ZoomTransitionAnimator.BackgroundColor
     
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet weak var detailCollectionView: UICollectionView! {
         didSet {
-            ImageDetailThumbnailCollectionViewCell.register(for: collectionView, bundle: .current)
-            collectionView.dataSource = self
-            collectionView.delegate = self
+            ImageDetailThumbnailCollectionViewCell.register(for: detailCollectionView, bundle: .current)
+            detailCollectionView.dataSource = self
+            detailCollectionView.delegate = self
+        }
+    }
+    @IBOutlet weak var thumbnailCollectionView: UICollectionView! {
+        didSet {
+            ImageDetailThumbnailCollectionViewCell.register(for: thumbnailCollectionView, bundle: .current)
+            thumbnailCollectionView.dataSource = self
+            thumbnailCollectionView.delegate = self
         }
     }
     
@@ -36,43 +43,46 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         self.transitionImageView = imageView
         
         super.init(nibName: "ImageDetailViewController", bundle: .current)
-        
-        self.modalPresentationStyle = .overCurrentContext
-        self.view.backgroundColor = .clear
-        self.transitionImageView.addPanGesture(target: self,
-                                               action: #selector(didRecognizedPanGestureOnImageView(sender:)))
+        prepareAnimation()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func prepareAnimation() {
+        self.modalPresentationStyle = .overCurrentContext
+        self.view.backgroundColor = .clear
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-        self.transitioningDelegate = self
+        transitioningDelegate = self
+        configureSubviews()
+    }
+    
+    private func configureSubviews() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didRecognizedPanGestureOnImageView(sender:)))
+        panGesture.delegate = self
+        self.view.addGestureRecognizer(panGesture)
         
         switch backgroundColor {
-        case .white:
-            closeButton.imageView?.image = UIImage(named: "close/black")
-        case .black:
-            closeButton.imageView?.image = UIImage(named: "close/white")
+        case .white: closeButton.imageView?.image = UIImage(named: "close/black")
+        case .black: closeButton.imageView?.image = UIImage(named: "close/white")
         }
-        self.view.addSubview(transitionImageView)
+        view.addSubview(transitionImageView)
+        transitionImageView.isHidden = true
     }
     
     open func reset() {
         UIView.animate(withDuration: 0.2) {
             self.view.backgroundColor = self.backgroundColor.toColor
-            self.collectionView.alpha = 1.0
+            self.transitionImageView.isHidden = true
+            self.detailCollectionView.isHidden = false
+            self.thumbnailCollectionView.alpha = 1.0
             self.closeButton.alpha = 1.0
             self.transitionImageView.frame = self.defaultImageFrame
         }
-//        UIViewPropertyAnimator(duration: 0.8, dampingRatio: 0.4) {
-//            self.view.backgroundColor = self.backgroundColor.toColor
-//            self.collectionView.alpha = 1.0
-//            self.closeButton.alpha = 1.0
-//            self.transitionImageView.frame = self.defaultImageFrame
-//        }.startAnimation()
     }
     
     @objc open func didRecognizedPanGestureOnImageView(sender: UIPanGestureRecognizer) {
@@ -85,10 +95,12 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         
         switch sender.state {
         case .began:
+            transitionImageView.isHidden = false
+            detailCollectionView.isHidden = true
             transitionImageView.frame = self.defaultImageFrame
         case .changed:
             self.view.backgroundColor = backgroundColor.toColor.withAlphaComponent(0.9 - fraction * 0.6)
-            self.collectionView.alpha = 1.0 - fraction
+            self.thumbnailCollectionView.alpha = 1.0 - fraction
             self.closeButton.alpha = 1.0 - fraction
             transitionImageView.center = position
         case .ended:
@@ -131,34 +143,81 @@ extension ImageDetailViewController: UICollectionViewDataSource {
 
 extension ImageDetailViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        
-        self.transitionImageView.image = self.images[indexPath.item]
-        let transition = CATransition()
-        transition.duration = 0.3
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .fade
-        transitionImageView.layer.add(transition, forKey: nil)
+        switch collectionView {
+        case thumbnailCollectionView:
+            [detailCollectionView, thumbnailCollectionView].forEach {
+                $0.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            }
+            self.transitionImageView.image = self.images[indexPath.item]
+        case detailCollectionView:
+            break
+        default:
+            break
+        }
+    }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case thumbnailCollectionView:
+            break
+        case detailCollectionView:
+            if let indexPath = detailCollectionView.centerIndexPath {
+                self.transitionImageView.image = self.images[indexPath.item]
+            }
+        default:
+            break
+        }
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case thumbnailCollectionView:
+            break
+        case detailCollectionView:
+            if let indexPath = detailCollectionView.centerIndexPath {
+                thumbnailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            }
+        default:
+            break
+        }
     }
 }
 
 extension ImageDetailViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewHeight = collectionView.bounds.height
-        return CGSize(width: collectionViewHeight, height: collectionViewHeight)
+        switch collectionView {
+        case thumbnailCollectionView:
+            let collectionViewHeight = collectionView.bounds.height
+            return CGSize(width: collectionViewHeight, height: collectionViewHeight)
+        case detailCollectionView:
+            return images[indexPath.item].screenAdjustFrame.size
+        default:
+            return .zero
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+        switch collectionView {
+        case thumbnailCollectionView: return UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+        case detailCollectionView: return .zero
+        default: return .zero
+        }
     }
 }
 
-private extension UIImageView {
-    @discardableResult
-    func addPanGesture(target: Any?, action: Selector?) -> UIImageView {
-        self.isUserInteractionEnabled = true
-        self.addGestureRecognizer(UIPanGestureRecognizer(target: target, action: action))
-        return self
+extension ImageDetailViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else {
+            return true
+        }
+        
+        let tappedPoint = panGestureRecognizer.location(in: gestureRecognizer.view)
+        let tappedCollectionViewLocation = detailCollectionView.frame.contains(tappedPoint)
+        
+        let translation = panGestureRecognizer.translation(in: gestureRecognizer.view)
+        let isVertivalSwipe = !(sqrt(translation.x * translation.x) / sqrt(translation.y * translation.y) > 1)
+        
+        return tappedCollectionViewLocation && isVertivalSwipe
     }
 }
 

@@ -21,6 +21,8 @@
 		6B33DF792158BDBA006143A4 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF732158BDB9006143A4 /* Column.swift */; };
 		6B33DF7A2158BDBA006143A4 /* ColumnContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF742158BDBA006143A4 /* ColumnContainer.swift */; };
 		6B33DF862158C08B006143A4 /* ColumnCountDynamicAsignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */; };
+		6B3B80E721BB89C40012EA63 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3B80E621BB89C40012EA63 /* UIImageView+.swift */; };
+		6B3B80E921BB8BF50012EA63 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3B80E821BB8BF50012EA63 /* UICollectionView+.swift */; };
 		6B3D506D216640D800D1BD85 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D506C216640D800D1BD85 /* UITableView+.swift */; };
 		6B8DEE31217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE2F217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift */; };
 		6B8DEE32217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE30217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib */; };
@@ -129,6 +131,8 @@
 		6B33DF732158BDB9006143A4 /* Column.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		6B33DF742158BDBA006143A4 /* ColumnContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnContainer.swift; sourceTree = "<group>"; };
 		6B33DF852158C08B006143A4 /* ColumnCountDynamicAsignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnCountDynamicAsignable.swift; sourceTree = "<group>"; };
+		6B3B80E621BB89C40012EA63 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		6B3B80E821BB8BF50012EA63 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		6B3D506C216640D800D1BD85 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		6B8DEE2F217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuActionIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		6B8DEE30217C4A1F00D2D01F /* MenuActionIconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuActionIconCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -505,6 +509,8 @@
 				6B2713B3215A855C00CBB58E /* CGSize+.swift */,
 				6B3D506C216640D800D1BD85 /* UITableView+.swift */,
 				6B8DEE35217C535700D2D01F /* Bundle+.swift */,
+				6B3B80E621BB89C40012EA63 /* UIImageView+.swift */,
+				6B3B80E821BB8BF50012EA63 /* UICollectionView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -848,6 +854,7 @@
 				6BDAE52D215265EC00BBB47A /* RangeSliderConfiguration.swift in Sources */,
 				6BDAE54421526B2500BBB47A /* XibInitializable.swift in Sources */,
 				6BB892A421735825003430DC /* Pageable.swift in Sources */,
+				6B3B80E721BB89C40012EA63 /* UIImageView+.swift in Sources */,
 				6B9863B5217A0B7400D5004C /* PageViewController.swift in Sources */,
 				6BB8928921732ADF003430DC /* PageSynchronizedContainerViewController.swift in Sources */,
 				6B33DF792158BDBA006143A4 /* Column.swift in Sources */,
@@ -876,6 +883,7 @@
 				6BDAE52E215265EC00BBB47A /* PickingState.swift in Sources */,
 				6B33DF5121576B77006143A4 /* ProgressBar.swift in Sources */,
 				6B9863AF2174D8FB00D5004C /* TabMenuViewController.swift in Sources */,
+				6B3B80E921BB8BF50012EA63 /* UICollectionView+.swift in Sources */,
 				6B2713A5215A71B700CBB58E /* RowContainer.swift in Sources */,
 				800D02BE215B904A00F2A55F /* Containerable.swift in Sources */,
 				6BDAE529215265E200BBB47A /* RangeSliderTab.swift in Sources */,
