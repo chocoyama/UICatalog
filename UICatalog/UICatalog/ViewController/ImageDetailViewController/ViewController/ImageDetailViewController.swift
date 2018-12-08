@@ -114,7 +114,18 @@ extension ImageDetailViewController: UICollectionViewDataSource {
     }
 }
 
-extension ImageDetailViewController: UICollectionViewDelegate {}
+extension ImageDetailViewController: UICollectionViewDelegate {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        
+        self.transitionImageView.image = self.images[indexPath.item]
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+        transitionImageView.layer.add(transition, forKey: nil)
+    }
+}
 
 extension ImageDetailViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
