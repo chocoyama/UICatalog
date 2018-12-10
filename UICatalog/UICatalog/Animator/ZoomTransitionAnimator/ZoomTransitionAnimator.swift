@@ -160,15 +160,31 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         let isHorizontalImage = imageWidth / imageHeight > 1
         let isVerticalImage = imageWidth / imageHeight < 1
         
+        let toViewWidth = (viewHeight * imageWidth) / imageHeight
+        let toViewHeight = (viewWidth * imageHeight) / imageWidth
         if isHorizontalImage || (isSquareImage && viewHeight > viewWidth) {
-            let toViewWidth = (viewHeight * imageWidth) / imageHeight
+            if toViewWidth < viewWidth {
+                let toOriginY = (toViewHeight - viewHeight) / 2
+                return CGRect(x: originalFrame.origin.x,
+                              y: originalFrame.origin.y - toOriginY,
+                              width: viewWidth,
+                              height: toViewHeight)
+            }
+            
             let toOriginX = (toViewWidth - viewWidth) / 2
             return CGRect(x: originalFrame.origin.x - toOriginX,
                           y: originalFrame.origin.y,
                           width: toViewWidth,
                           height: viewHeight)
         } else if isVerticalImage || (isSquareImage && viewWidth > viewHeight) {
-            let toViewHeight = (viewWidth * imageHeight) / imageWidth
+            if toViewHeight < viewHeight {
+                let toOriginX = (toViewWidth - viewWidth) / 2
+                return CGRect(x: originalFrame.origin.x - toOriginX,
+                              y: originalFrame.origin.y,
+                              width: toViewWidth,
+                              height: viewHeight)
+            }
+            
             let toOriginY = (toViewHeight - viewHeight) / 2
             return CGRect(x: originalFrame.origin.x,
                           y: originalFrame.origin.y - toOriginY,

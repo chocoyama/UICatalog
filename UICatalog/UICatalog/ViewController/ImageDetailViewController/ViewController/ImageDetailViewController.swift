@@ -133,7 +133,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         let translation = sender.translation(in: view)
         let position = CGPoint(x: translation.x + self.defaultImageFrame.midX,
                                y: translation.y + self.defaultImageFrame.midY)
-        let threshold: CGFloat = 180
+        let threshold: CGFloat = 160
         let fraction = abs(translation.y / threshold)
         
         switch sender.state {
