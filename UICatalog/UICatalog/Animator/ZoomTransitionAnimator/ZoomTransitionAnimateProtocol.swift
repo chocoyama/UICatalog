@@ -16,6 +16,7 @@ public protocol ZoomTransitionFromAnimateProtocol {
     var selectedCollectionView: UICollectionView? { get }
     var latestTransitionIndexPath: IndexPath? { get set }
     var selectedImage: UIImage? { get set }
+    var initialContentMode: UIView.ContentMode { get set }
 }
 
 extension ZoomTransitionFromAnimateProtocol {
@@ -26,6 +27,7 @@ extension ZoomTransitionFromAnimateProtocol {
         cell.isHidden = true
         let imageView = UIImageView(frame: getRectByIndexPath(indexPath: indexPath))
         imageView.image = image
+        imageView.contentMode = initialContentMode
         return imageView
     }
     

@@ -13,8 +13,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     @discardableResult
-    func configure(image: UIImage) -> Self {
+    func configure(image: UIImage, contentMode: UIView.ContentMode = .scaleAspectFit) -> Self {
         self.imageView.image = image
+        self.imageView.contentMode = contentMode
         return self
     }
 

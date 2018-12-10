@@ -10,12 +10,20 @@ import UIKit
 import UICatalog
 
 class ZoomTransitionAnimatorViewController: UIViewController, ZoomTransitionFromAnimateProtocol {
-
     var selectedCollectionView: UICollectionView? { return collectionView }
     var latestTransitionIndexPath: IndexPath?
     var selectedImage: UIImage?
+    var initialContentMode: UIView.ContentMode = .scaleAspectFill
     
-    private let dataSource: [UIImage] = (0..<100).map { _ in UIImage(named: "cat")! }
+    private let dataSource: [UIImage] = {
+        let images = [
+            UIImage(named: "flower")!,
+            UIImage(named: "load")!,
+            UIImage(named: "cat")!,
+            UIImage(named: "sky")!
+        ]
+        return images + images + images + images + images
+    }()
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -35,7 +43,7 @@ extension ZoomTransitionAnimatorViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return ImageCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
-                .configure(image: dataSource[indexPath.item])
+                .configure(image: dataSource[indexPath.item], contentMode: initialContentMode)
     }
 }
 
@@ -47,15 +55,8 @@ extension ZoomTransitionAnimatorViewController: UICollectionViewDelegate {
         self.latestTransitionIndexPath = indexPath
         self.selectedImage = selectedImage
         
-        let initialElement: (image: UIImage, index: Int) = (image: selectedImage, index: 2)
-        let resources: [PhotoResource] = [
-            .image(UIImage(named: "flower")!),
-            .image(UIImage(named: "load")!),
-            .image(image),
-            .image(UIImage(named: "sky")!)
-        ]
-        let vc = ImageDetailViewController(initialElement: initialElement,
-                                           resources: resources + resources + resources,
+        let vc = ImageDetailViewController(initialElement: (image: selectedImage, index: indexPath.item),
+                                           resources: dataSource.map { PhotoResource.image($0) },
                                            backgroundColor: .white)
         present(vc, animated: true, completion: nil)
     }

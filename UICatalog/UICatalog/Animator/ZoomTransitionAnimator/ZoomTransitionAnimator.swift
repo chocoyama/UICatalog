@@ -96,6 +96,10 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         // setup transitionImageView
         let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
         transitionImageView.frame = convertedRect
+        if transitionImageView.contentMode == .scaleAspectFill {
+            transitionImageView.frame = adjustedFrameForScaleAspectFill(originalFrame: transitionImageView.frame,
+                                                                        imageSize: transitionImageView.image?.size ?? .zero)
+        }
         transitionImageView.contentMode = .scaleAspectFit
         containerView.addSubview(transitionImageView)
         
@@ -126,15 +130,37 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         transitionImageView.frame = convertedRect
         transitionImageView.contentMode = .scaleAspectFit
         containerView.addSubview(transitionImageView)
-
+        
+        var toFrame = toVCZoomTransitionAnimatorProtocol.previousFrame()
+        if toVCZoomTransitionAnimatorProtocol.initialContentMode == .scaleAspectFill {
+            toFrame = adjustedFrameForScaleAspectFill(originalFrame: toVCZoomTransitionAnimatorProtocol.previousFrame(),
+                                                      imageSize: transitionImageView.image?.size ?? .zero)
+        }
+        
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
             containerView.backgroundColor = self.backgroundColor.fromColor
-            transitionImageView.frame = toVCZoomTransitionAnimatorProtocol.previousFrame()
+            transitionImageView.frame = toFrame
         }, completion: { (finished) -> Void in
             transitionImageView.removeFromSuperview()
             containerView.addSubview(fromView)
             toVCZoomTransitionAnimatorProtocol.didEndZoomTransiton()
             transitionContext.completeTransition(true)
         })
+    }
+    
+    private func adjustedFrameForScaleAspectFill(originalFrame: CGRect, imageSize: CGSize) -> CGRect {
+        var toFrame = originalFrame
+        
+        let initialWidth = originalFrame.size.width
+        let initialHeight = originalFrame.size.height
+        
+        let multiplier = imageSize.height > imageSize.width ? (imageSize.height / imageSize.width) : (imageSize.width / imageSize.height)
+        toFrame.size.width *= multiplier
+        toFrame.size.height *= multiplier
+        
+        toFrame.origin.x -= (toFrame.size.width - initialWidth) / 2
+        toFrame.origin.y -= (toFrame.size.height - initialHeight) / 2
+        
+        return toFrame
     }
 }
