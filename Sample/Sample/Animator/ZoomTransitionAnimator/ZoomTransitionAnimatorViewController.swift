@@ -47,9 +47,9 @@ extension ZoomTransitionAnimatorViewController: UICollectionViewDelegate {
         self.selectedImage = image
         
         let resources: [PhotoResource] = [
-            .image(UIImage(named: "flower")!), .image(image), .image(UIImage(named: "sky")!)
+            .image(UIImage(named: "flower")!), .image(UIImage(named: "load")!), .image(image), .image(UIImage(named: "sky")!)
         ]
-        let vc = ImageDetailViewController(initialElement: (image: image, index: 1),
+        let vc = ImageDetailViewController(initialElement: (image: UIImage(named: "load")!, index: 1),
                                            resources: resources + resources + resources,
                                            backgroundColor: .white)
         present(vc, animated: true, completion: nil)

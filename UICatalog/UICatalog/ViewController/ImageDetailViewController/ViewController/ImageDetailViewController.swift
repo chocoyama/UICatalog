@@ -53,6 +53,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         let imageView = UIImageView(frame: defaultImageFrame)
         imageView.image = initialElement.image
         imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
         self.transitionImageView = imageView
         
         super.init(nibName: "ImageDetailViewController", bundle: .current)
@@ -274,19 +275,15 @@ extension ImageDetailViewController: UICollectionViewDelegate {
 
 extension ImageDetailViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewHeight = collectionView.bounds.height
-        return CGSize(width: collectionViewHeight, height: collectionViewHeight)
-//        switch collectionView {
-//        case thumbnailCollectionView:
-//            let collectionViewHeight = collectionView.bounds.height
-//            return CGSize(width: collectionViewHeight, height: collectionViewHeight)
-//        case detailCollectionView:
-//            switch resources[indexPath.item] {
-//            case .image(let image): return image.screenAdjustFrame.size
-//            }
-//        default:
-//            return .zero
-//        }
+        switch collectionView {
+        case thumbnailCollectionView:
+            let collectionViewHeight = collectionView.bounds.height
+            return CGSize(width: collectionViewHeight, height: collectionViewHeight)
+        case detailCollectionView:
+            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        default:
+            return .zero
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
