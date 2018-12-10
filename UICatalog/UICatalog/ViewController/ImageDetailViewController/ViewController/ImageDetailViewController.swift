@@ -117,13 +117,14 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     }
     
     open func reset() {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.backgroundColor = self.backgroundColor.toColor
-            self.transitionImageView.isHidden = true
-            self.detailCollectionView.isHidden = false
             self.thumbnailCollectionView.alpha = 1.0
             self.closeButton.alpha = 1.0
             self.transitionImageView.frame = self.defaultImageFrame
+        }) { (finished) in
+            self.transitionImageView.isHidden = true
+            self.detailCollectionView.isHidden = false
         }
     }
     
