@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="OYr-Xj-7pC">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="OYr-Xj-7pC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ixl-uK-era">
@@ -34,7 +34,7 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6l4-St-UYa">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6l4-St-UYa">
                     <rect key="frame" x="0.0" y="584.5" width="375" height="66.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aiu-aQ-itH">
@@ -45,13 +45,17 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 / 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90x-KL-ohF">
-                    <rect key="frame" x="318.5" y="36" width="40.5" height="180"/>
+                    <rect key="frame" x="318.5" y="36" width="40.5" height="40"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="df6-0Y-yPV">
-                    <rect key="frame" x="16" y="36" width="180" height="180"/>
+                    <rect key="frame" x="16" y="36" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="A3x-uT-6pp"/>
+                        <constraint firstAttribute="width" constant="40" id="m89-FC-gT2"/>
+                    </constraints>
                     <state key="normal" image="close/black"/>
                     <connections>
                         <action selector="didTappedCloseButton:" destination="-1" eventType="touchUpInside" id="CgY-od-mAG"/>
