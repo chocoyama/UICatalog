@@ -137,9 +137,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         
         switch sender.state {
         case .began:
-            transitionImageView.isHidden = false
-            detailCollectionView.isHidden = true
-            transitionImageView.frame = self.defaultImageFrame
+            setupAnimation()
         case .changed:
             self.view.backgroundColor = backgroundColor.toColor.withAlphaComponent(0.9 - fraction * 0.6)
             self.thumbnailCollectionView.alpha = 1.0 - fraction
@@ -157,7 +155,14 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     }
     
     @IBAction func didTappedCloseButton(_ sender: UIButton) {
+        setupAnimation()
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupAnimation() {
+        transitionImageView.isHidden = false
+        detailCollectionView.isHidden = true
+        transitionImageView.frame = self.defaultImageFrame
     }
     
     private func requestSetImage(_ urlString: String, to imageView: UIImageView) {
