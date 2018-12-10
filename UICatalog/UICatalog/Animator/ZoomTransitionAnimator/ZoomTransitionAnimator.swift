@@ -59,6 +59,7 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
             }
             presentAnimation(transitionContext: transitionContext,
                              transitionImageView: transitionImageView,
+                             initialContentMode: fromVCZoomTransitionAnimator.initialContentMode,
                              toView: toVC.view)
         case .dismiss:
             guard let fromVCZoomTransitionAnimator = fromVC as? ZoomTransitionToAnimateProtocol,
@@ -83,6 +84,7 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     
     private func presentAnimation(transitionContext: UIViewControllerContextTransitioning,
                                   transitionImageView: UIImageView,
+                                  initialContentMode: UIView.ContentMode,
                                   toView: UIView) {
         // setup containerView
         let containerView = transitionContext.containerView
@@ -96,7 +98,7 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         // setup transitionImageView
         let convertedRect = transitionImageView.convert(transitionImageView.bounds, to: containerView)
         transitionImageView.frame = convertedRect
-        if transitionImageView.contentMode == .scaleAspectFill {
+        if initialContentMode == .scaleAspectFill {
             transitionImageView.frame = adjustedFrameForScaleAspectFill(originalFrame: transitionImageView.frame,
                                                                         imageSize: transitionImageView.image?.size ?? .zero)
         }
@@ -149,22 +151,31 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     }
     
     private func adjustedFrameForScaleAspectFill(originalFrame: CGRect, imageSize: CGSize) -> CGRect {
-        if imageSize.height == imageSize.width {
+        let viewWidth = originalFrame.size.width
+        let viewHeight = originalFrame.size.height
+        let imageWidth = imageSize.width
+        let imageHeight = imageSize.height
+        
+        let isSquareImage = imageWidth / imageHeight == 1
+        let isHorizontalImage = imageWidth / imageHeight > 1
+        let isVerticalImage = imageWidth / imageHeight < 1
+        
+        if isHorizontalImage || (isSquareImage && viewHeight > viewWidth) {
+            let toViewWidth = (viewHeight * imageWidth) / imageHeight
+            let toOriginX = (toViewWidth - viewWidth) / 2
+            return CGRect(x: originalFrame.origin.x - toOriginX,
+                          y: originalFrame.origin.y,
+                          width: toViewWidth,
+                          height: viewHeight)
+        } else if isVerticalImage || (isSquareImage && viewWidth > viewHeight) {
+            let toViewHeight = (viewWidth * imageHeight) / imageWidth
+            let toOriginY = (toViewHeight - viewHeight) / 2
+            return CGRect(x: originalFrame.origin.x,
+                          y: originalFrame.origin.y - toOriginY,
+                          width: viewWidth,
+                          height: toViewHeight)
+        } else {
             return originalFrame
         }
-        
-        var toFrame = originalFrame
-        
-        let initialWidth = originalFrame.size.width
-        let initialHeight = originalFrame.size.height
-        
-        let multiplier = imageSize.height > imageSize.width ? (imageSize.height / imageSize.width) : (imageSize.width / imageSize.height)
-        toFrame.size.width *= multiplier
-        toFrame.size.height *= multiplier
-        
-        toFrame.origin.x -= (toFrame.size.width - initialWidth) / 2
-        toFrame.origin.y -= (toFrame.size.height - initialHeight) / 2
-        
-        return toFrame
     }
 }
