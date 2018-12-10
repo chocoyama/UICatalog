@@ -42,14 +42,19 @@ extension ZoomTransitionAnimatorViewController: UICollectionViewDataSource {
 extension ZoomTransitionAnimatorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = dataSource[indexPath.item]
+        let selectedImage = image
         
         self.latestTransitionIndexPath = indexPath
-        self.selectedImage = image
+        self.selectedImage = selectedImage
         
+        let initialElement: (image: UIImage, index: Int) = (image: selectedImage, index: 2)
         let resources: [PhotoResource] = [
-            .image(UIImage(named: "flower")!), .image(UIImage(named: "load")!), .image(image), .image(UIImage(named: "sky")!)
+            .image(UIImage(named: "flower")!),
+            .image(UIImage(named: "load")!),
+            .image(image),
+            .image(UIImage(named: "sky")!)
         ]
-        let vc = ImageDetailViewController(initialElement: (image: UIImage(named: "load")!, index: 1),
+        let vc = ImageDetailViewController(initialElement: initialElement,
                                            resources: resources + resources + resources,
                                            backgroundColor: .white)
         present(vc, animated: true, completion: nil)

@@ -101,19 +101,7 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
             containerView.backgroundColor = self.backgroundColor.toColor
-            switch UIApplication.shared.statusBarOrientation {
-            case .portrait, .portraitUpsideDown:
-                transitionImageView.frame.size.height *= containerView.frame.width / transitionImageView.frame.size.width
-                transitionImageView.frame.size.width = containerView.frame.width
-                transitionImageView.frame.origin.x = 0.0
-                transitionImageView.frame.origin.y = (UIScreen.main.bounds.height) / 2 - transitionImageView.frame.size.height / 2
-            case .landscapeLeft, .landscapeRight:
-                transitionImageView.frame.size.width *= containerView.frame.height / transitionImageView.frame.size.height
-                transitionImageView.frame.size.height = containerView.frame.height
-                transitionImageView.frame.origin.x = containerView.frame.width / 2 - transitionImageView.frame.size.width / 2
-                transitionImageView.frame.origin.y = 0.0
-            case .unknown: break
-            }
+            transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height)
         }) { (finished) -> Void in
             maskView.removeFromSuperview()
             transitionImageView.removeFromSuperview()

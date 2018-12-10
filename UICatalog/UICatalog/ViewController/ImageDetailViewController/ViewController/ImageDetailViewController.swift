@@ -21,7 +21,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     public let transitionImageView: UIImageView
     private let defaultImageFrame: CGRect
     
-    private let initialIndex: Int
+    private let initialElement: (image: UIImage, index: Int)
     private let resources: [PhotoResource]
     private let backgroundColor: ZoomTransitionAnimator.BackgroundColor
     
@@ -45,15 +45,20 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     public init(initialElement: (image: UIImage, index: Int),
                 resources: [PhotoResource],
                 backgroundColor: ZoomTransitionAnimator.BackgroundColor) {
-        self.initialIndex = initialElement.index
+        self.initialElement = initialElement
         self.backgroundColor = backgroundColor
         
         self.resources = resources
-        self.defaultImageFrame = initialElement.image.screenAdjustFrame
+        
+        self.defaultImageFrame = CGRect(x: 0,
+                                        y: 0,
+                                        width: UIScreen.main.bounds.width,
+                                        height: UIScreen.main.bounds.height)
         let imageView = UIImageView(frame: defaultImageFrame)
         imageView.image = initialElement.image
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
         self.transitionImageView = imageView
         
         super.init(nibName: "ImageDetailViewController", bundle: .current)
@@ -103,7 +108,9 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         self.transitionImageView.isHidden = false
         self.detailCollectionView.isHidden = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.selectThumbnailItem(at: IndexPath(item: self.initialIndex, section: 0), animated: false)
+            self.selectThumbnailItem(at: IndexPath(item: self.initialElement.index, section: 0),
+                                     animatedDetail: false,
+                                     animatedThumbnail: true)
             self.transitionImageView.isHidden = true
             self.detailCollectionView.isHidden = false
         }
@@ -222,9 +229,12 @@ extension ImageDetailViewController: UICollectionViewDataSource {
 extension ImageDetailViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
-        case thumbnailCollectionView: selectThumbnailItem(at: indexPath, animated: true)
-        case detailCollectionView: break
-        default: break
+        case thumbnailCollectionView:
+            selectThumbnailItem(at: indexPath, animatedDetail: true, animatedThumbnail: true)
+        case detailCollectionView:
+            break
+        default:
+            break
         }
     }
     
@@ -244,10 +254,13 @@ extension ImageDetailViewController: UICollectionViewDelegate {
         }
     }
     
-    private func selectThumbnailItem(at indexPath: IndexPath, animated: Bool) {
-        [detailCollectionView, thumbnailCollectionView].forEach {
-            $0.selectItem(at: indexPath, animated: animated, scrollPosition: .centeredHorizontally)
-        }
+    private func selectThumbnailItem(at indexPath: IndexPath, animatedDetail: Bool, animatedThumbnail: Bool) {
+        detailCollectionView.selectItem(at: indexPath,
+                                        animated: animatedDetail,
+                                        scrollPosition: .centeredHorizontally)
+        thumbnailCollectionView.selectItem(at: indexPath,
+                                           animated: animatedThumbnail,
+                                           scrollPosition: .centeredHorizontally)
         
         pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
         updateTransitionImageView(atIndex: indexPath.item)
@@ -280,7 +293,7 @@ extension ImageDetailViewController: UICollectionViewDelegateFlowLayout {
             let collectionViewHeight = collectionView.bounds.height
             return CGSize(width: collectionViewHeight, height: collectionViewHeight)
         case detailCollectionView:
-            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+            return collectionView.frame.size
         default:
             return .zero
         }
