@@ -149,6 +149,10 @@ open class ZoomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     }
     
     private func adjustedFrameForScaleAspectFill(originalFrame: CGRect, imageSize: CGSize) -> CGRect {
+        if imageSize.height == imageSize.width {
+            return originalFrame
+        }
+        
         var toFrame = originalFrame
         
         let initialWidth = originalFrame.size.width
