@@ -81,10 +81,12 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         switch backgroundColor {
         case .white:
             pageCounterLabel.textColor = .black
-            closeButton.imageView?.image = UIImage(named: "close/black")
+            closeButton.setImage(UIImage(named: "close/black", in: .current, compatibleWith: nil),
+                                 for: .normal)
         case .black:
             pageCounterLabel.textColor = .white
-            closeButton.imageView?.image = UIImage(named: "close/white")
+            closeButton.setImage(UIImage(named: "close/white", in: .current, compatibleWith: nil),
+                                 for: .normal)
         }
         
         // transitionImageView
