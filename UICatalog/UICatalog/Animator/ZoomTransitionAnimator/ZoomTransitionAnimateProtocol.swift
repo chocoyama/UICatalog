@@ -13,15 +13,15 @@ public protocol ZoomTransitionToAnimateProtocol {
 }
 
 public protocol ZoomTransitionFromAnimateProtocol {
-    var collectionView: UICollectionView! { get }
+    var selectedCollectionView: UICollectionView? { get }
     var latestTransitionIndexPath: IndexPath? { get set }
     var selectedImage: UIImage? { get set }
 }
 
 extension ZoomTransitionFromAnimateProtocol {
     func transitionImageView() -> UIImageView? {
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
-            let cell = collectionView.cellForItem(at: indexPath),
+        guard let indexPath = selectedCollectionView?.indexPathsForSelectedItems?.first,
+            let cell = selectedCollectionView?.cellForItem(at: indexPath),
             let image = selectedImage else { return nil }
         cell.isHidden = true
         let imageView = UIImageView(frame: getRectByIndexPath(indexPath: indexPath))
@@ -30,7 +30,7 @@ extension ZoomTransitionFromAnimateProtocol {
     }
     
     func getRectByIndexPath(indexPath: IndexPath) -> CGRect {
-        guard let cell = collectionView.cellForItem(at: indexPath),
+        guard let cell = selectedCollectionView?.cellForItem(at: indexPath),
             let rootView = UIApplication.shared.keyWindow?.rootViewController?.view else { return CGRect.zero }
         let convertedRect = cell.convert(cell.bounds, to: rootView)
         return convertedRect
@@ -43,7 +43,7 @@ extension ZoomTransitionFromAnimateProtocol {
     
     func didEndZoomTransiton() {
         guard let indexPath = latestTransitionIndexPath else { return }
-        let cell = collectionView.cellForItem(at: indexPath)
+        let cell = selectedCollectionView?.cellForItem(at: indexPath)
         cell?.isHidden = false
     }
 }

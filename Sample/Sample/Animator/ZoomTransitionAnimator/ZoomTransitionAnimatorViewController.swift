@@ -11,6 +11,7 @@ import UICatalog
 
 class ZoomTransitionAnimatorViewController: UIViewController, ZoomTransitionFromAnimateProtocol {
 
+    var selectedCollectionView: UICollectionView? { return collectionView }
     var latestTransitionIndexPath: IndexPath?
     var selectedImage: UIImage?
     
@@ -46,9 +47,9 @@ extension ZoomTransitionAnimatorViewController: UICollectionViewDelegate {
         self.selectedImage = image
         
         let resources: [PhotoResource] = [
-            .image(image), .image(UIImage(named: "flower")!), .image(UIImage(named: "sky")!)
+            .image(UIImage(named: "flower")!), .image(image), .image(UIImage(named: "sky")!)
         ]
-        let vc = ImageDetailViewController(firstImage: image,
+        let vc = ImageDetailViewController(initialElement: (image: image, index: 1),
                                            resources: resources + resources + resources,
                                            backgroundColor: .white)
         present(vc, animated: true, completion: nil)

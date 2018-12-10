@@ -21,6 +21,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
     public let transitionImageView: UIImageView
     private let defaultImageFrame: CGRect
     
+    private let initialIndex: Int
     private let resources: [PhotoResource]
     private let backgroundColor: ZoomTransitionAnimator.BackgroundColor
     
@@ -41,13 +42,16 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         }
     }
     
-    public init(firstImage: UIImage, resources: [PhotoResource], backgroundColor: ZoomTransitionAnimator.BackgroundColor) {
+    public init(initialElement: (image: UIImage, index: Int),
+                resources: [PhotoResource],
+                backgroundColor: ZoomTransitionAnimator.BackgroundColor) {
+        self.initialIndex = initialElement.index
         self.backgroundColor = backgroundColor
         
         self.resources = resources
-        self.defaultImageFrame = firstImage.screenAdjustFrame
+        self.defaultImageFrame = initialElement.image.screenAdjustFrame
         let imageView = UIImageView(frame: defaultImageFrame)
-        imageView.image = firstImage
+        imageView.image = initialElement.image
         imageView.backgroundColor = .clear
         self.transitionImageView = imageView
         
@@ -68,6 +72,7 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         super.viewDidLoad()
         transitioningDelegate = self
         configureSubviews()
+        showDetailForSmoothDisplaying()
     }
     
     private func configureSubviews() {
@@ -91,7 +96,16 @@ open class ImageDetailViewController: UIViewController, ZoomTransitionToAnimateP
         
         // transitionImageView
         view.addSubview(transitionImageView)
-        transitionImageView.isHidden = true
+    }
+    
+    private func showDetailForSmoothDisplaying() {
+        self.transitionImageView.isHidden = false
+        self.detailCollectionView.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.selectThumbnailItem(at: IndexPath(item: self.initialIndex, section: 0), animated: false)
+            self.transitionImageView.isHidden = true
+            self.detailCollectionView.isHidden = false
+        }
     }
     
     open func reset() {
@@ -207,54 +221,53 @@ extension ImageDetailViewController: UICollectionViewDataSource {
 extension ImageDetailViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
-        case thumbnailCollectionView:
-            [detailCollectionView, thumbnailCollectionView].forEach {
-                $0.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-            }
-            
-            pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
-            
-            switch resources[indexPath.item] {
-            case .image(let image): transitionImageView.image = image
-            case .url(let url): requestSetImage(url, to: transitionImageView)
-            case .urlString(let urlString): requestSetImage(urlString, to: transitionImageView)
-            }
-        case detailCollectionView:
-            break
-        default:
-            break
+        case thumbnailCollectionView: selectThumbnailItem(at: indexPath, animated: true)
+        case detailCollectionView: break
+        default: break
         }
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         switch scrollView {
-        case thumbnailCollectionView:
-            break
-        case detailCollectionView:
-            if let indexPath = detailCollectionView.centerIndexPath {
-                switch resources[indexPath.item] {
-                case .image(let image): transitionImageView.image = image
-                case .url(let url): requestSetImage(url, to: transitionImageView)
-                case .urlString(let urlString): requestSetImage(urlString, to: transitionImageView)
-                }
-            }
-        default:
-            break
+        case thumbnailCollectionView: break
+        case detailCollectionView: selectDetailItem()
+        default: break
         }
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         switch scrollView {
-        case thumbnailCollectionView:
-            break
-        case detailCollectionView:
-            if let indexPath = detailCollectionView.centerIndexPath {
-                pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
-                
-                thumbnailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-            }
-        default:
-            break
+        case thumbnailCollectionView: break
+        case detailCollectionView: scrolledDetailItem()
+        default: break
+        }
+    }
+    
+    private func selectThumbnailItem(at indexPath: IndexPath, animated: Bool) {
+        [detailCollectionView, thumbnailCollectionView].forEach {
+            $0.selectItem(at: indexPath, animated: animated, scrollPosition: .centeredHorizontally)
+        }
+        
+        pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
+        updateTransitionImageView(atIndex: indexPath.item)
+    }
+    
+    private func selectDetailItem() {
+        guard let indexPath = detailCollectionView.centerIndexPath else { return }
+        updateTransitionImageView(atIndex: indexPath.item)
+    }
+    
+    private func scrolledDetailItem() {
+        guard let indexPath = detailCollectionView.centerIndexPath else { return }
+        pageCounterLabel.text = "\(indexPath.item + 1) / \(resources.count)"
+        thumbnailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+    }
+    
+    private func updateTransitionImageView(atIndex index: Int) {
+        switch resources[index] {
+        case .image(let image): transitionImageView.image = image
+        case .url(let url): requestSetImage(url, to: transitionImageView)
+        case .urlString(let urlString): requestSetImage(urlString, to: transitionImageView)
         }
     }
 }
