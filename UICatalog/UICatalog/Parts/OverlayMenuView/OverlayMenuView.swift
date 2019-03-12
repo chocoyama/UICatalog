@@ -83,12 +83,12 @@ open class OverlayMenuView: UIView, XibInitializable {
         }
         
         if let customView = configuration.customView {
-            contentView.insertSubview(customView, at: 0)
+            contentView.addSubview(customView)
             customView.translatesAutoresizingMaskIntoConstraints = false
             customView.topAnchor.constraint(equalTo: knobView.bottomAnchor, constant: 8.0).isActive = true
             customView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
             customView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-            customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+            customView.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
         }
     }
 }

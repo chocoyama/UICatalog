@@ -19,10 +19,10 @@ extension OverlayMenuView {
             }
         }
         
-        let `default`: Value
-        let compact: Value
-        let overlay: Value
-        let none: Value
+        public let `default`: Value
+        public let compact: Value
+        public let overlay: Value
+        public let none: Value
         
         init(
             default: Value = .init(coverRate: 0.2, alpha: 0.2),
