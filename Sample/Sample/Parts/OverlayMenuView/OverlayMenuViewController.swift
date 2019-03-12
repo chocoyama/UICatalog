@@ -18,6 +18,7 @@ class OverlayMenuViewController: UIViewController {
         
         var configuration = OverlayMenuView.Configuration()
         configuration.enablePresentingViewInteraction = true
+        configuration.customView = NumberingViewController(pageNumber: 0).view
         overlayMenuView.setUp(with: configuration)
     }
     
