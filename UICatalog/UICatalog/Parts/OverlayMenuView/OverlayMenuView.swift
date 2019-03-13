@@ -29,7 +29,6 @@ open class OverlayMenuView: UIView, XibInitializable {
     private var customViewBottomConstraint: NSLayoutConstraint?
     private var customViewTotalTopMargin: CGFloat = .leastNormalMagnitude
     
-    private let position = Position()
     private var configuration = Configuration()
     
     required public init?(coder aDecoder: NSCoder) {
@@ -52,11 +51,14 @@ open class OverlayMenuView: UIView, XibInitializable {
         if contentView.frame.contains(point) {
             return tappedView
         } else {
-            update(position: position.compact)
+            update(position: configuration.position.compact)
             return nil
         }
     }
-    
+}
+
+// MARK: Public
+ extension OverlayMenuView {
     open func setUp(with configuration: Configuration) {
         self.configuration = configuration
         configureSubviews(by: configuration)
@@ -72,7 +74,10 @@ open class OverlayMenuView: UIView, XibInitializable {
             self.layoutIfNeeded()
         }
     }
-    
+ }
+ 
+ // MARK: Private
+ extension OverlayMenuView {
     private func configureSubviews(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             backgroundMaskView.isHidden = true
@@ -84,11 +89,11 @@ open class OverlayMenuView: UIView, XibInitializable {
             set(customView)
         }
         
-        update(position: position.default, animated: false)
+        update(position: configuration.position.initial, animated: false)
     }
     
     private func set(_ customView: UIView) {
-        update(position: position.overlay, animated: false)
+        update(position: configuration.position.overlay, animated: false)
         
         let topMargin: CGFloat = 8.0
         customViewTotalTopMargin = frame.origin.y + knobView.frame.maxY + topMargin - 1
@@ -101,9 +106,8 @@ open class OverlayMenuView: UIView, XibInitializable {
         customViewBottomConstraint = customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -customViewTotalTopMargin)
         customViewBottomConstraint?.isActive = true
     }
-    
-}
-
+ }
+ 
 // MARK: Action
 extension OverlayMenuView {
     private func assignGestures(by configuration: Configuration) {
@@ -123,18 +127,18 @@ extension OverlayMenuView {
     }
     
     @objc private func didTappedMaskView(_ sender: UITapGestureRecognizer) {
-        update(position: position.compact)
+        update(position: configuration.position.compact)
     }
     
     @objc private func didTappedContentView(_ sender: UITapGestureRecognizer) {
-        update(position: position.overlay)
+        update(position: configuration.position.overlay)
     }
     
     @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {
         let nextConstant = contentViewTopConstraint.constant + sender.translation(in: self).y
         
-        let minConstant: CGFloat = position.overlay.calculateOriginY(from: self.bounds)
-        let maxConstant: CGFloat = position.compact.calculateOriginY(from: self.bounds)
+        let minConstant: CGFloat = configuration.position.overlay.calculateOriginY(from: self.bounds)
+        let maxConstant: CGFloat = configuration.position.compact.calculateOriginY(from: self.bounds)
         let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
         
         if shouldMoveMenu {
