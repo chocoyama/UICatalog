@@ -25,7 +25,7 @@ extension OverlayMenuView {
         public let none: Value
         
         init(
-            default: Value = .init(coverRate: 0.2, alpha: 0.2),
+            default: Value = .init(coverRate: 0.3, alpha: 0.2),
             compact: Value = .init(coverRate: 0.1, alpha: 0.2),
             overlay: Value = .init(coverRate: 0.95, alpha: 0.2),
             none: Value = .init(coverRate: 0.0, alpha: 0.0)

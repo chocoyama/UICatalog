@@ -34,7 +34,7 @@
                 <constraint firstItem="TfZ-Ka-1Xn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="4xi-gh-5EB"/>
                 <constraint firstItem="TfZ-Ka-1Xn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="6Ra-4f-sWq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uLj-61-icE" secondAttribute="trailing" id="Qds-sW-Ivd"/>
-                <constraint firstAttribute="bottom" secondItem="uLj-61-icE" secondAttribute="bottom" id="Y8B-yS-HDy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="uLj-61-icE" secondAttribute="bottom" id="Y8B-yS-HDy"/>
                 <constraint firstItem="uLj-61-icE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gw1-lc-fEz"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

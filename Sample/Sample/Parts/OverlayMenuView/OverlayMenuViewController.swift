@@ -16,10 +16,24 @@ class OverlayMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let childViewController = AdaptiveItemHeightLayoutViewController
+            .instantiate(storyboardName: "AdaptiveItemHeightLayoutViewController")
+        childViewController.layout = AdaptiveItemSizeLayout(adaptType: .height(AdaptiveHeightConfiguration(
+            columnCount: 5,
+            minColumnCount: 1,
+            maxColumnCount: Int.max,
+            minimumInterItemSpacing: 5.0,
+            minimumLineSpacing: 10.0,
+            sectionInsets: UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+        )))
+        addChild(childViewController)
+        
         var configuration = OverlayMenuView.Configuration()
         configuration.enablePresentingViewInteraction = true
-        configuration.customView = NumberingViewController(pageNumber: 0).view
+        configuration.customView = childViewController.view
         overlayMenuView.setUp(with: configuration)
+        
+        childViewController.didMove(toParent: self)
     }
     
 }

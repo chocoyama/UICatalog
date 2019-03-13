@@ -26,6 +26,8 @@ open class OverlayMenuView: UIView, XibInitializable {
     @IBOutlet weak var knobView: UIView!
     
     @IBOutlet weak var contentViewTopConstraint: NSLayoutConstraint!
+    private var customViewBottomConstraint: NSLayoutConstraint?
+    private var customViewTotalTopMargin: CGFloat = .leastNormalMagnitude
     
     private let position = Position()
     private var configuration = Configuration()
@@ -38,11 +40,6 @@ open class OverlayMenuView: UIView, XibInitializable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setXibView()
-    }
-    
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        update(position: position.default)
     }
     
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -69,6 +66,7 @@ open class OverlayMenuView: UIView, XibInitializable {
     open func update(position value: Position.Value, animated: Bool = true) {
         let nextY = value.calculateOriginY(from: self.bounds)
         contentViewTopConstraint.constant = nextY
+        customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
             self.backgroundMaskView.alpha = value.alpha
             self.layoutIfNeeded()
@@ -83,14 +81,27 @@ open class OverlayMenuView: UIView, XibInitializable {
         }
         
         if let customView = configuration.customView {
-            contentView.addSubview(customView)
-            customView.translatesAutoresizingMaskIntoConstraints = false
-            customView.topAnchor.constraint(equalTo: knobView.bottomAnchor, constant: 8.0).isActive = true
-            customView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-            customView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-            customView.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
+            set(customView)
         }
+        
+        update(position: position.default, animated: false)
     }
+    
+    private func set(_ customView: UIView) {
+        update(position: position.overlay, animated: false)
+        
+        let topMargin: CGFloat = 8.0
+        customViewTotalTopMargin = frame.origin.y + knobView.frame.maxY + topMargin - 1
+        
+        contentView.addSubview(customView)
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        customView.topAnchor.constraint(equalTo: knobView.bottomAnchor, constant: topMargin).isActive = true
+        customView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        customView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        customViewBottomConstraint = customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -customViewTotalTopMargin)
+        customViewBottomConstraint?.isActive = true
+    }
+    
 }
 
 // MARK: Action
@@ -128,6 +139,7 @@ extension OverlayMenuView {
         
         if shouldMoveMenu {
             contentViewTopConstraint.constant = nextConstant
+            customViewBottomConstraint?.constant = nextConstant - customViewTotalTopMargin
         }
         
         sender.setTranslation(.zero, in: self)
