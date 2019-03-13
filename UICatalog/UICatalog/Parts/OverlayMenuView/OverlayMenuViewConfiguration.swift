@@ -11,6 +11,7 @@ import Foundation
 extension OverlayMenuView {
     public struct Configuration {
         public var enablePresentingViewInteraction: Bool = false
+        public var customView: UIView?
         
         public init() {}
     }

@@ -15,6 +15,7 @@
                 <outlet property="backgroundMaskView" destination="s7B-aL-OVk" id="twH-CU-sbe"/>
                 <outlet property="contentView" destination="i09-lr-mN7" id="pW5-Aq-H6y"/>
                 <outlet property="contentViewTopConstraint" destination="geU-4K-kpS" id="Ylg-n5-zOX"/>
+                <outlet property="knobView" destination="Zlx-cH-JLC" id="Yzs-I1-Vax"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

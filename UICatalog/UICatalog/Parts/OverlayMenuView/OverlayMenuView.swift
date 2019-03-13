@@ -23,6 +23,7 @@ open class OverlayMenuView: UIView, XibInitializable {
         }
     }
     @IBOutlet weak var backgroundMaskView: UIView!
+    @IBOutlet weak var knobView: UIView!
     
     @IBOutlet weak var contentViewTopConstraint: NSLayoutConstraint!
     
@@ -51,8 +52,8 @@ open class OverlayMenuView: UIView, XibInitializable {
             return tappedView
         }
         
-        if tappedView == contentView {
-            return contentView
+        if contentView.frame.contains(point) {
+            return tappedView
         } else {
             update(position: position.compact)
             return nil
@@ -65,12 +66,9 @@ open class OverlayMenuView: UIView, XibInitializable {
         assignGestures(by: configuration)
     }
     
-//    open func setUp(to parentView: UIView) {
-//        self.overlay(on: parentView)
-//    }
-
     open func update(position value: Position.Value, animated: Bool = true) {
-        contentViewTopConstraint.constant = value.calculateOriginY(from: self.bounds)
+        let nextY = value.calculateOriginY(from: self.bounds)
+        contentViewTopConstraint.constant = nextY
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
             self.backgroundMaskView.alpha = value.alpha
             self.layoutIfNeeded()
@@ -82,6 +80,15 @@ open class OverlayMenuView: UIView, XibInitializable {
             backgroundMaskView.isHidden = true
         } else {
             backgroundMaskView.isHidden = false
+        }
+        
+        if let customView = configuration.customView {
+            contentView.addSubview(customView)
+            customView.translatesAutoresizingMaskIntoConstraints = false
+            customView.topAnchor.constraint(equalTo: knobView.bottomAnchor, constant: 8.0).isActive = true
+            customView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+            customView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+            customView.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
         }
     }
 }
