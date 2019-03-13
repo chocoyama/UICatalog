@@ -55,6 +55,7 @@ extension UIView {
                               opacity: Float,
                               radius: CGFloat,
                               color: UIColor) -> Self {
+        layer.masksToBounds = false
         layer.shadowOffset = offsetSize
         layer.shadowOpacity = opacity
         layer.shadowColor = color.cgColor
