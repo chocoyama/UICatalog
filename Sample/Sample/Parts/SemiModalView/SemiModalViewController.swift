@@ -28,11 +28,9 @@ class SemiModalViewController: UIViewController {
     }()
     
     private let position = SemiModalView.Position(
-        initial: .init(coverRate: 0.0, maskViewAlpha: 0.2),
-        compact: .init(coverRate: 0.1, maskViewAlpha: 0.2),
-        middle: .init(coverRate: 0.3, maskViewAlpha: 0.2),
-        overlay: .init(coverRate: 0.95, maskViewAlpha: 0.2),
-        none: .init(coverRate: 0.0, maskViewAlpha: 0.0)
+        compact: .init(coverRate: 0.2, maskViewAlpha: 0.2),
+        middle: .init(coverRate: 0.4, maskViewAlpha: 0.2),
+        overlay: .init(coverRate: 0.95, maskViewAlpha: 0.2)
     )
     
     override func viewDidLoad() {
@@ -44,7 +42,7 @@ class SemiModalViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        semiModalView.updatePosition(to: position.middle)
+        semiModalView.show(from: position.none, to: position.middle)
     }
     
     private func setUpOverlayMenuView() {

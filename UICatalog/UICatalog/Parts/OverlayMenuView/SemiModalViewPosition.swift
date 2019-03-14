@@ -19,29 +19,34 @@ extension SemiModalView {
                 self.maskViewAlpha = maskViewAlpha
             }
             
-            public func calculateOriginY(from parentBounds: CGRect) -> CGFloat {
-                return parentBounds.height - (parentBounds.height * coverRate)
+            public func calculateOriginY(from bounds: CGRect, parentView: UIView?) -> CGFloat {
+                let safeAreaTop: CGFloat = parentView?.safeAreaInsets.top ?? 0.0
+                let safeAreaBottom: CGFloat = parentView?.safeAreaInsets.bottom ?? 0.0
+                let height = bounds.height + safeAreaTop + safeAreaBottom
+                return height - (height * coverRate)
             }
         }
         
-        public let initial: Value
         public let compact: Value
         public let middle: Value
         public let overlay: Value
-        public let none: Value
+        public let none: Value = .init(coverRate: 0.0, maskViewAlpha: 0.0)
+        
+        public let minimumValue: Value
+        public let maximumValue: Value
         
         public init(
-            initial: Value = .init(coverRate: 0.3, maskViewAlpha: 0.2),
-            compact: Value = .init(coverRate: 0.1, maskViewAlpha: 0.2),
-            middle: Value = .init(coverRate: 0.3, maskViewAlpha: 0.2),
+            compact: Value = .init(coverRate: 0.2, maskViewAlpha: 0.2),
+            middle: Value = .init(coverRate: 0.4, maskViewAlpha: 0.2),
             overlay: Value = .init(coverRate: 0.95, maskViewAlpha: 0.2),
-            none: Value = .init(coverRate: 0.0, maskViewAlpha: 0.0)
+            minimumValue: Value? = nil,
+            maximumValue: Value? = nil
         ) {
-            self.initial = initial
             self.compact = compact
             self.middle = middle
             self.overlay = overlay
-            self.none = none
+            self.minimumValue = minimumValue ?? compact
+            self.maximumValue = maximumValue ?? overlay
         }
     }
 }

@@ -41,6 +41,11 @@ open class SemiModalView: UIView, XibInitializable {
         setXibView()
     }
     
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        self.isHidden = true
+    }
+    
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let tappedView = super.hitTest(point, with: event)
         
@@ -65,8 +70,14 @@ open class SemiModalView: UIView, XibInitializable {
         assignGestures(by: configuration)
     }
     
+    open func show(from fromValue: Position.Value, to toValue: Position.Value) {
+        self.isHidden = false
+        updatePosition(to: fromValue, animated: false)
+        updatePosition(to: toValue, animated: true)
+    }
+    
     open func updatePosition(to value: Position.Value, animated: Bool = true) {
-        let nextY = value.calculateOriginY(from: self.bounds)
+        let nextY = value.calculateOriginY(from: self.bounds, parentView: superview)
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
@@ -88,8 +99,6 @@ open class SemiModalView: UIView, XibInitializable {
         if let customView = configuration.customView {
             set(customView)
         }
-        
-        updatePosition(to: configuration.position.initial, animated: false)
     }
     
     private func set(_ customView: UIView) {
@@ -135,18 +144,29 @@ extension SemiModalView {
     }
     
     @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {
-        let nextConstant = contentViewTopConstraint.constant + sender.translation(in: self).y
+        switch sender.state {
+        case .possible, .began, .changed:
+            moveInteractive(translationY: sender.translation(in: self).y)
+        case .ended, .cancelled:
+            break
+        case .failed:
+            break
+        }
         
-        let minConstant: CGFloat = configuration.position.overlay.calculateOriginY(from: self.bounds)
-        let maxConstant: CGFloat = configuration.position.compact.calculateOriginY(from: self.bounds)
+        sender.setTranslation(.zero, in: self)
+    }
+    
+    private func moveInteractive(translationY: CGFloat) {
+        let nextConstant = contentViewTopConstraint.constant + translationY
+        
+        let minConstant: CGFloat = configuration.position.maximumValue.calculateOriginY(from: self.bounds, parentView: superview)
+        let maxConstant: CGFloat = configuration.position.minimumValue.calculateOriginY(from: self.bounds, parentView: superview)
         let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
         
         if shouldMoveMenu {
             contentViewTopConstraint.constant = nextConstant
             customViewBottomConstraint?.constant = nextConstant - customViewTotalTopMargin
         }
-        
-        sender.setTranslation(.zero, in: self)
     }
 }
 
