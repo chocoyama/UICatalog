@@ -46,11 +46,12 @@ class SemiModalViewController: UIViewController {
     }
     
     private func setUpOverlayMenuView() {
-        var configuration = SemiModalView.Configuration()
-        configuration.enablePresentingViewInteraction = true
-        configuration.customView = childViewController.view
-        configuration.position = position
-        semiModalView.setUp(with: configuration)
+        var config = SemiModalView.Configuration()
+        config.customView = childViewController.view
+        config.position = position
+        config.enablePresentingViewInteraction = true
+        config.enableAutoRelocation = true
+        semiModalView.setUp(with: config)
     }
     
 }

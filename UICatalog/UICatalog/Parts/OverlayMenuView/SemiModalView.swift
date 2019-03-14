@@ -148,7 +148,7 @@ extension SemiModalView {
         case .possible, .began, .changed:
             moveInteractive(translationY: sender.translation(in: self).y)
         case .ended, .cancelled:
-            break
+            relocateIfNeeded()
         case .failed:
             break
         }
@@ -166,6 +166,30 @@ extension SemiModalView {
         if shouldMoveMenu {
             contentViewTopConstraint.constant = nextConstant
             customViewBottomConstraint?.constant = nextConstant - customViewTotalTopMargin
+        }
+    }
+    
+    private func relocateIfNeeded() {
+        guard configuration.enableAutoRelocation else { return }
+        let position = configuration.position
+        
+        let overlay = position.overlay.calculateOriginY(from: self.bounds, parentView: superview)
+        let middle = position.middle.calculateOriginY(from: self.bounds, parentView: superview)
+        let compact = position.compact.calculateOriginY(from: self.bounds, parentView: superview)
+        let middlePlusHalf = compact - ((compact - middle) / 2)
+        let overlayPlusHalf = middle - ((middle - overlay) / 2)
+        
+        switch contentViewTopConstraint.constant {
+        case overlay..<overlayPlusHalf:
+            updatePosition(to: position.overlay, animated: true)
+        case overlayPlusHalf..<middle:
+            updatePosition(to: position.middle, animated: true)
+        case middle..<middlePlusHalf:
+            updatePosition(to: position.middle, animated: true)
+        case middlePlusHalf..<compact:
+            updatePosition(to: position.compact, animated: true)
+        default:
+            break
         }
     }
 }

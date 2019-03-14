@@ -10,9 +10,10 @@ import Foundation
 
 extension SemiModalView {
     public struct Configuration {
+        public var customView: UIView?
         public var position: Position = .init()
         public var enablePresentingViewInteraction: Bool = false
-        public var customView: UIView?
+        public var enableAutoRelocation: Bool = false
         
         public init() {}
     }
