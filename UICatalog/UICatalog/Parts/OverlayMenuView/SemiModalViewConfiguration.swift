@@ -11,7 +11,7 @@ import Foundation
 extension SemiModalView {
     public struct Configuration {
         public var customView: UIView?
-        public var position: Position = .init()
+        public var position: SemiModalView.Position = .relative(.init())
         public var enablePresentingViewInteraction: Bool = false
         public var enableAutoRelocation: Bool = false
         

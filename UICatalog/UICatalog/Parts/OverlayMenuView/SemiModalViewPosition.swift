@@ -8,11 +8,48 @@
 
 import UIKit
 
+public protocol PositionValue {
+    var maskViewAlpha: CGFloat { get }
+    func calculateOriginY(from bounds: CGRect, parentView: UIView?) -> CGFloat
+}
+
 extension SemiModalView {
-    public struct Position {
-        public struct Value {
+    public enum Position {
+        case absolute(AbsolutePosition)
+        case relative(RelativePosition)
+    }
+    
+    public struct AbsolutePosition {
+        public struct Value: PositionValue {
+            let height: CGFloat
+            public let maskViewAlpha: CGFloat
+            
+            public init(height: CGFloat, maskViewAlpha: CGFloat) {
+                self.height = height
+                self.maskViewAlpha = maskViewAlpha
+            }
+            
+            public func calculateOriginY(from bounds: CGRect, parentView: UIView?) -> CGFloat {
+                let safeAreaTop: CGFloat = parentView?.safeAreaInsets.top ?? 0.0
+                let safeAreaBottom: CGFloat = parentView?.safeAreaInsets.bottom ?? 0.0
+                let height = bounds.height + safeAreaTop + safeAreaBottom
+                return height - self.height
+            }
+        }
+        public let max: Value
+        public let min: Value
+        public let none: Value = .init(height: 0.0, maskViewAlpha: 0.0)
+        
+        public init(max: Value, min: Value) {
+            self.max = max
+            self.min = min
+        }
+    }
+    
+    public struct RelativePosition {
+        public struct Value: PositionValue {
             let coverRate: CGFloat
-            let maskViewAlpha: CGFloat
+            public let maskViewAlpha: CGFloat
             
             public init(coverRate: CGFloat, maskViewAlpha: CGFloat) {
                 self.coverRate = coverRate

@@ -56,7 +56,12 @@ open class SemiModalView: UIView, XibInitializable {
         if contentView.frame.contains(point) {
             return tappedView
         } else {
-            updatePosition(to: configuration.position.compact)
+            switch configuration.position {
+            case .absolute(let absolutePosition):
+                updatePosition(to: absolutePosition.min)
+            case .relative(let relativePosition):
+                updatePosition(to: relativePosition.compact)
+            }
             return nil
         }
     }
@@ -70,13 +75,16 @@ open class SemiModalView: UIView, XibInitializable {
         assignGestures(by: configuration)
     }
     
-    open func show(from fromValue: Position.Value, to toValue: Position.Value) {
+    open func show(from fromValue: PositionValue, to toValue: PositionValue) {
         self.isHidden = false
         updatePosition(to: fromValue, animated: false)
         updatePosition(to: toValue, animated: true)
     }
-    
-    open func updatePosition(to value: Position.Value, animated: Bool = true) {
+ }
+ 
+ // MARK: Private
+ extension SemiModalView {
+    private func updatePosition(to value: PositionValue, animated: Bool = true) {
         let nextY = value.calculateOriginY(from: self.bounds, parentView: superview)
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
@@ -85,10 +93,7 @@ open class SemiModalView: UIView, XibInitializable {
             self.layoutIfNeeded()
         }
     }
- }
- 
- // MARK: Private
- extension SemiModalView {
+    
     private func configureSubviews(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             backgroundMaskView.isHidden = true
@@ -102,7 +107,12 @@ open class SemiModalView: UIView, XibInitializable {
     }
     
     private func set(_ customView: UIView) {
-        updatePosition(to: configuration.position.overlay, animated: false)
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            updatePosition(to: absolutePosition.max, animated: false)
+        case .relative(let relativePosition):
+            updatePosition(to: relativePosition.overlay, animated: false)
+        }
         
         let topMargin: CGFloat = 8.0
         customViewTotalTopMargin = frame.origin.y + knobView.frame.maxY + topMargin - 1
@@ -136,11 +146,21 @@ extension SemiModalView {
     }
     
     @objc private func didTappedMaskView(_ sender: UITapGestureRecognizer) {
-        updatePosition(to: configuration.position.compact)
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            updatePosition(to: absolutePosition.min)
+        case .relative(let relativePosition):
+            updatePosition(to: relativePosition.compact)
+        }
     }
     
     @objc private func didTappedContentView(_ sender: UITapGestureRecognizer) {
-        updatePosition(to: configuration.position.overlay)
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            updatePosition(to: absolutePosition.max)
+        case .relative(let relativePosition):
+            updatePosition(to: relativePosition.overlay)
+        }
     }
     
     @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {
@@ -152,44 +172,80 @@ extension SemiModalView {
         case .failed:
             break
         }
-        
         sender.setTranslation(.zero, in: self)
     }
     
     private func moveInteractive(translationY: CGFloat) {
         let nextConstant = contentViewTopConstraint.constant + translationY
         
-        let minConstant: CGFloat = configuration.position.maximumValue.calculateOriginY(from: self.bounds, parentView: superview)
-        let maxConstant: CGFloat = configuration.position.minimumValue.calculateOriginY(from: self.bounds, parentView: superview)
+        let minConstant: CGFloat
+        let maxConstant: CGFloat
+        let minAlpha: CGFloat
+        let maxAlpha: CGFloat
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            minConstant = absolutePosition.max.calculateOriginY(from: self.bounds, parentView: superview)
+            maxConstant = absolutePosition.min.calculateOriginY(from: self.bounds, parentView: superview)
+            minAlpha = absolutePosition.min.maskViewAlpha
+            maxAlpha = absolutePosition.max.maskViewAlpha
+        case .relative(let relativePosition):
+            minConstant = relativePosition.maximumValue.calculateOriginY(from: self.bounds, parentView: superview)
+            maxConstant = relativePosition.minimumValue.calculateOriginY(from: self.bounds, parentView: superview)
+            minAlpha = relativePosition.minimumValue.maskViewAlpha
+            maxAlpha = relativePosition.maximumValue.maskViewAlpha
+        }
+        
         let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
         
         if shouldMoveMenu {
             contentViewTopConstraint.constant = nextConstant
             customViewBottomConstraint?.constant = nextConstant - customViewTotalTopMargin
+            
+
+            // Absoluteの場合、値がおかしそう
+//            let progress = nextConstant / (maxConstant - minConstant)
+//            print("current = \(nextConstant) max = \(maxConstant) min = \(minConstant), pregoress = \(progress)")
+//            backgroundMaskView.alpha
         }
     }
     
     private func relocateIfNeeded() {
         guard configuration.enableAutoRelocation else { return }
-        let position = configuration.position
         
-        let overlay = position.overlay.calculateOriginY(from: self.bounds, parentView: superview)
-        let middle = position.middle.calculateOriginY(from: self.bounds, parentView: superview)
-        let compact = position.compact.calculateOriginY(from: self.bounds, parentView: superview)
-        let middlePlusHalf = compact - ((compact - middle) / 2)
-        let overlayPlusHalf = middle - ((middle - overlay) / 2)
-        
-        switch contentViewTopConstraint.constant {
-        case overlay..<overlayPlusHalf:
-            updatePosition(to: position.overlay, animated: true)
-        case overlayPlusHalf..<middle:
-            updatePosition(to: position.middle, animated: true)
-        case middle..<middlePlusHalf:
-            updatePosition(to: position.middle, animated: true)
-        case middlePlusHalf..<compact:
-            updatePosition(to: position.compact, animated: true)
-        default:
-            break
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            let max = absolutePosition.max.calculateOriginY(from: self.bounds, parentView: superview)
+            let min = absolutePosition.min.calculateOriginY(from: self.bounds, parentView: superview)
+            let maxPlusHalf = min - ((min - max) / 2)
+
+            switch contentViewTopConstraint.constant {
+            case max..<maxPlusHalf:
+                updatePosition(to: absolutePosition.max)
+            case maxPlusHalf..<min:
+                updatePosition(to: absolutePosition.min)
+            default:
+                break
+            }
+            
+        case .relative(let relativePosition):
+            let overlay = relativePosition.overlay.calculateOriginY(from: self.bounds, parentView: superview)
+            let middle = relativePosition.middle.calculateOriginY(from: self.bounds, parentView: superview)
+            let compact = relativePosition.compact.calculateOriginY(from: self.bounds, parentView: superview)
+            let middlePlusHalf = compact - ((compact - middle) / 2)
+            let overlayPlusHalf = middle - ((middle - overlay) / 2)
+            
+            switch contentViewTopConstraint.constant {
+            case overlay..<overlayPlusHalf:
+                updatePosition(to: relativePosition.overlay, animated: true)
+            case overlayPlusHalf..<middle:
+                updatePosition(to: relativePosition.middle, animated: true)
+            case middle..<middlePlusHalf:
+                updatePosition(to: relativePosition.middle, animated: true)
+            case middlePlusHalf..<compact:
+                updatePosition(to: relativePosition.compact, animated: true)
+            default:
+                break
+            }
         }
     }
 }
