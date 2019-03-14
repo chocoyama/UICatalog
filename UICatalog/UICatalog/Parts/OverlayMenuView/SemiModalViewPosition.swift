@@ -12,11 +12,11 @@ extension SemiModalView {
     public struct Position {
         public struct Value {
             let coverRate: CGFloat
-            let alpha: CGFloat
+            let maskViewAlpha: CGFloat
             
-            public init(coverRate: CGFloat, alpha: CGFloat) {
+            public init(coverRate: CGFloat, maskViewAlpha: CGFloat) {
                 self.coverRate = coverRate
-                self.alpha = alpha
+                self.maskViewAlpha = maskViewAlpha
             }
             
             public func calculateOriginY(from parentBounds: CGRect) -> CGFloat {
@@ -31,11 +31,11 @@ extension SemiModalView {
         public let none: Value
         
         public init(
-            initial: Value = .init(coverRate: 0.3, alpha: 0.2),
-            compact: Value = .init(coverRate: 0.1, alpha: 0.2),
-            middle: Value = .init(coverRate: 0.3, alpha: 0.2),
-            overlay: Value = .init(coverRate: 0.95, alpha: 0.2),
-            none: Value = .init(coverRate: 0.0, alpha: 0.0)
+            initial: Value = .init(coverRate: 0.3, maskViewAlpha: 0.2),
+            compact: Value = .init(coverRate: 0.1, maskViewAlpha: 0.2),
+            middle: Value = .init(coverRate: 0.3, maskViewAlpha: 0.2),
+            overlay: Value = .init(coverRate: 0.95, maskViewAlpha: 0.2),
+            none: Value = .init(coverRate: 0.0, maskViewAlpha: 0.0)
         ) {
             self.initial = initial
             self.compact = compact

@@ -28,11 +28,11 @@ class SemiModalViewController: UIViewController {
     }()
     
     private let position = SemiModalView.Position(
-        initial: .init(coverRate: 0.0, alpha: 0.2),
-        compact: .init(coverRate: 0.1, alpha: 0.2),
-        middle: .init(coverRate: 0.3, alpha: 0.2),
-        overlay: .init(coverRate: 0.95, alpha: 0.2),
-        none: .init(coverRate: 0.0, alpha: 0.0)
+        initial: .init(coverRate: 0.0, maskViewAlpha: 0.2),
+        compact: .init(coverRate: 0.1, maskViewAlpha: 0.2),
+        middle: .init(coverRate: 0.3, maskViewAlpha: 0.2),
+        overlay: .init(coverRate: 0.95, maskViewAlpha: 0.2),
+        none: .init(coverRate: 0.0, maskViewAlpha: 0.0)
     )
     
     override func viewDidLoad() {

@@ -70,7 +70,7 @@ open class SemiModalView: UIView, XibInitializable {
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
-            self.backgroundMaskView.alpha = value.alpha
+            self.backgroundMaskView.alpha = value.maskViewAlpha
             self.layoutIfNeeded()
         }
     }
