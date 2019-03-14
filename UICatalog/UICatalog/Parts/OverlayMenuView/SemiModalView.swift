@@ -8,7 +8,7 @@
 
 import UIKit
  
-open class OverlayMenuView: UIView, XibInitializable {
+open class SemiModalView: UIView, XibInitializable {
 
     @IBOutlet weak var contentView: UIView! {
         didSet {
@@ -26,8 +26,9 @@ open class OverlayMenuView: UIView, XibInitializable {
     @IBOutlet weak var knobView: UIView!
     
     @IBOutlet weak var contentViewTopConstraint: NSLayoutConstraint!
+    private var customViewBottomConstraint: NSLayoutConstraint?
+    private var customViewTotalTopMargin: CGFloat = .leastNormalMagnitude
     
-    private let position = Position()
     private var configuration = Configuration()
     
     required public init?(coder aDecoder: NSCoder) {
@@ -40,11 +41,6 @@ open class OverlayMenuView: UIView, XibInitializable {
         setXibView()
     }
     
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        update(position: position.default)
-    }
-    
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let tappedView = super.hitTest(point, with: event)
         
@@ -55,26 +51,33 @@ open class OverlayMenuView: UIView, XibInitializable {
         if contentView.frame.contains(point) {
             return tappedView
         } else {
-            update(position: position.compact)
+            updatePosition(to: configuration.position.compact)
             return nil
         }
     }
-    
+}
+
+// MARK: Public
+ extension SemiModalView {
     open func setUp(with configuration: Configuration) {
         self.configuration = configuration
         configureSubviews(by: configuration)
         assignGestures(by: configuration)
     }
     
-    open func update(position value: Position.Value, animated: Bool = true) {
+    open func updatePosition(to value: Position.Value, animated: Bool = true) {
         let nextY = value.calculateOriginY(from: self.bounds)
         contentViewTopConstraint.constant = nextY
+        customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
-            self.backgroundMaskView.alpha = value.alpha
+            self.backgroundMaskView.alpha = value.maskViewAlpha
             self.layoutIfNeeded()
         }
     }
-    
+ }
+ 
+ // MARK: Private
+ extension SemiModalView {
     private func configureSubviews(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             backgroundMaskView.isHidden = true
@@ -83,18 +86,30 @@ open class OverlayMenuView: UIView, XibInitializable {
         }
         
         if let customView = configuration.customView {
-            contentView.addSubview(customView)
-            customView.translatesAutoresizingMaskIntoConstraints = false
-            customView.topAnchor.constraint(equalTo: knobView.bottomAnchor, constant: 8.0).isActive = true
-            customView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-            customView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-            customView.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
+            set(customView)
         }
+        
+        updatePosition(to: configuration.position.initial, animated: false)
     }
-}
-
+    
+    private func set(_ customView: UIView) {
+        updatePosition(to: configuration.position.overlay, animated: false)
+        
+        let topMargin: CGFloat = 8.0
+        customViewTotalTopMargin = frame.origin.y + knobView.frame.maxY + topMargin - 1
+        
+        contentView.addSubview(customView)
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        customView.topAnchor.constraint(equalTo: knobView.bottomAnchor, constant: topMargin).isActive = true
+        customView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        customView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        customViewBottomConstraint = customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -customViewTotalTopMargin)
+        customViewBottomConstraint?.isActive = true
+    }
+ }
+ 
 // MARK: Action
-extension OverlayMenuView {
+extension SemiModalView {
     private func assignGestures(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             contentView.addGestureRecognizer(UIPanGestureRecognizer(target: self,
@@ -112,22 +127,23 @@ extension OverlayMenuView {
     }
     
     @objc private func didTappedMaskView(_ sender: UITapGestureRecognizer) {
-        update(position: position.compact)
+        updatePosition(to: configuration.position.compact)
     }
     
     @objc private func didTappedContentView(_ sender: UITapGestureRecognizer) {
-        update(position: position.overlay)
+        updatePosition(to: configuration.position.overlay)
     }
     
     @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {
         let nextConstant = contentViewTopConstraint.constant + sender.translation(in: self).y
         
-        let minConstant: CGFloat = position.overlay.calculateOriginY(from: self.bounds)
-        let maxConstant: CGFloat = position.compact.calculateOriginY(from: self.bounds)
+        let minConstant: CGFloat = configuration.position.overlay.calculateOriginY(from: self.bounds)
+        let maxConstant: CGFloat = configuration.position.compact.calculateOriginY(from: self.bounds)
         let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
         
         if shouldMoveMenu {
             contentViewTopConstraint.constant = nextConstant
+            customViewBottomConstraint?.constant = nextConstant - customViewTotalTopMargin
         }
         
         sender.setTranslation(.zero, in: self)

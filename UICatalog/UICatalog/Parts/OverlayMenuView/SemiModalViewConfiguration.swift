@@ -8,8 +8,9 @@
 
 import Foundation
 
-extension OverlayMenuView {
+extension SemiModalView {
     public struct Configuration {
+        public var position: Position = .init()
         public var enablePresentingViewInteraction: Bool = false
         public var customView: UIView?
         
