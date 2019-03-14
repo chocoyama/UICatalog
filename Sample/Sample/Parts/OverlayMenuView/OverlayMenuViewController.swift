@@ -27,7 +27,7 @@ class OverlayMenuViewController: UIViewController {
         return childViewController
     }()
     private let position = OverlayMenuView.Position(
-        initial: .init(coverRate: 0.3, alpha: 0.2),
+        initial: .init(coverRate: 0.0, alpha: 0.2),
         compact: .init(coverRate: 0.1, alpha: 0.2),
         middle: .init(coverRate: 0.3, alpha: 0.2),
         overlay: .init(coverRate: 0.95, alpha: 0.2),
@@ -39,6 +39,11 @@ class OverlayMenuViewController: UIViewController {
         addChild(childViewController)
         setUpOverlayMenuView()
         childViewController.didMove(toParent: self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        overlayMenuView.update(position: position.middle)
     }
     
     private func setUpOverlayMenuView() {
