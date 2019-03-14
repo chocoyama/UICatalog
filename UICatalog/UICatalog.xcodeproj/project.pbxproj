@@ -79,8 +79,8 @@
 		6BDAE55221526B5100BBB47A /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE55121526B5100BBB47A /* TapticEngine.swift */; };
 		6BEFD45221BB967A001E12BF /* ImageDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEFD45021BB967A001E12BF /* ImageDetailCollectionViewCell.swift */; };
 		6BEFD45321BB967A001E12BF /* ImageDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BEFD45121BB967A001E12BF /* ImageDetailCollectionViewCell.xib */; };
-		8008E6BB2192A8F20083D920 /* OverlayMenuViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E6BA2192A8F20083D920 /* OverlayMenuViewPosition.swift */; };
-		8008E6BD2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E6BC2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift */; };
+		8008E6BB2192A8F20083D920 /* SemiModalViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E6BA2192A8F20083D920 /* SemiModalViewPosition.swift */; };
+		8008E6BD2192A8FE0083D920 /* SemiModalViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E6BC2192A8FE0083D920 /* SemiModalViewConfiguration.swift */; };
 		800D02BE215B904A00F2A55F /* Containerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02BD215B904A00F2A55F /* Containerable.swift */; };
 		800D02C0215B949200F2A55F /* AdaptiveItemSizeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02BF215B949200F2A55F /* AdaptiveItemSizeLayout.swift */; };
 		800D02C5215C520300F2A55F /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800D02C4215C520300F2A55F /* Line.swift */; };
@@ -95,8 +95,8 @@
 		8013D2172182C3A70001CD75 /* RotationImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8013D2152182C3A70001CD75 /* RotationImageView.xib */; };
 		803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 803D6B09215B0A24007C332E /* SoundWaveButton.xib */; };
 		803D6B0C215B0A24007C332E /* SoundWaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803D6B0A215B0A24007C332E /* SoundWaveButton.swift */; };
-		80400F1521900203002622C9 /* OverlayMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1421900203002622C9 /* OverlayMenuView.swift */; };
-		80400F172190046A002622C9 /* OverlayMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80400F162190046A002622C9 /* OverlayMenuView.xib */; };
+		80400F1521900203002622C9 /* SemiModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1421900203002622C9 /* SemiModalView.swift */; };
+		80400F172190046A002622C9 /* SemiModalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80400F162190046A002622C9 /* SemiModalView.xib */; };
 		80471D4221B9F9CC000E1D23 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80471D4021B9F9CC000E1D23 /* ImageDetailViewController.swift */; };
 		80471D4321B9F9CC000E1D23 /* ImageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80471D4121B9F9CC000E1D23 /* ImageDetailViewController.xib */; };
 		80471D4821B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */; };
@@ -193,8 +193,8 @@
 		6BDAE55121526B5100BBB47A /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
 		6BEFD45021BB967A001E12BF /* ImageDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BEFD45121BB967A001E12BF /* ImageDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageDetailCollectionViewCell.xib; sourceTree = "<group>"; };
-		8008E6BA2192A8F20083D920 /* OverlayMenuViewPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuViewPosition.swift; sourceTree = "<group>"; };
-		8008E6BC2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuViewConfiguration.swift; sourceTree = "<group>"; };
+		8008E6BA2192A8F20083D920 /* SemiModalViewPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalViewPosition.swift; sourceTree = "<group>"; };
+		8008E6BC2192A8FE0083D920 /* SemiModalViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalViewConfiguration.swift; sourceTree = "<group>"; };
 		800D02BD215B904A00F2A55F /* Containerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containerable.swift; sourceTree = "<group>"; };
 		800D02BF215B949200F2A55F /* AdaptiveItemSizeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemSizeLayout.swift; sourceTree = "<group>"; };
 		800D02C4215C520300F2A55F /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 		8013D2152182C3A70001CD75 /* RotationImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RotationImageView.xib; sourceTree = "<group>"; };
 		803D6B09215B0A24007C332E /* SoundWaveButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SoundWaveButton.xib; sourceTree = "<group>"; };
 		803D6B0A215B0A24007C332E /* SoundWaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundWaveButton.swift; sourceTree = "<group>"; };
-		80400F1421900203002622C9 /* OverlayMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuView.swift; sourceTree = "<group>"; };
-		80400F162190046A002622C9 /* OverlayMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayMenuView.xib; sourceTree = "<group>"; };
+		80400F1421900203002622C9 /* SemiModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalView.swift; sourceTree = "<group>"; };
+		80400F162190046A002622C9 /* SemiModalView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SemiModalView.xib; sourceTree = "<group>"; };
 		80471D4021B9F9CC000E1D23 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		80471D4121B9F9CC000E1D23 /* ImageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDetailViewController.xib; sourceTree = "<group>"; };
 		80471D4621B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -643,10 +643,10 @@
 		80400F13219001D9002622C9 /* OverlayMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				80400F1421900203002622C9 /* OverlayMenuView.swift */,
-				80400F162190046A002622C9 /* OverlayMenuView.xib */,
-				8008E6BA2192A8F20083D920 /* OverlayMenuViewPosition.swift */,
-				8008E6BC2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift */,
+				80400F1421900203002622C9 /* SemiModalView.swift */,
+				80400F162190046A002622C9 /* SemiModalView.xib */,
+				8008E6BA2192A8F20083D920 /* SemiModalViewPosition.swift */,
+				8008E6BC2192A8FE0083D920 /* SemiModalViewConfiguration.swift */,
 			);
 			path = OverlayMenuView;
 			sourceTree = "<group>";
@@ -843,7 +843,7 @@
 				8013D2122182C39A0001CD75 /* RotationImageItem.xib in Resources */,
 				6BB8929621733818003430DC /* InfiniteLoopPageViewController.xib in Resources */,
 				6BDAE526215265E200BBB47A /* RangeSlider.xib in Resources */,
-				80400F172190046A002622C9 /* OverlayMenuView.xib in Resources */,
+				80400F172190046A002622C9 /* SemiModalView.xib in Resources */,
 				6B33DF4F21576B67006143A4 /* ProgressBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -862,8 +862,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80400F1521900203002622C9 /* OverlayMenuView.swift in Sources */,
-				8008E6BD2192A8FE0083D920 /* OverlayMenuViewConfiguration.swift in Sources */,
+				80400F1521900203002622C9 /* SemiModalView.swift in Sources */,
+				8008E6BD2192A8FE0083D920 /* SemiModalViewConfiguration.swift in Sources */,
 				6B30C4F82198004800A87018 /* ContentsPageViewController.swift in Sources */,
 				6BCD0FF6216CDFE700134159 /* Header.swift in Sources */,
 				80471D4821B9FAAC000E1D23 /* ImageDetailThumbnailCollectionViewCell.swift in Sources */,
@@ -894,7 +894,7 @@
 				6BDAE54121526B2500BBB47A /* CellWidthCalculatable.swift in Sources */,
 				800D02C0215B949200F2A55F /* AdaptiveItemSizeLayout.swift in Sources */,
 				6B2713A1215A593500CBB58E /* AdaptiveHeightConfiguration.swift in Sources */,
-				8008E6BB2192A8F20083D920 /* OverlayMenuViewPosition.swift in Sources */,
+				8008E6BB2192A8F20083D920 /* SemiModalViewPosition.swift in Sources */,
 				6BDAE54721526B2500BBB47A /* NibInstantiatable.swift in Sources */,
 				6B2713A3215A71A900CBB58E /* Row.swift in Sources */,
 				6BDAE54E21526B3B00BBB47A /* Notification+.swift in Sources */,

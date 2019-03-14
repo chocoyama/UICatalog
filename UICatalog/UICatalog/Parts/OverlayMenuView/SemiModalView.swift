@@ -8,7 +8,7 @@
 
 import UIKit
  
-open class OverlayMenuView: UIView, XibInitializable {
+open class SemiModalView: UIView, XibInitializable {
 
     @IBOutlet weak var contentView: UIView! {
         didSet {
@@ -51,21 +51,21 @@ open class OverlayMenuView: UIView, XibInitializable {
         if contentView.frame.contains(point) {
             return tappedView
         } else {
-            update(position: configuration.position.compact)
+            updatePosition(to: configuration.position.compact)
             return nil
         }
     }
 }
 
 // MARK: Public
- extension OverlayMenuView {
+ extension SemiModalView {
     open func setUp(with configuration: Configuration) {
         self.configuration = configuration
         configureSubviews(by: configuration)
         assignGestures(by: configuration)
     }
     
-    open func update(position value: Position.Value, animated: Bool = true) {
+    open func updatePosition(to value: Position.Value, animated: Bool = true) {
         let nextY = value.calculateOriginY(from: self.bounds)
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
@@ -77,7 +77,7 @@ open class OverlayMenuView: UIView, XibInitializable {
  }
  
  // MARK: Private
- extension OverlayMenuView {
+ extension SemiModalView {
     private func configureSubviews(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             backgroundMaskView.isHidden = true
@@ -89,11 +89,11 @@ open class OverlayMenuView: UIView, XibInitializable {
             set(customView)
         }
         
-        update(position: configuration.position.initial, animated: false)
+        updatePosition(to: configuration.position.initial, animated: false)
     }
     
     private func set(_ customView: UIView) {
-        update(position: configuration.position.overlay, animated: false)
+        updatePosition(to: configuration.position.overlay, animated: false)
         
         let topMargin: CGFloat = 8.0
         customViewTotalTopMargin = frame.origin.y + knobView.frame.maxY + topMargin - 1
@@ -109,7 +109,7 @@ open class OverlayMenuView: UIView, XibInitializable {
  }
  
 // MARK: Action
-extension OverlayMenuView {
+extension SemiModalView {
     private func assignGestures(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             contentView.addGestureRecognizer(UIPanGestureRecognizer(target: self,
@@ -127,11 +127,11 @@ extension OverlayMenuView {
     }
     
     @objc private func didTappedMaskView(_ sender: UITapGestureRecognizer) {
-        update(position: configuration.position.compact)
+        updatePosition(to: configuration.position.compact)
     }
     
     @objc private func didTappedContentView(_ sender: UITapGestureRecognizer) {
-        update(position: configuration.position.overlay)
+        updatePosition(to: configuration.position.overlay)
     }
     
     @objc private func didSwipedView(_ sender: UIPanGestureRecognizer) {

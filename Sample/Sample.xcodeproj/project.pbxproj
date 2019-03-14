@@ -48,8 +48,8 @@
 		8013D2232182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8013D2212182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib */; };
 		803D6B10215B0A45007C332E /* SoundWaveButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803D6B0E215B0A45007C332E /* SoundWaveButtonViewController.swift */; };
 		803D6B11215B0A45007C332E /* SoundWaveButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 803D6B0F215B0A45007C332E /* SoundWaveButtonViewController.xib */; };
-		80400F1B21911988002622C9 /* OverlayMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1921911988002622C9 /* OverlayMenuViewController.swift */; };
-		80400F1C21911988002622C9 /* OverlayMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80400F1A21911988002622C9 /* OverlayMenuViewController.xib */; };
+		80400F1B21911988002622C9 /* SemiModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1921911988002622C9 /* SemiModalViewController.swift */; };
+		80400F1C21911988002622C9 /* SemiModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80400F1A21911988002622C9 /* SemiModalViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,8 +96,8 @@
 		8013D2212182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZoomTransitionAnimatorViewController.xib; sourceTree = "<group>"; };
 		803D6B0E215B0A45007C332E /* SoundWaveButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundWaveButtonViewController.swift; sourceTree = "<group>"; };
 		803D6B0F215B0A45007C332E /* SoundWaveButtonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SoundWaveButtonViewController.xib; sourceTree = "<group>"; };
-		80400F1921911988002622C9 /* OverlayMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMenuViewController.swift; sourceTree = "<group>"; };
-		80400F1A21911988002622C9 /* OverlayMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverlayMenuViewController.xib; sourceTree = "<group>"; };
+		80400F1921911988002622C9 /* SemiModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalViewController.swift; sourceTree = "<group>"; };
+		80400F1A21911988002622C9 /* SemiModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SemiModalViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,7 +361,7 @@
 		803D6B15215B0A6B007C332E /* Parts */ = {
 			isa = PBXGroup;
 			children = (
-				80400F1821911970002622C9 /* OverlayMenuView */,
+				80400F1821911970002622C9 /* SemiModalView */,
 				8013D2182182C4CA0001CD75 /* RotationImageView */,
 				803D6B13215B0A56007C332E /* SoundWaveButton */,
 				6B33DF6B21587C5D006143A4 /* OutlineLabel */,
@@ -371,13 +371,13 @@
 			path = Parts;
 			sourceTree = "<group>";
 		};
-		80400F1821911970002622C9 /* OverlayMenuView */ = {
+		80400F1821911970002622C9 /* SemiModalView */ = {
 			isa = PBXGroup;
 			children = (
-				80400F1921911988002622C9 /* OverlayMenuViewController.swift */,
-				80400F1A21911988002622C9 /* OverlayMenuViewController.xib */,
+				80400F1921911988002622C9 /* SemiModalViewController.swift */,
+				80400F1A21911988002622C9 /* SemiModalViewController.xib */,
 			);
-			path = OverlayMenuView;
+			path = SemiModalView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,7 +454,7 @@
 				6B8DEE44218329D400D2D01F /* ImageCollectionViewCell.xib in Resources */,
 				6BB8929F217350F3003430DC /* NumberingViewController.xib in Resources */,
 				6BCD0FFA216CF35C00134159 /* AdaptiveItemCollectionReusableView.xib in Resources */,
-				80400F1C21911988002622C9 /* OverlayMenuViewController.xib in Resources */,
+				80400F1C21911988002622C9 /* SemiModalViewController.xib in Resources */,
 				8013D2232182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib in Resources */,
 				6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */,
 				6BDAE5332152668000BBB47A /* RangeSlider.storyboard in Resources */,
@@ -487,7 +487,7 @@
 				6B9863B8217A0DF600D5004C /* SampleTabMenuViewController.swift in Sources */,
 				6BB8929E217350F3003430DC /* NumberingViewController.swift in Sources */,
 				6B2713B1215A851700CBB58E /* LabelCollectionViewCell.swift in Sources */,
-				80400F1B21911988002622C9 /* OverlayMenuViewController.swift in Sources */,
+				80400F1B21911988002622C9 /* SemiModalViewController.swift in Sources */,
 				6B2713AD215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift in Sources */,
 				6BCCA10C2198639D0011EBD8 /* SampleTopPageViewController.swift in Sources */,
 			);

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension OverlayMenuView {
+extension SemiModalView {
     public struct Position {
         public struct Value {
             let coverRate: CGFloat

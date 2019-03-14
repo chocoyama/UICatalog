@@ -9,9 +9,9 @@
 import UIKit
 import UICatalog
 
-class OverlayMenuViewController: UIViewController {
+class SemiModalViewController: UIViewController {
 
-    @IBOutlet weak var overlayMenuView: OverlayMenuView!
+    @IBOutlet weak var semiModalView: SemiModalView!
     
     private let childViewController: UIViewController = {
         let childViewController = AdaptiveItemHeightLayoutViewController
@@ -26,7 +26,8 @@ class OverlayMenuViewController: UIViewController {
         )))
         return childViewController
     }()
-    private let position = OverlayMenuView.Position(
+    
+    private let position = SemiModalView.Position(
         initial: .init(coverRate: 0.0, alpha: 0.2),
         compact: .init(coverRate: 0.1, alpha: 0.2),
         middle: .init(coverRate: 0.3, alpha: 0.2),
@@ -43,15 +44,15 @@ class OverlayMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        overlayMenuView.update(position: position.middle)
+        semiModalView.updatePosition(to: position.middle)
     }
     
     private func setUpOverlayMenuView() {
-        var configuration = OverlayMenuView.Configuration()
+        var configuration = SemiModalView.Configuration()
         configuration.enablePresentingViewInteraction = true
         configuration.customView = childViewController.view
         configuration.position = position
-        overlayMenuView.setUp(with: configuration)
+        semiModalView.setUp(with: configuration)
     }
     
 }
