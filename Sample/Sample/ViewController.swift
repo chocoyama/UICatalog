@@ -23,7 +23,8 @@ class ViewController: UIViewController {
         case tabMenuViewController = "TabMenuViewController"
         case rotationImageView = "RotationImageView"
         case zoomTransitionAnimator = "ZoomTransitionAnimator"
-        case semiModalView = "SemiModalView"
+        case semiModalRelativeView = "SemiModalRelativeView"
+        case semiModalAbsoluteView = "SemiModalAbsoluteView"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -56,7 +57,8 @@ class ViewController: UIViewController {
                 )
             case .rotationImageView: return RotationImageViewController()
             case .zoomTransitionAnimator: return ZoomTransitionAnimatorViewController()
-            case .semiModalView: return SemiModalViewController()
+            case .semiModalRelativeView: return SemiModalRelativeViewController()
+            case .semiModalAbsoluteView: return SemiModalAbsoluteViewController()
             }
         }
     }
