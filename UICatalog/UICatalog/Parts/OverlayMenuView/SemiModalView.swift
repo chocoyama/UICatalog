@@ -91,10 +91,19 @@ extension SemiModalView {
         let nextY = value.calculateOriginY(from: self.bounds)
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
-        UIView.animate(withDuration: animated ? 0.3 : 0.0) {
-            self.backgroundMaskView.alpha = value.maskViewAlpha
-            self.layoutIfNeeded()
-        }
+        UIView.animate(
+            withDuration: animated ? 0.7 : 0.0,
+            delay: 0.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.2,
+            options: [],
+            animations: {
+                self.backgroundMaskView.alpha = value.maskViewAlpha
+                self.layoutIfNeeded()
+            },
+            completion: { finished in
+            }
+        )
     }
 }
  
