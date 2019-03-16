@@ -8,6 +8,10 @@
 
 import UIKit
  
+ public protocol SemiModalViewDelegate: class {
+    func semiModalView(_ semiModalView: SemiModalView, didTappedNonModalArea point: CGPoint)
+ }
+ 
 open class SemiModalView: UIView, XibInitializable {
 
     @IBOutlet weak var contentView: UIView! {
@@ -31,6 +35,8 @@ open class SemiModalView: UIView, XibInitializable {
     
     private var configuration = Configuration()
     
+    open weak var delegate: SemiModalViewDelegate?
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setXibView()
@@ -49,6 +55,11 @@ open class SemiModalView: UIView, XibInitializable {
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let tappedView = super.hitTest(point, with: event)
         
+        let isHidden = contentViewTopConstraint.constant >= noneConstraint
+        if isHidden {
+            return nil
+        }
+        
         if !configuration.enablePresentingViewInteraction {
             return tappedView
         }
@@ -56,19 +67,14 @@ open class SemiModalView: UIView, XibInitializable {
         if contentView.frame.contains(point) {
             return tappedView
         } else {
-            switch configuration.position {
-            case .absolute(let absolutePosition):
-                updatePosition(to: absolutePosition.min)
-            case .relative(let relativePosition):
-                updatePosition(to: relativePosition.compact)
-            }
+            delegate?.semiModalView(self, didTappedNonModalArea: point)
             return nil
         }
     }
 }
 
 // MARK: Public
- extension SemiModalView {
+extension SemiModalView {
     open func setUp(with configuration: Configuration) {
         self.configuration = configuration
         configureSubviews(by: configuration)
@@ -80,11 +86,8 @@ open class SemiModalView: UIView, XibInitializable {
         updatePosition(to: fromValue, animated: false)
         updatePosition(to: toValue, animated: true)
     }
- }
- 
- // MARK: Private
- extension SemiModalView {
-    private func updatePosition(to value: PositionValue, animated: Bool = true) {
+    
+    open func updatePosition(to value: PositionValue, animated: Bool = true) {
         let nextY = value.calculateOriginY(from: self.bounds)
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
@@ -93,7 +96,10 @@ open class SemiModalView: UIView, XibInitializable {
             self.layoutIfNeeded()
         }
     }
-    
+}
+ 
+// MARK: Private
+extension SemiModalView {
     private func configureSubviews(by configuration: Configuration) {
         if configuration.enablePresentingViewInteraction {
             backgroundMaskView.isHidden = true
@@ -175,22 +181,44 @@ extension SemiModalView {
         sender.setTranslation(.zero, in: self)
     }
     
-    private func moveInteractive(translationY: CGFloat) {
-        let nextConstant = contentViewTopConstraint.constant + translationY
-        
-        let minConstant: CGFloat
-        let maxConstant: CGFloat
-        let maxAlpha: CGFloat?
+    private var minConstant: CGFloat {
         switch configuration.position {
         case .absolute(let absolutePosition):
-            minConstant = absolutePosition.max.calculateOriginY(from: self.bounds)
-            maxConstant = absolutePosition.min.calculateOriginY(from: self.bounds)
-            maxAlpha = absolutePosition.max.maskViewAlpha
+            return absolutePosition.max.calculateOriginY(from: self.bounds)
         case .relative(let relativePosition):
-            minConstant = relativePosition.maximumValue.calculateOriginY(from: self.bounds)
-            maxConstant = relativePosition.minimumValue.calculateOriginY(from: self.bounds)
-            maxAlpha = nil
+            return relativePosition.maximumValue.calculateOriginY(from: self.bounds)
         }
+    }
+    
+    private var maxConstant: CGFloat {
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            return absolutePosition.min.calculateOriginY(from: self.bounds)
+        case .relative(let relativePosition):
+            return relativePosition.minimumValue.calculateOriginY(from: self.bounds)
+        }
+    }
+    
+    private var noneConstraint: CGFloat {
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            return absolutePosition.none.calculateOriginY(from: self.bounds)
+        case .relative(let relativePosition):
+            return relativePosition.none.calculateOriginY(from: self.bounds)
+        }
+    }
+    
+    private var maxAlpha: CGFloat? {
+        switch configuration.position {
+        case .absolute(let absolutePosition):
+            return absolutePosition.max.maskViewAlpha
+        case .relative(_):
+            return nil
+        }
+    }
+    
+    private func moveInteractive(translationY: CGFloat) {
+        let nextConstant = contentViewTopConstraint.constant + translationY
         
         let shouldMoveMenu = 0 < nextConstant && nextConstant <= maxConstant
         if shouldMoveMenu {

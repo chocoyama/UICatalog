@@ -11,7 +11,11 @@ import UICatalog
 
 class SemiModalRelativeViewController: UIViewController {
 
-    @IBOutlet weak var semiModalView: SemiModalView!
+    @IBOutlet weak var semiModalView: SemiModalView! {
+        didSet {
+            semiModalView.delegate = self
+        }
+    }
     
     private let childViewController = createChildViewController()
     
@@ -43,10 +47,23 @@ class SemiModalRelativeViewController: UIViewController {
         semiModalView.setUp(with: config)
     }
     
+    @IBAction func didTappedShowButton(_ sender: UIButton) {
+        semiModalView.updatePosition(to: relativePosition.compact, animated: true)
+    }
+}
+
+extension SemiModalRelativeViewController: SemiModalViewDelegate {
+    func semiModalView(_ semiModalView: SemiModalView, didTappedNonModalArea point: CGPoint) {
+        semiModalView.updatePosition(to: relativePosition.none, animated: true)
+    }
 }
 
 class SemiModalAbsoluteViewController: UIViewController {
-    @IBOutlet weak var semiModalView: SemiModalView!
+    @IBOutlet weak var semiModalView: SemiModalView! {
+        didSet {
+//            semiModalView.delegate = self
+        }
+    }
     
     private let childViewController = createChildViewController()
     
@@ -75,7 +92,17 @@ class SemiModalAbsoluteViewController: UIViewController {
         config.enableAutoRelocation = true
         semiModalView.setUp(with: config)
     }
+    
+    @IBAction func didTappedShowButton(_ sender: UIButton) {
+        semiModalView.updatePosition(to: absolutePosition.max, animated: true)
+    }
 }
+
+//extension SemiModalAbsoluteViewController: SemiModalViewDelegate {
+//    func semiModalView(_ semiModalView: SemiModalView, didTappedNonModalArea point: CGPoint) {
+//        semiModalView.updatePosition(to: absolutePosition.min, animated: true)
+//    }
+//}
 
 private func createChildViewController() -> UIViewController  {
     let childViewController = AdaptiveItemHeightLayoutViewController
@@ -90,3 +117,4 @@ private func createChildViewController() -> UIViewController  {
     )))
     return childViewController
 }
+
