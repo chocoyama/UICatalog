@@ -10,7 +10,7 @@ import UIKit
 
 public protocol PositionValue {
     var maskViewAlpha: CGFloat { get }
-    func calculateOriginY(from bounds: CGRect, parentView: UIView?) -> CGFloat
+    func calculateOriginY(from bounds: CGRect) -> CGFloat
 }
 
 extension SemiModalView {
@@ -29,11 +29,8 @@ extension SemiModalView {
                 self.maskViewAlpha = maskViewAlpha
             }
             
-            public func calculateOriginY(from bounds: CGRect, parentView: UIView?) -> CGFloat {
-                let safeAreaTop: CGFloat = parentView?.safeAreaInsets.top ?? 0.0
-                let safeAreaBottom: CGFloat = parentView?.safeAreaInsets.bottom ?? 0.0
-                let height = bounds.height + safeAreaTop + safeAreaBottom
-                return height - self.height
+            public func calculateOriginY(from bounds: CGRect) -> CGFloat {
+                return bounds.height - self.height
             }
         }
         public let max: Value
@@ -56,11 +53,8 @@ extension SemiModalView {
                 self.maskViewAlpha = maskViewAlpha
             }
             
-            public func calculateOriginY(from bounds: CGRect, parentView: UIView?) -> CGFloat {
-                let safeAreaTop: CGFloat = parentView?.safeAreaInsets.top ?? 0.0
-                let safeAreaBottom: CGFloat = parentView?.safeAreaInsets.bottom ?? 0.0
-                let height = bounds.height + safeAreaTop + safeAreaBottom
-                return height - (height * coverRate)
+            public func calculateOriginY(from bounds: CGRect) -> CGFloat {
+                return bounds.height - (bounds.height * coverRate)
             }
         }
         

@@ -85,7 +85,7 @@ open class SemiModalView: UIView, XibInitializable {
  // MARK: Private
  extension SemiModalView {
     private func updatePosition(to value: PositionValue, animated: Bool = true) {
-        let nextY = value.calculateOriginY(from: self.bounds, parentView: superview)
+        let nextY = value.calculateOriginY(from: self.bounds)
         contentViewTopConstraint.constant = nextY
         customViewBottomConstraint?.constant = nextY - customViewTotalTopMargin
         UIView.animate(withDuration: animated ? 0.3 : 0.0) {
@@ -180,32 +180,28 @@ extension SemiModalView {
         
         let minConstant: CGFloat
         let maxConstant: CGFloat
-        let minAlpha: CGFloat
-        let maxAlpha: CGFloat
+        let maxAlpha: CGFloat?
         switch configuration.position {
         case .absolute(let absolutePosition):
-            minConstant = absolutePosition.max.calculateOriginY(from: self.bounds, parentView: superview)
-            maxConstant = absolutePosition.min.calculateOriginY(from: self.bounds, parentView: superview)
-            minAlpha = absolutePosition.min.maskViewAlpha
+            minConstant = absolutePosition.max.calculateOriginY(from: self.bounds)
+            maxConstant = absolutePosition.min.calculateOriginY(from: self.bounds)
             maxAlpha = absolutePosition.max.maskViewAlpha
         case .relative(let relativePosition):
-            minConstant = relativePosition.maximumValue.calculateOriginY(from: self.bounds, parentView: superview)
-            maxConstant = relativePosition.minimumValue.calculateOriginY(from: self.bounds, parentView: superview)
-            minAlpha = relativePosition.minimumValue.maskViewAlpha
-            maxAlpha = relativePosition.maximumValue.maskViewAlpha
+            minConstant = relativePosition.maximumValue.calculateOriginY(from: self.bounds)
+            maxConstant = relativePosition.minimumValue.calculateOriginY(from: self.bounds)
+            maxAlpha = nil
         }
         
-        let shouldMoveMenu = minConstant < nextConstant && nextConstant <= maxConstant
-        
+        let shouldMoveMenu = 0 < nextConstant && nextConstant <= maxConstant
         if shouldMoveMenu {
             contentViewTopConstraint.constant = nextConstant
-            customViewBottomConstraint?.constant = nextConstant - customViewTotalTopMargin
+            customViewBottomConstraint?.constant = nextConstant
             
-
-            // Absoluteの場合、値がおかしそう
-//            let progress = nextConstant / (maxConstant - minConstant)
-//            print("current = \(nextConstant) max = \(maxConstant) min = \(minConstant), pregoress = \(progress)")
-//            backgroundMaskView.alpha
+            if let maxAlpha = maxAlpha {
+                let maxHeight = maxConstant - minConstant
+                let currentHeight = maxConstant - nextConstant
+                backgroundMaskView.alpha = maxAlpha * (currentHeight / maxHeight)
+            }
         }
     }
     
@@ -214,11 +210,13 @@ extension SemiModalView {
         
         switch configuration.position {
         case .absolute(let absolutePosition):
-            let max = absolutePosition.max.calculateOriginY(from: self.bounds, parentView: superview)
-            let min = absolutePosition.min.calculateOriginY(from: self.bounds, parentView: superview)
+            let max = absolutePosition.max.calculateOriginY(from: self.bounds)
+            let min = absolutePosition.min.calculateOriginY(from: self.bounds)
             let maxPlusHalf = min - ((min - max) / 2)
 
             switch contentViewTopConstraint.constant {
+            case 0..<max:
+                updatePosition(to: absolutePosition.max)
             case max..<maxPlusHalf:
                 updatePosition(to: absolutePosition.max)
             case maxPlusHalf..<min:
@@ -228,13 +226,15 @@ extension SemiModalView {
             }
             
         case .relative(let relativePosition):
-            let overlay = relativePosition.overlay.calculateOriginY(from: self.bounds, parentView: superview)
-            let middle = relativePosition.middle.calculateOriginY(from: self.bounds, parentView: superview)
-            let compact = relativePosition.compact.calculateOriginY(from: self.bounds, parentView: superview)
+            let overlay = relativePosition.overlay.calculateOriginY(from: self.bounds)
+            let middle = relativePosition.middle.calculateOriginY(from: self.bounds)
+            let compact = relativePosition.compact.calculateOriginY(from: self.bounds)
             let middlePlusHalf = compact - ((compact - middle) / 2)
             let overlayPlusHalf = middle - ((middle - overlay) / 2)
             
             switch contentViewTopConstraint.constant {
+            case 0..<overlay:
+                updatePosition(to: relativePosition.overlay, animated: true)
             case overlay..<overlayPlusHalf:
                 updatePosition(to: relativePosition.overlay, animated: true)
             case overlayPlusHalf..<middle:
