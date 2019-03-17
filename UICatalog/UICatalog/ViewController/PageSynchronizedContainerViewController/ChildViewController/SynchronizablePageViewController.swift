@@ -51,6 +51,6 @@ extension SynchronizablePageViewController: PagingChangeSubject {
             let currentIndex = getIndex(at: currentVC) else { return }
         
         let direction: UIPageViewController.NavigationDirection = (index > currentIndex) ? .forward : .reverse
-        setUp(at: index, direction: direction)
+        setUp(at: index, direction: direction, animated: false)
     }
 }

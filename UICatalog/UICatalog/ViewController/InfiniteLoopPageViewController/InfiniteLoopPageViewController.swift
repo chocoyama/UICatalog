@@ -37,18 +37,26 @@ open class InfiniteLoopPageViewController: UIPageViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        setUp(at: 0)
+        setUp(at: 0, animated: false)
+    }
+    
+    open func moveTo(page: Int, animated: Bool) {
+        let currentPage = viewControllers?
+            .compactMap { ($0 as? Pageable)?.pageNumber }
+            .first ?? 0
+        let direction: UIPageViewController.NavigationDirection = currentPage <= page ? .forward : .reverse
+        setUp(at: page, direction: direction, animated: animated)
     }
     
     open func update(to pages: [Page], at page: Int = 0) {
         self.pages = pages
-        setUp(at: page)
+        setUp(at: page, animated: false)
     }
     
-    func setUp(at page: Int, direction: UIPageViewController.NavigationDirection = .forward) {
+    open func setUp(at page: Int, direction: UIPageViewController.NavigationDirection = .forward, animated: Bool) {
         let index = pages.indices ~= page ? page : 0
         if let controller = getViewController(at: index) {
-            setViewControllers([controller], direction: direction, animated: false, completion: nil)
+            setViewControllers([controller], direction: direction, animated: animated, completion: nil)
         }
     }
 }
