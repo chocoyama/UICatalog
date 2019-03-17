@@ -8,8 +8,14 @@
 
 import UIKit
 
+public protocol InfiniteLoopPageViewControllerDelegate: class {
+    func infiniteLoopPageViewController(_ infiniteLoopPageViewController: InfiniteLoopPageViewController,
+                                        didChangePageAt index: Int)
+}
+
 open class InfiniteLoopPageViewController: UIPageViewController {
     open weak var pageableDataSource: PageableViewControllerDataSource?
+    open weak var loopPageDelegate: InfiniteLoopPageViewControllerDelegate?
     private(set) var pages: [Page]
     
     let shouldInfiniteLoop: Bool
@@ -29,6 +35,7 @@ open class InfiniteLoopPageViewController: UIPageViewController {
                    navigationOrientation: navigationOrientation,
                    options: options)
         dataSource = self
+        delegate = self
     }
     
     public required init?(coder: NSCoder) {
@@ -71,16 +78,16 @@ extension InfiniteLoopPageViewController {
         switch index {
         case -1 where shouldInfiniteLoop:
             if let lastIndex = pages.indices.last {
-                return pageableDataSource?.viewController(at: lastIndex, cache: pageCache)
+                return pageableDataSource?.viewController(at: lastIndex, for: self, cache: pageCache)
             } else {
                 return nil
             }
         case -1:
             return nil
         case 0...(pages.count - 1):
-            return pageableDataSource?.viewController(at: index, cache: pageCache)
+            return pageableDataSource?.viewController(at: index, for: self, cache: pageCache)
         default:
-            return shouldInfiniteLoop ? pageableDataSource?.viewController(at: 0, cache: pageCache) : nil
+            return shouldInfiniteLoop ? pageableDataSource?.viewController(at: 0, for: self, cache: pageCache) : nil
         }
     }
 }
@@ -102,5 +109,16 @@ extension InfiniteLoopPageViewController: UIPageViewControllerDataSource {
         } else {
             return nil
         }
+    }
+}
+
+extension InfiniteLoopPageViewController: UIPageViewControllerDelegate {
+    public func pageViewController(_ pageViewController: UIPageViewController,
+                                   didFinishAnimating finished: Bool,
+                                   previousViewControllers: [UIViewController],
+                                   transitionCompleted completed: Bool) {
+        guard let currentVC = viewControllers?.first,
+            let currentIndex = getIndex(at: currentVC) else { return }
+        loopPageDelegate?.infiniteLoopPageViewController(self, didChangePageAt: currentIndex)
     }
 }

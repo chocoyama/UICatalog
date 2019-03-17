@@ -46,7 +46,7 @@ extension SampleTabMenuViewController: MenuViewControllerDelegate {
 }
 
 extension SampleTabMenuViewController: PageableViewControllerDataSource {
-    func viewController(at index: Int, cache: PageCache) -> (UIViewController & Pageable)? {
+    func viewController(at index: Int, for pageViewController: UIPageViewController, cache: PageCache) -> (UIViewController & Pageable)? {
         let menu = menus[index]
         
         if let cachedVC = cache.get(from: menu.id) { return cachedVC }

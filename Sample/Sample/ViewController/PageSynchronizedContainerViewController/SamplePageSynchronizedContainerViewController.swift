@@ -72,7 +72,7 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
 }
 
 extension SamplePageSynchronizedContainerViewController: PageableViewControllerDataSource {
-    func viewController(at index: Int, cache: PageCache) -> (UIViewController & Pageable)? {
+    func viewController(at index: Int, for pageViewController: UIPageViewController, cache: PageCache) -> (UIViewController & Pageable)? {
         return NumberingViewController(pageNumber: index)
     }
 }

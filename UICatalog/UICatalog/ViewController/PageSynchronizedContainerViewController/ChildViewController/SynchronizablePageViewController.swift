@@ -23,7 +23,7 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
                    navigationOrientation: navigationOrientation,
                    options: options)
         
-        delegate = self
+        loopPageDelegate = self
     }
     
     public required init?(coder: NSCoder) {
@@ -32,16 +32,9 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
     
 }
 
-extension SynchronizablePageViewController: UIPageViewControllerDelegate {
-    public func pageViewController(_ pageViewController: UIPageViewController,
-                                   didFinishAnimating finished: Bool,
-                                   previousViewControllers: [UIViewController],
-                                   transitionCompleted completed: Bool) {
-        
-        guard let currentVC = viewControllers?.first,
-            let currentIndex = getIndex(at: currentVC) else { return }
-        
-        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: currentIndex, section: 0, observer: self)
+extension SynchronizablePageViewController: InfiniteLoopPageViewControllerDelegate {
+    public func infiniteLoopPageViewController(_ infiniteLoopPageViewController: InfiniteLoopPageViewController, didChangePageAt index: Int) {
+        pagingSynchronizer?.pagingSynchronizer(didChangedPageAt: index, section: 0, observer: self)
     }
 }
 
