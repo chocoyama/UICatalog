@@ -28,7 +28,7 @@ open class TabMenuViewController: PageSynchronizedContainerViewController {
         self.configuration = configuration
         self.menuViewController = MenuViewController(with: menus, configuration: configuration)
         self.contentsPageViewController = ContentsPageViewController(
-            pages: menus.map { _ in Page() },
+            totalPage: menus.count,
             configuration: configuration,
             shouldInfiniteLoop: false,
             transitionStyle: .scroll,

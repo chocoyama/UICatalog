@@ -12,7 +12,7 @@ import UICatalog
 class SampleInfiniteLoopPageViewController: UIViewController {
     
     let vc = InfiniteLoopPageViewController(
-        pages: (0..<10).map { _ in Page() },
+        totalPage: 10,
         shouldInfiniteLoop: true,
         transitionStyle: .scroll,
         navigationOrientation: .horizontal,
@@ -36,6 +36,9 @@ class SampleInfiniteLoopPageViewController: UIViewController {
 
 extension SampleInfiniteLoopPageViewController: PageableViewControllerDataSource {
     func viewController(at index: Int, cache: PageCache) -> (UIViewController & Pageable)? {
-        return NumberingViewController(pageNumber: index)
+        if let cachedVC = cache.get(from: "\(index)") { return cachedVC }
+        let vc = NumberingViewController(pageNumber: index)
+        cache.save(vc, with: "\(index)")
+        return vc
     }
 }

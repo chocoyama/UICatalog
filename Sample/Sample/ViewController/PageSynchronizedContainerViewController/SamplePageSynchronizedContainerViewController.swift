@@ -22,7 +22,7 @@ class SamplePageSynchronizedContainerViewController: UIViewController {
             numberOfItems: itemCount
         )
         self.synchronizablePageVC = SynchronizablePageViewController(
-            pages: (0..<itemCount).map { _ in Page() },
+            totalPage: itemCount,
             shouldInfiniteLoop: false,
             transitionStyle: .scroll,
             navigationOrientation: .horizontal,

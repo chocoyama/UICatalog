@@ -15,12 +15,12 @@ open class InfiniteLoopPageViewController: UIPageViewController {
     let shouldInfiniteLoop: Bool
     let pageCache = PageCache()
     
-    public init(pages: [Page],
+    public init(totalPage: Int,
                 shouldInfiniteLoop: Bool,
                 transitionStyle: UIPageViewController.TransitionStyle,
                 navigationOrientation: UIPageViewController.NavigationOrientation,
                 options: [UIPageViewController.OptionsKey : Any]?) {
-        self.pages = pages
+        self.pages = (0..<totalPage).map { _ in Page() }
         self.pages.enumerated().forEach { $0.element.number = $0.offset }
         
         self.shouldInfiniteLoop = shouldInfiniteLoop

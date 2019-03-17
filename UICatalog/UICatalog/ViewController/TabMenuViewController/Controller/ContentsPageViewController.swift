@@ -11,14 +11,14 @@ import UIKit
 class ContentsPageViewController: SynchronizablePageViewController {
     private let configuration: TabMenuConfiguration
     
-    init(pages: [Page],
+    init(totalPage: Int,
          configuration: TabMenuConfiguration,
          shouldInfiniteLoop: Bool,
          transitionStyle: UIPageViewController.TransitionStyle,
          navigationOrientation: UIPageViewController.NavigationOrientation,
                 options: [UIPageViewController.OptionsKey : Any]?) {
         self.configuration = configuration
-        super.init(pages: pages,
+        super.init(totalPage: totalPage,
                    shouldInfiniteLoop: shouldInfiniteLoop,
                    transitionStyle: transitionStyle,
                    navigationOrientation: navigationOrientation,

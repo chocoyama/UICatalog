@@ -12,12 +12,12 @@ open class SynchronizablePageViewController: InfiniteLoopPageViewController {
     
     open weak var pagingSynchronizer: PagingSynchronizer?
     
-    public override init(pages: [Page],
+    public override init(totalPage: Int,
                          shouldInfiniteLoop: Bool,
                          transitionStyle: UIPageViewController.TransitionStyle,
                          navigationOrientation: UIPageViewController.NavigationOrientation,
                          options: [UIPageViewController.OptionsKey : Any]?) {
-        super.init(pages: pages,
+        super.init(totalPage: totalPage,
                    shouldInfiniteLoop: shouldInfiniteLoop,
                    transitionStyle: transitionStyle,
                    navigationOrientation: navigationOrientation,
