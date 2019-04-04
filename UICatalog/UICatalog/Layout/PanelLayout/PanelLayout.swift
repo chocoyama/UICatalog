@@ -48,8 +48,10 @@ open class PanelLayout: UICollectionViewLayout {
     open override func prepare() {
         super.prepare()
         guard let collectionView = collectionView, let delegate = delegate else { return }
-        reset()
         pickupIndexPaths = delegate.indexPathsForPickupItem(self)
+        
+        let calculatedIndexPaths = attributesSet.map { $0.indexPath }
+        pickupIndexPaths = pickupIndexPaths.filter { !calculatedIndexPaths.contains($0) }
         
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
@@ -98,7 +100,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributesSet.append(attributes)
                         }
                     case .wide:
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: pickupIndexPaths.removeFirst())
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: pickupIndexPaths.remove(at: 0))
                         attributes.frame = wideFrame(forSectionAt: section)
                         attributesSet.append(attributes)
                     }
@@ -172,18 +174,13 @@ extension PanelLayout {
         case leftLarge
         case rightLarge
         case wide
-        
-        var next: RowType {
-            switch self {
-            case .grid:
-                return RowType(rawValue: (1...3).randomElement()!)!
-            case .leftLarge, .rightLarge, .wide:
-                return .grid
-            }
-        }
     }
     
     private var nextRowType: RowType {
+        if pickupIndexPaths.isEmpty {
+            return .grid
+        }
+        
         switch currentRowType {
         case .grid:
             switch previousRowType {
@@ -208,7 +205,7 @@ extension PanelLayout {
         case .leftLarge, .rightLarge:
             return preservedIndexPaths.count == (largeRowTotalItemCount - 1)
         case .wide:
-            return !pickupIndexPaths.isEmpty
+            return true
         }
     }
     

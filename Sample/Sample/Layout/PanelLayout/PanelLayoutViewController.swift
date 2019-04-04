@@ -22,11 +22,12 @@ class PanelLayoutViewController: UIViewController {
             let layout = PanelLayout(itemHeight: 150)
             layout.delegate = self
             collectionView.dataSource = self
+            collectionView.delegate = self
             collectionView.setCollectionViewLayout(layout, animated: false)
         }
     }
     
-    private let items: [Item] = [
+    private var items: [Item] = [
         .init(shouldPickup: true),.init(shouldPickup: true),.init(shouldPickup: true),
         .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
         .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
@@ -48,7 +49,6 @@ class PanelLayoutViewController: UIViewController {
         .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
         .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
         .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-
     ]
     
 }
@@ -68,6 +68,32 @@ extension PanelLayoutViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
+    }
+}
+
+extension PanelLayoutViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let maxIndexPath = collectionView.indexPathsForVisibleItems.max(by: { (indexPath1, indexPath2) -> Bool in
+            indexPath1.item < indexPath2.item
+        }) else {
+            return
+        }
+        
+        let threshold = 0
+        let fetchPosition = (items.count - 1) - threshold
+        let shouldPrefetch = maxIndexPath.item >= fetchPosition
+        if shouldPrefetch {
+//            print("PREFETCH!!!!!!!")
+//            items.append(contentsOf: [
+//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false)
+//            ])
+//            collectionView.reloadData()
+        }
     }
 }
 
