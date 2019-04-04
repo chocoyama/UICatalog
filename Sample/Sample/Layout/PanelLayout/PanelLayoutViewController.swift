@@ -79,20 +79,19 @@ extension PanelLayoutViewController: UICollectionViewDelegate {
             return
         }
         
-        let threshold = 0
+        let threshold = 10
         let fetchPosition = (items.count - 1) - threshold
         let shouldPrefetch = maxIndexPath.item >= fetchPosition
         if shouldPrefetch {
-//            print("PREFETCH!!!!!!!")
-//            items.append(contentsOf: [
-//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-//                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false)
-//            ])
-//            collectionView.reloadData()
+            items.append(contentsOf: [
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: true),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false)
+            ])
+            collectionView.reloadData()
         }
     }
 }

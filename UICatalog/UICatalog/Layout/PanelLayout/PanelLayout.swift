@@ -48,6 +48,7 @@ open class PanelLayout: UICollectionViewLayout {
     open override func prepare() {
         super.prepare()
         guard let collectionView = collectionView, let delegate = delegate else { return }
+        reset()
         pickupIndexPaths = delegate.indexPathsForPickupItem(self)
         
         let calculatedIndexPaths = attributesSet.map { $0.indexPath }
@@ -75,6 +76,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributes.frame = $0.element
                             attributesSet.append(attributes)
                         }
+                        preservedIndexPaths = []
                     case .leftLarge:
                         let frames = largeItemFrames(at: .left, forSectionAt: section)
                         let largeIndexPath = pickupIndexPaths.remove(at: 0)
@@ -87,6 +89,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributes.frame = frames.defaultFrames[$0.offset]
                             attributesSet.append(attributes)
                         }
+                        preservedIndexPaths = []
                     case .rightLarge:
                         let frames = largeItemFrames(at: .right, forSectionAt: section)
                         let largeIndexPath = pickupIndexPaths.remove(at: 0)
@@ -99,12 +102,12 @@ open class PanelLayout: UICollectionViewLayout {
                             attributes.frame = frames.defaultFrames[$0.offset]
                             attributesSet.append(attributes)
                         }
+                        preservedIndexPaths = []
                     case .wide:
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: pickupIndexPaths.remove(at: 0))
                         attributes.frame = wideFrame(forSectionAt: section)
                         attributesSet.append(attributes)
                     }
-                    preservedIndexPaths = []
                     changeRowType()
                 }
             }
