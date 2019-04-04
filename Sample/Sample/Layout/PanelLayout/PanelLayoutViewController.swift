@@ -19,8 +19,7 @@ class PanelLayoutViewController: UIViewController {
         didSet {
             LabelCollectionViewCell.register(for: collectionView)
      
-            let layout = PanelLayout(itemHeight: 150,
-                                     collectionViewWidth: collectionView.frame.width)
+            let layout = PanelLayout(itemHeight: 150)
             layout.delegate = self
             collectionView.dataSource = self
             collectionView.setCollectionViewLayout(layout, animated: false)
@@ -89,6 +88,6 @@ extension PanelLayoutViewController: PanelLayoutDelegate {
     }
     
     func panelLayout(_ panelLayout: PanelLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
+        return UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
     }
 }

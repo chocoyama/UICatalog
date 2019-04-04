@@ -21,7 +21,6 @@ open class PanelLayout: UICollectionViewLayout {
     private let columnCount = 3
     private let lineCount = 2
     private let itemHeight: CGFloat
-    private let itemWidth: CGFloat
     
     private var attributesSet = [UICollectionViewLayoutAttributes]()
     private var preservedIndexPaths: [IndexPath] = []
@@ -37,9 +36,8 @@ open class PanelLayout: UICollectionViewLayout {
         currentRowType = .grid
     }
     
-    public init(itemHeight: CGFloat, collectionViewWidth: CGFloat) {
+    public init(itemHeight: CGFloat) {
         self.itemHeight = itemHeight
-        self.itemWidth = collectionViewWidth / CGFloat(columnCount)
         super.init()
     }
     
@@ -64,13 +62,13 @@ open class PanelLayout: UICollectionViewLayout {
                 if shouldSetAttributes {
                     switch nextRowType {
                     case .grid:
-                        gridItemFrames().enumerated().forEach {
+                        gridItemFrames(forSectionAt: section).enumerated().forEach {
                             let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths[$0.offset])
                             attributes.frame = $0.element
                             attributesSet.append(attributes)
                         }
                     case .leftLarge:
-                        let frames = largeItemFrames(at: .left)
+                        let frames = largeItemFrames(at: .left, forSectionAt: section)
                         let largeIndexPath = pickupIndexPaths.remove(at: 0)
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
@@ -82,7 +80,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributesSet.append(attributes)
                         }
                     case .rightLarge:
-                        let frames = largeItemFrames(at: .right)
+                        let frames = largeItemFrames(at: .right, forSectionAt: section)
                         let largeIndexPath = pickupIndexPaths.remove(at: 0)
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
@@ -95,41 +93,41 @@ open class PanelLayout: UICollectionViewLayout {
                         }
                     case .wide:
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: pickupIndexPaths.removeFirst())
-                        attributes.frame = wideFrame()
+                        attributes.frame = wideFrame(forSectionAt: section)
                         attributesSet.append(attributes)
                     }
                     preservedIndexPaths = []
                     changeRowType()
                 }
             }
-        }
-        
-        if !preservedIndexPaths.isEmpty {
-            let willAppearEmptySpace = !pickupIndexPaths.isEmpty && preservedIndexPaths.count % columnCount != 0
-            if willAppearEmptySpace {
-                preservedIndexPaths.enumerated().forEach {
-                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                    attributes.frame = wideFrame()
+            
+            if !preservedIndexPaths.isEmpty {
+                let willAppearEmptySpace = !pickupIndexPaths.isEmpty && preservedIndexPaths.count % columnCount != 0
+                if willAppearEmptySpace {
+                    preservedIndexPaths.enumerated().forEach {
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                        attributes.frame = wideFrame(forSectionAt: section)
+                        attributesSet.append(attributes)
+                    }
+                } else {
+                    let frames = gridItemFrames(forSectionAt: section)
+                    preservedIndexPaths.enumerated().forEach {
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                        attributes.frame = frames[$0.offset]
+                        attributesSet.append(attributes)
+                    }
+                }
+                preservedIndexPaths = []
+            }
+            
+            if !pickupIndexPaths.isEmpty {
+                pickupIndexPaths.forEach {
+                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
+                    attributes.frame = wideFrame(forSectionAt: section)
                     attributesSet.append(attributes)
                 }
-            } else {
-                let frames = gridItemFrames()
-                preservedIndexPaths.enumerated().forEach {
-                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                    attributes.frame = frames[$0.offset]
-                    attributesSet.append(attributes)
-                }
+                pickupIndexPaths = []
             }
-            preservedIndexPaths = []
-        }
-        
-        if !pickupIndexPaths.isEmpty {
-            pickupIndexPaths.forEach {
-                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
-                attributes.frame = wideFrame()
-                attributesSet.append(attributes)
-            }
-            pickupIndexPaths = []
         }
     }
     
@@ -142,8 +140,11 @@ open class PanelLayout: UICollectionViewLayout {
     }
     
     open override var collectionViewContentSize: CGSize {
-        return CGSize(width: collectionView?.frame.width ?? 0,
-                      height: currentMaxY)
+        guard let collectionView = collectionView else { return .zero }
+        let height = (0..<collectionView.numberOfSections).reduce(0) { (total, section) -> CGFloat in
+            return total + currentMaxY(forSectionAt: section) + sectionInset(at: section).bottom
+        }
+        return CGSize(width: collectionView.frame.width, height: height)
     }
     
     private func getAttributes(in rect: CGRect) -> [UICollectionViewLayoutAttributes] {
@@ -222,45 +223,67 @@ extension PanelLayout {
         case right
     }
     
-    private var currentMaxY: CGFloat {
-        return attributesSet.max { (attr1, attr2) -> Bool in
-            return attr1.frame.maxY < attr2.frame.maxY
-            }?.frame.maxY ?? 0
+    private func sectionInset(at section: Int) -> UIEdgeInsets {
+        return delegate?.panelLayout(self, insetForSectionAt: section) ?? .zero
     }
     
-    private func gridItemFrames() -> [CGRect] {
+    private func interItemSpacing(at section: Int) -> CGFloat {
+        return delegate?.panelLayout(self, minimumInteritemSpacingForSectionAt: section) ?? .leastNormalMagnitude
+    }
+    
+    private var collectionViewWidth: CGFloat {
+        return collectionView?.frame.width ?? .leastNormalMagnitude
+    }
+    
+    private func itemWidth(forSectionAt section: Int) -> CGFloat {
+        let horizontalTotalSectionInset = sectionInset(at: section).left + sectionInset(at: section).right
+        let totalInterItemSpacing = interItemSpacing(at: section) * CGFloat(columnCount - 1)
+        
+        let totalHorizontalMargin = horizontalTotalSectionInset + totalInterItemSpacing
+        
+        return (collectionViewWidth - totalHorizontalMargin) / CGFloat(columnCount)
+    }
+    
+    private func currentMaxY(forSectionAt section: Int) -> CGFloat {
+        return attributesSet.max { (attr1, attr2) -> Bool in
+            return attr1.frame.maxY < attr2.frame.maxY
+        }?.frame.maxY ?? sectionInset(at: section).top
+    }
+    
+    private func gridItemFrames(forSectionAt section: Int) -> [CGRect] {
         return (0..<(columnCount * lineCount)).map {
             CGRect(
-                x: itemWidth * CGFloat($0 % columnCount),
-                y: currentMaxY + itemHeight * CGFloat($0 / columnCount),
-                width: itemWidth,
+                x: itemWidth(forSectionAt: section) * CGFloat($0 % columnCount) + sectionInset(at: section).left,
+                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0 / columnCount),
+                width: itemWidth(forSectionAt: section),
                 height: itemHeight
             )
         }
     }
     
-    private func largeItemFrames(at position: LargeItemPosition) -> (largeFrame: CGRect, defaultFrames: [CGRect]) {
+    private func largeItemFrames(at position: LargeItemPosition, forSectionAt section: Int) -> (largeFrame: CGRect, defaultFrames: [CGRect]) {
         var largeFrame = CGRect.zero
-        largeFrame.origin.y = currentMaxY
-        largeFrame.size.width = itemWidth * CGFloat(columnCount - 1)
+        largeFrame.origin.y = currentMaxY(forSectionAt: section)
+        largeFrame.size.width = itemWidth(forSectionAt: section) * CGFloat(columnCount - 1)
         largeFrame.size.height = itemHeight * CGFloat(lineCount)
         
         let defaultFramesX: CGFloat
-        
+    
+        let leftInset = sectionInset(at: section).left
         switch position {
         case .left:
-            largeFrame.origin.x = 0
-            defaultFramesX = largeFrame.size.width
+            largeFrame.origin.x = leftInset
+            defaultFramesX = largeFrame.size.width + leftInset
         case .right:
-            largeFrame.origin.x = itemWidth
-            defaultFramesX = 0
+            largeFrame.origin.x = itemWidth(forSectionAt: section) + leftInset
+            defaultFramesX = leftInset
         }
         
         let defaultFrames = (0...1).map {
             CGRect(
                 x: defaultFramesX,
-                y: currentMaxY + itemHeight * CGFloat($0),
-                width: itemWidth,
+                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0),
+                width: itemWidth(forSectionAt: section),
                 height: itemHeight
             )
         }
@@ -268,11 +291,11 @@ extension PanelLayout {
         return (largeFrame: largeFrame, defaultFrames: defaultFrames)
     }
     
-    private func wideFrame() -> CGRect {
+    private func wideFrame(forSectionAt section: Int) -> CGRect {
         return CGRect(
-            x: 0,
-            y: currentMaxY,
-            width: itemWidth * CGFloat(columnCount),
+            x: sectionInset(at: section).left,
+            y: currentMaxY(forSectionAt: section),
+            width: itemWidth(forSectionAt: section) * CGFloat(columnCount),
             height: itemHeight * CGFloat(lineCount)
         )
     }
