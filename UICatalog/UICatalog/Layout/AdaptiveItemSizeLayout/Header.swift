@@ -34,3 +34,8 @@ public class Header {
         return attributes.frame.intersects(rect) ? [attributes] : []
     }
 }
+
+public protocol SectionHeaderAppendable {
+    var section: Int { get }
+    func moveDownward(by point: CGFloat)
+}

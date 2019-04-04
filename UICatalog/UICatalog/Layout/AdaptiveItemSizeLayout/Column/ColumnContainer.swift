@@ -12,7 +12,7 @@ class ColumnContainer {
     typealias Configuration = AdaptiveHeightConfiguration
     
     private(set) var headers: [Header] = []
-    var lines: [Line] = []
+    var lines: [SectionLine] = []
     let configuration: AdaptiveHeightConfiguration
     
     init(configureBy configuration: Configuration?) {
@@ -58,7 +58,7 @@ extension ColumnContainer: Containerable {
     
     func addItem(indexPath: IndexPath, itemSize: CGSize) {
         let nextLine = getNextLine(section: indexPath.section)
-        nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
+        try? nextLine?.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
     func addHeader(section: Int, size: CGSize) {

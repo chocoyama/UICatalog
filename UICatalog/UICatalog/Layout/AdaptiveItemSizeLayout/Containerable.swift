@@ -10,7 +10,7 @@ import UIKit
 
 public protocol Containerable {
     var headers: [Header] { get }
-    var lines: [Line] { get set }
+    var lines: [SectionLine] { get set }
     func configure(by collectionView: UICollectionView)
     func addItem(indexPath: IndexPath, itemSize: CGSize)
     func addHeader(section: Int, size: CGSize)

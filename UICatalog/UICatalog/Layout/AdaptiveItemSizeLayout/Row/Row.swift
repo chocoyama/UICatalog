@@ -42,11 +42,10 @@ class Row: Line {
 }
 
 extension Row {
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize) {
+    func addAttributes(indexPath: IndexPath, itemSize: CGSize) throws {
         guard height >= itemSize.height,
             nextOriginX + itemSize.width <= width else {
-            // TODO: Throw Error
-            return
+            throw LineError.notEnoughSpace
         }
         
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -60,6 +59,16 @@ extension Row {
         attributesSet.append(attributes)
     }
     
+    private var nextOriginX: CGFloat {
+        if attributesSet.isEmpty {
+            return configuration.sectionInsets.left
+        } else {
+            return maxX + configuration.minimumInterItemSpacing
+        }
+    }
+}
+
+extension Row: SectionHeaderAppendable {
     func moveDownward(by point: CGFloat) {
         attributesSet.forEach {
             $0.frame = CGRect(
@@ -70,13 +79,5 @@ extension Row {
             )
         }
         self.originY = originY + point
-    }
-    
-    private var nextOriginX: CGFloat {
-        if attributesSet.isEmpty {
-            return configuration.sectionInsets.left
-        } else {
-            return maxX + configuration.minimumInterItemSpacing
-        }
     }
 }

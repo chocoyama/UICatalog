@@ -51,6 +51,8 @@
 		80400F1B21911988002622C9 /* SemiModalRelativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80400F1921911988002622C9 /* SemiModalRelativeViewController.swift */; };
 		80400F1C21911988002622C9 /* SemiModalRelativeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80400F1A21911988002622C9 /* SemiModalRelativeViewController.xib */; };
 		8075A5E2223B655E00E6B309 /* SemiModalAbsoluteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8075A5E1223B655D00E6B309 /* SemiModalAbsoluteViewController.xib */; };
+		80CC83632254CDE10048C052 /* PanelLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC83612254CDE10048C052 /* PanelLayoutViewController.swift */; };
+		80CC83642254CDE10048C052 /* PanelLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CC83622254CDE10048C052 /* PanelLayoutViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		80400F1921911988002622C9 /* SemiModalRelativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalRelativeViewController.swift; sourceTree = "<group>"; };
 		80400F1A21911988002622C9 /* SemiModalRelativeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SemiModalRelativeViewController.xib; sourceTree = "<group>"; };
 		8075A5E1223B655D00E6B309 /* SemiModalAbsoluteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SemiModalAbsoluteViewController.xib; sourceTree = "<group>"; };
+		80CC83612254CDE10048C052 /* PanelLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelLayoutViewController.swift; sourceTree = "<group>"; };
+		80CC83622254CDE10048C052 /* PanelLayoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PanelLayoutViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +359,7 @@
 		803D6B14215B0A62007C332E /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				80CC83602254CDC10048C052 /* PanelLayout */,
 				6BA5011C216E2424003B530F /* AdaptiveItemSizeLayout */,
 			);
 			path = Layout;
@@ -381,6 +386,15 @@
 				8075A5E1223B655D00E6B309 /* SemiModalAbsoluteViewController.xib */,
 			);
 			path = SemiModalView;
+			sourceTree = "<group>";
+		};
+		80CC83602254CDC10048C052 /* PanelLayout */ = {
+			isa = PBXGroup;
+			children = (
+				80CC83612254CDE10048C052 /* PanelLayoutViewController.swift */,
+				80CC83622254CDE10048C052 /* PanelLayoutViewController.xib */,
+			);
+			path = PanelLayout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,6 +475,7 @@
 				80400F1C21911988002622C9 /* SemiModalRelativeViewController.xib in Resources */,
 				8013D2232182CF610001CD75 /* ZoomTransitionAnimatorViewController.xib in Resources */,
 				6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */,
+				80CC83642254CDE10048C052 /* PanelLayoutViewController.xib in Resources */,
 				6BDAE5332152668000BBB47A /* RangeSlider.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +491,7 @@
 				8013D2222182CF610001CD75 /* ZoomTransitionAnimatorViewController.swift in Sources */,
 				8013D21B2182C4ED0001CD75 /* RotationImageViewController.swift in Sources */,
 				6BDAE5362152686E00BBB47A /* TableViewCell.swift in Sources */,
+				80CC83632254CDE10048C052 /* PanelLayoutViewController.swift in Sources */,
 				6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */,
 				6B33DF802158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift in Sources */,
 				6B8DEE43218329D400D2D01F /* ImageCollectionViewCell.swift in Sources */,

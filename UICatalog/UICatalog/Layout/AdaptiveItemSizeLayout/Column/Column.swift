@@ -62,6 +62,16 @@ extension Column {
         attributesSet.append(attributes)
     }
     
+    private var nextOriginY: CGFloat {
+        if attributesSet.isEmpty {
+            return configuration.sectionInsets.top
+        } else {
+            return maxY + configuration.minimumLineSpacing - configuration.sectionInsets.bottom
+        }
+    }
+}
+
+extension Column: SectionHeaderAppendable {
     func moveDownward(by point: CGFloat) {
         attributesSet.forEach {
             $0.frame = CGRect(
@@ -73,13 +83,5 @@ extension Column {
         }
         self.originY = originY + point
         self.maxY = maxY + point
-    }
-    
-    private var nextOriginY: CGFloat {
-        if attributesSet.isEmpty {
-            return configuration.sectionInsets.top
-        } else {
-            return maxY + configuration.minimumLineSpacing - configuration.sectionInsets.bottom
-        }
     }
 }

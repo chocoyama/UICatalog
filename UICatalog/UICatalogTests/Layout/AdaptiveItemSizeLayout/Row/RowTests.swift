@@ -49,7 +49,7 @@ class RowTests: XCTestCase {
                 width: 600
             )
             
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 101)
             )
@@ -68,7 +68,7 @@ class RowTests: XCTestCase {
                 width: 600
             )
             
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 601, height: 100)
             )
@@ -88,7 +88,7 @@ class RowTests: XCTestCase {
             )
             
             // 1件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -101,7 +101,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 200)
             
             // 2件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -115,7 +115,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 400)
             
             // 3件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -142,7 +142,7 @@ class RowTests: XCTestCase {
             )
             
             // 1件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -155,7 +155,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 200)
             
             // 2件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -169,7 +169,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 405)
             
             // 3件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -183,7 +183,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 405)
             
             // 4件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 3, section: 0),
                 itemSize: CGSize(width: 190, height: 100)
             )
@@ -210,7 +210,7 @@ class RowTests: XCTestCase {
             )
             
             // 1件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -223,7 +223,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 200)
             
             // 2件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -237,7 +237,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 400)
             
             // 3件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -264,7 +264,7 @@ class RowTests: XCTestCase {
             )
             
             // 1件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 0, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -277,7 +277,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 200)
             
             // 2件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 1, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -291,7 +291,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 405)
             
             // 3件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 2, section: 0),
                 itemSize: CGSize(width: 200, height: 100)
             )
@@ -305,7 +305,7 @@ class RowTests: XCTestCase {
             XCTAssertEqual(row.maxX, 405)
             
             // 4件目
-            row.addAttributes(
+            try! row.addAttributes(
                 indexPath: IndexPath(item: 3, section: 0),
                 itemSize: CGSize(width: 190, height: 100)
             )

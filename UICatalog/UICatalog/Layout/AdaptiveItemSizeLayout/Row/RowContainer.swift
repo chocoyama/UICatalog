@@ -12,7 +12,7 @@ class RowContainer {
     typealias Configuration = AdaptiveWidthConfiguration
     
     private(set) var headers: [Header] = []
-    var lines: [Line] = []
+    var lines: [SectionLine] = []
     let configuration: AdaptiveWidthConfiguration
     
     private var collectionViewWidth: CGFloat = .leastNormalMagnitude
@@ -70,7 +70,8 @@ extension RowContainer: Containerable {
         } else {
             line = addNewLine(section: indexPath.section, height: itemSize.height)
         }
-        line.addAttributes(indexPath: indexPath, itemSize: itemSize)
+        
+        try? line.addAttributes(indexPath: indexPath, itemSize: itemSize)
     }
     
     func addHeader(section: Int, size: CGSize) {

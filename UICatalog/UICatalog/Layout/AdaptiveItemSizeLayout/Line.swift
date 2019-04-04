@@ -8,8 +8,13 @@
 
 import Foundation
 
+public typealias SectionLine = Line & SectionHeaderAppendable
+
+public enum LineError: Error {
+    case notEnoughSpace
+}
+
 public protocol Line {
-    var section: Int { get }
     var number: Int { get }
     var maxX: CGFloat { get }
     var maxY: CGFloat { get }
@@ -18,10 +23,9 @@ public protocol Line {
     var width: CGFloat { get }
     var height: CGFloat { get }
     var attributesSet: [UICollectionViewLayoutAttributes] { get set }
-    func addAttributes(indexPath: IndexPath, itemSize: CGSize)
+    func addAttributes(indexPath: IndexPath, itemSize: CGSize) throws
     func getAttributes(indexPath: IndexPath) -> UICollectionViewLayoutAttributes?
     func getAttributes(rect: CGRect) -> [UICollectionViewLayoutAttributes]
-    func moveDownward(by point: CGFloat)
 }
 
 extension Line {
