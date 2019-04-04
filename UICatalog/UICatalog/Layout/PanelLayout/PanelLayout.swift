@@ -231,6 +231,10 @@ extension PanelLayout {
         return delegate?.panelLayout(self, minimumInteritemSpacingForSectionAt: section) ?? .leastNormalMagnitude
     }
     
+    private func lineSpacing(at section: Int) -> CGFloat {
+        return delegate?.panelLayout(self, minimumLineSpacingForSectionAt: section) ?? .leastNormalMagnitude
+    }
+    
     private var collectionViewWidth: CGFloat {
         return collectionView?.frame.width ?? .leastNormalMagnitude
     }
@@ -247,16 +251,17 @@ extension PanelLayout {
     private func currentMaxY(forSectionAt section: Int) -> CGFloat {
         return attributesSet.max { (attr1, attr2) -> Bool in
             return attr1.frame.maxY < attr2.frame.maxY
-        }?.frame.maxY ?? sectionInset(at: section).top
+        }?.frame.maxY ?? (sectionInset(at: section).top - lineSpacing(at: section))
     }
     
     private func gridItemFrames(forSectionAt section: Int) -> [CGRect] {
         let leftInset = sectionInset(at: section).left
+        let lineSpacing = self.lineSpacing(at: section)
         return (0..<(columnCount * lineCount)).map {
             let totalItemSpacing = interItemSpacing(at: section) * CGFloat($0 % columnCount)
             return CGRect(
                 x: compactItemWidth(forSectionAt: section) * CGFloat($0 % columnCount) + leftInset + totalItemSpacing,
-                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0 / columnCount),
+                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0 / columnCount) + lineSpacing * CGFloat($0 / columnCount + 1),
                 width: compactItemWidth(forSectionAt: section),
                 height: itemHeight
             )
@@ -266,11 +271,12 @@ extension PanelLayout {
     private func largeItemFrames(at position: LargeItemPosition, forSectionAt section: Int) -> (largeFrame: CGRect, defaultFrames: [CGRect]) {
         let leftInset = sectionInset(at: section).left
         let itemSpacing = interItemSpacing(at: section)
+        let lineSpacing = self.lineSpacing(at: section)
         
         var largeFrame = CGRect.zero
-        largeFrame.origin.y = currentMaxY(forSectionAt: section)
+        largeFrame.origin.y = currentMaxY(forSectionAt: section) + lineSpacing
         largeFrame.size.width = compactItemWidth(forSectionAt: section) * CGFloat(columnCount - 1) + itemSpacing
-        largeFrame.size.height = itemHeight * CGFloat(lineCount)
+        largeFrame.size.height = itemHeight * CGFloat(lineCount) + lineSpacing
         
         let defaultFramesX: CGFloat
     
@@ -286,7 +292,7 @@ extension PanelLayout {
         let defaultFrames = (0...1).map {
             CGRect(
                 x: defaultFramesX,
-                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0),
+                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0) + lineSpacing * CGFloat($0 + 1),
                 width: compactItemWidth(forSectionAt: section),
                 height: itemHeight
             )
@@ -297,9 +303,10 @@ extension PanelLayout {
     
     private func wideFrame(forSectionAt section: Int) -> CGRect {
         let itemSpacing = interItemSpacing(at: section)
+        let lineSpacing = self.lineSpacing(at: section)
         return CGRect(
             x: sectionInset(at: section).left,
-            y: currentMaxY(forSectionAt: section),
+            y: currentMaxY(forSectionAt: section) + lineSpacing,
             width: compactItemWidth(forSectionAt: section) * CGFloat(columnCount) + (itemSpacing * 2),
             height: itemHeight * CGFloat(lineCount)
         )
