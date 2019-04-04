@@ -80,7 +80,7 @@ extension PanelLayoutViewController: PanelLayoutDelegate {
     }
     
     func panelLayout(_ panelLayout: PanelLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .leastNormalMagnitude
+        return 4.0
     }
     
     func panelLayout(_ panelLayout: PanelLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
