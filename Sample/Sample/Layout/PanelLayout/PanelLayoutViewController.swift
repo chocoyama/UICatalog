@@ -28,36 +28,27 @@ class PanelLayoutViewController: UIViewController {
     }
     
     private let items: [Item] = [
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
-        .init(shouldPickup: true),.init(shouldPickup: true),
-        .init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: true),.init(shouldPickup: true),.init(shouldPickup: true),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+        .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
     ]
     
 }
@@ -68,7 +59,9 @@ extension PanelLayoutViewController: UICollectionViewDataSource {
             .dequeue(from: collectionView, indexPath: indexPath)
             .configure(for: indexPath, backgroundColor: .random)
         if items[indexPath.item].shouldPickup {
-            cell.label.text = "ピックアップしたいやつ"
+            cell.label.text = "\(indexPath.item) (pickup)"
+        } else {
+            cell.label.text = "\(indexPath.item)"
         }
         return cell
     }
@@ -79,7 +72,10 @@ extension PanelLayoutViewController: UICollectionViewDataSource {
 }
 
 extension PanelLayoutViewController: PanelLayoutDelegate {
-    func panelLayout(_ panelLayout: PanelLayout, shouldPickUpItemAt indexPath: IndexPath) -> Bool {
-        return items[indexPath.item].shouldPickup
+    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath] {
+        return items
+            .enumerated()
+            .filter { $0.element.shouldPickup }
+            .map { IndexPath(item: $0.offset, section: 0) }
     }
 }

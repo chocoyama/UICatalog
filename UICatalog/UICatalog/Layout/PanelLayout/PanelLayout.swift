@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol PanelLayoutDelegate: class {
-    func panelLayout(_ panelLayout: PanelLayout, shouldPickUpItemAt indexPath: IndexPath) -> Bool
+    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]
 }
 
 open class PanelLayout: UICollectionViewLayout {
@@ -38,9 +38,11 @@ open class PanelLayout: UICollectionViewLayout {
     
     private var attributesSet = [UICollectionViewLayoutAttributes]()
     private var preservedIndexPaths: [IndexPath] = []
+    private var pickupIndexPaths: [IndexPath] = []
     
     private var previousRowType: RowType = .wide
     private var currentRowType: RowType = .grid
+    
     private var nextRowType: RowType {
         switch currentRowType {
         case .grid:
@@ -57,6 +59,25 @@ open class PanelLayout: UICollectionViewLayout {
         case .leftLarge, .rightLarge, .wide:
             return .grid
         }
+    }
+    
+    private var shouldSetAttributes: Bool {
+        switch nextRowType {
+        case .grid:
+            return preservedIndexPaths.count == columnCount * lineCount
+        case .leftLarge, .rightLarge:
+            return preservedIndexPaths.count == (largeRowTotalItemCount - 1)
+        case .wide:
+            return !pickupIndexPaths.isEmpty
+        }
+    }
+    
+    private func reset() {
+        attributesSet = []
+        preservedIndexPaths = []
+        pickupIndexPaths = []
+        previousRowType = .wide
+        currentRowType = .grid
     }
     
     private func changeRowType() {
@@ -81,7 +102,7 @@ open class PanelLayout: UICollectionViewLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func gridItemFrames(columnCount: Int = 3, lineCount: Int = 2) -> [CGRect] {
+    private func gridItemFrames() -> [CGRect] {
         return (0..<(columnCount * lineCount)).map {
             CGRect(
                 x: itemWidth * CGFloat($0 % columnCount),
@@ -139,37 +160,31 @@ open class PanelLayout: UICollectionViewLayout {
         return (columnCount * lineCount) - ((columnCount - 1) * lineCount - 1)
     }
     
-    private var shouldSetAttributes: Bool {
-        switch nextRowType {
-        case .grid:
-            return preservedIndexPaths.count == columnCount * lineCount
-        case .leftLarge, .rightLarge:
-            return preservedIndexPaths.count == largeRowTotalItemCount
-        case .wide:
-            return preservedIndexPaths.count == 1
-        }
-    }
-    
     open override func prepare() {
         super.prepare()
         guard let collectionView = collectionView, let delegate = delegate else { return }
+        reset()
+        pickupIndexPaths = delegate.indexPathsForPickupItem(self)
         
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
-                preservedIndexPaths.append(IndexPath(item: item, section: section))
+                let indexPath = IndexPath(item: item, section: section)
+                if pickupIndexPaths.contains(indexPath) {
+                    continue
+                }
+                preservedIndexPaths.append(indexPath)
                 
                 if shouldSetAttributes {
                     switch nextRowType {
                     case .grid:
-                        let frames = gridItemFrames(columnCount: columnCount, lineCount: lineCount)
-                        frames.enumerated().forEach {
+                        gridItemFrames().enumerated().forEach {
                             let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths[$0.offset])
                             attributes.frame = $0.element
                             attributesSet.append(attributes)
                         }
                     case .leftLarge:
                         let frames = largeItemFrames(at: .left)
-                        let largeIndexPath = preservedIndexPaths.remove(at: 0)
+                        let largeIndexPath = pickupIndexPaths.remove(at: 0)
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
                         attributesSet.append(attributes)
@@ -181,8 +196,7 @@ open class PanelLayout: UICollectionViewLayout {
                         }
                     case .rightLarge:
                         let frames = largeItemFrames(at: .right)
-                        
-                        let largeIndexPath = preservedIndexPaths.remove(at: 0)
+                        let largeIndexPath = pickupIndexPaths.remove(at: 0)
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
                         attributesSet.append(attributes)
@@ -193,7 +207,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributesSet.append(attributes)
                         }
                     case .wide:
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths.first!)
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: pickupIndexPaths.removeFirst())
                         attributes.frame = wideFrame()
                         attributesSet.append(attributes)
                     }
@@ -204,13 +218,31 @@ open class PanelLayout: UICollectionViewLayout {
         }
         
         if !preservedIndexPaths.isEmpty {
-            let frames = gridItemFrames(columnCount: columnCount, lineCount: lineCount)
-            preservedIndexPaths.enumerated().forEach {
-                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                attributes.frame = frames[$0.offset]
-                attributesSet.append(attributes)
+            let willAppearEmptySpace = !pickupIndexPaths.isEmpty && preservedIndexPaths.count % columnCount != 0
+            if willAppearEmptySpace {
+                preservedIndexPaths.enumerated().forEach {
+                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                    attributes.frame = wideFrame()
+                    attributesSet.append(attributes)
+                }
+            } else {
+                let frames = gridItemFrames()
+                preservedIndexPaths.enumerated().forEach {
+                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                    attributes.frame = frames[$0.offset]
+                    attributesSet.append(attributes)
+                }
             }
             preservedIndexPaths = []
+        }
+        
+        if !pickupIndexPaths.isEmpty {
+            pickupIndexPaths.forEach {
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
+                attributes.frame = wideFrame()
+                attributesSet.append(attributes)
+            }
+            pickupIndexPaths = []
         }
     }
     
@@ -236,6 +268,6 @@ open class PanelLayout: UICollectionViewLayout {
             let equalSection = $0.indexPath.section == indexPath.section
             let equalItem = $0.indexPath.item == indexPath.item
             return equalSection && equalItem
-            }.first
+        }.first
     }
 }
