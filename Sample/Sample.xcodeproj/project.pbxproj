@@ -17,6 +17,8 @@
 		6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF6D21587C7C006143A4 /* OutlineLabelViewController.xib */; };
 		6B33DF802158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF7F2158BDF1006143A4 /* AdaptiveItemHeightLayoutViewController.swift */; };
 		6B33DF822158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF812158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard */; };
+		6B419C252256558F00174622 /* UICatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDAE5122152654400BBB47A /* UICatalog.framework */; };
+		6B419C292256559C00174622 /* UICatalog.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDAE5122152654400BBB47A /* UICatalog.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6B8DEE43218329D400D2D01F /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8DEE41218329D400D2D01F /* ImageCollectionViewCell.swift */; };
 		6B8DEE44218329D400D2D01F /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B8DEE42218329D400D2D01F /* ImageCollectionViewCell.xib */; };
 		6B9863A021737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B98639E21737A4100D5004C /* SamplePageSynchronizedCollectionViewController.swift */; };
@@ -38,7 +40,6 @@
 		6BDAE4F02152649B00BBB47A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BDAE4EE2152649B00BBB47A /* Main.storyboard */; };
 		6BDAE4F22152649C00BBB47A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BDAE4F12152649C00BBB47A /* Assets.xcassets */; };
 		6BDAE4F52152649C00BBB47A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BDAE4F32152649C00BBB47A /* LaunchScreen.storyboard */; };
-		6BDAE5132152654400BBB47A /* UICatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDAE5122152654400BBB47A /* UICatalog.framework */; };
 		6BDAE5332152668000BBB47A /* RangeSlider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BDAE5312152668000BBB47A /* RangeSlider.storyboard */; };
 		6BDAE5342152668000BBB47A /* RangeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE5322152668000BBB47A /* RangeSliderViewController.swift */; };
 		6BDAE5362152686E00BBB47A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDAE5352152686E00BBB47A /* TableViewCell.swift */; };
@@ -54,6 +55,20 @@
 		80CC83632254CDE10048C052 /* PanelLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC83612254CDE10048C052 /* PanelLayoutViewController.swift */; };
 		80CC83642254CDE10048C052 /* PanelLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CC83622254CDE10048C052 /* PanelLayoutViewController.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6B419C2A2256559D00174622 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6B419C292256559C00174622 /* UICatalog.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6B2713AB215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveItemWidthLayoutViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BDAE5132152654400BBB47A /* UICatalog.framework in Frameworks */,
+				6B419C252256558F00174622 /* UICatalog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +422,7 @@
 				6BDAE4E32152649B00BBB47A /* Sources */,
 				6BDAE4E42152649B00BBB47A /* Frameworks */,
 				6BDAE4E52152649B00BBB47A /* Resources */,
+				6B419C2A2256559D00174622 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

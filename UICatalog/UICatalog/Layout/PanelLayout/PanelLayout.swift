@@ -25,6 +25,7 @@ open class PanelLayout: UICollectionViewLayout {
     private var attributesSet = [UICollectionViewLayoutAttributes]()
     private var preservedIndexPaths: [IndexPath] = []
     private var pickupIndexPaths: [IndexPath] = []
+    private var shouldReloadIndexPaths: [IndexPath] = []
     private var previousRowType: RowType = .wide
     private var currentRowType: RowType = .grid
     
@@ -32,6 +33,7 @@ open class PanelLayout: UICollectionViewLayout {
         attributesSet = []
         preservedIndexPaths = []
         pickupIndexPaths = []
+        shouldReloadIndexPaths = []
         previousRowType = .wide
         currentRowType = .grid
     }
@@ -48,7 +50,13 @@ open class PanelLayout: UICollectionViewLayout {
     open override func prepare() {
         super.prepare()
         guard let collectionView = collectionView, let delegate = delegate else { return }
+        
         reset()
+//        if !shouldReloadIndexPaths.isEmpty {
+//            attributesSet = attributesSet.filter { !shouldReloadIndexPaths.contains($0.indexPath) }
+//            shouldReloadIndexPaths = []
+//        }
+        
         pickupIndexPaths = delegate.indexPathsForPickupItem(self)
         
         let calculatedIndexPaths = attributesSet.map { $0.indexPath }
@@ -113,7 +121,8 @@ open class PanelLayout: UICollectionViewLayout {
             }
             
             if !preservedIndexPaths.isEmpty {
-                let willAppearEmptySpace = !pickupIndexPaths.isEmpty && preservedIndexPaths.count % columnCount != 0
+                shouldReloadIndexPaths.append(contentsOf: preservedIndexPaths)
+                let willAppearEmptySpace = preservedIndexPaths.count % columnCount != 0
                 if willAppearEmptySpace {
                     preservedIndexPaths.enumerated().forEach {
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
@@ -132,6 +141,7 @@ open class PanelLayout: UICollectionViewLayout {
             }
             
             if !pickupIndexPaths.isEmpty {
+                shouldReloadIndexPaths.append(contentsOf: pickupIndexPaths)
                 pickupIndexPaths.forEach {
                     let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
                     attributes.frame = wideFrame(forSectionAt: section)
@@ -188,7 +198,7 @@ extension PanelLayout {
         case .grid:
             switch previousRowType {
             case .grid:
-                fatalError()
+                return .leftLarge
             case .leftLarge:
                 return .rightLarge
             case .rightLarge:

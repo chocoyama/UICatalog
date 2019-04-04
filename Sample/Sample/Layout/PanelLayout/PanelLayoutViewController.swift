@@ -83,15 +83,20 @@ extension PanelLayoutViewController: UICollectionViewDelegate {
         let fetchPosition = (items.count - 1) - threshold
         let shouldPrefetch = maxIndexPath.item >= fetchPosition
         if shouldPrefetch {
-            items.append(contentsOf: [
+            let items: [Item] = [
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: true),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false)
-            ])
-            collectionView.reloadData()
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: true),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
+            ]
+            let indexPaths = (self.items.count..<self.items.count+items.count).map { IndexPath(item: $0, section: 0) }
+            self.items.append(contentsOf: items)
+            collectionView.insertItems(at: indexPaths)
         }
     }
 }
