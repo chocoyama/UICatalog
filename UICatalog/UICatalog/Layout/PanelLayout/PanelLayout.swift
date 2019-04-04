@@ -28,7 +28,7 @@ open class PanelLayout: UICollectionViewLayout {
     private var previousRowType: RowType = .wide
     private var currentRowType: RowType = .grid
     
-    private func reset() {
+    open func reset() {
         attributesSet = []
         preservedIndexPaths = []
         pickupIndexPaths = []
@@ -54,9 +54,15 @@ open class PanelLayout: UICollectionViewLayout {
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
+                
+                if attributesSet.first(where: { $0.indexPath == indexPath }) != nil {
+                    continue
+                }
+                
                 if pickupIndexPaths.contains(indexPath) {
                     continue
                 }
+                
                 preservedIndexPaths.append(indexPath)
                 
                 if shouldSetAttributes {
