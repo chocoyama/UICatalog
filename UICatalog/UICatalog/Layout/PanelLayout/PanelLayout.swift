@@ -92,17 +92,31 @@ open class PanelLayout: UICollectionViewLayout {
         }
     }
     
-    private func leftLargeItemFrames(columnCount: Int = 3, lineCount: Int = 2) -> (largeFrame: CGRect, defaultFrames: [CGRect]) {
-        let largeFrame = CGRect(
-            x: 0,
-            y: currentMaxY,
-            width: itemWidth * CGFloat(columnCount - 1),
-            height: itemHeight * CGFloat(lineCount)
-        )
+    enum LargeItemPosition {
+        case left
+        case right
+    }
+    
+    private func largeItemFrames(at position: LargeItemPosition) -> (largeFrame: CGRect, defaultFrames: [CGRect]) {
+        var largeFrame = CGRect.zero
+        largeFrame.origin.y = currentMaxY
+        largeFrame.size.width = itemWidth * CGFloat(columnCount - 1)
+        largeFrame.size.height = itemHeight * CGFloat(lineCount)
+        
+        let defaultFramesX: CGFloat
+        
+        switch position {
+        case .left:
+            largeFrame.origin.x = 0
+            defaultFramesX = largeFrame.size.width
+        case .right:
+            largeFrame.origin.x = itemWidth
+            defaultFramesX = 0
+        }
         
         let defaultFrames = (0...1).map {
             CGRect(
-                x: itemWidth * CGFloat(columnCount - 1),
+                x: defaultFramesX,
                 y: currentMaxY + itemHeight * CGFloat($0),
                 width: itemWidth,
                 height: itemHeight
@@ -112,27 +126,7 @@ open class PanelLayout: UICollectionViewLayout {
         return (largeFrame: largeFrame, defaultFrames: defaultFrames)
     }
     
-    private func rightLargeItemFrames(columnCount: Int = 3, lineCount: Int = 2) -> (largeFrame: CGRect, defaultFrames: [CGRect]) {
-        let largeFrame = CGRect(
-            x: itemWidth,
-            y: currentMaxY,
-            width: itemWidth * CGFloat(columnCount - 1),
-            height: itemHeight * CGFloat(lineCount)
-        )
-        
-        let defaultFrames = (0...1).map {
-            CGRect(
-                x: 0,
-                y: currentMaxY + itemHeight * CGFloat($0),
-                width: itemWidth,
-                height: itemHeight
-            )
-        }
-        
-        return (largeFrame: largeFrame, defaultFrames: defaultFrames)
-    }
-    
-    private func wideFrame(columnCount: Int = 3, lineCount: Int = 2) -> CGRect {
+    private func wideFrame() -> CGRect {
         return CGRect(
             x: 0,
             y: currentMaxY,
@@ -174,7 +168,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributesSet.append(attributes)
                         }
                     case .leftLarge:
-                        let frames = leftLargeItemFrames(columnCount: columnCount, lineCount: lineCount)
+                        let frames = largeItemFrames(at: .left)
                         let largeIndexPath = preservedIndexPaths.remove(at: 0)
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
@@ -186,7 +180,7 @@ open class PanelLayout: UICollectionViewLayout {
                             attributesSet.append(attributes)
                         }
                     case .rightLarge:
-                        let frames = rightLargeItemFrames(columnCount: columnCount, lineCount: lineCount)
+                        let frames = largeItemFrames(at: .right)
                         
                         let largeIndexPath = preservedIndexPaths.remove(at: 0)
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
@@ -200,7 +194,7 @@ open class PanelLayout: UICollectionViewLayout {
                         }
                     case .wide:
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths.first!)
-                        attributes.frame = wideFrame(columnCount: columnCount, lineCount: lineCount)
+                        attributes.frame = wideFrame()
                         attributesSet.append(attributes)
                     }
                     preservedIndexPaths = []
