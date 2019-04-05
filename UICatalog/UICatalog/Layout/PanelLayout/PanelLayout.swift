@@ -9,19 +9,25 @@
 import UIKit
 
 public protocol PanelLayoutDelegate: class {
-    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]
+    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]?
     func panelLayout(_ panelLayout: PanelLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     func panelLayout(_ panelLayout: PanelLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
     func panelLayout(_ panelLayout: PanelLayout, insetForSectionAt section: Int) -> UIEdgeInsets
 }
 
 open class PanelLayout: UICollectionViewLayout {
+    enum Mode {
+        case pickup
+        case inOrder
+    }
+    
     open weak var delegate: PanelLayoutDelegate?
     
     private let columnCount = 3
     private let lineCount = 2
     private let itemHeight: CGFloat
     
+    private var mode: Mode = .inOrder
     private var attributesSet = [UICollectionViewLayoutAttributes]()
     private var preservedIndexPaths: [IndexPath] = []
     private var pickupIndexPaths: [IndexPath] = []
@@ -57,7 +63,12 @@ open class PanelLayout: UICollectionViewLayout {
 //            shouldReloadIndexPaths = []
 //        }
         
-        pickupIndexPaths = delegate.indexPathsForPickupItem(self)
+        if let pickupIndexPaths = delegate.indexPathsForPickupItem(self) {
+            self.pickupIndexPaths = pickupIndexPaths
+            mode = .pickup
+        } else {
+            mode = .inOrder
+        }
         
         let calculatedIndexPaths = attributesSet.map { $0.indexPath }
         pickupIndexPaths = pickupIndexPaths.filter { !calculatedIndexPaths.contains($0) }
@@ -87,7 +98,11 @@ open class PanelLayout: UICollectionViewLayout {
                         preservedIndexPaths = []
                     case .leftLarge:
                         let frames = largeItemFrames(at: .left, forSectionAt: section)
-                        let largeIndexPath = pickupIndexPaths.remove(at: 0)
+                        let largeIndexPath: IndexPath
+                        switch mode {
+                        case .pickup: largeIndexPath = pickupIndexPaths.remove(at: 0)
+                        case .inOrder: largeIndexPath = preservedIndexPaths.remove(at: 0)
+                        }
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
                         attributesSet.append(attributes)
@@ -100,7 +115,11 @@ open class PanelLayout: UICollectionViewLayout {
                         preservedIndexPaths = []
                     case .rightLarge:
                         let frames = largeItemFrames(at: .right, forSectionAt: section)
-                        let largeIndexPath = pickupIndexPaths.remove(at: 0)
+                        let largeIndexPath: IndexPath
+                        switch mode {
+                        case .pickup: largeIndexPath = pickupIndexPaths.remove(at: 0)
+                        case .inOrder: largeIndexPath = preservedIndexPaths.remove(at: 0)
+                        }
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
                         attributesSet.append(attributes)
@@ -112,7 +131,12 @@ open class PanelLayout: UICollectionViewLayout {
                         }
                         preservedIndexPaths = []
                     case .wide:
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: pickupIndexPaths.remove(at: 0))
+                        let indexPath: IndexPath
+                        switch mode {
+                        case .pickup: indexPath = pickupIndexPaths.remove(at: 0)
+                        case .inOrder: indexPath = preservedIndexPaths.remove(at: 0)
+                        }
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                         attributes.frame = wideFrame(forSectionAt: section)
                         attributesSet.append(attributes)
                     }
@@ -190,7 +214,7 @@ extension PanelLayout {
     }
     
     private var nextRowType: RowType {
-        if pickupIndexPaths.isEmpty {
+        if case .pickup = mode, pickupIndexPaths.isEmpty {
             return .grid
         }
         
@@ -212,13 +236,25 @@ extension PanelLayout {
     }
     
     private var shouldSetAttributes: Bool {
-        switch nextRowType {
-        case .grid:
-            return preservedIndexPaths.count == columnCount * lineCount
-        case .leftLarge, .rightLarge:
-            return preservedIndexPaths.count == (largeRowTotalItemCount - 1)
-        case .wide:
-            return true
+        switch mode {
+        case .pickup:
+            switch nextRowType {
+            case .grid:
+                return preservedIndexPaths.count == columnCount * lineCount
+            case .leftLarge, .rightLarge:
+                return preservedIndexPaths.count == (largeRowTotalItemCount - 1)
+            case .wide:
+                return true
+            }
+        case .inOrder:
+            switch nextRowType {
+            case .grid:
+                return preservedIndexPaths.count == columnCount * lineCount
+            case .leftLarge, .rightLarge:
+                return preservedIndexPaths.count == largeRowTotalItemCount
+            case .wide:
+                return true
+            }
         }
     }
     

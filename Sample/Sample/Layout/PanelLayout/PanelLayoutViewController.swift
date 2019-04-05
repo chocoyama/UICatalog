@@ -102,11 +102,12 @@ extension PanelLayoutViewController: UICollectionViewDelegate {
 }
 
 extension PanelLayoutViewController: PanelLayoutDelegate {
-    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath] {
-        return items
-            .enumerated()
-            .filter { $0.element.shouldPickup }
-            .map { IndexPath(item: $0.offset, section: 0) }
+    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]? {
+        return nil
+//        return items
+//            .enumerated()
+//            .filter { $0.element.shouldPickup }
+//            .map { IndexPath(item: $0.offset, section: 0) }
     }
     
     func panelLayout(_ panelLayout: PanelLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
