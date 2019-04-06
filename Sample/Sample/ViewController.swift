@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         case zoomTransitionAnimator = "ZoomTransitionAnimator"
         case semiModalRelativeView = "SemiModalRelativeView"
         case semiModalAbsoluteView = "SemiModalAbsoluteView"
-        case panelLayout = "PanelLayout"
+        case pickupLayout = "PickupLayout"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
             case .zoomTransitionAnimator: return ZoomTransitionAnimatorViewController()
             case .semiModalRelativeView: return SemiModalRelativeViewController()
             case .semiModalAbsoluteView: return SemiModalAbsoluteViewController()
-            case .panelLayout: return PanelLayoutViewController()
+            case .pickupLayout: return PickupLayoutViewController()
             }
         }
     }

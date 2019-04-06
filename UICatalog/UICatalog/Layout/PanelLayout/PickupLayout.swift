@@ -8,20 +8,20 @@
 
 import UIKit
 
-public protocol PanelLayoutDelegate: class {
-    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]?
-    func panelLayout(_ panelLayout: PanelLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-    func panelLayout(_ panelLayout: PanelLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
-    func panelLayout(_ panelLayout: PanelLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+public protocol PickupLayoutDelegate: class {
+    func indexPathsForPickupItem(_ pickupLayout: PickupLayout) -> [IndexPath]?
+    func pickupLayout(_ pickupLayout: PickupLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    func pickupLayout(_ pickupLayout: PickupLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    func pickupLayout(_ pickupLayout: PickupLayout, insetForSectionAt section: Int) -> UIEdgeInsets
 }
 
-open class PanelLayout: UICollectionViewLayout {
+open class PickupLayout: UICollectionViewLayout {
     enum Mode {
         case pickup
         case inOrder
     }
     
-    open weak var delegate: PanelLayoutDelegate?
+    open weak var delegate: PickupLayoutDelegate?
     
     private let columnCount = 3
     private let lineCount = 2
@@ -197,7 +197,7 @@ open class PanelLayout: UICollectionViewLayout {
     }
 }
 
-extension PanelLayout {
+extension PickupLayout {
     enum RowType: Int {
         case grid
         case leftLarge
@@ -272,22 +272,22 @@ extension PanelLayout {
     }
 }
 
-extension PanelLayout {
+extension PickupLayout {
     enum LargeItemPosition {
         case left
         case right
     }
     
     private func sectionInset(at section: Int) -> UIEdgeInsets {
-        return delegate?.panelLayout(self, insetForSectionAt: section) ?? .zero
+        return delegate?.pickupLayout(self, insetForSectionAt: section) ?? .zero
     }
     
     private func interItemSpacing(at section: Int) -> CGFloat {
-        return delegate?.panelLayout(self, minimumInteritemSpacingForSectionAt: section) ?? .leastNormalMagnitude
+        return delegate?.pickupLayout(self, minimumInteritemSpacingForSectionAt: section) ?? .leastNormalMagnitude
     }
     
     private func lineSpacing(at section: Int) -> CGFloat {
-        return delegate?.panelLayout(self, minimumLineSpacingForSectionAt: section) ?? .leastNormalMagnitude
+        return delegate?.pickupLayout(self, minimumLineSpacingForSectionAt: section) ?? .leastNormalMagnitude
     }
     
     private var collectionViewWidth: CGFloat {

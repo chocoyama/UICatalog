@@ -9,7 +9,7 @@
 import UIKit
 import UICatalog
 
-class PanelLayoutViewController: UIViewController {
+class PickupLayoutViewController: UIViewController {
     
     struct Item {
         let shouldPickup: Bool
@@ -19,7 +19,7 @@ class PanelLayoutViewController: UIViewController {
         didSet {
             LabelCollectionViewCell.register(for: collectionView)
      
-            let layout = PanelLayout(itemHeight: 150)
+            let layout = PickupLayout(itemHeight: 150)
             layout.delegate = self
             collectionView.dataSource = self
             collectionView.delegate = self
@@ -53,7 +53,7 @@ class PanelLayoutViewController: UIViewController {
     
 }
 
-extension PanelLayoutViewController: UICollectionViewDataSource {
+extension PickupLayoutViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = LabelCollectionViewCell
             .dequeue(from: collectionView, indexPath: indexPath)
@@ -71,7 +71,7 @@ extension PanelLayoutViewController: UICollectionViewDataSource {
     }
 }
 
-extension PanelLayoutViewController: UICollectionViewDelegate {
+extension PickupLayoutViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let maxIndexPath = collectionView.indexPathsForVisibleItems.max(by: { (indexPath1, indexPath2) -> Bool in
             indexPath1.item < indexPath2.item
@@ -101,23 +101,23 @@ extension PanelLayoutViewController: UICollectionViewDelegate {
     }
 }
 
-extension PanelLayoutViewController: PanelLayoutDelegate {
-    func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]? {
+extension PickupLayoutViewController: PickupLayoutDelegate {
+    func indexPathsForPickupItem(_ pickupLayout: PickupLayout) -> [IndexPath]? {
         return items
             .enumerated()
             .filter { $0.element.shouldPickup }
             .map { IndexPath(item: $0.offset, section: 0) }
     }
     
-    func panelLayout(_ panelLayout: PanelLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func pickupLayout(_ pickupLayout: PickupLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 4.0
     }
     
-    func panelLayout(_ panelLayout: PanelLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func pickupLayout(_ pickupLayout: PickupLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 4.0
     }
     
-    func panelLayout(_ panelLayout: PanelLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func pickupLayout(_ pickupLayout: PickupLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
     }
 }
