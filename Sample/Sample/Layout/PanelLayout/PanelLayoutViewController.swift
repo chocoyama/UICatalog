@@ -87,7 +87,7 @@ extension PanelLayoutViewController: UICollectionViewDelegate {
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: true),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
-                .init(shouldPickup: true),.init(shouldPickup: false),.init(shouldPickup: false),
+                .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: false),.init(shouldPickup: false),.init(shouldPickup: false),
                 .init(shouldPickup: true),.init(shouldPickup: false),.init(shouldPickup: false),
@@ -103,11 +103,10 @@ extension PanelLayoutViewController: UICollectionViewDelegate {
 
 extension PanelLayoutViewController: PanelLayoutDelegate {
     func indexPathsForPickupItem(_ panelLayout: PanelLayout) -> [IndexPath]? {
-        return nil
-//        return items
-//            .enumerated()
-//            .filter { $0.element.shouldPickup }
-//            .map { IndexPath(item: $0.offset, section: 0) }
+        return items
+            .enumerated()
+            .filter { $0.element.shouldPickup }
+            .map { IndexPath(item: $0.offset, section: 0) }
     }
     
     func panelLayout(_ panelLayout: PanelLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

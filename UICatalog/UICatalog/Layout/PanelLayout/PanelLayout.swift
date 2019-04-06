@@ -31,16 +31,18 @@ open class PanelLayout: UICollectionViewLayout {
     private var attributesSet = [UICollectionViewLayoutAttributes]()
     private var preservedIndexPaths: [IndexPath] = []
     private var pickupIndexPaths: [IndexPath] = []
-    private var shouldReloadIndexPaths: [IndexPath] = []
+    private var pendingPickupIndexPaths: [IndexPath] = []
     private var previousRowType: RowType = .wide
+    private var previousLargeRowType: RowType?
     private var currentRowType: RowType = .grid
     
     open func reset() {
         attributesSet = []
         preservedIndexPaths = []
         pickupIndexPaths = []
-        shouldReloadIndexPaths = []
+        pendingPickupIndexPaths = []
         previousRowType = .wide
+        previousLargeRowType = nil
         currentRowType = .grid
     }
     
@@ -58,10 +60,6 @@ open class PanelLayout: UICollectionViewLayout {
         guard let collectionView = collectionView, let delegate = delegate else { return }
         
         reset()
-//        if !shouldReloadIndexPaths.isEmpty {
-//            attributesSet = attributesSet.filter { !shouldReloadIndexPaths.contains($0.indexPath) }
-//            shouldReloadIndexPaths = []
-//        }
         
         if let pickupIndexPaths = delegate.indexPathsForPickupItem(self) {
             self.pickupIndexPaths = pickupIndexPaths
@@ -70,23 +68,17 @@ open class PanelLayout: UICollectionViewLayout {
             mode = .inOrder
         }
         
-        let calculatedIndexPaths = attributesSet.map { $0.indexPath }
-        pickupIndexPaths = pickupIndexPaths.filter { !calculatedIndexPaths.contains($0) }
-        
         for section in (0..<collectionView.numberOfSections) {
             for item in (0..<collectionView.numberOfItems(inSection: section)) {
                 let indexPath = IndexPath(item: item, section: section)
                 
-                if attributesSet.first(where: { $0.indexPath == indexPath }) != nil {
-                    continue
-                }
-                
                 if pickupIndexPaths.contains(indexPath) {
-                    continue
+                    pendingPickupIndexPaths.append(indexPath)
+                } else {
+                    preservedIndexPaths.append(indexPath)
                 }
                 
-                preservedIndexPaths.append(indexPath)
-                
+                let nextRowType = self.nextRowType
                 if shouldSetAttributes {
                     switch nextRowType {
                     case .grid:
@@ -100,14 +92,14 @@ open class PanelLayout: UICollectionViewLayout {
                         let frames = largeItemFrames(at: .left, forSectionAt: section)
                         let largeIndexPath: IndexPath
                         switch mode {
-                        case .pickup: largeIndexPath = pickupIndexPaths.remove(at: 0)
-                        case .inOrder: largeIndexPath = preservedIndexPaths.remove(at: 0)
+                        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
+                        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
                         }
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
                         attributesSet.append(attributes)
                         
-                        preservedIndexPaths.enumerated().forEach {
+                        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
                             let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
                             attributes.frame = frames.defaultFrames[$0.offset]
                             attributesSet.append(attributes)
@@ -117,14 +109,14 @@ open class PanelLayout: UICollectionViewLayout {
                         let frames = largeItemFrames(at: .right, forSectionAt: section)
                         let largeIndexPath: IndexPath
                         switch mode {
-                        case .pickup: largeIndexPath = pickupIndexPaths.remove(at: 0)
-                        case .inOrder: largeIndexPath = preservedIndexPaths.remove(at: 0)
+                        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
+                        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
                         }
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
                         attributes.frame = frames.largeFrame
                         attributesSet.append(attributes)
                         
-                        preservedIndexPaths.enumerated().forEach {
+                        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
                             let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
                             attributes.frame = frames.defaultFrames[$0.offset]
                             attributesSet.append(attributes)
@@ -133,19 +125,18 @@ open class PanelLayout: UICollectionViewLayout {
                     case .wide:
                         let indexPath: IndexPath
                         switch mode {
-                        case .pickup: indexPath = pickupIndexPaths.remove(at: 0)
-                        case .inOrder: indexPath = preservedIndexPaths.remove(at: 0)
+                        case .pickup: indexPath = pendingPickupIndexPaths.removeFirst()
+                        case .inOrder: indexPath = preservedIndexPaths.removeFirst()
                         }
                         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                         attributes.frame = wideFrame(forSectionAt: section)
                         attributesSet.append(attributes)
                     }
-                    changeRowType()
+                    changeRowType(to: nextRowType)
                 }
             }
             
             if !preservedIndexPaths.isEmpty {
-                shouldReloadIndexPaths.append(contentsOf: preservedIndexPaths)
                 let willAppearEmptySpace = preservedIndexPaths.count % columnCount != 0
                 if willAppearEmptySpace {
                     preservedIndexPaths.enumerated().forEach {
@@ -164,15 +155,16 @@ open class PanelLayout: UICollectionViewLayout {
                 preservedIndexPaths = []
             }
             
-            if !pickupIndexPaths.isEmpty {
-                shouldReloadIndexPaths.append(contentsOf: pickupIndexPaths)
-                pickupIndexPaths.forEach {
+            if !pendingPickupIndexPaths.isEmpty {
+                pendingPickupIndexPaths.forEach {
                     let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
                     attributes.frame = wideFrame(forSectionAt: section)
                     attributesSet.append(attributes)
                 }
-                pickupIndexPaths = []
+                pendingPickupIndexPaths = []
             }
+            
+            previousLargeRowType = .wide
         }
     }
     
@@ -214,7 +206,7 @@ extension PanelLayout {
     }
     
     private var nextRowType: RowType {
-        if case .pickup = mode, pickupIndexPaths.isEmpty {
+        if case .pickup = mode, pendingPickupIndexPaths.isEmpty {
             return .grid
         }
         
@@ -222,7 +214,20 @@ extension PanelLayout {
         case .grid:
             switch previousRowType {
             case .grid:
-                return .leftLarge
+                if let previousLargeRowType  = previousLargeRowType {
+                    switch previousLargeRowType {
+                    case .grid:
+                        fatalError()
+                    case .leftLarge:
+                        return .rightLarge
+                    case .rightLarge:
+                        return .wide
+                    case .wide:
+                        return .leftLarge
+                    }
+                } else {
+                  return .leftLarge
+                }
             case .leftLarge:
                 return .rightLarge
             case .rightLarge:
@@ -236,25 +241,17 @@ extension PanelLayout {
     }
     
     private var shouldSetAttributes: Bool {
-        switch mode {
-        case .pickup:
-            switch nextRowType {
-            case .grid:
-                return preservedIndexPaths.count == columnCount * lineCount
-            case .leftLarge, .rightLarge:
-                return preservedIndexPaths.count == (largeRowTotalItemCount - 1)
-            case .wide:
-                return true
+        switch nextRowType {
+        case .grid:
+            return preservedIndexPaths.count >= columnCount * lineCount
+        case .leftLarge, .rightLarge:
+            var threshold = largeRowTotalItemCount
+            if case .pickup = mode {
+                threshold -= 1
             }
-        case .inOrder:
-            switch nextRowType {
-            case .grid:
-                return preservedIndexPaths.count == columnCount * lineCount
-            case .leftLarge, .rightLarge:
-                return preservedIndexPaths.count == largeRowTotalItemCount
-            case .wide:
-                return true
-            }
+            return preservedIndexPaths.count >= threshold && pendingPickupIndexPaths.count >= 1
+        case .wide:
+            return true
         }
     }
     
@@ -262,10 +259,16 @@ extension PanelLayout {
         return (columnCount * lineCount) - ((columnCount - 1) * lineCount - 1)
     }
     
-    private func changeRowType() {
-        let nextRowType = self.nextRowType
+    private func changeRowType(to nextRowType: RowType) {
         previousRowType = currentRowType
         currentRowType = nextRowType
+        
+        switch nextRowType {
+        case .grid:
+            break
+        case .leftLarge, .rightLarge, .wide:
+            previousLargeRowType = currentRowType
+        }
     }
 }
 
