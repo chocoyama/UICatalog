@@ -245,11 +245,13 @@ extension PickupLayout {
         case .grid:
             return preservedIndexPaths.count >= columnCount * lineCount
         case .leftLarge, .rightLarge:
-            var threshold = largeRowTotalItemCount
-            if case .pickup = mode {
-                threshold -= 1
+            switch mode {
+            case .pickup:
+                return preservedIndexPaths.count >= (largeRowTotalItemCount - 1)
+                    && pendingPickupIndexPaths.count >= 1
+            case .inOrder:
+                return preservedIndexPaths.count >= largeRowTotalItemCount
             }
-            return preservedIndexPaths.count >= threshold && pendingPickupIndexPaths.count >= 1
         case .wide:
             return true
         }
