@@ -81,56 +81,10 @@ open class PickupLayout: UICollectionViewLayout {
                 let nextRowType = self.nextRowType
                 if shouldSetAttributes {
                     switch nextRowType {
-                    case .grid:
-                        gridItemFrames(forSectionAt: section).enumerated().forEach {
-                            let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths[$0.offset])
-                            attributes.frame = $0.element
-                            attributesSet.append(attributes)
-                        }
-                        preservedIndexPaths = []
-                    case .leftLarge:
-                        let frames = largeItemFrames(at: .left, forSectionAt: section)
-                        let largeIndexPath: IndexPath
-                        switch mode {
-                        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
-                        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
-                        }
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
-                        attributes.frame = frames.largeFrame
-                        attributesSet.append(attributes)
-                        
-                        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
-                            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                            attributes.frame = frames.defaultFrames[$0.offset]
-                            attributesSet.append(attributes)
-                        }
-                        preservedIndexPaths = []
-                    case .rightLarge:
-                        let frames = largeItemFrames(at: .right, forSectionAt: section)
-                        let largeIndexPath: IndexPath
-                        switch mode {
-                        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
-                        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
-                        }
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
-                        attributes.frame = frames.largeFrame
-                        attributesSet.append(attributes)
-                        
-                        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
-                            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                            attributes.frame = frames.defaultFrames[$0.offset]
-                            attributesSet.append(attributes)
-                        }
-                        preservedIndexPaths = []
-                    case .wide:
-                        let indexPath: IndexPath
-                        switch mode {
-                        case .pickup: indexPath = pendingPickupIndexPaths.removeFirst()
-                        case .inOrder: indexPath = preservedIndexPaths.removeFirst()
-                        }
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-                        attributes.frame = wideFrame(forSectionAt: section)
-                        attributesSet.append(attributes)
+                    case .grid: appendGridRow(for: section)
+                    case .leftLarge: appendLeftLargeRow(for: section)
+                    case .rightLarge: appendRightLargeRow(for: section)
+                    case .wide: appendWideRow(for: section)
                     }
                     changeRowType(to: nextRowType)
                 }
@@ -195,6 +149,65 @@ open class PickupLayout: UICollectionViewLayout {
             return equalSection && equalItem
         }.first
     }
+    
+    private func appendGridRow(for section: Int) {
+        gridItemFrames(forSectionAt: section).enumerated().forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths[$0.offset])
+            attributes.frame = $0.element
+            attributesSet.append(attributes)
+        }
+        preservedIndexPaths = []
+    }
+    
+    private func appendLeftLargeRow(for section: Int) {
+        let frames = largeItemFrames(at: .left, forSectionAt: section)
+        let largeIndexPath: IndexPath
+        switch mode {
+        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
+        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
+        }
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
+        attributes.frame = frames.largeFrame
+        attributesSet.append(attributes)
+        
+        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+            attributes.frame = frames.defaultFrames[$0.offset]
+            attributesSet.append(attributes)
+        }
+        preservedIndexPaths = []
+    }
+    
+    private func appendRightLargeRow(for section: Int) {
+        let frames = largeItemFrames(at: .right, forSectionAt: section)
+        let largeIndexPath: IndexPath
+        switch mode {
+        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
+        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
+        }
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
+        attributes.frame = frames.largeFrame
+        attributesSet.append(attributes)
+        
+        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+            attributes.frame = frames.defaultFrames[$0.offset]
+            attributesSet.append(attributes)
+        }
+        preservedIndexPaths = []
+    }
+    
+    private func appendWideRow(for section: Int) {
+        let indexPath: IndexPath
+        switch mode {
+        case .pickup: indexPath = pendingPickupIndexPaths.removeFirst()
+        case .inOrder: indexPath = preservedIndexPaths.removeFirst()
+        }
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        attributes.frame = wideFrame(forSectionAt: section)
+        attributesSet.append(attributes)
+    }
+    
 }
 
 extension PickupLayout {
