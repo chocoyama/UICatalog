@@ -89,36 +89,8 @@ open class PickupLayout: UICollectionViewLayout {
                     changeRowType(to: nextRowType)
                 }
             }
-            
-            if !preservedIndexPaths.isEmpty {
-                let willAppearEmptySpace = preservedIndexPaths.count % columnCount != 0
-                if willAppearEmptySpace {
-                    preservedIndexPaths.enumerated().forEach {
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                        attributes.frame = wideFrame(forSectionAt: section)
-                        attributesSet.append(attributes)
-                    }
-                } else {
-                    let frames = gridItemFrames(forSectionAt: section)
-                    preservedIndexPaths.enumerated().forEach {
-                        let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                        attributes.frame = frames[$0.offset]
-                        attributesSet.append(attributes)
-                    }
-                }
-                preservedIndexPaths = []
-            }
-            
-            if !pendingPickupIndexPaths.isEmpty {
-                pendingPickupIndexPaths.forEach {
-                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
-                    attributes.frame = wideFrame(forSectionAt: section)
-                    attributesSet.append(attributes)
-                }
-                pendingPickupIndexPaths = []
-            }
-            
-            previousLargeRowType = .wide
+            appendRemainingItems(for: section)
+            appendRemainingPickupItems(for: section)
         }
     }
     
@@ -149,65 +121,6 @@ open class PickupLayout: UICollectionViewLayout {
             return equalSection && equalItem
         }.first
     }
-    
-    private func appendGridRow(for section: Int) {
-        gridItemFrames(forSectionAt: section).enumerated().forEach {
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths[$0.offset])
-            attributes.frame = $0.element
-            attributesSet.append(attributes)
-        }
-        preservedIndexPaths = []
-    }
-    
-    private func appendLeftLargeRow(for section: Int) {
-        let frames = largeItemFrames(at: .left, forSectionAt: section)
-        let largeIndexPath: IndexPath
-        switch mode {
-        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
-        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
-        }
-        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
-        attributes.frame = frames.largeFrame
-        attributesSet.append(attributes)
-        
-        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-            attributes.frame = frames.defaultFrames[$0.offset]
-            attributesSet.append(attributes)
-        }
-        preservedIndexPaths = []
-    }
-    
-    private func appendRightLargeRow(for section: Int) {
-        let frames = largeItemFrames(at: .right, forSectionAt: section)
-        let largeIndexPath: IndexPath
-        switch mode {
-        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
-        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
-        }
-        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
-        attributes.frame = frames.largeFrame
-        attributesSet.append(attributes)
-        
-        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-            attributes.frame = frames.defaultFrames[$0.offset]
-            attributesSet.append(attributes)
-        }
-        preservedIndexPaths = []
-    }
-    
-    private func appendWideRow(for section: Int) {
-        let indexPath: IndexPath
-        switch mode {
-        case .pickup: indexPath = pendingPickupIndexPaths.removeFirst()
-        case .inOrder: indexPath = preservedIndexPaths.removeFirst()
-        }
-        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-        attributes.frame = wideFrame(forSectionAt: section)
-        attributesSet.append(attributes)
-    }
-    
 }
 
 extension PickupLayout {
@@ -283,6 +196,100 @@ extension PickupLayout {
             break
         case .leftLarge, .rightLarge, .wide:
             previousLargeRowType = currentRowType
+        }
+    }
+}
+
+extension PickupLayout {
+    private func appendGridRow(for section: Int) {
+        gridItemFrames(forSectionAt: section).enumerated().forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: preservedIndexPaths[$0.offset])
+            attributes.frame = $0.element
+            attributesSet.append(attributes)
+        }
+        preservedIndexPaths = []
+    }
+    
+    private func appendLeftLargeRow(for section: Int) {
+        let frames = largeItemFrames(at: .left, forSectionAt: section)
+        let largeIndexPath: IndexPath
+        switch mode {
+        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
+        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
+        }
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
+        attributes.frame = frames.largeFrame
+        attributesSet.append(attributes)
+        
+        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+            attributes.frame = frames.defaultFrames[$0.offset]
+            attributesSet.append(attributes)
+        }
+        preservedIndexPaths = []
+    }
+    
+    private func appendRightLargeRow(for section: Int) {
+        let frames = largeItemFrames(at: .right, forSectionAt: section)
+        let largeIndexPath: IndexPath
+        switch mode {
+        case .pickup: largeIndexPath = pendingPickupIndexPaths.removeFirst()
+        case .inOrder: largeIndexPath = preservedIndexPaths.removeFirst()
+        }
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: largeIndexPath)
+        attributes.frame = frames.largeFrame
+        attributesSet.append(attributes)
+        
+        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+            attributes.frame = frames.defaultFrames[$0.offset]
+            attributesSet.append(attributes)
+        }
+        preservedIndexPaths = []
+    }
+    
+    private func appendWideRow(for section: Int) {
+        let indexPath: IndexPath
+        switch mode {
+        case .pickup: indexPath = pendingPickupIndexPaths.removeFirst()
+        case .inOrder: indexPath = preservedIndexPaths.removeFirst()
+        }
+        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        attributes.frame = wideFrame(forSectionAt: section)
+        attributesSet.append(attributes)
+    }
+    
+    private func appendRemainingItems(for section: Int) {
+        if !preservedIndexPaths.isEmpty {
+            let willAppearEmptySpace = preservedIndexPaths.count % columnCount != 0
+            if willAppearEmptySpace {
+                preservedIndexPaths.enumerated().forEach {
+                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                    attributes.frame = wideFrame(forSectionAt: section)
+                    attributesSet.append(attributes)
+                }
+                previousLargeRowType = .wide
+            } else {
+                let frames = gridItemFrames(forSectionAt: section)
+                preservedIndexPaths.enumerated().forEach {
+                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                    attributes.frame = frames[$0.offset]
+                    attributesSet.append(attributes)
+                }
+            }
+            preservedIndexPaths = []
+        }
+    }
+    
+    private func appendRemainingPickupItems(for section: Int) {
+        if !pendingPickupIndexPaths.isEmpty {
+            pendingPickupIndexPaths.forEach {
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
+                attributes.frame = wideFrame(forSectionAt: section)
+                attributesSet.append(attributes)
+            }
+            pendingPickupIndexPaths = []
+            previousLargeRowType = .wide
         }
     }
 }
