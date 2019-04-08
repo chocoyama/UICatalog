@@ -89,8 +89,8 @@ open class PickupLayout: UICollectionViewLayout {
                     changeRowType(to: nextRowType)
                 }
             }
-            appendRemainingItems(for: section)
-            appendRemainingPickupItems(for: section)
+            appendRemainingItemsIfNeeded(for: section)
+            appendRemainingPickupItemsIfNeeded(for: section)
         }
     }
     
@@ -259,38 +259,36 @@ extension PickupLayout {
         attributesSet.append(attributes)
     }
     
-    private func appendRemainingItems(for section: Int) {
-        if !preservedIndexPaths.isEmpty {
-            let willAppearEmptySpace = preservedIndexPaths.count % columnCount != 0
-            if willAppearEmptySpace {
-                preservedIndexPaths.enumerated().forEach {
-                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                    attributes.frame = wideFrame(forSectionAt: section)
-                    attributesSet.append(attributes)
-                }
-                previousLargeRowType = .wide
-            } else {
-                let frames = gridItemFrames(forSectionAt: section)
-                preservedIndexPaths.enumerated().forEach {
-                    let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
-                    attributes.frame = frames[$0.offset]
-                    attributesSet.append(attributes)
-                }
-            }
-            preservedIndexPaths = []
-        }
-    }
-    
-    private func appendRemainingPickupItems(for section: Int) {
-        if !pendingPickupIndexPaths.isEmpty {
-            pendingPickupIndexPaths.forEach {
-                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
+    private func appendRemainingItemsIfNeeded(for section: Int) {
+        guard !preservedIndexPaths.isEmpty else { return }
+        let willAppearEmptySpace = preservedIndexPaths.count % columnCount != 0
+        if willAppearEmptySpace {
+            preservedIndexPaths.enumerated().forEach {
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
                 attributes.frame = wideFrame(forSectionAt: section)
                 attributesSet.append(attributes)
             }
-            pendingPickupIndexPaths = []
             previousLargeRowType = .wide
+        } else {
+            let frames = gridItemFrames(forSectionAt: section)
+            preservedIndexPaths.enumerated().forEach {
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
+                attributes.frame = frames[$0.offset]
+                attributesSet.append(attributes)
+            }
         }
+        preservedIndexPaths = []
+    }
+    
+    private func appendRemainingPickupItemsIfNeeded(for section: Int) {
+        guard !pendingPickupIndexPaths.isEmpty else { return }
+        pendingPickupIndexPaths.forEach {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: $0)
+            attributes.frame = wideFrame(forSectionAt: section)
+            attributesSet.append(attributes)
+        }
+        pendingPickupIndexPaths = []
+        previousLargeRowType = .wide
     }
 }
 
