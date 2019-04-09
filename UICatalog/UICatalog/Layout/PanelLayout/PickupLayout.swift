@@ -23,8 +23,9 @@ open class PickupLayout: UICollectionViewLayout {
     
     open weak var delegate: PickupLayoutDelegate?
     
-    private let columnCount = 3
-    private let lineCount = 2
+    private let columnCount: Int
+    private let lineCount: Int
+    private let largeItemMultipler: Int
     private let itemHeight: CGFloat
     
     private var mode: Mode = .inOrder
@@ -46,7 +47,13 @@ open class PickupLayout: UICollectionViewLayout {
         currentRowType = .grid
     }
     
-    public init(itemHeight: CGFloat) {
+    public init(columnCount: Int = 3,
+                lineCount: Int = 2,
+                largeItemMultipler: Int = 2,
+                itemHeight: CGFloat) {
+        self.columnCount = columnCount
+        self.lineCount = lineCount
+        self.largeItemMultipler = largeItemMultipler
         self.itemHeight = itemHeight
         super.init()
     }
@@ -184,7 +191,12 @@ extension PickupLayout {
     }
     
     private var largeRowTotalItemCount: Int {
-        return (columnCount * lineCount) - ((columnCount - 1) * lineCount - 1)
+        let dismissedCount = (largeItemMultipler * lineCount) - 1
+        return (columnCount * lineCount) - dismissedCount
+    }
+    
+    private var largeRowCompactItemCount: Int {
+        return largeRowTotalItemCount - 1
     }
     
     private func changeRowType(to nextRowType: RowType) {
@@ -221,7 +233,7 @@ extension PickupLayout {
         attributes.frame = frames.largeFrame
         attributesSet.append(attributes)
         
-        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
+        (0..<largeRowCompactItemCount).map { preservedIndexPaths[$0] }.enumerated().forEach {
             let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
             attributes.frame = frames.defaultFrames[$0.offset]
             attributesSet.append(attributes)
@@ -240,7 +252,7 @@ extension PickupLayout {
         attributes.frame = frames.largeFrame
         attributesSet.append(attributes)
         
-        (0...1).map { preservedIndexPaths[$0] }.enumerated().forEach {
+        (0..<largeRowCompactItemCount).map { preservedIndexPaths[$0] }.enumerated().forEach {
             let attributes = UICollectionViewLayoutAttributes(forCellWith: $0.element)
             attributes.frame = frames.defaultFrames[$0.offset]
             attributesSet.append(attributes)
@@ -347,30 +359,35 @@ extension PickupLayout {
         let leftInset = sectionInset(at: section).left
         let itemSpacing = interItemSpacing(at: section)
         let lineSpacing = self.lineSpacing(at: section)
+        let defaultItemWidth = compactItemWidth(forSectionAt: section)
+        
+        let largeItemWidth = defaultItemWidth * CGFloat(largeItemMultipler)
+        
+        let dismissedItemSpaceCount = largeItemMultipler - 1
+        let dissmissedTotalitemSpacing = interItemSpacing(at: section) * CGFloat(dismissedItemSpaceCount)
         
         var largeFrame = CGRect.zero
+        switch position {
+        case .left: largeFrame.origin.x = leftInset
+        case .right: largeFrame.origin.x = leftInset + defaultItemWidth + itemSpacing
+        }
         largeFrame.origin.y = currentMaxY(forSectionAt: section) + lineSpacing
-        largeFrame.size.width = compactItemWidth(forSectionAt: section) * CGFloat(columnCount - 1) + itemSpacing
+        largeFrame.size.width = largeItemWidth + dissmissedTotalitemSpacing
         largeFrame.size.height = itemHeight * CGFloat(lineCount) + lineSpacing
         
-        let defaultFramesX: CGFloat
-    
-        switch position {
-        case .left:
-            largeFrame.origin.x = leftInset
-            defaultFramesX = largeFrame.size.width + leftInset + itemSpacing
-        case .right:
-            largeFrame.origin.x = compactItemWidth(forSectionAt: section) + leftInset + itemSpacing
-            defaultFramesX = leftInset
-        }
-        
-        let defaultFrames = (0...1).map {
-            CGRect(
-                x: defaultFramesX,
-                y: currentMaxY(forSectionAt: section) + itemHeight * CGFloat($0) + lineSpacing * CGFloat($0 + 1),
-                width: compactItemWidth(forSectionAt: section),
-                height: itemHeight
-            )
+        let defaultFrames = (0..<largeRowCompactItemCount).map { offset -> CGRect in
+            let totalLineSpacing = lineSpacing * CGFloat(offset + 1)
+            let x: CGFloat
+            let y: CGFloat
+            switch position {
+            case .left:
+                x = leftInset + largeFrame.size.width + itemSpacing
+                y = currentMaxY(forSectionAt: section) + itemHeight * CGFloat(offset) + totalLineSpacing
+            case .right:
+                x = leftInset
+                y = currentMaxY(forSectionAt: section) + itemHeight * CGFloat(offset) + totalLineSpacing
+            }
+            return CGRect(x: x, y: y, width: defaultItemWidth, height: itemHeight)
         }
         
         return (largeFrame: largeFrame, defaultFrames: defaultFrames)
@@ -382,7 +399,7 @@ extension PickupLayout {
         return CGRect(
             x: sectionInset(at: section).left,
             y: currentMaxY(forSectionAt: section) + lineSpacing,
-            width: compactItemWidth(forSectionAt: section) * CGFloat(columnCount) + (itemSpacing * 2),
+            width: compactItemWidth(forSectionAt: section) * CGFloat(columnCount) + (itemSpacing * CGFloat(columnCount - 1)),
             height: itemHeight * CGFloat(lineCount)
         )
     }

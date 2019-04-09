@@ -18,8 +18,15 @@ class PickupLayoutViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             LabelCollectionViewCell.register(for: collectionView)
-     
-            let layout = PickupLayout(itemHeight: 150)
+
+            let layout = PickupLayout(columnCount: 3,
+                                      lineCount: 2,
+                                      largeItemMultipler: 2,
+                                      itemHeight: 130)
+//            let layout = PickupLayout(columnCount: 4,
+//                                      lineCount: 2,
+//                                      largeItemMultipler: 2,
+//                                      itemHeight: 130)
             layout.delegate = self
             collectionView.dataSource = self
             collectionView.delegate = self
