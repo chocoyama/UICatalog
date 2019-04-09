@@ -366,27 +366,26 @@ extension PickupLayout {
         let dismissedItemSpaceCount = largeItemMultipler - 1
         let dissmissedTotalitemSpacing = interItemSpacing(at: section) * CGFloat(dismissedItemSpaceCount)
         
+        let compactItemColumnCount = columnCount - largeItemMultipler
+        
         var largeFrame = CGRect.zero
         switch position {
         case .left: largeFrame.origin.x = leftInset
-        case .right: largeFrame.origin.x = leftInset + defaultItemWidth + itemSpacing
+        case .right: largeFrame.origin.x = leftInset + (defaultItemWidth + itemSpacing) * CGFloat(compactItemColumnCount)
         }
         largeFrame.origin.y = currentMaxY(forSectionAt: section) + lineSpacing
         largeFrame.size.width = largeItemWidth + dissmissedTotalitemSpacing
         largeFrame.size.height = itemHeight * CGFloat(lineCount) + lineSpacing
         
         let defaultFrames = (0..<largeRowCompactItemCount).map { offset -> CGRect in
-            let totalLineSpacing = lineSpacing * CGFloat(offset + 1)
+            let itemOffset = (defaultItemWidth + itemSpacing) * CGFloat(offset % compactItemColumnCount)
             let x: CGFloat
-            let y: CGFloat
             switch position {
-            case .left:
-                x = leftInset + largeFrame.size.width + itemSpacing
-                y = currentMaxY(forSectionAt: section) + itemHeight * CGFloat(offset) + totalLineSpacing
-            case .right:
-                x = leftInset
-                y = currentMaxY(forSectionAt: section) + itemHeight * CGFloat(offset) + totalLineSpacing
+            case .left: x = leftInset + (largeFrame.size.width + itemSpacing) + itemOffset
+            case .right: x = leftInset + itemOffset
             }
+            let totalLineSpacing = lineSpacing * CGFloat(offset / compactItemColumnCount + 1)
+            let y = currentMaxY(forSectionAt: section) + itemHeight * CGFloat(offset / compactItemColumnCount) + totalLineSpacing
             return CGRect(x: x, y: y, width: defaultItemWidth, height: itemHeight)
         }
         
