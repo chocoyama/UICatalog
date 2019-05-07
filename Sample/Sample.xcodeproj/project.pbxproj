@@ -54,6 +54,8 @@
 		8075A5E2223B655E00E6B309 /* SemiModalAbsoluteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8075A5E1223B655D00E6B309 /* SemiModalAbsoluteViewController.xib */; };
 		80CC83632254CDE10048C052 /* PickupLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC83612254CDE10048C052 /* PickupLayoutViewController.swift */; };
 		80CC83642254CDE10048C052 /* PickupLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80CC83622254CDE10048C052 /* PickupLayoutViewController.xib */; };
+		80FBC9CA22810F140091A45B /* SemiModalPresentationTransitionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FBC9C822810F140091A45B /* SemiModalPresentationTransitionsViewController.swift */; };
+		80FBC9CB22810F140091A45B /* SemiModalPresentationTransitionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80FBC9C922810F140091A45B /* SemiModalPresentationTransitionsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,6 +121,8 @@
 		8075A5E1223B655D00E6B309 /* SemiModalAbsoluteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SemiModalAbsoluteViewController.xib; sourceTree = "<group>"; };
 		80CC83612254CDE10048C052 /* PickupLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupLayoutViewController.swift; sourceTree = "<group>"; };
 		80CC83622254CDE10048C052 /* PickupLayoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickupLayoutViewController.xib; sourceTree = "<group>"; };
+		80FBC9C822810F140091A45B /* SemiModalPresentationTransitionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalPresentationTransitionsViewController.swift; sourceTree = "<group>"; };
+		80FBC9C922810F140091A45B /* SemiModalPresentationTransitionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SemiModalPresentationTransitionsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,6 +361,7 @@
 		8013D21F2182CF4B0001CD75 /* Animator */ = {
 			isa = PBXGroup;
 			children = (
+				80FBC9C722810EF00091A45B /* SemiModalPresentationTransitions */,
 				8013D21E2182CF3B0001CD75 /* ZoomTransitionAnimator */,
 			);
 			path = Animator;
@@ -410,6 +415,15 @@
 				80CC83622254CDE10048C052 /* PickupLayoutViewController.xib */,
 			);
 			path = PanelLayout;
+			sourceTree = "<group>";
+		};
+		80FBC9C722810EF00091A45B /* SemiModalPresentationTransitions */ = {
+			isa = PBXGroup;
+			children = (
+				80FBC9C822810F140091A45B /* SemiModalPresentationTransitionsViewController.swift */,
+				80FBC9C922810F140091A45B /* SemiModalPresentationTransitionsViewController.xib */,
+			);
+			path = SemiModalPresentationTransitions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,6 +494,7 @@
 				6BDAE4F02152649B00BBB47A /* Main.storyboard in Resources */,
 				6B9863A121737A4100D5004C /* SamplePageSynchronizedCollectionViewController.xib in Resources */,
 				8075A5E2223B655E00E6B309 /* SemiModalAbsoluteViewController.xib in Resources */,
+				80FBC9CB22810F140091A45B /* SemiModalPresentationTransitionsViewController.xib in Resources */,
 				6B2713B2215A851700CBB58E /* LabelCollectionViewCell.xib in Resources */,
 				6BB8929B217350B1003430DC /* SampleInfiniteLoopPageViewController.xib in Resources */,
 				803D6B11215B0A45007C332E /* SoundWaveButtonViewController.xib in Resources */,
@@ -515,6 +530,7 @@
 				803D6B10215B0A45007C332E /* SoundWaveButtonViewController.swift in Sources */,
 				6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */,
 				6BDAE4ED2152649B00BBB47A /* ViewController.swift in Sources */,
+				80FBC9CA22810F140091A45B /* SemiModalPresentationTransitionsViewController.swift in Sources */,
 				6BB892B221737785003430DC /* SamplePageSynchronizedContainerViewController.swift in Sources */,
 				6BB8929A217350B1003430DC /* SampleInfiniteLoopPageViewController.swift in Sources */,
 				6BCD0FF9216CF35C00134159 /* AdaptiveItemCollectionReusableView.swift in Sources */,
