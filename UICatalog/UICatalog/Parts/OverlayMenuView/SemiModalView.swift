@@ -186,6 +186,8 @@ extension SemiModalView {
             relocateIfNeeded()
         case .failed:
             break
+        @unknown default:
+            fatalError()
         }
         sender.setTranslation(.zero, in: self)
     }

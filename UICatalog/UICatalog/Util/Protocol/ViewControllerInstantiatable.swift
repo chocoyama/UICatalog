@@ -12,7 +12,7 @@ extension UIViewController: ViewControllerInstantiatable {}
 
 public protocol ViewControllerInstantiatable {}
 public extension ViewControllerInstantiatable where Self: UIViewController {
-    public static func instantiate(storyboardName: String = "Main") -> Self {
+    static func instantiate(storyboardName: String = "Main") -> Self {
         return UIStoryboard.instantiate(type: Self.self, storyboardName: storyboardName)
     }
 }
