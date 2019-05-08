@@ -8,22 +8,25 @@
 
 import UIKit
 
-public final class SemiModalPresentationTransitions: NSObject, UIViewControllerTransitioningDelegate {
+public final class SemiModalPresentationTransitions: NSObject {
     public enum Animation {
         case system
         case custom
     }
-    let dismissTransitionController: SemiModalDismissTransitionController
-    let animation: Animation
+    private let dismissTransitionController: SemiModalDismissTransitionController
+    private let animation: Animation
     
     public init(viewController: UIViewController, animation: Animation) {
         dismissTransitionController = SemiModalDismissTransitionController(viewController: viewController)
         self.animation = animation
     }
-    
-    // MARK: - Presentation
+}
+
+extension SemiModalPresentationTransitions: UIViewControllerTransitioningDelegate {
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return PresentationController(presentedViewController: presented, presenting: presenting, dismissTransitionController: dismissTransitionController)
+        return PresentationController(presentedViewController: presented,
+                                      presenting: presenting,
+                                      dismissTransitionController: dismissTransitionController)
     }
     
     public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
@@ -36,7 +39,7 @@ public final class SemiModalPresentationTransitions: NSObject, UIViewControllerT
             return nil
         }
     }
-    
+
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch animation {
         case .system:

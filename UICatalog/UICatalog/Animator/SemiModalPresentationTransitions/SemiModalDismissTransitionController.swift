@@ -8,17 +8,13 @@
 
 import UIKit
 
-class SemiModalDismissTransitionController: NSObject, UIViewControllerInteractiveTransitioning {
+class SemiModalDismissTransitionController: NSObject {
     var isInteractive: Bool = true
     weak var viewController: UIViewController?
     weak var transitionContext: UIViewControllerContextTransitioning?
     
     init(viewController: UIViewController) {
         self.viewController = viewController
-    }
-    
-    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        self.transitionContext = transitionContext
     }
     
     // swiftlint:disable:next function_body_length
@@ -41,18 +37,20 @@ class SemiModalDismissTransitionController: NSObject, UIViewControllerInteractiv
                 let initialVelocity = abs(velocity.y)
                 let distance = view.bounds.height - translation.y
                 
-                UIView.animate(withDuration: 0.45,
-                               delay: 0,
-                               usingSpringWithDamping: 1.0,
-                               initialSpringVelocity: initialVelocity / distance,
-                               options: .curveEaseInOut,
-                               animations: {
-                                view.alpha = 0
-                                viewController.view.transform.ty = viewController.view.bounds.maxY
-                },
-                               completion: { _ in
-                                self.transitionContext?.completeTransition(true)
-                })
+                UIView.animate(
+                    withDuration: 0.45,
+                    delay: 0,
+                    usingSpringWithDamping: 1.0,
+                    initialSpringVelocity: initialVelocity / distance,
+                    options: .curveEaseInOut,
+                    animations: {
+                        view.alpha = 0
+                        viewController.view.transform.ty = viewController.view.bounds.maxY
+                    },
+                    completion: { _ in
+                        self.transitionContext?.completeTransition(true)
+                    }
+                )
             } else {
                 guard translation.y > 0 else {
                     self.transitionContext?.completeTransition(false)
@@ -62,20 +60,28 @@ class SemiModalDismissTransitionController: NSObject, UIViewControllerInteractiv
                 let initialVelocity = velocity.y > 0 ? 0 : abs(velocity.y)
                 let distance = translation.y
                 
-                UIView.animate(withDuration: 0.45,
-                               delay: 0,
-                               usingSpringWithDamping: 1.0,
-                               initialSpringVelocity: initialVelocity / distance,
-                               options: .curveEaseInOut,
-                               animations: {
-                                viewController.view.transform = .identity
-                },
-                               completion: { _ in
-                                self.transitionContext?.completeTransition(false)
-                })
+                UIView.animate(
+                    withDuration: 0.45,
+                    delay: 0,
+                    usingSpringWithDamping: 1.0,
+                    initialSpringVelocity: initialVelocity / distance,
+                    options: .curveEaseInOut,
+                    animations: {
+                        viewController.view.transform = .identity
+                    },
+                    completion: { _ in
+                        self.transitionContext?.completeTransition(false)
+                    }
+                )
             }
         @unknown default:
             break
         }
+    }
+}
+
+extension SemiModalDismissTransitionController: UIViewControllerInteractiveTransitioning {
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        self.transitionContext = transitionContext
     }
 }

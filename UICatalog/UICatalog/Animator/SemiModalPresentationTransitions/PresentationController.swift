@@ -10,8 +10,13 @@ import UIKit
 
 extension SemiModalPresentationTransitions {
     final class PresentationController: UIPresentationController {
-        let dismissTransitionController: SemiModalDismissTransitionController
-        init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, dismissTransitionController: SemiModalDismissTransitionController) {
+        private let dismissTransitionController: SemiModalDismissTransitionController
+        
+        init(
+            presentedViewController: UIViewController,
+            presenting presentingViewController: UIViewController?,
+            dismissTransitionController: SemiModalDismissTransitionController
+        ) {
             self.dismissTransitionController = dismissTransitionController
             super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         }
@@ -23,6 +28,11 @@ extension SemiModalPresentationTransitions {
             return view
         }()
         
+        @objc private func overlayViewDidTap(sender: UITapGestureRecognizer) {
+            dismissTransitionController.isInteractive = false
+            presentedViewController.dismiss(animated: true, completion: nil)
+        }
+        
         override func presentationTransitionWillBegin() {
             super.presentationTransitionWillBegin()
             overlayView.addGestureRecognizer(UIPanGestureRecognizer(target: dismissTransitionController, action: #selector(SemiModalDismissTransitionController.observePanGesture(panGesture:))))
@@ -32,7 +42,7 @@ extension SemiModalPresentationTransitions {
             overlayView.alpha = 0
             presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
                 self?.overlayView.alpha = 0.5
-                }, completion: {(_) in })
+            }, completion: {(_) in })
         }
         
         override func dismissalTransitionWillBegin() {
@@ -43,7 +53,7 @@ extension SemiModalPresentationTransitions {
             } else {
                 presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
                     self?.overlayView.alpha = 0
-                    }, completion: nil)
+                }, completion: nil)
             }
         }
         
@@ -59,11 +69,5 @@ extension SemiModalPresentationTransitions {
             super.containerViewWillLayoutSubviews()
             presentedView?.frame = frameOfPresentedViewInContainerView
         }
-        
-        @objc private func overlayViewDidTap(sender: UITapGestureRecognizer) {
-            dismissTransitionController.isInteractive = false
-            presentedViewController.dismiss(animated: true, completion: nil)
-        }
     }
-
 }
