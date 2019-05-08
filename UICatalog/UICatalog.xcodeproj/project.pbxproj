@@ -109,6 +109,10 @@
 		80FB2CB7216ED92D009F8049 /* ColumnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CB6216ED92D009F8049 /* ColumnTests.swift */; };
 		80FB2CBA21749FFA009F8049 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CB921749FFA009F8049 /* RowTests.swift */; };
 		80FBC9C622810E780091A45B /* SemiModalPresentationTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FBC9C522810E780091A45B /* SemiModalPresentationTransitions.swift */; };
+		80FBC9CD228261980091A45B /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FBC9CC228261980091A45B /* PresentationController.swift */; };
+		80FBC9CF228261FE0091A45B /* AnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FBC9CE228261FE0091A45B /* AnimationController.swift */; };
+		80FBC9D12282622D0091A45B /* SemiModalDismissTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FBC9D02282622D0091A45B /* SemiModalDismissTransitionController.swift */; };
+		80FBC9D3228262470091A45B /* NoAnimatedAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FBC9D2228262470091A45B /* NoAnimatedAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -228,6 +232,10 @@
 		80FB2CB6216ED92D009F8049 /* ColumnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTests.swift; sourceTree = "<group>"; };
 		80FB2CB921749FFA009F8049 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
 		80FBC9C522810E780091A45B /* SemiModalPresentationTransitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalPresentationTransitions.swift; sourceTree = "<group>"; };
+		80FBC9CC228261980091A45B /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		80FBC9CE228261FE0091A45B /* AnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationController.swift; sourceTree = "<group>"; };
+		80FBC9D02282622D0091A45B /* SemiModalDismissTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiModalDismissTransitionController.swift; sourceTree = "<group>"; };
+		80FBC9D2228262470091A45B /* NoAnimatedAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAnimatedAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -757,6 +765,10 @@
 			isa = PBXGroup;
 			children = (
 				80FBC9C522810E780091A45B /* SemiModalPresentationTransitions.swift */,
+				80FBC9CC228261980091A45B /* PresentationController.swift */,
+				80FBC9CE228261FE0091A45B /* AnimationController.swift */,
+				80FBC9D02282622D0091A45B /* SemiModalDismissTransitionController.swift */,
+				80FBC9D2228262470091A45B /* NoAnimatedAnimationController.swift */,
 			);
 			path = SemiModalPresentationTransitions;
 			sourceTree = "<group>";
@@ -920,11 +932,13 @@
 				6B9863A32173982A00D5004C /* PagingChangeSubject.swift in Sources */,
 				6BDAE51F215265DA00BBB47A /* RangeSliderViewInitializable.swift in Sources */,
 				6BDAE54121526B2500BBB47A /* CellWidthCalculatable.swift in Sources */,
+				80FBC9D3228262470091A45B /* NoAnimatedAnimationController.swift in Sources */,
 				800D02C0215B949200F2A55F /* AdaptiveItemSizeLayout.swift in Sources */,
 				6B2713A1215A593500CBB58E /* AdaptiveHeightConfiguration.swift in Sources */,
 				8008E6BB2192A8F20083D920 /* SemiModalViewPosition.swift in Sources */,
 				6BDAE54721526B2500BBB47A /* NibInstantiatable.swift in Sources */,
 				6B2713A3215A71A900CBB58E /* Row.swift in Sources */,
+				80FBC9CD228261980091A45B /* PresentationController.swift in Sources */,
 				6BDAE54E21526B3B00BBB47A /* Notification+.swift in Sources */,
 				6B9863AA2173A1B100D5004C /* ZoomTransitionAnimator.swift in Sources */,
 				6B9863B3217A0B1700D5004C /* MenuViewController.swift in Sources */,
@@ -947,6 +961,7 @@
 				6B2713A5215A71B700CBB58E /* RowContainer.swift in Sources */,
 				800D02BE215B904A00F2A55F /* Containerable.swift in Sources */,
 				6BDAE529215265E200BBB47A /* RangeSliderTab.swift in Sources */,
+				80FBC9CF228261FE0091A45B /* AnimationController.swift in Sources */,
 				6B9BB94221666C040031B96F /* UIViewController+.swift in Sources */,
 				6B8DEE36217C535700D2D01F /* Bundle+.swift in Sources */,
 				6BDAE52F215265EC00BBB47A /* SliderValue.swift in Sources */,
@@ -955,6 +970,7 @@
 				6BB8928D2173370F003430DC /* PagingChangeSubscriber.swift in Sources */,
 				6BDAE54221526B2500BBB47A /* ViewControllerInstantiatable.swift in Sources */,
 				6BDAE528215265E200BBB47A /* CustomEdgeInsetsLabel.swift in Sources */,
+				80FBC9D12282622D0091A45B /* SemiModalDismissTransitionController.swift in Sources */,
 				6BB892A2217357FF003430DC /* SynchronizablePageViewController.swift in Sources */,
 				8013D2162182C3A70001CD75 /* RotationImageView.swift in Sources */,
 				80FB2CA2216ED38A009F8049 /* PluggableLayout.swift in Sources */,

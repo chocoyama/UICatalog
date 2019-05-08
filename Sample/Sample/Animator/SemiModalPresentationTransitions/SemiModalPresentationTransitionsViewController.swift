@@ -20,7 +20,7 @@ class SemiModalPresentationTransitionsViewController: UIViewController {
     @IBAction func didTappedButton(_ sender: UIButton) {
         let viewController = UIViewController()
         semiModalTransitioningDelegate = SemiModalPresentationTransitions(viewController: viewController,
-                                                                 animation: .system)
+                                                                          animation: .system)
         
         viewController.view.backgroundColor = .blue
         viewController.view.frame = CGRect(x: 0,
