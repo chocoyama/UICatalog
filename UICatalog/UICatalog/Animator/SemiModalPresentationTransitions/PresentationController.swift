@@ -11,6 +11,7 @@ import UIKit
 extension SemiModalPresentationTransitions {
     final class PresentationController: UIPresentationController {
         private let dismissTransitionController: SemiModalDismissTransitionController
+        private var keyboardHeight: CGFloat = .leastNormalMagnitude
         
         init(
             presentedViewController: UIViewController,
@@ -19,6 +20,18 @@ extension SemiModalPresentationTransitions {
         ) {
             self.dismissTransitionController = dismissTransitionController
             super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+            
+            NotificationCenter.default.addObserver(
+                forName: UIResponder.keyboardDidChangeFrameNotification,
+                object: nil,
+                queue: nil
+            ) { [weak self] (notification) in
+                self?.keyboardHeight = notification.keyboardFrame?.height ?? 0
+                UIView.animate(withDuration: TimeInterval(notification.keyboardAnimateDuration ?? 0)) { [weak self] in
+                    self?.containerView?.setNeedsLayout()
+                    self?.containerView?.layoutIfNeeded()
+                }
+            }
         }
         
         private lazy var overlayView: UIView = {
@@ -35,8 +48,10 @@ extension SemiModalPresentationTransitions {
         
         override func presentationTransitionWillBegin() {
             super.presentationTransitionWillBegin()
-            overlayView.addGestureRecognizer(UIPanGestureRecognizer(target: dismissTransitionController, action: #selector(SemiModalDismissTransitionController.observePanGesture(panGesture:))))
-            
+            overlayView.addGestureRecognizer(UIPanGestureRecognizer(
+                target: dismissTransitionController,
+                action: #selector(SemiModalDismissTransitionController.observePanGesture(panGesture:)))
+            )
             overlayView.frame = containerView?.frame ?? .zero
             containerView?.insertSubview(overlayView, at: 0)
             overlayView.alpha = 0
@@ -60,7 +75,7 @@ extension SemiModalPresentationTransitions {
         override var frameOfPresentedViewInContainerView: CGRect {
             var frame = super.frameOfPresentedViewInContainerView
             let height = presentedViewController.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-            frame.origin.y = frame.maxY - height
+            frame.origin.y = frame.maxY - height - keyboardHeight
             frame.size.height = height
             return frame
         }
