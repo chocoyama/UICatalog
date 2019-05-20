@@ -17,17 +17,18 @@ extension SemiModalPresentationTransitions {
             presentedViewController: UIViewController,
             presenting presentingViewController: UIViewController?,
             dismissTransitionController: SemiModalDismissTransitionController
-        ) {
+            ) {
             self.dismissTransitionController = dismissTransitionController
             super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
             
             NotificationCenter.default.addObserver(
-                forName: UIResponder.keyboardDidChangeFrameNotification,
+                forName: UIResponder.keyboardWillChangeFrameNotification,
                 object: nil,
                 queue: nil
             ) { [weak self] (notification) in
-                self?.keyboardHeight = notification.keyboardFrame?.height ?? 0
-                UIView.animate(withDuration: TimeInterval(notification.keyboardAnimateDuration ?? 0)) { [weak self] in
+                guard let self = self else { return }
+                self.keyboardHeight = notification.keyboardFrame?.height ?? 0
+                UIView.animate(withDuration: 0.3) { [weak self] in
                     self?.containerView?.setNeedsLayout()
                     self?.containerView?.layoutIfNeeded()
                 }
@@ -48,6 +49,7 @@ extension SemiModalPresentationTransitions {
         
         override func presentationTransitionWillBegin() {
             super.presentationTransitionWillBegin()
+            
             overlayView.addGestureRecognizer(UIPanGestureRecognizer(
                 target: dismissTransitionController,
                 action: #selector(SemiModalDismissTransitionController.observePanGesture(panGesture:)))
@@ -57,7 +59,7 @@ extension SemiModalPresentationTransitions {
             overlayView.alpha = 0
             presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
                 self?.overlayView.alpha = 0.5
-            }, completion: {(_) in })
+                }, completion: {(_) in })
         }
         
         override func dismissalTransitionWillBegin() {
@@ -68,7 +70,7 @@ extension SemiModalPresentationTransitions {
             } else {
                 presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
                     self?.overlayView.alpha = 0
-                }, completion: nil)
+                    }, completion: nil)
             }
         }
         
