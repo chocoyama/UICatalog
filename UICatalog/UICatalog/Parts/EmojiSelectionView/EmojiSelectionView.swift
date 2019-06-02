@@ -46,6 +46,7 @@ public class EmojiSelectionView: UIView, XibInitializable {
     
     public override func awakeFromNib() {
         super.awakeFromNib()
+        
         let itemSize = contentsItemSizeFor(collectionViewHeight: contentsCollectionView.frame.height,
                                    rowCount: rowCount)
         fontSize = itemSize.height * (3 / 5)
@@ -102,7 +103,11 @@ extension EmojiSelectionView: UICollectionViewDelegateFlowLayout {
             return contentsItemSizeFor(collectionViewHeight: collectionView.frame.height,
                                        rowCount: rowCount)
         } else {
-            return CGSize(width: 40, height: sectionSelectCollectionView.frame.size.height)
+            let collectionViewWidth = sectionSelectCollectionView.frame.size.width
+            let sectionInset = (sectionSelectCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
+            let horizontalInset = sectionInset.left + sectionInset.right
+            let width = (collectionViewWidth - horizontalInset) / CGFloat(EmojiDataSource.allCases.count)
+            return CGSize(width: width, height: sectionSelectCollectionView.frame.size.height)
         }
     }
     

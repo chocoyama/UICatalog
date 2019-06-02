@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmojiSelectionView" customModule="EmojiCollectionView" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmojiSelectionView" customModule="UICatalog" customModuleProvider="target">
             <connections>
                 <outlet property="contentsCollectionView" destination="8QT-Rl-BCw" id="SEt-6h-xH0"/>
                 <outlet property="sectionSelectCollectionView" destination="9GQ-5Q-DcB" id="oGX-cK-FqK"/>
@@ -41,7 +41,7 @@
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
