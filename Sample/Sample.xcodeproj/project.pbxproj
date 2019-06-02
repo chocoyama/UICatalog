@@ -11,6 +11,8 @@
 		6B2713AE215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */; };
 		6B2713B1215A851700CBB58E /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */; };
 		6B2713B2215A851700CBB58E /* LabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */; };
+		6B3249A322A491E4001C7046 /* EmojiSelectionViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3249A122A491E4001C7046 /* EmojiSelectionViewViewController.swift */; };
+		6B3249A422A491E4001C7046 /* EmojiSelectionViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B3249A222A491E4001C7046 /* EmojiSelectionViewViewController.xib */; };
 		6B33DF57215770C2006143A4 /* ProgressBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF55215770C2006143A4 /* ProgressBarViewController.swift */; };
 		6B33DF58215770C2006143A4 /* ProgressBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */; };
 		6B33DF6E21587C7C006143A4 /* OutlineLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */; };
@@ -77,6 +79,8 @@
 		6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdaptiveItemWidthLayoutViewController.xib; sourceTree = "<group>"; };
 		6B2713AF215A851700CBB58E /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		6B2713B0215A851700CBB58E /* LabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCollectionViewCell.xib; sourceTree = "<group>"; };
+		6B3249A122A491E4001C7046 /* EmojiSelectionViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelectionViewViewController.swift; sourceTree = "<group>"; };
+		6B3249A222A491E4001C7046 /* EmojiSelectionViewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmojiSelectionViewViewController.xib; sourceTree = "<group>"; };
 		6B33DF55215770C2006143A4 /* ProgressBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewController.swift; sourceTree = "<group>"; };
 		6B33DF56215770C2006143A4 /* ProgressBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressBarViewController.xib; sourceTree = "<group>"; };
 		6B33DF6C21587C7C006143A4 /* OutlineLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineLabelViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +148,15 @@
 				6B2713AC215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.xib */,
 			);
 			path = Width;
+			sourceTree = "<group>";
+		};
+		6B3249A022A491CF001C7046 /* EmojiSelectionView */ = {
+			isa = PBXGroup;
+			children = (
+				6B3249A122A491E4001C7046 /* EmojiSelectionViewViewController.swift */,
+				6B3249A222A491E4001C7046 /* EmojiSelectionViewViewController.xib */,
+			);
+			path = EmojiSelectionView;
 			sourceTree = "<group>";
 		};
 		6B33DF5221577092006143A4 /* ProgressBar */ = {
@@ -388,6 +401,7 @@
 		803D6B15215B0A6B007C332E /* Parts */ = {
 			isa = PBXGroup;
 			children = (
+				6B3249A022A491CF001C7046 /* EmojiSelectionView */,
 				80400F1821911970002622C9 /* SemiModalView */,
 				8013D2182182C4CA0001CD75 /* RotationImageView */,
 				803D6B13215B0A56007C332E /* SoundWaveButton */,
@@ -487,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B33DF822158BE0B006143A4 /* AdaptiveItemHeightLayoutViewController.storyboard in Resources */,
+				6B3249A422A491E4001C7046 /* EmojiSelectionViewViewController.xib in Resources */,
 				6B33DF6F21587C7C006143A4 /* OutlineLabelViewController.xib in Resources */,
 				6BDAE4F52152649C00BBB47A /* LaunchScreen.storyboard in Resources */,
 				6BDAE4F22152649C00BBB47A /* Assets.xcassets in Resources */,
@@ -541,6 +556,7 @@
 				6BB8929E217350F3003430DC /* NumberingViewController.swift in Sources */,
 				6B2713B1215A851700CBB58E /* LabelCollectionViewCell.swift in Sources */,
 				80400F1B21911988002622C9 /* SemiModalRelativeViewController.swift in Sources */,
+				6B3249A322A491E4001C7046 /* EmojiSelectionViewViewController.swift in Sources */,
 				6B2713AD215A83B600CBB58E /* AdaptiveItemWidthLayoutViewController.swift in Sources */,
 				6BCCA10C2198639D0011EBD8 /* SampleTopPageViewController.swift in Sources */,
 			);

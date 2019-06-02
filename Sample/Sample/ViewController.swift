@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         case semiModalAbsoluteView = "SemiModalAbsoluteView"
         case pickupLayout = "PickupLayout"
         case semiModalPresentationTransitions = "SemiModalPresentationTransitions"
+        case emojiSelectionView = "EmojiSelectionView"
         
         var sampleViewController: UIViewController {
             switch self {
@@ -63,6 +64,7 @@ class ViewController: UIViewController {
             case .semiModalAbsoluteView: return SemiModalAbsoluteViewController()
             case .pickupLayout: return PickupLayoutViewController()
             case .semiModalPresentationTransitions: return SemiModalPresentationTransitionsViewController()
+            case .emojiSelectionView: return EmojiSelectionViewViewController()
             }
         }
     }
