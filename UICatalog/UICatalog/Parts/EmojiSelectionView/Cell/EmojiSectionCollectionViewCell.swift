@@ -10,11 +10,21 @@ import UIKit
 
 class EmojiSectionCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var button: UIButton! {
+        didSet {
+            button.rounded()
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            button.backgroundColor = isSelected ? UIColor(white: 0.0, alpha: 0.1) : .clear
+        }
+    }
     
     @discardableResult
     func setting(title: String) -> Self {
-        label.text = title
+        button.setTitle(title, for: .normal)
         return self
     }
 }

@@ -283,11 +283,8 @@
 		6B32499122A49157001C7046 /* EmojiSelectionView */ = {
 			isa = PBXGroup;
 			children = (
+				804F5F7022A4A9C60029AC4C /* Cell */,
 				6B32499622A49178001C7046 /* EmojiDataSource.swift */,
-				6B32499422A49177001C7046 /* EmojiItemCollectionViewCell.swift */,
-				6B32499222A49177001C7046 /* EmojiItemCollectionViewCell.xib */,
-				6B32499722A49178001C7046 /* EmojiSectionCollectionViewCell.swift */,
-				6B32499522A49177001C7046 /* EmojiSectionCollectionViewCell.xib */,
 				6B32499822A49178001C7046 /* EmojiSelectionView.swift */,
 				6B32499322A49177001C7046 /* EmojiSelectionView.xib */,
 			);
@@ -721,6 +718,17 @@
 				80471D4121B9F9CC000E1D23 /* ImageDetailViewController.xib */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		804F5F7022A4A9C60029AC4C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6B32499422A49177001C7046 /* EmojiItemCollectionViewCell.swift */,
+				6B32499222A49177001C7046 /* EmojiItemCollectionViewCell.xib */,
+				6B32499722A49178001C7046 /* EmojiSectionCollectionViewCell.swift */,
+				6B32499522A49177001C7046 /* EmojiSectionCollectionViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		808B530B21AB7CC3005BB6E4 /* ToastView */ = {

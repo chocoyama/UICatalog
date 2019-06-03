@@ -12,29 +12,32 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="EmojiSectionCollectionViewCell" customModule="EmojiCollectionView" customModuleProvider="target">
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="EmojiSectionCollectionViewCell" customModule="UICatalog" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="253" height="155"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="253" height="155"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbQ-Cj-vY9">
-                        <rect key="frame" x="105.5" y="67" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixZ-d8-K2j">
+                        <rect key="frame" x="109.5" y="60.5" width="34" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="ixZ-d8-K2j" secondAttribute="height" id="2ph-ML-CG6"/>
+                        </constraints>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="DbQ-Cj-vY9" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="PA4-G1-oiO"/>
-                <constraint firstItem="DbQ-Cj-vY9" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="sjk-1p-PmT"/>
+                <constraint firstItem="ixZ-d8-K2j" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="EXQ-ht-gIa"/>
+                <constraint firstItem="ixZ-d8-K2j" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="iXH-dc-o0b"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="253" height="155"/>
             <connections>
-                <outlet property="label" destination="DbQ-Cj-vY9" id="CNa-ku-Obu"/>
+                <outlet property="button" destination="ixZ-d8-K2j" id="jSv-8l-k3z"/>
             </connections>
             <point key="canvasLocation" x="284.78260869565219" y="183.14732142857142"/>
         </collectionViewCell>
