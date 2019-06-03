@@ -38,6 +38,9 @@ public class EmojiSelectionView: UIView, XibInitializable {
     
     private let rowCount: CGFloat = 3
     private var fontSize: CGFloat = .leastNormalMagnitude
+    private let userDefaults = UserDefaults(suiteName: "jp.co.chocoyama.uicatalog.emojiselectionview")
+    private let saveKey = "jp.co.chocoyama.uicatalog.emojiselectionview.recents"
+    private let maxHistoryCount = 30
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -55,6 +58,19 @@ public class EmojiSelectionView: UIView, XibInitializable {
         let itemSize = contentsItemSizeFor(collectionViewHeight: contentsCollectionView.frame.height,
                                    rowCount: rowCount)
         fontSize = itemSize.height * (3 / 5)
+    }
+    
+    private func addHistory(_ emoji: String) {
+        guard let userDefaults = userDefaults else { return }
+        
+        var recents = (userDefaults.object(forKey: saveKey) as? [String]) ?? []
+        recents.insert(emoji, at: 0)
+        
+        if recents.count > maxHistoryCount {
+            recents = (0..<maxHistoryCount).map { recents[$0] }
+        }
+        
+        userDefaults.set(recents, forKey: saveKey)
     }
 }
 
@@ -93,6 +109,7 @@ extension EmojiSelectionView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == contentsCollectionView {
             let emoji = EmojiDataSource.allCases[indexPath.section].values[indexPath.item]
+            addHistory(emoji)
             delegate?.emojiSelectionView(self, didSelectedEmoji: emoji)
         } else {
             contentsCollectionView.selectItem(at: IndexPath(item: 0, section: indexPath.section),
