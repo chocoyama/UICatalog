@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8QT-Rl-BCw">
-                    <rect key="frame" x="0.0" y="65" width="414" height="161"/>
+                    <rect key="frame" x="0.0" y="65" width="414" height="157"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="YcM-8s-I2L">
                         <size key="itemSize" width="50" height="50"/>
@@ -33,10 +33,10 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9GQ-5Q-DcB">
-                    <rect key="frame" x="16" y="234" width="382" height="20"/>
+                    <rect key="frame" x="24" y="230" width="366" height="24"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="HTZ-RS-7ig"/>
+                        <constraint firstAttribute="height" constant="24" id="HTZ-RS-7ig"/>
                     </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="lJz-7W-nLY">
                         <size key="itemSize" width="50" height="50"/>
@@ -59,10 +59,10 @@
                 <constraint firstAttribute="bottom" secondItem="9GQ-5Q-DcB" secondAttribute="bottom" constant="8" id="BD8-xz-eXl"/>
                 <constraint firstItem="8QT-Rl-BCw" firstAttribute="top" secondItem="GA1-Dh-zQx" secondAttribute="bottom" id="DiL-rY-H56"/>
                 <constraint firstItem="9GQ-5Q-DcB" firstAttribute="top" secondItem="8QT-Rl-BCw" secondAttribute="bottom" constant="8" id="S96-4J-ZL1"/>
-                <constraint firstItem="9GQ-5Q-DcB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="VWE-k0-YDU"/>
+                <constraint firstItem="9GQ-5Q-DcB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="VWE-k0-YDU"/>
                 <constraint firstItem="GA1-Dh-zQx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="s71-Qj-Wz7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GA1-Dh-zQx" secondAttribute="trailing" constant="8" id="uql-w8-x1O"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9GQ-5Q-DcB" secondAttribute="trailing" constant="16" id="vVZ-Km-TDT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9GQ-5Q-DcB" secondAttribute="trailing" constant="24" id="vVZ-Km-TDT"/>
                 <constraint firstItem="8QT-Rl-BCw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wNJ-Nd-pXr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
