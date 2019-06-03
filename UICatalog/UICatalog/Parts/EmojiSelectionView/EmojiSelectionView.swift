@@ -14,6 +14,11 @@ public protocol EmojiSelectionViewDelegate: class {
 
 public class EmojiSelectionView: UIView, XibInitializable {
 
+    @IBOutlet weak var label: UILabel! {
+        didSet {
+            label.text = EmojiDataSource.allCases[0].rawValue
+        }
+    }
     @IBOutlet weak var contentsCollectionView: UICollectionView! {
         didSet {
             EmojiItemCollectionViewCell.register(for: contentsCollectionView, bundle: .current)
@@ -93,6 +98,14 @@ extension EmojiSelectionView: UICollectionViewDelegate {
             contentsCollectionView.selectItem(at: IndexPath(item: 0, section: indexPath.section),
                                               animated: true,
                                               scrollPosition: UICollectionView.ScrollPosition.left)
+        }
+    }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == contentsCollectionView {
+            if let indexPath = contentsCollectionView.indexPathForItem(at: scrollView.contentOffset) {
+                label.text = EmojiDataSource.allCases[indexPath.section].rawValue
+            }
         }
     }
 }
