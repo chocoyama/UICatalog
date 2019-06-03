@@ -23,10 +23,15 @@ public struct EmojiDataSource {
         guard let userDefaults = EmojiDataSource.userDefaults else { return }
         
         var recents = getHistories()
-        recents.insert(emoji, at: 0)
         
-        if recents.count > EmojiDataSource.maxHistoryCount {
-            recents = (0..<EmojiDataSource.maxHistoryCount).map { recents[$0] }
+        if recents.contains(emoji) {
+            recents.removeAll { $0 == emoji }
+            recents.insert(emoji, at: 0)
+        } else {
+            recents.insert(emoji, at: 0)
+            if recents.count > EmojiDataSource.maxHistoryCount {
+                recents = (0..<EmojiDataSource.maxHistoryCount).map { recents[$0] }
+            }
         }
         
         userDefaults.set(recents, forKey: EmojiDataSource.saveKey)
