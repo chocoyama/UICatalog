@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8QT-Rl-BCw">
-                    <rect key="frame" x="0.0" y="65" width="414" height="157"/>
+                    <rect key="frame" x="0.0" y="73" width="414" height="149"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="YcM-8s-I2L">
                         <size key="itemSize" width="50" height="50"/>
@@ -46,7 +46,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GA1-Dh-zQx">
-                    <rect key="frame" x="8" y="44" width="398" height="21"/>
+                    <rect key="frame" x="8" y="48" width="398" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -57,10 +57,10 @@
                 <constraint firstItem="GA1-Dh-zQx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="3jd-1e-rf6"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8QT-Rl-BCw" secondAttribute="trailing" id="6gO-Zx-kW0"/>
                 <constraint firstAttribute="bottom" secondItem="9GQ-5Q-DcB" secondAttribute="bottom" constant="8" id="BD8-xz-eXl"/>
-                <constraint firstItem="8QT-Rl-BCw" firstAttribute="top" secondItem="GA1-Dh-zQx" secondAttribute="bottom" id="DiL-rY-H56"/>
+                <constraint firstItem="8QT-Rl-BCw" firstAttribute="top" secondItem="GA1-Dh-zQx" secondAttribute="bottom" constant="4" id="DiL-rY-H56"/>
                 <constraint firstItem="9GQ-5Q-DcB" firstAttribute="top" secondItem="8QT-Rl-BCw" secondAttribute="bottom" constant="8" id="S96-4J-ZL1"/>
                 <constraint firstItem="9GQ-5Q-DcB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="VWE-k0-YDU"/>
-                <constraint firstItem="GA1-Dh-zQx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="s71-Qj-Wz7"/>
+                <constraint firstItem="GA1-Dh-zQx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="4" id="s71-Qj-Wz7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GA1-Dh-zQx" secondAttribute="trailing" constant="8" id="uql-w8-x1O"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9GQ-5Q-DcB" secondAttribute="trailing" constant="24" id="vVZ-Km-TDT"/>
                 <constraint firstItem="8QT-Rl-BCw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wNJ-Nd-pXr"/>

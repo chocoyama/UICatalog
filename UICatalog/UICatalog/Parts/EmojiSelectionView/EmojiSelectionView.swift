@@ -61,11 +61,7 @@ public class EmojiSelectionView: UIView, XibInitializable {
 
 extension EmojiSelectionView: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == contentsCollectionView {
-            return dataSource.kinds.count
-        } else {
-            return dataSource.kinds.count
-        }
+        return dataSource.kinds.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
