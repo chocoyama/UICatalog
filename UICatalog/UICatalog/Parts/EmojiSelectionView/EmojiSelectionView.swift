@@ -96,6 +96,7 @@ extension EmojiSelectionView: UICollectionViewDelegate {
             let emoji = dataSource.kinds[indexPath.section].values[indexPath.item]
             dataSource.addHistory(emoji)
             delegate?.emojiSelectionView(self, didSelectedEmoji: emoji)
+            collectionView.reloadData()
         } else {
             contentsCollectionView.selectItem(at: IndexPath(item: 0, section: indexPath.section),
                                               animated: true,

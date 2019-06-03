@@ -10,24 +10,30 @@ import Foundation
 
 public struct EmojiDataSource {
     let kinds = EmojiDataSource.Kind.allCases
-    private let userDefaults = UserDefaults(suiteName: "jp.co.chocoyama.uicatalog.emojiselectionview")
-    private let saveKey = "jp.co.chocoyama.uicatalog.emojiselectionview.recents"
-    private let maxHistoryCount = 30
+    private static let userDefaults = UserDefaults(suiteName: "jp.co.chocoyama.uicatalog.emojiselectionview")
+    private static let saveKey = "jp.co.chocoyama.uicatalog.emojiselectionview.recents"
+    private static let maxHistoryCount = 30
+    
+    func getHistories() -> [String] {
+        guard let userDefaults = EmojiDataSource.userDefaults else { return [] }
+        return (userDefaults.object(forKey: EmojiDataSource.saveKey) as? [String]) ?? []
+    }
     
     func addHistory(_ emoji: String) {
-        guard let userDefaults = userDefaults else { return }
+        guard let userDefaults = EmojiDataSource.userDefaults else { return }
         
-        var recents = (userDefaults.object(forKey: saveKey) as? [String]) ?? []
+        var recents = getHistories()
         recents.insert(emoji, at: 0)
         
-        if recents.count > maxHistoryCount {
-            recents = (0..<maxHistoryCount).map { recents[$0] }
+        if recents.count > EmojiDataSource.maxHistoryCount {
+            recents = (0..<EmojiDataSource.maxHistoryCount).map { recents[$0] }
         }
         
-        userDefaults.set(recents, forKey: saveKey)
+        userDefaults.set(recents, forKey: EmojiDataSource.saveKey)
     }
     
     public enum Kind: String, CaseIterable {
+        case recents
         case smileys
         case peopleAndFantasy
         case clothingAndAccessories
@@ -45,6 +51,8 @@ public struct EmojiDataSource {
         
         public var values: [String] {
             switch self {
+            case .recents:
+                return EmojiDataSource().getHistories()
             case .smileys:
                 return [
                     "😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊",
