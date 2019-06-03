@@ -79,7 +79,7 @@ extension EmojiSelectionView: UICollectionViewDataSource {
         } else {
             return EmojiSectionCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
-                .setting(title: "\(indexPath.section)")
+                .setting(title: EmojiDataSource.allCases[indexPath.section].example)
         }
     }
 }

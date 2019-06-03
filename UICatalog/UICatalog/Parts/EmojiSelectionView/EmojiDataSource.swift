@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum EmojiDataSource: CaseIterable {
+public enum EmojiDataSource: String, CaseIterable {
     case smileys
     case peopleAndFantasy
     case clothingAndAccessories
@@ -19,6 +19,10 @@ public enum EmojiDataSource: CaseIterable {
     case objects
     case symbols
     case flags
+    
+    public var example: String {
+        return self.values.first!
+    }
     
     public var values: [String] {
         switch self {
