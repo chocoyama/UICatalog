@@ -46,7 +46,11 @@ public struct EmojiDataSource {
         case flags
         
         public var example: String {
-            return self.values.first!
+            if case .recents = self {
+                return "🕒"
+            } else {
+                return self.values.first!
+            }
         }
         
         public var values: [String] {
