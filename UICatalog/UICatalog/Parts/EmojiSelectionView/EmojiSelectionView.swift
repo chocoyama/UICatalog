@@ -16,7 +16,7 @@ public class EmojiSelectionView: UIView, XibInitializable {
 
     @IBOutlet weak var label: UILabel! {
         didSet {
-            label.text = EmojiDataSource.allCases[0].rawValue
+            label.text = dataSource.kinds[0].rawValue
         }
     }
     @IBOutlet weak var contentsCollectionView: UICollectionView! {
@@ -36,11 +36,9 @@ public class EmojiSelectionView: UIView, XibInitializable {
     
     public weak var delegate: EmojiSelectionViewDelegate?
     
+    private let dataSource = EmojiDataSource()
     private let rowCount: CGFloat = 3
     private var fontSize: CGFloat = .leastNormalMagnitude
-    private let userDefaults = UserDefaults(suiteName: "jp.co.chocoyama.uicatalog.emojiselectionview")
-    private let saveKey = "jp.co.chocoyama.uicatalog.emojiselectionview.recents"
-    private let maxHistoryCount = 30
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -59,33 +57,20 @@ public class EmojiSelectionView: UIView, XibInitializable {
                                    rowCount: rowCount)
         fontSize = itemSize.height * (3 / 5)
     }
-    
-    private func addHistory(_ emoji: String) {
-        guard let userDefaults = userDefaults else { return }
-        
-        var recents = (userDefaults.object(forKey: saveKey) as? [String]) ?? []
-        recents.insert(emoji, at: 0)
-        
-        if recents.count > maxHistoryCount {
-            recents = (0..<maxHistoryCount).map { recents[$0] }
-        }
-        
-        userDefaults.set(recents, forKey: saveKey)
-    }
 }
 
 extension EmojiSelectionView: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView == contentsCollectionView {
-            return EmojiDataSource.allCases.count
+            return dataSource.kinds.count
         } else {
-            return EmojiDataSource.allCases.count
+            return dataSource.kinds.count
         }
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == contentsCollectionView {
-            return EmojiDataSource.allCases[section].values.count
+            return dataSource.kinds[section].values.count
         } else {
             return 1
         }
@@ -95,12 +80,12 @@ extension EmojiSelectionView: UICollectionViewDataSource {
         if collectionView == contentsCollectionView {
             return EmojiItemCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
-                .setting(emoji: EmojiDataSource.allCases[indexPath.section].values[indexPath.item],
+                .setting(emoji: dataSource.kinds[indexPath.section].values[indexPath.item],
                          fontSize: fontSize)
         } else {
             return EmojiSectionCollectionViewCell
                 .dequeue(from: collectionView, indexPath: indexPath)
-                .setting(title: EmojiDataSource.allCases[indexPath.section].example)
+                .setting(title: dataSource.kinds[indexPath.section].example)
         }
     }
 }
@@ -108,8 +93,8 @@ extension EmojiSelectionView: UICollectionViewDataSource {
 extension EmojiSelectionView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == contentsCollectionView {
-            let emoji = EmojiDataSource.allCases[indexPath.section].values[indexPath.item]
-            addHistory(emoji)
+            let emoji = dataSource.kinds[indexPath.section].values[indexPath.item]
+            dataSource.addHistory(emoji)
             delegate?.emojiSelectionView(self, didSelectedEmoji: emoji)
         } else {
             contentsCollectionView.selectItem(at: IndexPath(item: 0, section: indexPath.section),
@@ -121,7 +106,7 @@ extension EmojiSelectionView: UICollectionViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == contentsCollectionView {
             if let indexPath = contentsCollectionView.indexPathForItem(at: scrollView.contentOffset) {
-                label.text = EmojiDataSource.allCases[indexPath.section].rawValue
+                label.text = dataSource.kinds[indexPath.section].rawValue
             }
         }
     }
@@ -134,7 +119,7 @@ extension EmojiSelectionView: UICollectionViewDelegateFlowLayout {
                                        rowCount: rowCount)
         } else {
             let collectionViewWidth = sectionSelectCollectionView.frame.size.width
-            let width = collectionViewWidth / CGFloat(EmojiDataSource.allCases.count)
+            let width = collectionViewWidth / CGFloat(dataSource.kinds.count)
             return CGSize(width: width, height: sectionSelectCollectionView.frame.size.height)
         }
     }
