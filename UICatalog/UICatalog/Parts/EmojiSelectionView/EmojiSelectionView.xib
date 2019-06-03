@@ -32,16 +32,16 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9GQ-5Q-DcB">
-                    <rect key="frame" x="0.0" y="234" width="414" height="20"/>
+                    <rect key="frame" x="16" y="234" width="382" height="20"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="HTZ-RS-7ig"/>
                     </constraints>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lJz-7W-nLY">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="lJz-7W-nLY">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
@@ -50,9 +50,9 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8QT-Rl-BCw" secondAttribute="trailing" id="6gO-Zx-kW0"/>
                 <constraint firstAttribute="bottom" secondItem="9GQ-5Q-DcB" secondAttribute="bottom" constant="8" id="BD8-xz-eXl"/>
                 <constraint firstItem="9GQ-5Q-DcB" firstAttribute="top" secondItem="8QT-Rl-BCw" secondAttribute="bottom" constant="8" id="S96-4J-ZL1"/>
-                <constraint firstItem="9GQ-5Q-DcB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VWE-k0-YDU"/>
+                <constraint firstItem="9GQ-5Q-DcB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="VWE-k0-YDU"/>
                 <constraint firstItem="8QT-Rl-BCw" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="qEq-dx-qOW"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9GQ-5Q-DcB" secondAttribute="trailing" id="vVZ-Km-TDT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9GQ-5Q-DcB" secondAttribute="trailing" constant="16" id="vVZ-Km-TDT"/>
                 <constraint firstItem="8QT-Rl-BCw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wNJ-Nd-pXr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

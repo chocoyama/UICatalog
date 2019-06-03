@@ -104,9 +104,7 @@ extension EmojiSelectionView: UICollectionViewDelegateFlowLayout {
                                        rowCount: rowCount)
         } else {
             let collectionViewWidth = sectionSelectCollectionView.frame.size.width
-            let sectionInset = (sectionSelectCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
-            let horizontalInset = sectionInset.left + sectionInset.right
-            let width = (collectionViewWidth - horizontalInset) / CGFloat(EmojiDataSource.allCases.count)
+            let width = collectionViewWidth / CGFloat(EmojiDataSource.allCases.count)
             return CGSize(width: width, height: sectionSelectCollectionView.frame.size.height)
         }
     }
