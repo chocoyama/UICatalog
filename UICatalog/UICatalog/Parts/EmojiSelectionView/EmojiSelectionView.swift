@@ -22,6 +22,9 @@ public class EmojiSelectionView: UIView, XibInitializable {
     @IBOutlet weak var contentsCollectionView: UICollectionView! {
         didSet {
             EmojiItemCollectionViewCell.register(for: contentsCollectionView, bundle: .current)
+            EmojiItemSeparatorCollectionReusableView.register(for: contentsCollectionView,
+                                                              ofKind: .sectionHeader,
+                                                              bundle: .current)
             contentsCollectionView.dataSource = self
             contentsCollectionView.delegate = self
         }
@@ -83,6 +86,19 @@ extension EmojiSelectionView: UICollectionViewDataSource {
                 .dequeue(from: collectionView, indexPath: indexPath)
                 .setting(title: dataSource.kinds[indexPath.section].example)
         }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionView == contentsCollectionView && section != 0 {
+            return CGSize(width: 1.0, height: collectionView.frame.height)
+        } else {
+            return .zero
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return EmojiItemSeparatorCollectionReusableView
+            .dequeue(from: collectionView, ofKind: kind, for: indexPath)
     }
 }
 

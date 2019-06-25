@@ -111,6 +111,8 @@
 		80A543CE225CA761009F7176 /* RowProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A543CD225CA761009F7176 /* RowProvider.swift */; };
 		80C37A4B21560A0D00977C0B /* Painter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C37A4A21560A0D00977C0B /* Painter.swift */; };
 		80CC835B225465420048C052 /* PickupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC835A225465420048C052 /* PickupLayout.swift */; };
+		80F273FC22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F273FA22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.swift */; };
+		80F273FD22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F273FB22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.xib */; };
 		80FB2CA2216ED38A009F8049 /* PluggableLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CA1216ED38A009F8049 /* PluggableLayout.swift */; };
 		80FB2CAC216ED8EE009F8049 /* UICatalog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDAE506215264D700BBB47A /* UICatalog.framework */; };
 		80FB2CB7216ED92D009F8049 /* ColumnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2CB6216ED92D009F8049 /* ColumnTests.swift */; };
@@ -239,6 +241,8 @@
 		80A543CD225CA761009F7176 /* RowProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowProvider.swift; sourceTree = "<group>"; };
 		80C37A4A21560A0D00977C0B /* Painter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painter.swift; sourceTree = "<group>"; };
 		80CC835A225465420048C052 /* PickupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupLayout.swift; sourceTree = "<group>"; };
+		80F273FA22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiItemSeparatorCollectionReusableView.swift; sourceTree = "<group>"; };
+		80F273FB22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmojiItemSeparatorCollectionReusableView.xib; sourceTree = "<group>"; };
 		80FB2CA1216ED38A009F8049 /* PluggableLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluggableLayout.swift; sourceTree = "<group>"; };
 		80FB2CA7216ED8EE009F8049 /* UICatalogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UICatalogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80FB2CAB216ED8EE009F8049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -727,6 +731,8 @@
 				6B32499222A49177001C7046 /* EmojiItemCollectionViewCell.xib */,
 				6B32499722A49178001C7046 /* EmojiSectionCollectionViewCell.swift */,
 				6B32499522A49177001C7046 /* EmojiSectionCollectionViewCell.xib */,
+				80F273FA22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.swift */,
+				80F273FB22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -909,6 +915,7 @@
 				80471D4321B9F9CC000E1D23 /* ImageDetailViewController.xib in Resources */,
 				8013D2172182C3A70001CD75 /* RotationImageView.xib in Resources */,
 				803D6B0B215B0A24007C332E /* SoundWaveButton.xib in Resources */,
+				80F273FD22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.xib in Resources */,
 				6BDAE527215265E200BBB47A /* RangeSliderTab.xib in Resources */,
 				6B8DEE34217C4A6B00D2D01F /* Images.xcassets in Resources */,
 				6BEFD45321BB967A001E12BF /* ImageDetailCollectionViewCell.xib in Resources */,
@@ -966,6 +973,7 @@
 				6BDAE52D215265EC00BBB47A /* RangeSliderConfiguration.swift in Sources */,
 				6BDAE54421526B2500BBB47A /* XibInitializable.swift in Sources */,
 				6BB892A421735825003430DC /* Pageable.swift in Sources */,
+				80F273FC22C1DD2F00834AD9 /* EmojiItemSeparatorCollectionReusableView.swift in Sources */,
 				6B3B80E721BB89C40012EA63 /* UIImageView+.swift in Sources */,
 				6B9863B5217A0B7400D5004C /* PageViewController.swift in Sources */,
 				6BB8928921732ADF003430DC /* PageSynchronizedContainerViewController.swift in Sources */,
