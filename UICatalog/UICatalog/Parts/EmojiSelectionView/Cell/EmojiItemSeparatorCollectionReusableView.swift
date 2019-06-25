@@ -8,11 +8,4 @@
 
 import UIKit
 
-class EmojiItemSeparatorCollectionReusableView: UICollectionReusableView {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-}
+class EmojiItemSeparatorCollectionReusableView: UICollectionReusableView {}
